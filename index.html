@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
 <meta charset="UTF-8">
+
 <meta name="viewport"
-      content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <title>حسابگران آرمان</title>
 
@@ -12,7 +14,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;500;600&display=swap"
+      rel="stylesheet">
 
 <style>
 
@@ -100,8 +103,6 @@ body {
 
     overflow-x: hidden;
 }
-
-/* subtle background */
 
 body::before {
     content: "";
@@ -360,7 +361,7 @@ body::before {
 }
 
 /* =========================================================
-   ACTIVE CLIENT ORB CARD
+   ACTIVE CLIENT GLOWING ORB
    ========================================================= */
 
 .active-client-card {
@@ -389,7 +390,7 @@ body::before {
     margin-bottom: 10px;
 }
 
-/* outer glow */
+/* Outer aura */
 
 .orb-glow {
     position: absolute;
@@ -415,7 +416,7 @@ body::before {
     pointer-events: none;
 }
 
-/* actual orb */
+/* Main orb */
 
 .active-client-orb {
     position: relative;
@@ -466,7 +467,7 @@ body::before {
     z-index: 2;
 }
 
-/* moving atmosphere */
+/* Moving light */
 
 .active-client-orb::before {
     content: "";
@@ -499,7 +500,7 @@ body::before {
     pointer-events: none;
 }
 
-/* inner glow */
+/* Inner glow */
 
 .orb-inner-glow {
     position: absolute;
@@ -517,7 +518,7 @@ body::before {
     filter: blur(3px);
 }
 
-/* highlight */
+/* Highlight */
 
 .orb-highlight {
     position: absolute;
@@ -595,9 +596,7 @@ body::before {
     color: var(--text-muted);
 }
 
-/* =========================================================
-   ORB ANIMATION
-   ========================================================= */
+/* Orb animation */
 
 @keyframes orbFloat {
 
@@ -707,6 +706,7 @@ body::before {
 }
 
 .active-client-card:hover .active-client-orb {
+
     transform:
         translateY(-4px)
         scale(1.045);
@@ -754,7 +754,7 @@ body::before {
     grid-template-columns:
         8px
         minmax(0,1.6fr)
-        minmax(90px, .7fr)
+        minmax(90px,.7fr)
         minmax(70px,.5fr)
         auto;
 
@@ -863,7 +863,7 @@ body::before {
 }
 
 /* =========================================================
-   FINANCIAL CARDS
+   FINANCIAL
    ========================================================= */
 
 .financial-grid {
@@ -911,7 +911,7 @@ body::before {
 }
 
 /* =========================================================
-   NAVIGATION
+   TABS
    ========================================================= */
 
 .tabs {
@@ -1003,7 +1003,7 @@ body::before {
 }
 
 /* =========================================================
-   DATA TABLE / LIST
+   DATA
    ========================================================= */
 
 .data-card {
@@ -1219,7 +1219,9 @@ body::before {
     color: var(--text-muted);
 
     line-height: 2;
+
     direction: rtl;
+
     word-break: break-word;
 }
 
@@ -1433,6 +1435,7 @@ body::before {
 
 <div id="touchLight" class="touch-light"></div>
 
+
 <!-- =====================================================
      LOADING
      ===================================================== -->
@@ -1450,6 +1453,7 @@ body::before {
     </div>
 
 </div>
+
 
 <!-- =====================================================
      ERROR
@@ -1481,6 +1485,7 @@ body::before {
 
 </div>
 
+
 <!-- =====================================================
      APP
      ===================================================== -->
@@ -1488,6 +1493,7 @@ body::before {
 <main id="app"
       class="app"
       style="display:none;">
+
 
     <!-- HEADER -->
 
@@ -1504,6 +1510,7 @@ body::before {
             </div>
 
         </div>
+
 
         <div id="connection"
              class="connection">
@@ -1524,6 +1531,7 @@ body::before {
          ================================================= -->
 
     <section class="summary-grid">
+
 
         <!-- ACTIVE CLIENTS -->
 
@@ -1556,6 +1564,7 @@ body::before {
                 </div>
 
             </div>
+
 
             <div class="active-client-info">
 
@@ -1682,6 +1691,7 @@ body::before {
         <div class="section-header">
 
             <div>
+
                 <div class="section-title">
                     گزارش کارهای فوری و مهم
                 </div>
@@ -1689,14 +1699,15 @@ body::before {
                 <div class="section-subtitle">
                     امور انجام‌نشده با اولویت بالا
                 </div>
+
             </div>
 
         </div>
 
+
         <div
             id="importantTasks"
             class="glass-card tasks-card">
-
         </div>
 
     </section>
@@ -1711,6 +1722,7 @@ body::before {
         <div class="section-header">
 
             <div>
+
                 <div class="section-title">
                     وضعیت مالی
                 </div>
@@ -1718,12 +1730,14 @@ body::before {
                 <div class="section-subtitle">
                     خلاصه دریافتنی‌های موسسه
                 </div>
+
             </div>
 
         </div>
 
 
         <div class="financial-grid">
+
 
             <div class="glass-card money-card">
 
@@ -1906,24 +1920,14 @@ body::before {
 <script>
 
 /* =========================================================
-   CONFIG
+   CONFIG — EXACT CORRECT URL
    ========================================================= */
 
 const API_URL =
-    "https://script.google.com/macros/s/AKfycbzK62xIUIm8VyTektiy9EKOZBnMeXb1xrKfABIYFezMNEH6yfcrWAeL34zmI/exec";
+    "https://script.google.com/macros/s/AKfycbzK62xIUIm8VyTektiy9EKOZBnMeXb1bxIKtcCxKfABIYFezMNEH6yfcrWAeL34zmI/exec";
 
 const API_KEY =
     "HesabgaranArman_2026_Bot_7xK9pQ2";
-
-
-/*
-   توجه:
-   URL صحیح Apps Script در پروژه:
-   AKfycbzK62xIUIm8VyTektiy9EKOZBnMeXb1bxIKtcCxKfABIYFezMNEH6yfcrWAeL34zmI
-
-   اگر URL بالا به هر دلیل متفاوت است، مقدار API_URL
-   را با URL دقیق Web App خودت جایگزین کن.
-*/
 
 
 /* =========================================================
@@ -1936,6 +1940,7 @@ const tg =
         ? window.Telegram.WebApp
         : null;
 
+
 if (tg) {
 
     tg.ready();
@@ -1943,15 +1948,18 @@ if (tg) {
     tg.expand();
 
     try {
+
         tg.setHeaderColor("#07101d");
+
         tg.setBackgroundColor("#07101d");
+
     } catch (e) {}
 
 }
 
 
 /* =========================================================
-   GLOBAL DATA
+   GLOBAL
    ========================================================= */
 
 let dashboardData = null;
@@ -1963,43 +1971,66 @@ let dashboardData = null;
 
 function toNumber(value) {
 
-    if (value === null ||
+    if (
+        value === null ||
         value === undefined ||
-        value === "") {
+        value === ""
+    ) {
         return 0;
     }
 
-    if (typeof value === "number") {
+
+    if (
+        typeof value === "number"
+    ) {
         return value;
     }
+
 
     const normalized =
         String(value)
             .replace(/[,\u066C]/g, "")
-            .replace(/[۰-۹]/g, d =>
-                String("۰۱۲۳۴۵۶۷۸۹".indexOf(d))
+            .replace(
+                /[۰-۹]/g,
+                d =>
+                    String(
+                        "۰۱۲۳۴۵۶۷۸۹"
+                            .indexOf(d)
+                    )
             )
-            .replace(/[٠-٩]/g, d =>
-                String("٠١٢٣٤٥٦٧٨٩".indexOf(d))
+            .replace(
+                /[٠-٩]/g,
+                d =>
+                    String(
+                        "٠١٢٣٤٥٦٧٨٩"
+                            .indexOf(d)
+                    )
             );
+
 
     const n =
         Number(normalized);
 
+
     return Number.isFinite(n)
         ? n
         : 0;
+
 }
 
 
 /* =========================================================
-   FORMAT NUMBER
+   FORMAT
    ========================================================= */
 
 function formatNumber(value) {
 
-    return new Intl.NumberFormat("fa-IR")
-        .format(toNumber(value));
+    return new Intl.NumberFormat(
+        "fa-IR"
+    ).format(
+        toNumber(value)
+    );
+
 }
 
 
@@ -2010,6 +2041,7 @@ function formatNumber(value) {
 function tomanDisplayValue(value) {
 
     return toNumber(value) / 10;
+
 }
 
 
@@ -2026,7 +2058,7 @@ function formatToman(value) {
 
 
 /* =========================================================
-   TEXT
+   SAFE TEXT
    ========================================================= */
 
 function safeText(value) {
@@ -2039,6 +2071,37 @@ function safeText(value) {
     }
 
     return String(value);
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+   ========================================================= */
+
+function escapeHtml(value) {
+
+    return safeText(value)
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
 
@@ -2059,13 +2122,14 @@ function formatDate(value) {
 
 
 /* =========================================================
-   STATUS CLASS
+   STATUS
    ========================================================= */
 
 function getStatusClass(status) {
 
     const s =
         safeText(status);
+
 
     if (
         s.includes("انجام شده") ||
@@ -2074,11 +2138,13 @@ function getStatusClass(status) {
         return "done";
     }
 
+
     if (
         s.includes("در حال انجام")
     ) {
         return "progress";
     }
+
 
     if (
         s.includes("انجام نشده") ||
@@ -2087,7 +2153,9 @@ function getStatusClass(status) {
         return "pending";
     }
 
+
     return "";
+
 }
 
 
@@ -2098,10 +2166,16 @@ function getStatusClass(status) {
 function priorityScore(item) {
 
     const p =
-        safeText(item["الویت"]);
+        safeText(
+            item["الویت"]
+        );
+
 
     const status =
-        safeText(item["وضعیت"]);
+        safeText(
+            item["وضعیت"]
+        );
+
 
     if (
         status === "انجام شده"
@@ -2109,11 +2183,13 @@ function priorityScore(item) {
         return 0;
     }
 
+
     if (
         p.includes("فوری")
     ) {
         return 4;
     }
+
 
     if (
         p.includes("بالا")
@@ -2121,11 +2197,13 @@ function priorityScore(item) {
         return 3;
     }
 
+
     if (
         p.includes("عادی")
     ) {
         return 2;
     }
+
 
     if (
         p.includes("پایین")
@@ -2133,41 +2211,49 @@ function priorityScore(item) {
         return 1;
     }
 
+
     return 1;
+
 }
 
 
 /* =========================================================
-   SORT TASKS
+   SORT SERVICES
    ========================================================= */
 
 function sortServices(items) {
 
-    return [...items].sort((a,b) => {
+    return [...items].sort(
+        (a,b) => {
 
-        const pa =
-            priorityScore(a);
+            const pa =
+                priorityScore(a);
 
-        const pb =
-            priorityScore(b);
+            const pb =
+                priorityScore(b);
 
-        if (pa !== pb) {
-            return pb - pa;
+
+            if (pa !== pb) {
+                return pb - pa;
+            }
+
+
+            const da =
+                toNumber(
+                    a["روزهای باقی مانده"]
+                );
+
+
+            const db =
+                toNumber(
+                    b["روزهای باقی مانده"]
+                );
+
+
+            return da - db;
+
         }
-
-        const da =
-            toNumber(
-                a["روزهای باقی مانده"]
-            );
-
-        const db =
-            toNumber(
-                b["روزهای باقی مانده"]
-            );
-
-        return da - db;
-
-    });
+    );
 
 }
 
@@ -2179,38 +2265,54 @@ function sortServices(items) {
 function getImportantUnfinishedTasks(data) {
 
     const accounting =
-        Array.isArray(data.Accounting)
+        Array.isArray(
+            data.Accounting
+        )
             ? data.Accounting
             : [];
 
+
     const tax =
-        Array.isArray(data.Tax)
+        Array.isArray(
+            data.Tax
+        )
             ? data.Tax
             : [];
 
+
     return sortServices(
-        [...accounting, ...tax]
-            .filter(item => {
 
-                const status =
-                    safeText(item["وضعیت"]);
+        [
+            ...accounting,
+            ...tax
+        ]
 
-                const priority =
-                    priorityScore(item);
+        .filter(item => {
 
-                return (
-                    status !== "انجام شده" &&
-                    priority >= 3
+            const status =
+                safeText(
+                    item["وضعیت"]
                 );
 
-            })
+
+            const priority =
+                priorityScore(item);
+
+
+            return (
+                status !== "انجام شده" &&
+                priority >= 3
+            );
+
+        })
+
     );
 
 }
 
 
 /* =========================================================
-   RENDER SUMMARY
+   SUMMARY
    ========================================================= */
 
 function renderSummary(summary) {
@@ -2274,7 +2376,7 @@ function renderSummary(summary) {
 
 
 /* =========================================================
-   RENDER IMPORTANT TASKS
+   IMPORTANT TASKS
    ========================================================= */
 
 function renderImportantTasks(data) {
@@ -2284,10 +2386,12 @@ function renderImportantTasks(data) {
             "importantTasks"
         );
 
+
     const tasks =
         getImportantUnfinishedTasks(
             data
         );
+
 
     if (!tasks.length) {
 
@@ -2311,27 +2415,40 @@ function renderImportantTasks(data) {
                         item["الویت"]
                     );
 
+
                 const priorityClass =
                     priority.includes("فوری")
                         ? "urgent"
                         : "high";
 
+
                 const client =
                     safeText(
-                        item["نام مراجعه کننده"]
+                        item[
+                            "نام مراجعه کننده"
+                        ]
                     );
+
 
                 const description =
                     safeText(
-                        item["شرح کار"]
+                        item[
+                            "شرح کار"
+                        ]
                     );
 
+
                 const days =
-                    item["روزهای باقی مانده"] !== undefined
+                    item[
+                        "روزهای باقی مانده"
+                    ] !== undefined
                         ? safeText(
-                            item["روزهای باقی مانده"]
+                            item[
+                                "روزهای باقی مانده"
+                            ]
                         )
                         : "—";
+
 
                 return `
 
@@ -2340,33 +2457,48 @@ function renderImportantTasks(data) {
                         <div class="priority-dot ${priorityClass}">
                         </div>
 
+
                         <div class="task-main">
 
                             <div class="task-name">
-                                ${escapeHtml(description)}
+                                ${escapeHtml(
+                                    description
+                                )}
                             </div>
 
                             <div class="task-description">
-                                ${escapeHtml(client)}
+                                ${escapeHtml(
+                                    client
+                                )}
                             </div>
 
                         </div>
 
+
                         <div class="task-client">
-                            ${escapeHtml(client)}
+                            ${escapeHtml(
+                                client
+                            )}
                         </div>
+
 
                         <div class="task-due">
-                            ${days === "—"
-                                ? "—"
-                                : `${escapeHtml(days)} روز`}
+                            ${
+                                days === "—"
+                                    ? "—"
+                                    : `${escapeHtml(days)} روز`
+                            }
                         </div>
 
+
                         <div class="task-priority ${priorityClass}">
-                            ${escapeHtml(priority)}
+                            ${escapeHtml(
+                                priority
+                            )}
                         </div>
 
                     </div>
+
                 `;
 
             })
@@ -2376,23 +2508,7 @@ function renderImportantTasks(data) {
 
 
 /* =========================================================
-   ESCAPE HTML
-   ========================================================= */
-
-function escapeHtml(value) {
-
-    return safeText(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-
-}
-
-
-/* =========================================================
-   RENDER ACCOUNTING
+   ACCOUNTING
    ========================================================= */
 
 function renderAccounting(items) {
@@ -2402,7 +2518,11 @@ function renderAccounting(items) {
             "accountingList"
         );
 
-    if (!items || !items.length) {
+
+    if (
+        !items ||
+        !items.length
+    ) {
 
         container.innerHTML =
             `<div class="empty">
@@ -2422,46 +2542,69 @@ function renderAccounting(items) {
         <div class="data-row header-row">
 
             <div>مشتری</div>
+
             <div>نوع کار</div>
+
             <div>سررسید</div>
+
             <div>وضعیت</div>
 
         </div>
 
+
         ${
-            sorted.map(item => `
+            sorted
+                .map(item => `
 
-                <div class="data-row">
+                    <div class="data-row">
 
-                    <div class="data-cell primary">
-                        ${escapeHtml(
-                            item["نام مراجعه کننده"]
-                        )}
-                    </div>
-
-                    <div class="data-cell">
-                        ${escapeHtml(
-                            item["نوع کار"]
-                        )}
-                    </div>
-
-                    <div class="data-cell">
-                        ${formatDate(
-                            item["تاریخ سررسید"]
-                        )}
-                    </div>
-
-                    <div class="data-cell">
-                        <span class="status ${getStatusClass(item["وضعیت"])}">
+                        <div class="data-cell primary">
                             ${escapeHtml(
-                                item["وضعیت"]
+                                item[
+                                    "نام مراجعه کننده"
+                                ]
                             )}
-                        </span>
+                        </div>
+
+
+                        <div class="data-cell">
+                            ${escapeHtml(
+                                item[
+                                    "نوع کار"
+                                ]
+                            )}
+                        </div>
+
+
+                        <div class="data-cell">
+                            ${formatDate(
+                                item[
+                                    "تاریخ سررسید"
+                                ]
+                            )}
+                        </div>
+
+
+                        <div class="data-cell">
+
+                            <span class="status ${
+                                getStatusClass(
+                                    item["وضعیت"]
+                                )
+                            }">
+
+                                ${escapeHtml(
+                                    item["وضعیت"]
+                                )}
+
+                            </span>
+
+                        </div>
+
                     </div>
 
-                </div>
-
-            `).join("")
+                `)
+                .join("")
         }
 
     `;
@@ -2470,7 +2613,7 @@ function renderAccounting(items) {
 
 
 /* =========================================================
-   RENDER TAX
+   TAX
    ========================================================= */
 
 function renderTax(items) {
@@ -2480,7 +2623,11 @@ function renderTax(items) {
             "taxList"
         );
 
-    if (!items || !items.length) {
+
+    if (
+        !items ||
+        !items.length
+    ) {
 
         container.innerHTML =
             `<div class="empty">
@@ -2500,46 +2647,69 @@ function renderTax(items) {
         <div class="data-row header-row">
 
             <div>مشتری</div>
+
             <div>شرح کار</div>
+
             <div>سررسید</div>
+
             <div>وضعیت</div>
 
         </div>
 
+
         ${
-            sorted.map(item => `
+            sorted
+                .map(item => `
 
-                <div class="data-row">
+                    <div class="data-row">
 
-                    <div class="data-cell primary">
-                        ${escapeHtml(
-                            item["نام مراجعه کننده"]
-                        )}
-                    </div>
-
-                    <div class="data-cell">
-                        ${escapeHtml(
-                            item["شرح کار"]
-                        )}
-                    </div>
-
-                    <div class="data-cell">
-                        ${formatDate(
-                            item["تاریخ سررسید"]
-                        )}
-                    </div>
-
-                    <div class="data-cell">
-                        <span class="status ${getStatusClass(item["وضعیت"])}">
+                        <div class="data-cell primary">
                             ${escapeHtml(
-                                item["وضعیت"]
+                                item[
+                                    "نام مراجعه کننده"
+                                ]
                             )}
-                        </span>
+                        </div>
+
+
+                        <div class="data-cell">
+                            ${escapeHtml(
+                                item[
+                                    "شرح کار"
+                                ]
+                            )}
+                        </div>
+
+
+                        <div class="data-cell">
+                            ${formatDate(
+                                item[
+                                    "تاریخ سررسید"
+                                ]
+                            )}
+                        </div>
+
+
+                        <div class="data-cell">
+
+                            <span class="status ${
+                                getStatusClass(
+                                    item["وضعیت"]
+                                )
+                            }">
+
+                                ${escapeHtml(
+                                    item["وضعیت"]
+                                )}
+
+                            </span>
+
+                        </div>
+
                     </div>
 
-                </div>
-
-            `).join("")
+                `)
+                .join("")
         }
 
     `;
@@ -2548,7 +2718,7 @@ function renderTax(items) {
 
 
 /* =========================================================
-   RENDER CLIENTS
+   CLIENTS
    ========================================================= */
 
 function renderClients(items) {
@@ -2558,7 +2728,11 @@ function renderClients(items) {
             "clientsList"
         );
 
-    if (!items || !items.length) {
+
+    if (
+        !items ||
+        !items.length
+    ) {
 
         container.innerHTML =
             `<div class="empty">
@@ -2574,71 +2748,96 @@ function renderClients(items) {
         <div class="data-row header-row">
 
             <div>مشتری</div>
+
             <div>نوع شخصیت</div>
+
             <div>نوع فعالیت</div>
+
             <div>وضعیت</div>
+
             <div class="hide-mobile">
                 حق‌الزحمه
             </div>
 
         </div>
 
+
         ${
-            items.map(item => `
+            items
+                .map(item => `
 
-                <div class="data-row">
+                    <div class="data-row">
 
-                    <div class="data-cell primary">
-                        ${escapeHtml(
-                            item["نام شخص/شرکت"]
-                        )}
-                    </div>
-
-                    <div class="data-cell">
-                        ${escapeHtml(
-                            item["نوع شخصیت"]
-                        )}
-                    </div>
-
-                    <div class="data-cell">
-                        ${escapeHtml(
-                            item["نوع فعالیت"]
-                        )}
-                    </div>
-
-                    <div class="data-cell">
-
-                        <span class="status ${
-                            safeText(
-                                item["وضعیت همکاری"]
-                            ).includes("فعال")
-                                ? "done"
-                                : "pending"
-                        }">
-
+                        <div class="data-cell primary">
                             ${escapeHtml(
-                                item["وضعیت همکاری"]
+                                item[
+                                    "نام شخص/شرکت"
+                                ]
                             )}
+                        </div>
 
-                        </span>
+
+                        <div class="data-cell">
+                            ${escapeHtml(
+                                item[
+                                    "نوع شخصیت"
+                                ]
+                            )}
+                        </div>
+
+
+                        <div class="data-cell">
+                            ${escapeHtml(
+                                item[
+                                    "نوع فعالیت"
+                                ]
+                            )}
+                        </div>
+
+
+                        <div class="data-cell">
+
+                            <span class="status ${
+                                safeText(
+                                    item[
+                                        "وضعیت همکاری"
+                                    ]
+                                ).includes("فعال")
+                                    ? "done"
+                                    : "pending"
+                            }">
+
+                                ${escapeHtml(
+                                    item[
+                                        "وضعیت همکاری"
+                                    ]
+                                )}
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="data-cell hide-mobile">
+
+                            ${
+                                item[
+                                    "حق الزحمه ماهانه"
+                                ]
+                                    ? formatToman(
+                                        item[
+                                            "حق الزحمه ماهانه"
+                                        ]
+                                      )
+                                    : "—"
+                            }
+
+                        </div>
 
                     </div>
 
-                    <div class="data-cell hide-mobile">
-
-                        ${
-                            item["حق الزحمه ماهانه"]
-                            ? formatToman(
-                                item["حق الزحمه ماهانه"]
-                              )
-                            : "—"
-                        }
-
-                    </div>
-
-                </div>
-
-            `).join("")
+                `)
+                .join("")
         }
 
     `;
@@ -2647,7 +2846,7 @@ function renderClients(items) {
 
 
 /* =========================================================
-   RENDER RECEIVABLES
+   RECEIVABLES
    ========================================================= */
 
 function renderReceivables(items) {
@@ -2657,7 +2856,11 @@ function renderReceivables(items) {
             "receivablesList"
         );
 
-    if (!items || !items.length) {
+
+    if (
+        !items ||
+        !items.length
+    ) {
 
         container.innerHTML =
             `<div class="empty">
@@ -2673,56 +2876,75 @@ function renderReceivables(items) {
         <div class="data-row header-row">
 
             <div>مشتری</div>
+
             <div>مبلغ</div>
+
             <div>سررسید</div>
+
             <div>وضعیت</div>
 
         </div>
 
+
         ${
-            items.map(item => `
+            items
+                .map(item => `
 
-                <div class="data-row">
+                    <div class="data-row">
 
-                    <div class="data-cell primary">
-                        ${escapeHtml(
-                            item["نام مراجعه کننده"]
-                        )}
-                    </div>
-
-                    <div class="data-cell">
-                        ${formatToman(
-                            item["مبلغ دریافتنی"]
-                        )}
-                    </div>
-
-                    <div class="data-cell">
-                        ${formatDate(
-                            item["تاریخ سررسید"]
-                        )}
-                    </div>
-
-                    <div class="data-cell">
-
-                        <span class="status ${
-                            safeText(
-                                item["وضعیت دریافت"]
-                            ).includes("دریافت شده")
-                                ? "done"
-                                : "pending"
-                        }">
-
+                        <div class="data-cell primary">
                             ${escapeHtml(
-                                item["وضعیت دریافت"]
+                                item[
+                                    "نام مراجعه کننده"
+                                ]
                             )}
+                        </div>
 
-                        </span>
+
+                        <div class="data-cell">
+                            ${formatToman(
+                                item[
+                                    "مبلغ دریافتنی"
+                                ]
+                            )}
+                        </div>
+
+
+                        <div class="data-cell">
+                            ${formatDate(
+                                item[
+                                    "تاریخ سررسید"
+                                ]
+                            )}
+                        </div>
+
+
+                        <div class="data-cell">
+
+                            <span class="status ${
+                                safeText(
+                                    item[
+                                        "وضعیت دریافت"
+                                    ]
+                                ).includes("دریافت شده")
+                                    ? "done"
+                                    : "pending"
+                            }">
+
+                                ${escapeHtml(
+                                    item[
+                                        "وضعیت دریافت"
+                                    ]
+                                )}
+
+                            </span>
+
+                        </div>
 
                     </div>
 
-                </div>
-
-            `).join("")
+                `)
+                .join("")
         }
 
     `;
@@ -2731,7 +2953,7 @@ function renderReceivables(items) {
 
 
 /* =========================================================
-   RENDER ALL
+   RENDER DASHBOARD
    ========================================================= */
 
 function renderDashboard(data) {
@@ -2773,7 +2995,7 @@ function renderDashboard(data) {
 
 
 /* =========================================================
-   API
+   LOAD DASHBOARD
    ========================================================= */
 
 async function loadDashboard() {
@@ -2811,9 +3033,13 @@ async function loadDashboard() {
             API_URL +
             "?action=getDashboard" +
             "&key=" +
-            encodeURIComponent(API_KEY) +
+            encodeURIComponent(
+                API_KEY
+            ) +
             "&initData=" +
-            encodeURIComponent(initData);
+            encodeURIComponent(
+                initData
+            );
 
 
         const response =
@@ -2824,6 +3050,16 @@ async function loadDashboard() {
                     cache: "no-store"
                 }
             );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "خطای ارتباط با سرور: " +
+                response.status
+            );
+
+        }
 
 
         const result =
@@ -2886,11 +3122,14 @@ async function loadDashboard() {
     catch (error) {
 
         console.error(
+            "Dashboard Error:",
             error
         );
 
+
         showError(
-            error && error.message
+            error &&
+            error.message
                 ? error.message
                 : String(error)
         );
@@ -2901,7 +3140,7 @@ async function loadDashboard() {
 
 
 /* =========================================================
-   LOADING
+   LOADING / ERROR
    ========================================================= */
 
 function showLoading() {
@@ -2913,10 +3152,6 @@ function showLoading() {
 
 }
 
-
-/* =========================================================
-   ERROR
-   ========================================================= */
 
 function hideError() {
 
@@ -3058,6 +3293,7 @@ function moveTouchLight(x,y) {
     touchLight.style.left =
         x + "px";
 
+
     touchLight.style.top =
         y + "px";
 
@@ -3095,7 +3331,7 @@ function moveTouchLight(x,y) {
 }
 
 
-/* mouse */
+/* Mouse */
 
 document.addEventListener(
     "mousemove",
@@ -3110,7 +3346,7 @@ document.addEventListener(
 );
 
 
-/* touch */
+/* Touch */
 
 document.addEventListener(
     "touchstart",
