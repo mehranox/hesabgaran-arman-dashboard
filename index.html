@@ -2,6 +2,7 @@
 <html lang="fa" dir="rtl">
 
 <head>
+
   <meta charset="UTF-8">
 
   <meta
@@ -13,70 +14,100 @@
 
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
+
   <style>
+
     * {
       box-sizing: border-box;
       -webkit-tap-highlight-color: transparent;
     }
 
+
     html,
     body {
+
       margin: 0;
       padding: 0;
+
       min-height: 100%;
+
       font-family:
         Tahoma,
         Arial,
         sans-serif;
+
       background:
+
         radial-gradient(
           circle at top right,
-          rgba(46, 125, 255, 0.18),
+          rgba(46,125,255,.18),
           transparent 32%
         ),
+
         radial-gradient(
           circle at bottom left,
-          rgba(153, 137, 53, 0.12),
+          rgba(153,137,53,.12),
           transparent 30%
         ),
+
         #07101d;
+
       color: #f5f7fb;
+
     }
 
+
     body {
+
       min-height: 100vh;
+
       overflow-x: hidden;
+
     }
+
 
     button,
     input {
+
       font-family: inherit;
+
     }
+
 
     .app {
+
       width: 100%;
+
       max-width: 1180px;
+
       margin: 0 auto;
+
       padding: 18px;
+
     }
 
+
     .glass {
+
       background:
+
         linear-gradient(
           135deg,
-          rgba(255, 255, 255, 0.09),
-          rgba(255, 255, 255, 0.035)
+          rgba(255,255,255,.09),
+          rgba(255,255,255,.035)
         );
 
       border:
         1px solid
-        rgba(255, 255, 255, 0.10);
+        rgba(255,255,255,.10);
 
       box-shadow:
+
         0 20px 60px
-        rgba(0, 0, 0, 0.28),
+        rgba(0,0,0,.28),
+
         inset 0 1px 0
-        rgba(255, 255, 255, 0.05);
+        rgba(255,255,255,.05);
 
       backdrop-filter:
         blur(20px);
@@ -85,308 +116,518 @@
         blur(20px);
 
       border-radius: 26px;
+
     }
+
 
     .header {
+
       padding: 22px;
+
       margin-bottom: 18px;
+
       position: relative;
+
       overflow: hidden;
+
     }
+
 
     .header::after {
+
       content: "";
+
       position: absolute;
+
       width: 180px;
       height: 180px;
+
       left: -70px;
       top: -80px;
+
       border-radius: 50%;
+
       background:
-        rgba(197, 165, 72, 0.09);
+        rgba(197,165,72,.09);
+
       filter: blur(10px);
+
     }
+
 
     .brand {
+
       display: flex;
+
       align-items: center;
+
       gap: 14px;
+
     }
 
+
     .logo {
+
       width: 62px;
       height: 62px;
+
       border-radius: 19px;
 
       display: flex;
+
       align-items: center;
       justify-content: center;
 
       background:
+
         linear-gradient(
           145deg,
-          rgba(197, 165, 72, 0.28),
-          rgba(25, 115, 255, 0.16)
+          rgba(197,165,72,.28),
+          rgba(25,115,255,.16)
         );
 
       border:
         1px solid
-        rgba(255, 255, 255, 0.12);
+        rgba(255,255,255,.12);
 
       box-shadow:
+
         inset 0 1px 0
         rgba(255,255,255,.12),
+
         0 10px 30px
         rgba(0,0,0,.2);
 
       font-size: 28px;
+
     }
+
 
     .brand h1 {
+
       margin: 0;
+
       font-size: 21px;
-      letter-spacing: -0.5px;
+
+      letter-spacing: -.5px;
+
     }
+
 
     .brand p {
+
       margin: 7px 0 0;
+
       color: #9ca9bc;
+
       font-size: 12px;
+
     }
 
+
     .status {
+
       display: inline-flex;
+
       align-items: center;
+
       gap: 7px;
+
       margin-top: 17px;
+
       padding: 7px 12px;
+
       border-radius: 999px;
 
       background:
-        rgba(38, 195, 123, 0.08);
+        rgba(38,195,123,.08);
 
       border:
         1px solid
-        rgba(38, 195, 123, 0.18);
+        rgba(38,195,123,.18);
 
       color: #7ee0b2;
+
       font-size: 11px;
+
     }
 
+
     .status-dot {
+
       width: 7px;
       height: 7px;
+
       border-radius: 50%;
+
       background: #46d391;
+
       box-shadow:
         0 0 12px
         rgba(70,211,145,.8);
+
     }
+
 
     .hero {
+
       padding: 25px;
+
       margin-bottom: 18px;
+
       position: relative;
+
       overflow: hidden;
+
     }
+
 
     .hero::before {
+
       content: "";
+
       position: absolute;
+
       width: 240px;
       height: 240px;
+
       right: -90px;
       top: -100px;
+
       border-radius: 50%;
+
       background:
-        rgba(35, 125, 255, 0.14);
+        rgba(35,125,255,.14);
+
       filter: blur(30px);
+
     }
+
 
     .hero-title {
+
       position: relative;
+
       z-index: 1;
+
       color: #98a8bd;
+
       font-size: 12px;
+
       margin-bottom: 8px;
+
     }
+
 
     .hero-value {
+
       position: relative;
+
       z-index: 1;
+
       font-size: 34px;
+
       font-weight: 700;
+
       letter-spacing: -1px;
+
     }
+
 
     .hero-sub {
+
       position: relative;
+
       z-index: 1;
+
       margin-top: 9px;
+
       color: #8f9bad;
+
       font-size: 12px;
+
     }
+
 
     .stats {
+
       display: grid;
+
       grid-template-columns:
-        repeat(4, 1fr);
+        repeat(4,1fr);
+
       gap: 14px;
+
       margin-bottom: 18px;
+
     }
+
 
     .stat {
+
       padding: 19px;
+
       min-height: 120px;
+
     }
+
 
     .stat-label {
+
       color: #8795aa;
+
       font-size: 11px;
+
       margin-bottom: 14px;
+
     }
+
 
     .stat-value {
+
       font-size: 26px;
+
       font-weight: 700;
+
     }
+
 
     .stat-icon {
+
       font-size: 21px;
+
       margin-bottom: 9px;
+
     }
+
 
     .section {
+
       margin-bottom: 18px;
+
     }
+
 
     .section-head {
+
       display: flex;
+
       justify-content: space-between;
+
       align-items: center;
+
       margin-bottom: 12px;
+
       padding: 0 3px;
+
     }
+
 
     .section-head h2 {
+
       margin: 0;
+
       font-size: 16px;
+
     }
+
 
     .section-head span {
+
       color: #7f8da2;
+
       font-size: 11px;
+
     }
+
 
     .overview {
+
       display: grid;
+
       grid-template-columns:
-        repeat(3, 1fr);
+        repeat(3,1fr);
+
       gap: 14px;
+
     }
+
 
     .overview-card {
+
       padding: 20px;
+
     }
+
 
     .circle-wrap {
+
       display: flex;
+
       align-items: center;
+
       gap: 18px;
+
     }
 
+
     .circle {
+
       width: 84px;
       height: 84px;
+
       flex: 0 0 84px;
+
       border-radius: 50%;
 
       display: flex;
+
       align-items: center;
       justify-content: center;
 
       position: relative;
 
       background:
+
         conic-gradient(
           #4b91ff
           var(--percent),
           rgba(255,255,255,.08)
           var(--percent)
         );
+
     }
+
 
     .circle::before {
+
       content: "";
+
       position: absolute;
+
       width: 62px;
       height: 62px;
+
       border-radius: 50%;
+
       background: #0b1727;
+
     }
+
 
     .circle-value {
+
       position: relative;
+
       z-index: 1;
+
       font-size: 16px;
+
       font-weight: 700;
+
     }
+
 
     .circle-text h3 {
+
       margin: 0 0 7px;
+
       font-size: 13px;
+
     }
+
 
     .circle-text p {
+
       margin: 0;
+
       color: #7f8da2;
+
       font-size: 11px;
+
       line-height: 1.7;
+
     }
+
 
     .financial {
+
       display: grid;
+
       grid-template-columns:
-        repeat(3, 1fr);
+        repeat(3,1fr);
+
       gap: 14px;
+
     }
+
 
     .money-card {
+
       padding: 21px;
+
     }
+
 
     .money-label {
+
       color: #8795aa;
+
       font-size: 11px;
+
       margin-bottom: 10px;
+
     }
+
 
     .money-value {
+
       font-size: 21px;
+
       font-weight: 700;
+
     }
+
 
     .money-unit {
+
       color: #7f8da2;
+
       font-size: 10px;
+
       margin-top: 7px;
+
     }
+
 
     .tabs {
+
       display: flex;
+
       gap: 8px;
+
       overflow-x: auto;
+
       padding-bottom: 5px;
+
       margin-bottom: 14px;
+
     }
+
 
     .tabs::-webkit-scrollbar {
+
       display: none;
+
     }
 
+
     .tab {
+
       flex: 0 0 auto;
+
       border: 0;
+
       color: #93a0b2;
 
       background:
@@ -401,13 +642,18 @@
       padding: 10px 16px;
 
       cursor: pointer;
+
       font-size: 11px;
+
     }
 
+
     .tab.active {
+
       color: #fff;
 
       background:
+
         linear-gradient(
           135deg,
           rgba(43,126,255,.28),
@@ -416,11 +662,16 @@
 
       border-color:
         rgba(84,146,255,.28);
+
     }
 
+
     .search {
+
       width: 100%;
+
       padding: 14px 17px;
+
       margin-bottom: 12px;
 
       border-radius: 17px;
@@ -435,110 +686,187 @@
       border:
         1px solid
         rgba(255,255,255,.08);
+
     }
+
 
     .search::placeholder {
+
       color: #66758b;
+
     }
+
 
     .list {
+
       display: grid;
+
       gap: 11px;
+
     }
+
 
     .item {
+
       padding: 17px;
+
     }
+
 
     .item-top {
+
       display: flex;
+
       justify-content: space-between;
+
       gap: 12px;
+
       align-items: flex-start;
+
     }
+
 
     .item-title {
+
       font-size: 13px;
+
       font-weight: 700;
+
     }
+
 
     .item-sub {
+
       margin-top: 6px;
+
       color: #7e8ca1;
+
       font-size: 10px;
+
       line-height: 1.8;
+
     }
+
 
     .badge {
+
       flex: 0 0 auto;
+
       padding: 5px 9px;
+
       border-radius: 999px;
+
       font-size: 9px;
+
       white-space: nowrap;
+
     }
+
 
     .badge-green {
+
       color: #83e1b5;
+
       background:
-        rgba(47, 196, 126, .09);
+        rgba(47,196,126,.09);
+
       border:
         1px solid
-        rgba(47, 196, 126, .16);
+        rgba(47,196,126,.16);
+
     }
+
 
     .badge-blue {
+
       color: #83b6ff;
+
       background:
-        rgba(56, 128, 255, .10);
+        rgba(56,128,255,.10);
+
       border:
         1px solid
-        rgba(56, 128, 255, .17);
+        rgba(56,128,255,.17);
+
     }
+
 
     .badge-gold {
+
       color: #dec778;
+
       background:
-        rgba(203, 171, 72, .09);
+        rgba(203,171,72,.09);
+
       border:
         1px solid
-        rgba(203, 171, 72, .17);
+        rgba(203,171,72,.17);
+
     }
+
 
     .badge-red {
+
       color: #ff9d9d;
+
       background:
-        rgba(255, 86, 86, .08);
+        rgba(255,86,86,.08);
+
       border:
         1px solid
-        rgba(255, 86, 86, .15);
+        rgba(255,86,86,.15);
+
     }
+
 
     .empty {
+
       padding: 35px;
+
       text-align: center;
+
       color: #758398;
+
       font-size: 12px;
+
     }
+
 
     .loading {
+
       min-height: 100vh;
+
       display: flex;
+
       align-items: center;
+
       justify-content: center;
+
       padding: 25px;
+
     }
+
 
     .loading-box {
+
       width: 100%;
+
       max-width: 420px;
+
       padding: 30px;
+
       text-align: center;
+
     }
 
+
     .spinner {
+
       width: 42px;
       height: 42px;
+
       border-radius: 50%;
+
       border:
         3px solid
         rgba(255,255,255,.10);
@@ -551,133 +879,219 @@
 
       margin:
         0 auto 18px;
+
     }
 
+
     @keyframes spin {
+
       to {
         transform: rotate(360deg);
       }
+
     }
+
 
     .error-box {
+
       width: 100%;
+
       max-width: 650px;
+
       padding: 25px;
+
     }
+
 
     .error-title {
+
       color: #ffb0b0;
+
       font-size: 16px;
+
       margin-bottom: 13px;
+
     }
+
 
     .error-text {
+
       color: #a7b1c0;
+
       font-size: 12px;
+
       line-height: 2;
+
       white-space: pre-wrap;
+
       word-break: break-word;
+
       direction: ltr;
+
       text-align: left;
+
       background:
         rgba(0,0,0,.18);
+
       padding: 13px;
+
       border-radius: 12px;
+
     }
 
+
     .retry {
+
       margin-top: 16px;
+
       border: 0;
+
       padding: 11px 18px;
+
       border-radius: 12px;
+
       color: white;
+
       background:
+
         linear-gradient(
           135deg,
           #287cf0,
           #3d65c9
         );
+
       cursor: pointer;
+
     }
+
 
     .footer {
+
       text-align: center;
+
       color: #56667c;
+
       font-size: 9px;
+
       padding: 10px;
+
     }
 
-    @media (max-width: 800px) {
+
+    @media (max-width:800px) {
+
       .stats {
+
         grid-template-columns:
-          repeat(2, 1fr);
+          repeat(2,1fr);
+
       }
+
 
       .overview {
+
         grid-template-columns:
           1fr;
+
       }
+
 
       .financial {
+
         grid-template-columns:
           1fr;
+
       }
+
     }
 
-    @media (max-width: 480px) {
+
+    @media (max-width:480px) {
+
       .app {
+
         padding: 11px;
+
       }
+
 
       .stats {
+
         gap: 9px;
+
       }
+
 
       .stat {
+
         padding: 15px;
+
       }
+
 
       .hero-value {
+
         font-size: 29px;
+
       }
+
 
       .circle {
+
         width: 75px;
         height: 75px;
+
         flex-basis: 75px;
+
       }
 
+
       .circle::before {
+
         width: 55px;
         height: 55px;
+
       }
+
     }
+
   </style>
+
 </head>
 
 
 <body>
 
+
   <div id="root">
+
     <div class="loading">
+
       <div class="glass loading-box">
+
         <div class="spinner"></div>
+
         <div>
           در حال اتصال به داشبورد حسابگران آرمان...
         </div>
+
       </div>
+
     </div>
+
   </div>
+
 
 
   <script>
 
     /* =================================================
-       CONFIG
+       API CONFIG
     ================================================= */
 
     const API_URL =
       'https://script.google.com/macros/s/AKfycbzK62xIUIm8VyTektiy9EKOZBnMeXb1bxIKtcCxKfABIYFezMNEH6yfcrWAeL34zmI/exec';
+
 
     const API_KEY =
       'HesabgaranArman_2026_Bot_7xK9pQ2';
@@ -695,19 +1109,30 @@
 
 
     if (tg) {
+
       try {
+
         tg.ready();
+
         tg.expand();
 
-        tg.setHeaderColor('#07101d');
-        tg.setBackgroundColor('#07101d');
+        tg.setHeaderColor(
+          '#07101d'
+        );
+
+        tg.setBackgroundColor(
+          '#07101d'
+        );
 
       } catch (error) {
+
         console.warn(
           'Telegram WebApp setup:',
           error
         );
+
       }
+
     }
 
 
@@ -716,38 +1141,69 @@
     ================================================= */
 
     function escapeHtml(value) {
+
       if (
         value === null ||
         value === undefined
       ) {
+
         return '';
+
       }
 
+
       return String(value)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
+
+        .replace(
+          /&/g,
+          '&amp;'
+        )
+
+        .replace(
+          /</g,
+          '&lt;'
+        )
+
+        .replace(
+          />/g,
+          '&gt;'
+        )
+
+        .replace(
+          /"/g,
+          '&quot;'
+        )
+
+        .replace(
+          /'/g,
+          '&#039;'
+        );
+
     }
 
 
     function formatMoney(value) {
+
       const number =
         Number(value || 0);
+
 
       return number.toLocaleString(
         'fa-IR'
       );
+
     }
 
 
     function formatDate(value) {
+
       if (!value) {
         return '—';
       }
 
+
       return String(value);
+
     }
 
 
@@ -755,9 +1211,11 @@
       value,
       total
     ) {
+
       if (!total) {
         return 0;
       }
+
 
       return Math.max(
         0,
@@ -768,50 +1226,98 @@
           )
         )
       );
+
     }
 
 
     function statusClass(status) {
+
       const value =
         String(status || '');
 
+
       if (
-        value.includes('انجام شده') ||
-        value.includes('فعال') ||
-        value.includes('دریافت شده')
+
+        value.includes(
+          'انجام شده'
+        ) ||
+
+        value.includes(
+          'فعال'
+        ) ||
+
+        value.includes(
+          'دریافت شده'
+        )
+
       ) {
+
         return 'badge-green';
+
       }
 
+
       if (
-        value.includes('در حال انجام') ||
-        value.includes('امروز')
+
+        value.includes(
+          'در حال انجام'
+        ) ||
+
+        value.includes(
+          'امروز'
+        )
+
       ) {
+
         return 'badge-blue';
+
       }
 
+
       if (
-        value.includes('فوری') ||
-        value.includes('تا ۳ روز')
+
+        value.includes(
+          'فوری'
+        ) ||
+
+        value.includes(
+          'تا ۳ روز'
+        )
+
       ) {
+
         return 'badge-red';
+
       }
+
 
       return 'badge-gold';
+
     }
 
 
+    /* =================================================
+       ERROR
+    ================================================= */
+
     function showError(error) {
+
       console.error(
         'Dashboard error:',
         error
       );
 
+
       const message =
         error &&
         error.message
+
           ? error.message
-          : String(error || 'خطای نامشخص');
+
+          : String(
+              error ||
+              'خطای نامشخص'
+            );
 
 
       document.getElementById(
@@ -826,7 +1332,9 @@
               ⚠️ خطا در دریافت اطلاعات داشبورد
             </div>
 
-            <div class="error-text">${escapeHtml(message)}</div>
+            <div class="error-text">
+              ${escapeHtml(message)}
+            </div>
 
             <button
               class="retry"
@@ -840,6 +1348,7 @@
         </div>
 
       `;
+
     }
 
 
@@ -851,13 +1360,9 @@
 
       try {
 
-        if (!tg) {
-          console.warn(
-            'Telegram WebApp SDK پیدا نشد.'
-          );
-        }
-
-
+        /*
+         * Telegram initData
+         */
         const initData =
           tg &&
           tg.initData
@@ -866,68 +1371,95 @@
 
 
         if (!initData) {
+
           throw new Error(
             'Telegram initData دریافت نشد. لطفاً داشبورد را از داخل ربات Telegram باز کنید.'
           );
+
         }
 
 
+        /*
+         * API URL
+         */
         const url =
           API_URL +
+
           '?action=getDashboard' +
+
           '&key=' +
           encodeURIComponent(
             API_KEY
           ) +
+
           '&initData=' +
           encodeURIComponent(
             initData
           ) +
+
           '&_=' +
           Date.now();
 
 
         console.log(
-          'Requesting dashboard...'
+          'Dashboard request started.'
         );
 
 
+        /*
+         * Request
+         */
         const response =
           await fetch(
             url,
             {
-              method: 'GET',
-              cache: 'no-store'
+              method:
+                'GET',
+
+              cache:
+                'no-store'
             }
           );
 
 
+        /*
+         * Always read raw text first.
+         * This makes debugging much easier.
+         */
         const raw =
           await response.text();
 
 
         console.log(
-          'API response:',
+          'API RAW RESPONSE:',
           raw
         );
 
 
         if (!response.ok) {
+
           throw new Error(
             'HTTP ' +
             response.status +
             '\n' +
             raw
           );
+
         }
 
 
+        /*
+         * Parse JSON
+         */
         let result;
+
 
         try {
 
           result =
-            JSON.parse(raw);
+            JSON.parse(
+              raw
+            );
 
         } catch (error) {
 
@@ -940,29 +1472,36 @@
 
 
         if (!result) {
+
           throw new Error(
             'پاسخ خالی از سرور دریافت شد.'
           );
+
         }
 
 
         if (!result.ok) {
+
           throw new Error(
             result.error ||
             'سرور درخواست را رد کرد.'
           );
+
         }
 
 
-        if (
-          !result.data
-        ) {
+        if (!result.data) {
+
           throw new Error(
             'پاسخ سرور دریافت شد اما data وجود ندارد.'
           );
+
         }
 
 
+        /*
+         * Validate
+         */
         validateDashboard(
           result.data
         );
@@ -974,6 +1513,9 @@
         );
 
 
+        /*
+         * Render
+         */
         renderDashboard(
           result.data,
           result.user
@@ -987,11 +1529,12 @@
         );
 
       }
+
     }
 
 
     /* =================================================
-       VALIDATE
+       VALIDATE DASHBOARD
     ================================================= */
 
     function validateDashboard(
@@ -1002,22 +1545,29 @@
         !data.Summary ||
         typeof data.Summary !== 'object'
       ) {
+
         throw new Error(
           'ساختار Summary در داده‌ها پیدا نشد.'
         );
+
       }
 
 
       const arrays = [
+
         'Clients',
+
         'Accounting',
+
         'Tax',
+
         'Receivables'
+
       ];
 
 
       arrays.forEach(
-        function (key) {
+        function(key) {
 
           if (
             !Array.isArray(
@@ -1035,11 +1585,12 @@
 
         }
       );
+
     }
 
 
     /* =================================================
-       RENDER
+       RENDER DASHBOARD
     ================================================= */
 
     function renderDashboard(
@@ -1050,14 +1601,18 @@
       const summary =
         data.Summary;
 
+
       const clients =
         data.Clients || [];
+
 
       const accounting =
         data.Accounting || [];
 
+
       const tax =
         data.Tax || [];
+
 
       const receivables =
         data.Receivables || [];
@@ -1068,10 +1623,12 @@
           summary.TotalReceivables || 0
         );
 
+
       const totalCollected =
         Number(
           summary.TotalCollected || 0
         );
+
 
       const remaining =
         Number(
@@ -1091,6 +1648,7 @@
           summary.AccountingCompleted || 0
         );
 
+
       const accountingTotal =
         Number(
           summary.AccountingCount || 0
@@ -1109,6 +1667,7 @@
           summary.TaxCompleted || 0
         );
 
+
       const taxTotal =
         Number(
           summary.TaxCount || 0
@@ -1125,7 +1684,9 @@
       const userName =
         user &&
         user.first_name
+
           ? user.first_name
+
           : 'مدیر';
 
 
@@ -1134,6 +1695,7 @@
       ).innerHTML = `
 
         <div class="app">
+
 
           <!-- HEADER -->
 
@@ -1159,6 +1721,7 @@
 
             </div>
 
+
             <div class="status">
 
               <span class="status-dot"></span>
@@ -1175,11 +1738,18 @@
           <div class="glass hero">
 
             <div class="hero-title">
-              خوش آمدید، ${escapeHtml(userName)}
+              خوش آمدید، ${escapeHtml(
+                userName
+              )}
             </div>
 
+
             <div class="hero-value">
-              ${formatMoney(remaining)}
+
+              ${formatMoney(
+                remaining
+              )}
+
               <span
                 style="
                   font-size:12px;
@@ -1189,7 +1759,9 @@
               >
                 تومان
               </span>
+
             </div>
+
 
             <div class="hero-sub">
               مانده مطالبات قابل وصول
@@ -1201,6 +1773,7 @@
           <!-- STATS -->
 
           <div class="stats">
+
 
             <div class="glass stat">
 
@@ -1277,6 +1850,7 @@
 
             </div>
 
+
           </div>
 
 
@@ -1304,6 +1878,7 @@
 
                 <div class="circle-wrap">
 
+
                   <div
                     class="circle"
                     style="
@@ -1325,20 +1900,25 @@
                     </h3>
 
                     <p>
+
                       دریافت شده:
                       ${formatMoney(
                         totalCollected
                       )}
                       تومان
+
                       <br>
+
                       مانده:
                       ${formatMoney(
                         remaining
                       )}
                       تومان
+
                     </p>
 
                   </div>
+
 
                 </div>
 
@@ -1348,6 +1928,7 @@
               <div class="glass overview-card">
 
                 <div class="circle-wrap">
+
 
                   <div
                     class="circle"
@@ -1370,16 +1951,25 @@
                     </h3>
 
                     <p>
+
                       انجام شده:
                       ${accountingDone}
                       از
                       ${accountingTotal}
+
                       <br>
+
                       در حال انجام:
-                      ${summary.AccountingCount - accountingDone}
+                      ${Math.max(
+                        0,
+                        accountingTotal -
+                        accountingDone
+                      )}
+
                     </p>
 
                   </div>
+
 
                 </div>
 
@@ -1389,6 +1979,7 @@
               <div class="glass overview-card">
 
                 <div class="circle-wrap">
+
 
                   <div
                     class="circle"
@@ -1411,16 +2002,25 @@
                     </h3>
 
                     <p>
+
                       انجام شده:
                       ${taxDone}
                       از
                       ${taxTotal}
+
                       <br>
+
                       در حال انجام:
-                      ${taxTotal - taxDone}
+                      ${Math.max(
+                        0,
+                        taxTotal -
+                        taxDone
+                      )}
+
                     </p>
 
                   </div>
+
 
                 </div>
 
@@ -1543,6 +2143,7 @@
 
             <div class="tabs">
 
+
               <button
                 class="tab active"
                 data-tab="all"
@@ -1550,6 +2151,7 @@
               >
                 همه
               </button>
+
 
               <button
                 class="tab"
@@ -1559,6 +2161,7 @@
                 حسابداری
               </button>
 
+
               <button
                 class="tab"
                 data-tab="tax"
@@ -1566,6 +2169,7 @@
               >
                 مالیاتی
               </button>
+
 
               <button
                 class="tab"
@@ -1575,6 +2179,7 @@
                 مشتریان
               </button>
 
+
             </div>
 
 
@@ -1583,6 +2188,7 @@
               class="list"
             ></div>
 
+
           </div>
 
 
@@ -1590,13 +2196,20 @@
             حسابگران آرمان • داشبورد مدیریت
           </div>
 
+
         </div>
+
       `;
 
 
       window.dashboardState = {
-        data: data,
-        activeTab: 'all'
+
+        data:
+          data,
+
+        activeTab:
+          'all'
+
       };
 
 
@@ -1619,24 +2232,31 @@
 
 
       document
-        .querySelectorAll('.tab')
+        .querySelectorAll(
+          '.tab'
+        )
         .forEach(
-          function (item) {
+          function(item) {
+
             item.classList.remove(
               'active'
             );
+
           }
         );
 
 
       if (button) {
+
         button.classList.add(
           'active'
         );
+
       }
 
 
       renderItems();
+
     }
 
 
@@ -1645,7 +2265,9 @@
     ================================================= */
 
     function filterItems() {
+
       renderItems();
+
     }
 
 
@@ -1680,9 +2302,11 @@
 
       const search =
         searchElement
+
           ? searchElement.value
               .trim()
               .toLowerCase()
+
           : '';
 
 
@@ -1699,26 +2323,46 @@
 
         data.Accounting
           .forEach(
-            function (item) {
+            function(item) {
 
               items.push({
+
                 type:
                   'accounting',
+
                 title:
-                  item['نام مراجعه کننده'],
+                  item[
+                    'نام مراجعه کننده'
+                  ],
+
                 sub:
                   '📒 ' +
-                  (item['نوع کار'] || '') +
+                  (
+                    item[
+                      'نوع کار'
+                    ] || ''
+                  ) +
                   ' • ' +
-                  (item['شرح کار'] || ''),
+                  (
+                    item[
+                      'شرح کار'
+                    ] || ''
+                  ),
+
                 status:
-                  item['وضعیت'] ||
+                  item[
+                    'وضعیت'
+                  ] ||
                   'نامشخص',
+
                 extra:
                   'سررسید: ' +
                   formatDate(
-                    item['تاریخ سررسید']
+                    item[
+                      'تاریخ سررسید'
+                    ]
                   )
+
               });
 
             }
@@ -1737,26 +2381,46 @@
 
         data.Tax
           .forEach(
-            function (item) {
+            function(item) {
 
               items.push({
+
                 type:
                   'tax',
+
                 title:
-                  item['نام مراجعه کننده'],
+                  item[
+                    'نام مراجعه کننده'
+                  ],
+
                 sub:
                   '⚖️ ' +
-                  (item['نوع پرونده'] || '') +
+                  (
+                    item[
+                      'نوع پرونده'
+                    ] || ''
+                  ) +
                   ' • ' +
-                  (item['مرحله پرونده'] || ''),
+                  (
+                    item[
+                      'مرحله پرونده'
+                    ] || ''
+                  ),
+
                 status:
-                  item['وضعیت'] ||
+                  item[
+                    'وضعیت'
+                  ] ||
                   'نامشخص',
+
                 extra:
                   'سررسید: ' +
                   formatDate(
-                    item['تاریخ سررسید']
+                    item[
+                      'تاریخ سررسید'
+                    ]
                   )
+
               });
 
             }
@@ -1774,28 +2438,54 @@
 
         data.Clients
           .forEach(
-            function (item) {
+            function(item) {
 
               items.push({
+
                 type:
                   'client',
+
                 title:
-                  item['نام شخص/شرکت'],
+                  item[
+                    'نام شخص/شرکت'
+                  ],
+
                 sub:
                   '👤 ' +
-                  (item['نوع شخصیت'] || '') +
+                  (
+                    item[
+                      'نوع شخصیت'
+                    ] || ''
+                  ) +
                   ' • ' +
-                  (item['نوع فعالیت'] || '') +
+                  (
+                    item[
+                      'نوع فعالیت'
+                    ] || ''
+                  ) +
                   ' • ' +
-                  (item['نوع خدمات'] || ''),
+                  (
+                    item[
+                      'نوع خدمات'
+                    ] || ''
+                  ),
+
                 status:
-                  item['وضعیت همکاری'] ||
+                  item[
+                    'وضعیت همکاری'
+                  ] ||
                   'نامشخص',
+
                 extra:
-                  item['شهر']
+                  item[
+                    'شهر'
+                  ]
                     ? '📍 ' +
-                      item['شهر']
+                      item[
+                        'شهر'
+                      ]
                     : ''
+
               });
 
             }
@@ -1811,9 +2501,10 @@
 
         items =
           items.filter(
-            function (item) {
+            function(item) {
 
               const text =
+
                 (
                   item.title +
                   ' ' +
@@ -1822,7 +2513,9 @@
                   item.status +
                   ' ' +
                   item.extra
-                ).toLowerCase();
+                )
+                .toLowerCase();
+
 
               return text.includes(
                 search
@@ -1848,25 +2541,37 @@
       if (!items.length) {
 
         list.innerHTML = `
+
           <div class="glass empty">
+
             موردی برای نمایش وجود ندارد.
+
           </div>
+
         `;
 
         return;
+
       }
 
 
       list.innerHTML =
+
         items
           .map(
-            function (item) {
+            function(item) {
 
               const badge =
-                item.type === 'accounting'
+
+                item.type ===
+                'accounting'
+
                   ? '📒 حسابداری'
+
                   : item.type === 'tax'
+
                     ? '⚖️ مالیاتی'
+
                     : '👤 مشتری';
 
 
@@ -1879,19 +2584,26 @@
                     <div>
 
                       <div class="item-title">
+
                         ${escapeHtml(
                           item.title
                         )}
+
                       </div>
 
+
                       <div class="item-sub">
+
                         ${escapeHtml(
                           item.sub
                         )}
+
                         <br>
+
                         ${escapeHtml(
                           item.extra
                         )}
+
                       </div>
 
                     </div>
@@ -1902,9 +2614,11 @@
                         item.status
                       )}"
                     >
+
                       ${escapeHtml(
                         item.status
                       )}
+
                     </div>
 
                   </div>
@@ -1917,8 +2631,11 @@
                       font-size:9px;
                     "
                   >
+
                     ${badge}
+
                   </div>
+
 
                 </div>
 
@@ -1940,4 +2657,5 @@
   </script>
 
 </body>
+
 </html>
