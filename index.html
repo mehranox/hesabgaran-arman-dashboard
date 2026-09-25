@@ -2,27 +2,23 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 
 <title>حسابگران آرمان</title>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-<!-- Persian Nastaliq -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 
+/* =========================================================
+   BASE
+   ========================================================= */
+
 :root{
-
-    /* =========================
-       روشن‌تر + لاجوردی‌تر
-    ========================= */
-
     --bg:#071522;
     --bg2:#0b1c2d;
 
@@ -33,8 +29,6 @@
 
     --blue:#3b82f6;
     --blue2:#2563eb;
-    --blue3:#1d4ed8;
-
     --azure:#38bdf8;
 
     --olive:#8f9f4d;
@@ -57,33 +51,27 @@
 
 html,
 body{
-
     margin:0;
     padding:0;
-
     width:100%;
     min-height:100%;
 
     background:
-
         radial-gradient(
             circle at 8% 5%,
             rgba(37,99,235,.19),
             transparent 27%
         ),
-
         radial-gradient(
             circle at 92% 15%,
             rgba(56,189,248,.12),
             transparent 28%
         ),
-
         radial-gradient(
             circle at 50% 100%,
             rgba(214,184,108,.075),
             transparent 35%
         ),
-
         linear-gradient(
             145deg,
             #06121e,
@@ -115,24 +103,20 @@ button{
 
 /* =========================================================
    APP
-========================================================= */
+   ========================================================= */
 
 .app{
-
     width:min(1450px,100%);
-
     margin:auto;
-
     padding:22px;
 }
 
 
 /* =========================================================
    HEADER
-========================================================= */
+   ========================================================= */
 
 .header{
-
     position:relative;
     overflow:hidden;
 
@@ -142,12 +126,10 @@ button{
 
     gap:20px;
 
-    padding:21px 25px;
-
+    padding:19px 23px;
     margin-bottom:20px;
 
     background:
-
         linear-gradient(
             135deg,
             rgba(37,99,235,.17),
@@ -163,14 +145,11 @@ button{
     -webkit-backdrop-filter:blur(20px);
 
     box-shadow:
-
         0 20px 60px rgba(0,0,0,.27),
-
         inset 0 1px rgba(255,255,255,.07);
 }
 
 .header::before{
-
     content:"";
 
     position:absolute;
@@ -182,7 +161,6 @@ button{
     top:-170px;
 
     background:
-
         radial-gradient(
             circle,
             rgba(59,130,246,.25),
@@ -193,7 +171,6 @@ button{
 }
 
 .header::after{
-
     content:"";
 
     position:absolute;
@@ -205,7 +182,6 @@ button{
     bottom:-120px;
 
     background:
-
         radial-gradient(
             circle,
             rgba(214,184,108,.11),
@@ -215,9 +191,7 @@ button{
     pointer-events:none;
 }
 
-
 .brand{
-
     position:relative;
     z-index:2;
 
@@ -227,20 +201,17 @@ button{
     gap:15px;
 }
 
-
 .logo{
-
-    width:56px;
-    height:56px;
+    width:54px;
+    height:54px;
 
     display:flex;
     align-items:center;
     justify-content:center;
 
-    border-radius:18px;
+    border-radius:17px;
 
     background:
-
         linear-gradient(
             145deg,
             rgba(59,130,246,.23),
@@ -251,19 +222,13 @@ button{
     border:1px solid rgba(120,184,240,.20);
 
     box-shadow:
-
         0 0 30px rgba(37,99,235,.16),
-
         inset 0 1px rgba(255,255,255,.10);
 
-    font-size:25px;
+    font-size:24px;
 }
 
-
-/* نستعلیق فقط برای نام برند */
-
 .brand h1{
-
     margin:0;
 
     font-family:
@@ -272,30 +237,16 @@ button{
         serif;
 
     font-size:27px;
-
     font-weight:600;
-
     line-height:1.7;
 
     color:#f8fbff;
 
     text-shadow:
-
         0 2px 15px rgba(37,99,235,.25);
 }
 
-.brand p{
-
-    margin:2px 0 0;
-
-    color:#9eb1c5;
-
-    font-size:11px;
-}
-
-
 .header-status{
-
     position:relative;
     z-index:2;
 
@@ -305,13 +256,10 @@ button{
     gap:8px;
 
     color:#b9cadb;
-
     font-size:12px;
 }
 
-
 .status-dot{
-
     width:9px;
     height:9px;
 
@@ -326,31 +274,23 @@ button{
 
 /* =========================================================
    HERO
-========================================================= */
+   فقط Orb — هیچ عنوان یا زیرعنوانی ندارد
+   ========================================================= */
 
 .hero{
-
     position:relative;
 
-    display:grid;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 
-    grid-template-columns:1.6fr 1fr;
-
-    gap:20px;
+    min-height:245px;
 
     margin-bottom:20px;
-}
-
-
-.hero-main,
-.hero-side{
-
-    position:relative;
 
     overflow:hidden;
 
     background:
-
         linear-gradient(
             135deg,
             rgba(31,84,135,.30),
@@ -366,89 +306,125 @@ button{
     -webkit-backdrop-filter:blur(20px);
 
     box-shadow:
-
         0 20px 60px rgba(0,0,0,.23),
-
         inset 0 1px rgba(255,255,255,.055);
 }
 
-
-.hero-main{
-
-    padding:31px;
-}
-
-
-.hero-main::after{
-
+.hero::before{
     content:"";
 
     position:absolute;
 
-    width:350px;
-    height:350px;
+    width:520px;
+    height:520px;
 
-    left:-150px;
-    bottom:-220px;
+    left:50%;
+    top:50%;
+
+    transform:translate(-50%,-50%);
 
     background:
-
         radial-gradient(
             circle,
-            rgba(37,99,235,.17),
-            transparent 70%
+            rgba(37,99,235,.10),
+            transparent 67%
         );
+
+    pointer-events:none;
 }
 
 
-.hero-title{
+/* =========================================================
+   ORB
+   ========================================================= */
 
+.active-orb-wrap{
     position:relative;
-    z-index:1;
 
-    font-size:30px;
-
-    line-height:1.5;
-
-    font-weight:900;
-
-    margin:0 0 9px;
-
-    color:#f6faff;
-}
-
-
-.hero-subtitle{
-
-    position:relative;
-    z-index:1;
-
-    color:#9fb3c8;
-
-    font-size:13px;
-
-    line-height:1.9;
-}
-
-
-.hero-side{
+    width:205px;
+    height:205px;
 
     display:flex;
     align-items:center;
     justify-content:center;
 
-    min-height:220px;
+    z-index:2;
 }
 
 
-/* =========================================================
-   CIRCLE
-========================================================= */
+/* بزرگ‌ترین هاله */
 
-.circle{
+.active-orb-aura{
+    position:absolute;
 
-    width:170px;
-    height:170px;
+    inset:-45px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(56,189,248,.24),
+            rgba(37,99,235,.10) 38%,
+            transparent 70%
+        );
+
+    filter:blur(19px);
+
+    animation:
+        auraPulse 6s ease-in-out infinite,
+        auraColor 22s ease-in-out infinite;
+
+    pointer-events:none;
+}
+
+
+/* حلقه بیرونی */
+
+.active-orb-ring{
+    position:absolute;
+
+    inset:2px;
+
+    border-radius:50%;
+
+    border:
+        1px solid rgba(112,192,255,.20);
+
+    box-shadow:
+        0 0 28px rgba(37,99,235,.13);
+
+    animation:
+        ringRotate 18s linear infinite;
+}
+
+
+/* حلقه دوم بسیار ظریف */
+
+.active-orb-ring::before{
+    content:"";
+
+    position:absolute;
+
+    inset:13px;
+
+    border-radius:50%;
+
+    border:
+        1px dashed rgba(123,198,255,.13);
+
+    animation:
+        ringRotateReverse 24s linear infinite;
+}
+
+
+/* خود گوی */
+
+.active-orb{
+    position:relative;
+
+    width:154px;
+    height:154px;
 
     border-radius:50%;
 
@@ -456,18 +432,90 @@ button{
     align-items:center;
     justify-content:center;
 
-    position:relative;
+    overflow:hidden;
+
+    background:
+        radial-gradient(
+            circle at 30% 21%,
+            rgba(255,255,255,.72) 0%,
+            rgba(255,255,255,.18) 7%,
+            transparent 22%
+        ),
+        radial-gradient(
+            circle at 53% 53%,
+            #42b7ff 0%,
+            #2478df 33%,
+            #1450b6 63%,
+            #071f57 100%
+        );
+
+    border:
+        1px solid rgba(180,228,255,.46);
 
     box-shadow:
+        inset -20px -24px 37px rgba(0,0,0,.38),
+        inset 12px 10px 28px rgba(255,255,255,.17),
 
-        0 0 45px rgba(37,99,235,.15),
+        0 0 28px rgba(40,151,255,.34),
+        0 0 55px rgba(40,151,255,.20),
+        0 0 90px rgba(40,151,255,.11);
 
-        0 0 80px rgba(56,189,248,.07);
+    animation:
+        orbFloat 5.5s ease-in-out infinite,
+        orbColor 22s ease-in-out infinite;
+
+    transition:
+        transform .45s ease,
+        box-shadow .45s ease;
+
+    z-index:3;
 }
 
 
-.circle::before{
+/* لایه چرخان روی گوی */
 
+.active-orb::before{
+    content:"";
+
+    position:absolute;
+
+    width:200%;
+    height:200%;
+
+    left:-100%;
+    top:-100%;
+
+    border-radius:50%;
+
+    background:
+        conic-gradient(
+            from 0deg,
+
+            transparent 0deg,
+
+            rgba(255,255,255,.08) 42deg,
+
+            transparent 90deg,
+
+            rgba(255,255,255,.035) 165deg,
+
+            transparent 220deg,
+
+            rgba(255,255,255,.07) 315deg,
+
+            transparent 360deg
+        );
+
+    animation:
+        orbSurface 16s linear infinite;
+
+    pointer-events:none;
+}
+
+
+/* نور داخلی */
+
+.active-orb::after{
     content:"";
 
     position:absolute;
@@ -477,71 +525,323 @@ button{
     border-radius:50%;
 
     background:
-
         radial-gradient(
-            circle at 40% 30%,
-            #123354,
-            #081724
+            circle at 38% 31%,
+            rgba(255,255,255,.13),
+            transparent 48%
         );
 
-    border:1px solid rgba(119,180,239,.10);
+    pointer-events:none;
 }
 
 
-.circle-content{
+/* انعکاس شیشه‌ای */
 
+.orb-highlight{
+    position:absolute;
+
+    width:49px;
+    height:24px;
+
+    top:20px;
+    left:29px;
+
+    border-radius:50%;
+
+    background:
+        rgba(255,255,255,.29);
+
+    filter:blur(5px);
+
+    transform:rotate(-28deg);
+
+    opacity:.80;
+
+    z-index:5;
+}
+
+
+/* محتوای داخل */
+
+.orb-content{
     position:relative;
 
-    z-index:1;
+    z-index:10;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
 
     text-align:center;
+
+    text-shadow:
+        0 2px 12px rgba(0,0,0,.50);
 }
 
+.orb-number{
+    font-family:
+        Arial,
+        Tahoma,
+        sans-serif;
 
-.circle-number{
+    font-size:42px;
 
-    font-size:35px;
+    line-height:1;
 
     font-weight:900;
+
+    color:#fff;
+
+    letter-spacing:-1px;
 }
 
+.orb-label{
+    margin-top:9px;
 
-.circle-label{
-
-    color:#9eb1c5;
+    color:
+        rgba(255,255,255,.92);
 
     font-size:11px;
 
-    margin-top:4px;
+    font-weight:500;
+}
+
+
+/* نقاط نور اطراف Orb */
+
+.orb-particle{
+    position:absolute;
+
+    width:5px;
+    height:5px;
+
+    border-radius:50%;
+
+    background:#8bd8ff;
+
+    box-shadow:
+        0 0 10px #38bdf8,
+        0 0 20px rgba(56,189,248,.6);
+
+    z-index:4;
+
+    animation:
+        particlePulse 3s ease-in-out infinite;
+}
+
+.p1{
+    top:17px;
+    right:45px;
+}
+
+.p2{
+    bottom:27px;
+    left:34px;
+
+    animation-delay:1.2s;
+}
+
+.p3{
+    top:84px;
+    right:4px;
+
+    width:4px;
+    height:4px;
+
+    animation-delay:2s;
+}
+
+
+/* =========================================================
+   ORB ANIMATIONS
+   ========================================================= */
+
+@keyframes orbFloat{
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-6px);
+    }
+}
+
+@keyframes orbSurface{
+
+    from{
+        transform:rotate(0deg);
+    }
+
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+@keyframes ringRotate{
+
+    from{
+        transform:rotate(0deg);
+    }
+
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+@keyframes ringRotateReverse{
+
+    from{
+        transform:rotate(0deg);
+    }
+
+    to{
+        transform:rotate(-360deg);
+    }
+}
+
+@keyframes auraPulse{
+
+    0%,100%{
+        transform:scale(.88);
+        opacity:.43;
+    }
+
+    50%{
+        transform:scale(1.10);
+        opacity:.86;
+    }
+}
+
+
+/*
+   تغییر رنگ بسیار آهسته و ظریف:
+   آبی → فیروزه‌ای → آبی-بنفش → آبی
+*/
+
+@keyframes orbColor{
+
+    0%{
+        filter:
+            hue-rotate(0deg)
+            saturate(1);
+    }
+
+    20%{
+        filter:
+            hue-rotate(9deg)
+            saturate(1.03);
+    }
+
+    40%{
+        filter:
+            hue-rotate(19deg)
+            saturate(1.05);
+    }
+
+    60%{
+        filter:
+            hue-rotate(-7deg)
+            saturate(1.02);
+    }
+
+    80%{
+        filter:
+            hue-rotate(-15deg)
+            saturate(1.04);
+    }
+
+    100%{
+        filter:
+            hue-rotate(0deg)
+            saturate(1);
+    }
+}
+
+@keyframes auraColor{
+
+    0%{
+        filter:
+            hue-rotate(0deg)
+            blur(19px);
+    }
+
+    25%{
+        filter:
+            hue-rotate(12deg)
+            blur(20px);
+    }
+
+    50%{
+        filter:
+            hue-rotate(20deg)
+            blur(19px);
+    }
+
+    75%{
+        filter:
+            hue-rotate(-10deg)
+            blur(20px);
+    }
+
+    100%{
+        filter:
+            hue-rotate(0deg)
+            blur(19px);
+    }
+}
+
+@keyframes particlePulse{
+
+    0%,100%{
+        opacity:.30;
+        transform:scale(.8);
+    }
+
+    50%{
+        opacity:1;
+        transform:scale(1.3);
+    }
+}
+
+.active-orb-wrap:hover .active-orb{
+
+    transform:
+        translateY(-5px)
+        scale(1.045);
+
+    box-shadow:
+        inset -20px -24px 37px rgba(0,0,0,.38),
+        inset 12px 10px 28px rgba(255,255,255,.19),
+
+        0 0 40px rgba(40,151,255,.48),
+        0 0 75px rgba(40,151,255,.28),
+        0 0 110px rgba(40,151,255,.15);
 }
 
 
 /* =========================================================
    STATS
-========================================================= */
+   ========================================================= */
 
 .stats{
-
     display:grid;
 
-    grid-template-columns:repeat(4,1fr);
+    grid-template-columns:
+        repeat(4,1fr);
 
     gap:14px;
 
     margin-bottom:20px;
 }
 
-
 .stat{
-
     position:relative;
-
     overflow:hidden;
 
     padding:20px;
 
     background:
-
         linear-gradient(
             145deg,
             rgba(27,78,126,.29),
@@ -564,32 +864,23 @@ button{
         box-shadow .25s ease;
 }
 
-
 .stat:hover{
-
     transform:translateY(-3px);
 
     border-color:
         rgba(59,130,246,.35);
 
     box-shadow:
-
         0 15px 35px rgba(0,0,0,.17),
-
         0 0 25px rgba(37,99,235,.07);
 }
 
-
 .stat-label{
-
     color:#9eb1c5;
-
     font-size:11px;
 }
 
-
 .stat-value{
-
     margin-top:9px;
 
     font-size:25px;
@@ -599,9 +890,7 @@ button{
     color:#f2f7fc;
 }
 
-
 .stat-note{
-
     margin-top:5px;
 
     color:#70869d;
@@ -612,10 +901,9 @@ button{
 
 /* =========================================================
    TOOLBAR
-========================================================= */
+   ========================================================= */
 
 .toolbar{
-
     display:flex;
 
     gap:12px;
@@ -623,9 +911,7 @@ button{
     margin-bottom:18px;
 }
 
-
 .search{
-
     flex:1;
 
     height:48px;
@@ -635,7 +921,6 @@ button{
     color:#f3f8ff;
 
     background:
-
         linear-gradient(
             135deg,
             rgba(31,84,135,.27),
@@ -651,15 +936,11 @@ button{
     backdrop-filter:blur(14px);
 }
 
-
 .search::placeholder{
-
     color:#6f8499;
 }
 
-
 .search:focus{
-
     border-color:
         rgba(59,130,246,.45);
 
@@ -670,10 +951,9 @@ button{
 
 /* =========================================================
    TABS
-========================================================= */
+   ========================================================= */
 
 .tabs{
-
     display:flex;
 
     gap:8px;
@@ -683,9 +963,7 @@ button{
     padding-bottom:3px;
 }
 
-
 .tab{
-
     flex:0 0 auto;
 
     padding:11px 17px;
@@ -695,7 +973,6 @@ button{
     border-radius:13px;
 
     background:
-
         rgba(255,255,255,.035);
 
     color:#8fa5ba;
@@ -703,25 +980,20 @@ button{
     transition:.22s;
 }
 
-
 .tab:hover{
-
     color:#dcecff;
 
     border-color:
         rgba(59,130,246,.28);
 }
 
-
 .tab.active{
-
     color:white;
 
     border-color:
         rgba(59,130,246,.42);
 
     background:
-
         linear-gradient(
             135deg,
             rgba(37,99,235,.29),
@@ -729,41 +1001,32 @@ button{
         );
 
     box-shadow:
-
         0 0 25px rgba(37,99,235,.11),
-
         inset 0 1px rgba(255,255,255,.07);
 }
 
 
 /* =========================================================
    SECTION
-========================================================= */
+   ========================================================= */
 
 .section{
-
     margin-bottom:20px;
 }
 
-
 .section-title{
-
     display:flex;
 
     align-items:center;
-
     justify-content:space-between;
 
     margin-bottom:13px;
 
     font-size:17px;
-
     font-weight:800;
 }
 
-
 .section-title span{
-
     color:#8298ad;
 
     font-size:11px;
@@ -774,28 +1037,24 @@ button{
 
 /* =========================================================
    CARDS
-========================================================= */
+   ========================================================= */
 
 .items{
-
     display:grid;
 
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:
+        repeat(2,1fr);
 
     gap:13px;
 }
 
-
 .card{
-
     position:relative;
-
     overflow:hidden;
 
     padding:18px;
 
     background:
-
         linear-gradient(
             145deg,
             rgba(31,84,135,.28),
@@ -819,9 +1078,7 @@ button{
         box-shadow .22s ease;
 }
 
-
 .card:hover{
-
     transform:translateY(-2px);
 
     border-color:
@@ -831,13 +1088,10 @@ button{
         0 15px 35px rgba(0,0,0,.16);
 }
 
-
 .card-head{
-
     display:flex;
 
     align-items:flex-start;
-
     justify-content:space-between;
 
     gap:12px;
@@ -845,17 +1099,12 @@ button{
     margin-bottom:12px;
 }
 
-
 .card-title{
-
     font-weight:800;
-
     font-size:14px;
 }
 
-
 .card-subtitle{
-
     color:#8298ad;
 
     font-size:11px;
@@ -863,9 +1112,7 @@ button{
     margin-top:5px;
 }
 
-
 .card-row{
-
     display:flex;
 
     justify-content:space-between;
@@ -880,21 +1127,15 @@ button{
     font-size:11px;
 }
 
-
 .card-row:last-child{
-
     border-bottom:0;
 }
 
-
 .card-row span:first-child{
-
     color:#71879d;
 }
 
-
 .card-row span:last-child{
-
     color:#d9e7f4;
 
     text-align:left;
@@ -903,14 +1144,12 @@ button{
 
 /* =========================================================
    BADGES
-========================================================= */
+   ========================================================= */
 
 .badge{
-
     display:inline-flex;
 
     align-items:center;
-
     justify-content:center;
 
     padding:5px 9px;
@@ -921,13 +1160,10 @@ button{
 
     white-space:nowrap;
 
-    border:
-        1px solid rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.08);
 }
 
-
 .badge-urgent{
-
     color:#ffd3da;
 
     background:
@@ -937,9 +1173,7 @@ button{
         rgba(251,113,133,.24);
 }
 
-
 .badge-high{
-
     color:#ffe0bd;
 
     background:
@@ -949,18 +1183,14 @@ button{
         rgba(251,146,60,.22);
 }
 
-
 .badge-normal{
-
     color:#c9d7e5;
 
     background:
         rgba(255,255,255,.045);
 }
 
-
 .badge-done{
-
     color:#b9f7ce;
 
     background:
@@ -972,13 +1202,11 @@ button{
 
 
 /* =========================================================
-   URGENT REPORT
-========================================================= */
+   URGENT
+   ========================================================= */
 
 .urgent-section{
-
     position:relative;
-
     overflow:hidden;
 
     margin-bottom:22px;
@@ -988,7 +1216,6 @@ button{
     border-radius:24px;
 
     background:
-
         linear-gradient(
             135deg,
             rgba(37,99,235,.11),
@@ -996,17 +1223,13 @@ button{
             rgba(214,184,108,.035)
         );
 
-    border:
-        1px solid rgba(103,156,220,.20);
+    border:1px solid rgba(103,156,220,.20);
 
     box-shadow:
-
         0 20px 55px rgba(0,0,0,.19);
 }
 
-
 .urgent-section::before{
-
     content:"";
 
     position:absolute;
@@ -1018,7 +1241,6 @@ button{
     right:-80px;
 
     background:
-
         radial-gradient(
             circle,
             rgba(59,130,246,.17),
@@ -1028,25 +1250,19 @@ button{
     pointer-events:none;
 }
 
-
 .urgent-header{
-
     position:relative;
-
     z-index:1;
 
     display:flex;
 
     align-items:center;
-
     justify-content:space-between;
 
     margin-bottom:15px;
 }
 
-
 .urgent-title-wrap{
-
     display:flex;
 
     align-items:center;
@@ -1054,9 +1270,7 @@ button{
     gap:11px;
 }
 
-
 .urgent-icon{
-
     width:42px;
     height:42px;
 
@@ -1068,15 +1282,13 @@ button{
     border-radius:13px;
 
     background:
-
         linear-gradient(
             135deg,
             rgba(37,99,235,.18),
             rgba(251,113,133,.10)
         );
 
-    border:
-        1px solid rgba(103,156,220,.20);
+    border:1px solid rgba(103,156,220,.20);
 
     font-size:18px;
 
@@ -1084,17 +1296,12 @@ button{
         0 0 22px rgba(37,99,235,.09);
 }
 
-
 .urgent-title{
-
     font-size:16px;
-
     font-weight:900;
 }
 
-
 .urgent-subtitle{
-
     margin-top:4px;
 
     color:#8499ad;
@@ -1102,9 +1309,7 @@ button{
     font-size:10px;
 }
 
-
 .urgent-count{
-
     min-width:35px;
     height:35px;
 
@@ -1122,31 +1327,25 @@ button{
     background:
         rgba(37,99,235,.14);
 
-    border:
-        1px solid rgba(59,130,246,.25);
+    border:1px solid rgba(59,130,246,.25);
 
     font-weight:900;
 }
 
-
 .urgent-grid{
-
     position:relative;
-
     z-index:1;
 
     display:grid;
 
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:
+        repeat(2,1fr);
 
     gap:12px;
 }
 
-
 .urgent-card{
-
     position:relative;
-
     overflow:hidden;
 
     padding:16px;
@@ -1156,15 +1355,12 @@ button{
     background:
         rgba(3,18,31,.32);
 
-    border:
-        1px solid rgba(115,166,218,.12);
+    border:1px solid rgba(115,166,218,.12);
 
     transition:.2s;
 }
 
-
 .urgent-card:hover{
-
     border-color:
         rgba(59,130,246,.34);
 
@@ -1174,9 +1370,7 @@ button{
         0 10px 30px rgba(0,0,0,.15);
 }
 
-
 .urgent-card-top{
-
     display:flex;
 
     justify-content:space-between;
@@ -1186,17 +1380,12 @@ button{
     margin-bottom:10px;
 }
 
-
 .urgent-client{
-
     font-size:13px;
-
     font-weight:800;
 }
 
-
 .urgent-task{
-
     color:#d7e5f2;
 
     font-size:12px;
@@ -1206,9 +1395,7 @@ button{
     margin-bottom:12px;
 }
 
-
 .urgent-meta{
-
     display:flex;
 
     flex-wrap:wrap;
@@ -1216,9 +1403,7 @@ button{
     gap:7px;
 }
 
-
 .urgent-empty{
-
     color:#91a4b7;
 
     font-size:12px;
@@ -1229,32 +1414,28 @@ button{
 
 /* =========================================================
    FINANCIAL
-========================================================= */
+   ========================================================= */
 
 .financial-grid{
-
     display:grid;
 
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:
+        repeat(3,1fr);
 
     gap:13px;
 }
 
-
 .money-card{
-
     padding:20px;
 
     background:
-
         linear-gradient(
             145deg,
             rgba(31,84,135,.28),
             rgba(20,55,90,.19)
         );
 
-    border:
-        1px solid var(--border);
+    border:1px solid var(--border);
 
     border-radius:20px;
 
@@ -1262,17 +1443,12 @@ button{
         inset 0 1px rgba(255,255,255,.04);
 }
 
-
 .money-label{
-
     color:#91a7bb;
-
     font-size:11px;
 }
 
-
 .money-value{
-
     margin-top:9px;
 
     font-size:20px;
@@ -1282,23 +1458,17 @@ button{
     color:#f0f7ff;
 }
 
-
 .money-card.blue{
-
     box-shadow:
         inset 0 1px rgba(59,130,246,.24);
 }
 
-
 .money-card.gold{
-
     box-shadow:
         inset 0 1px rgba(214,184,108,.24);
 }
 
-
 .money-card.olive{
-
     box-shadow:
         inset 0 1px rgba(143,159,77,.24);
 }
@@ -1306,16 +1476,14 @@ button{
 
 /* =========================================================
    LOADING
-========================================================= */
+   ========================================================= */
 
 .loading{
-
     min-height:350px;
 
     display:flex;
 
     align-items:center;
-
     justify-content:center;
 
     flex-direction:column;
@@ -1325,9 +1493,7 @@ button{
     color:#8ea4b9;
 }
 
-
 .spinner{
-
     width:38px;
     height:38px;
 
@@ -1346,9 +1512,7 @@ button{
         spin .8s linear infinite;
 }
 
-
 @keyframes spin{
-
     to{
         transform:rotate(360deg);
     }
@@ -1357,10 +1521,9 @@ button{
 
 /* =========================================================
    ERROR
-========================================================= */
+   ========================================================= */
 
 .error{
-
     margin:20px 0;
 
     padding:20px;
@@ -1370,8 +1533,7 @@ button{
     background:
         rgba(251,113,133,.07);
 
-    border:
-        1px solid rgba(251,113,133,.20);
+    border:1px solid rgba(251,113,133,.20);
 
     color:#ffd5dc;
 
@@ -1380,15 +1542,12 @@ button{
     font-size:13px;
 }
 
-
 .retry{
-
     margin-top:12px;
 
     padding:10px 15px;
 
-    border:
-        1px solid rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.12);
 
     border-radius:12px;
 
@@ -1401,10 +1560,9 @@ button{
 
 /* =========================================================
    FOOTER
-========================================================= */
+   ========================================================= */
 
 .footer{
-
     padding:20px 0 10px;
 
     text-align:center;
@@ -1416,11 +1574,10 @@ button{
 
 
 /* =========================================================
-   RANDOM TOUCH LIGHT
-========================================================= */
+   TOUCH LIGHT
+   ========================================================= */
 
 .touch-light{
-
     position:fixed;
 
     width:105px;
@@ -1447,11 +1604,8 @@ button{
         );
 
     box-shadow:
-
         0 0 25px var(--touch-glow),
-
         0 0 48px var(--touch-glow2),
-
         0 0 80px var(--touch-glow3);
 
     animation:
@@ -1465,9 +1619,7 @@ button{
         opacity;
 }
 
-
 .touch-light::before{
-
     content:"";
 
     position:absolute;
@@ -1477,7 +1629,6 @@ button{
     border-radius:50%;
 
     background:
-
         radial-gradient(
             circle,
             rgba(255,255,255,.22),
@@ -1485,9 +1636,7 @@ button{
         );
 }
 
-
 .touch-light::after{
-
     content:"";
 
     position:absolute;
@@ -1496,15 +1645,11 @@ button{
 
     border-radius:50%;
 
-    border:
-        1px solid var(--touch-border);
+    border:1px solid var(--touch-border);
 
     box-shadow:
-
         0 0 20px var(--touch-glow2),
-
         0 0 38px var(--touch-glow3),
-
         inset 0 0 14px var(--touch-second);
 
     animation:
@@ -1514,11 +1659,9 @@ button{
         forwards;
 }
 
-
 @keyframes touchFade{
 
     from{
-
         opacity:1;
 
         transform:
@@ -1527,7 +1670,6 @@ button{
     }
 
     to{
-
         opacity:0;
 
         transform:
@@ -1536,153 +1678,114 @@ button{
     }
 }
 
-
 @keyframes touchRing{
 
     from{
-
         opacity:1;
 
-        transform:
-            scale(.35);
+        transform:scale(.35);
     }
 
     to{
-
         opacity:0;
 
-        transform:
-            scale(1.9);
+        transform:scale(1.9);
     }
 }
 
 
 /* =========================================================
    RESPONSIVE
-========================================================= */
+   ========================================================= */
 
 @media(max-width:900px){
 
-    .hero{
-
-        grid-template-columns:1fr;
-    }
-
     .stats{
-
-        grid-template-columns:repeat(2,1fr);
+        grid-template-columns:
+            repeat(2,1fr);
     }
 
     .financial-grid{
-
         grid-template-columns:1fr;
     }
 }
 
-
 @media(max-width:700px){
 
     .app{
-
         padding:12px;
     }
 
     .header{
-
         padding:16px 17px;
-
         border-radius:22px;
     }
 
     .brand h1{
-
         font-size:23px;
     }
 
-    .brand p{
-
-        font-size:10px;
-    }
-
     .logo{
-
         width:46px;
         height:46px;
-
         border-radius:14px;
     }
 
-    .hero-main{
-
-        padding:23px;
-    }
-
-    .hero-title{
-
-        font-size:24px;
+    .hero{
+        min-height:225px;
     }
 
     .stats{
-
-        grid-template-columns:repeat(2,1fr);
+        grid-template-columns:
+            repeat(2,1fr);
 
         gap:9px;
     }
 
     .stat{
-
         padding:15px;
     }
 
     .stat-value{
-
         font-size:20px;
     }
 
     .items{
-
         grid-template-columns:1fr;
     }
 
     .urgent-grid{
-
         grid-template-columns:1fr;
     }
 
     .toolbar{
-
         flex-direction:column;
     }
-}
 
+    .active-orb-wrap{
+        transform:scale(.90);
+    }
+}
 
 @media(max-width:420px){
 
     .stats{
-
-        grid-template-columns:1fr 1fr;
+        grid-template-columns:
+            1fr 1fr;
     }
 
     .header-status{
-
         display:none;
     }
 
-    .hero-side{
-
-        min-height:190px;
-    }
-
-    .circle{
-
-        width:145px;
-        height:145px;
+    .hero{
+        min-height:205px;
     }
 
     .brand h1{
-
         font-size:21px;
     }
+
 }
 
 </style>
@@ -1693,60 +1796,62 @@ button{
 
 <div class="app">
 
-    <header class="header">
 
-        <div class="brand">
+<!-- =====================================================
+     HEADER
+     ===================================================== -->
 
-            <div class="logo">
-                ⚖️
-            </div>
+<header class="header">
 
-            <div>
+    <div class="brand">
 
-                <h1>
-                    حسابگران آرمان
-                </h1>
-
-                <p>
-                    داشبورد مدیریت خدمات مالی، حسابداری و مالیاتی
-                </p>
-
-            </div>
-
+        <div class="logo">
+            ⚖️
         </div>
 
-
-        <div class="header-status">
-
-            <span class="status-dot"></span>
-
-            اتصال امن فعال
-
+        <div>
+            <h1>
+                حسابگران آرمان
+            </h1>
         </div>
 
-    </header>
+    </div>
 
 
-    <main id="appContent">
+    <div class="header-status">
 
-        <div class="loading">
+        <span class="status-dot"></span>
 
-            <div class="spinner"></div>
+        اتصال امن فعال
 
-            <div>
-                در حال دریافت اطلاعات داشبورد...
-            </div>
+    </div>
 
+</header>
+
+
+<!-- =====================================================
+     APP CONTENT
+     ===================================================== -->
+
+<main id="appContent">
+
+    <div class="loading">
+
+        <div class="spinner"></div>
+
+        <div>
+            در حال دریافت اطلاعات داشبورد...
         </div>
 
-    </main>
+    </div>
+
+</main>
 
 
-    <footer class="footer">
+<footer class="footer">
+    Hesabgaran Arman • Management Dashboard
+</footer>
 
-        Hesabgaran Arman • Management Dashboard
-
-    </footer>
 
 </div>
 
@@ -1754,26 +1859,20 @@ button{
 <script>
 
 /* =========================================================
-   CONFIG
-========================================================= */
+   API CONFIG
+   این بخش همان نسخه سالم قبلی است
+   ========================================================= */
 
-const API_URL =
-    'https://script.google.com/macros/s/AKfycbzK62xIUIm8VyTektiy9EKOZBnMeXb1bxIKtcCxKfABIYFezMNEH6yfcrWAeL34zmI/exec';
+const API_URL = 'https://script.google.com/macros/s/AKfycbzK62xIUIm8VyTektiy9EKOZBnMeXb1bxIKtcCxKfABIYFezMNEH6yfcrWAeL34zmI/exec';
 
-const API_KEY =
-    'HesabgaranArman_2026_Bot_7xK9pQ2';
+const API_KEY = 'HesabgaranArman_2026_Bot_7xK9pQ2';
 
 
 /* =========================================================
    TELEGRAM
-========================================================= */
+   ========================================================= */
 
-const tg =
-    window.Telegram &&
-    window.Telegram.WebApp
-        ? window.Telegram.WebApp
-        : null;
-
+const tg = window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp : null;
 
 if(tg){
 
@@ -1786,16 +1885,16 @@ if(tg){
     try{
 
         tg.setHeaderColor('#071522');
-
         tg.setBackgroundColor('#071522');
 
     }catch(e){}
+
 }
 
 
 /* =========================================================
    HELPERS
-========================================================= */
+   ========================================================= */
 
 function escapeHtml(value){
 
@@ -1805,6 +1904,7 @@ function escapeHtml(value){
         .replace(/>/g,'&gt;')
         .replace(/"/g,'&quot;')
         .replace(/'/g,'&#039;');
+
 }
 
 
@@ -1814,51 +1914,50 @@ function toNumber(value){
         value === null ||
         value === undefined ||
         value === ''
-    )
+    ){
         return 0;
+    }
 
-
-    if(typeof value === 'number')
+    if(
+        typeof value === 'number'
+    ){
         return isFinite(value)
             ? value
             : 0;
-
+    }
 
     const text =
         String(value)
             .replace(/[٬,]/g,'')
             .replace(/[^\d.-]/g,'');
 
-
     const number =
         Number(text);
-
 
     return isFinite(number)
         ? number
         : 0;
+
 }
 
 
 function formatNumber(value){
 
-    return new Intl.NumberFormat('fa-IR')
-        .format(
-            Math.round(
-                toNumber(value)
-            )
-        );
+    return new Intl.NumberFormat(
+        'fa-IR'
+    ).format(
+        Math.round(
+            toNumber(value)
+        )
+    );
+
 }
 
-
-/* =========================================================
-   MONEY
-   مقدار نمایش = مقدار منبع / 10
-========================================================= */
 
 function tomanDisplayValue(value){
 
     return toNumber(value) / 10;
+
 }
 
 
@@ -1867,19 +1966,21 @@ function formatToman(value){
     return (
         formatNumber(
             tomanDisplayValue(value)
-        )
-        +
+        ) +
         ' تومان'
     );
+
 }
 
 
 function formatDate(value){
 
-    if(!value)
+    if(!value){
         return '—';
+    }
 
     return String(value);
+
 }
 
 
@@ -1891,6 +1992,7 @@ function normalizeText(value){
         .replace(/\u200c/g,' ')
         .trim()
         .toLowerCase();
+
 }
 
 
@@ -1903,22 +2005,22 @@ function matchesSearch(item){
                 ?.value || ''
         );
 
-
-    if(!query)
+    if(!query){
         return true;
-
+    }
 
     return Object
         .values(item || {})
         .join(' ')
         .toLowerCase()
         .includes(query);
+
 }
 
 
 /* =========================================================
-   STATUS / PRIORITY
-========================================================= */
+   STATUS
+   ========================================================= */
 
 function isCompleted(item){
 
@@ -1927,17 +2029,18 @@ function isCompleted(item){
             item?.['وضعیت']
         );
 
-
     return (
         status.includes('انجام شده') &&
         !status.includes('انجام نشده')
     );
+
 }
 
 
 function isUnfinished(item){
 
     return !isCompleted(item);
+
 }
 
 
@@ -1948,143 +2051,161 @@ function priorityLevel(item){
             item?.['الویت']
         );
 
-
-    if(priority.includes('فوری'))
+    if(
+        priority.includes('فوری')
+    ){
         return 3;
+    }
 
-
-    if(priority.includes('بالا'))
+    if(
+        priority.includes('بالا')
+    ){
         return 2;
+    }
 
-
-    if(priority.includes('عادی'))
+    if(
+        priority.includes('عادی')
+    ){
         return 1;
-
+    }
 
     return 0;
+
 }
 
 
 function servicePriorityScore(item){
 
-    if(isCompleted(item))
+    if(
+        isCompleted(item)
+    ){
         return 0;
+    }
 
+    return 10 +
+        priorityLevel(item);
 
-    return 10 + priorityLevel(item);
 }
 
 
 function sortServices(items){
 
-    return [...items].sort((a,b)=>{
+    return [...items].sort(
+        (a,b)=>{
 
-        const scoreA =
-            servicePriorityScore(a);
+            const scoreA =
+                servicePriorityScore(a);
 
-        const scoreB =
-            servicePriorityScore(b);
+            const scoreB =
+                servicePriorityScore(b);
 
+            if(
+                scoreA !== scoreB
+            ){
+                return scoreB - scoreA;
+            }
 
-        if(scoreA !== scoreB)
-            return scoreB - scoreA;
+            const daysA =
+                toNumber(
+                    a?.['روزهای باقی مانده']
+                );
 
+            const daysB =
+                toNumber(
+                    b?.['روزهای باقی مانده']
+                );
 
-        const daysA =
-            toNumber(
-                a?.['روزهای باقی مانده']
-            );
+            return daysA - daysB;
 
+        }
+    );
 
-        const daysB =
-            toNumber(
-                b?.['روزهای باقی مانده']
-            );
-
-
-        return daysA - daysB;
-    });
 }
 
 
 /* =========================================================
    IMPORTANT TASKS
-========================================================= */
+   ========================================================= */
 
 function getImportantUnfinishedTasks(dashboard){
 
     const accounting =
-        Array.isArray(dashboard?.Accounting)
+        Array.isArray(
+            dashboard?.Accounting
+        )
             ? dashboard.Accounting
             : [];
 
-
     const tax =
-        Array.isArray(dashboard?.Tax)
+        Array.isArray(
+            dashboard?.Tax
+        )
             ? dashboard.Tax
             : [];
 
-
     return [
 
-        ...accounting.map(item=>({
+        ...accounting.map(
+            item=>({
+                ...item,
+                __type:'حسابداری'
+            })
+        ),
 
-            ...item,
-
-            __type:'حسابداری'
-
-        })),
-
-        ...tax.map(item=>({
-
-            ...item,
-
-            __type:'مالیاتی'
-
-        }))
+        ...tax.map(
+            item=>({
+                ...item,
+                __type:'مالیاتی'
+            })
+        )
 
     ]
 
-    .filter(item=>{
+    .filter(
+        item=>{
 
-        return (
-            priorityLevel(item) >= 2 &&
-            isUnfinished(item)
-        );
-
-    })
-
-    .sort((a,b)=>{
-
-        const priorityDiff =
-            priorityLevel(b) -
-            priorityLevel(a);
-
-
-        if(priorityDiff !== 0)
-            return priorityDiff;
-
-
-        const daysA =
-            toNumber(
-                a?.['روزهای باقی مانده']
+            return (
+                priorityLevel(item) >= 2 &&
+                isUnfinished(item)
             );
 
+        }
+    )
 
-        const daysB =
-            toNumber(
-                b?.['روزهای باقی مانده']
-            );
+    .sort(
+        (a,b)=>{
 
+            const priorityDiff =
+                priorityLevel(b) -
+                priorityLevel(a);
 
-        return daysA - daysB;
-    });
+            if(
+                priorityDiff !== 0
+            ){
+                return priorityDiff;
+            }
+
+            const daysA =
+                toNumber(
+                    a?.['روزهای باقی مانده']
+                );
+
+            const daysB =
+                toNumber(
+                    b?.['روزهای باقی مانده']
+                );
+
+            return daysA - daysB;
+
+        }
+    );
+
 }
 
 
 /* =========================================================
    BADGES
-========================================================= */
+   ========================================================= */
 
 function priorityBadge(item){
 
@@ -2093,26 +2214,29 @@ function priorityBadge(item){
             item?.['الویت']
         );
 
-
-    if(priority.includes('فوری')){
+    if(
+        priority.includes('فوری')
+    ){
 
         return `
             <span class="badge badge-urgent">
                 فوری
             </span>
         `;
+
     }
 
-
-    if(priority.includes('بالا')){
+    if(
+        priority.includes('بالا')
+    ){
 
         return `
             <span class="badge badge-high">
                 بالا
             </span>
         `;
-    }
 
+    }
 
     return `
         <span class="badge badge-normal">
@@ -2121,34 +2245,39 @@ function priorityBadge(item){
             )}
         </span>
     `;
+
 }
 
 
 function statusBadge(item){
 
-    if(isCompleted(item)){
+    if(
+        isCompleted(item)
+    ){
 
         return `
             <span class="badge badge-done">
                 انجام شده
             </span>
         `;
-    }
 
+    }
 
     return `
         <span class="badge badge-normal">
             ${escapeHtml(
-                item?.['وضعیت'] || 'نامشخص'
+                item?.['وضعیت'] ||
+                'نامشخص'
             )}
         </span>
     `;
+
 }
 
 
 /* =========================================================
-   IMPORTANT TASK SECTION
-========================================================= */
+   IMPORTANT SECTION
+   ========================================================= */
 
 function renderImportantTasks(dashboard){
 
@@ -2157,10 +2286,11 @@ function renderImportantTasks(dashboard){
             dashboard
         );
 
-
-    if(!tasks.length)
+    if(
+        !tasks.length
+    ){
         return '';
-
+    }
 
     return `
 
@@ -2190,9 +2320,7 @@ function renderImportantTasks(dashboard){
 
 
                 <div class="urgent-count">
-                    ${formatNumber(
-                        tasks.length
-                    )}
+                    ${formatNumber(tasks.length)}
                 </div>
 
             </div>
@@ -2200,178 +2328,133 @@ function renderImportantTasks(dashboard){
 
             <div class="urgent-grid">
 
-                ${tasks.map(item=>`
+                ${
+                    tasks.map(
+                        item=>`
 
-                    <div class="urgent-card">
+                            <div class="urgent-card">
 
-                        <div class="urgent-card-top">
+                                <div class="urgent-card-top">
 
-                            <div class="urgent-client">
+                                    <div class="urgent-client">
 
-                                ${escapeHtml(
-                                    item?.['نام مراجعه کننده'] ||
-                                    'بدون نام'
-                                )}
+                                        ${escapeHtml(
+                                            item?.[
+                                                'نام مراجعه کننده'
+                                            ] ||
+                                            'بدون نام'
+                                        )}
 
-                            </div>
+                                    </div>
 
+                                    ${priorityBadge(item)}
 
-                            ${priorityBadge(item)}
-
-                        </div>
-
-
-                        <div class="urgent-task">
-
-                            ${escapeHtml(
-                                item?.['شرح کار'] ||
-                                'شرح کار ثبت نشده است'
-                            )}
-
-                        </div>
+                                </div>
 
 
-                        <div class="urgent-meta">
+                                <div class="urgent-task">
 
-                            <span class="badge">
+                                    ${escapeHtml(
+                                        item?.[
+                                            'شرح کار'
+                                        ] ||
+                                        'شرح کار ثبت نشده است'
+                                    )}
 
-                                ${escapeHtml(
-                                    item.__type ||
-                                    'کار'
-                                )}
-
-                            </span>
-
-
-                            ${statusBadge(item)}
+                                </div>
 
 
-                            ${
-                                item?.['تاریخ سررسید']
-                                ?
-                                `
+                                <div class="urgent-meta">
+
                                     <span class="badge">
 
-                                        سررسید:
                                         ${escapeHtml(
-                                            formatDate(
-                                                item['تاریخ سررسید']
-                                            )
+                                            item.__type ||
+                                            'کار'
                                         )}
 
                                     </span>
-                                `
-                                :
-                                ''
-                            }
 
-                        </div>
 
-                    </div>
+                                    ${statusBadge(item)}
 
-                `).join('')}
+
+                                    ${
+                                        item?.[
+                                            'تاریخ سررسید'
+                                        ]
+                                            ? `
+                                                <span class="badge">
+                                                    سررسید:
+                                                    ${escapeHtml(
+                                                        formatDate(
+                                                            item[
+                                                                'تاریخ سررسید'
+                                                            ]
+                                                        )
+                                                    )}
+                                                </span>
+                                            `
+                                            : ''
+                                    }
+
+                                </div>
+
+                            </div>
+
+                        `
+                    ).join('')
+                }
 
             </div>
 
         </section>
+
     `;
+
 }
 
 
 /* =========================================================
-   HERO
-========================================================= */
+   HERO — فقط ORB
+   ========================================================= */
 
 function renderHero(dashboard){
 
     const summary =
         dashboard?.Summary || {};
 
-
-    const clients =
-        toNumber(
-            summary.ClientsCount
-        );
-
-
     const active =
         toNumber(
             summary.ActiveClients
         );
 
-
-    const percent =
-        clients
-            ? Math.round(
-                (active / clients) * 100
-            )
-            : 0;
-
-
     return `
 
         <section class="hero">
 
-            <div class="hero-main">
+            <div class="active-orb-wrap">
 
-                <h2 class="hero-title">
-                    داشبورد مدیریت حسابگران آرمان
-                </h2>
+                <div class="active-orb-aura"></div>
 
+                <div class="active-orb-ring"></div>
 
-                <div class="hero-subtitle">
+                <div class="orb-particle p1"></div>
+                <div class="orb-particle p2"></div>
+                <div class="orb-particle p3"></div>
 
-                    نمای کلی وضعیت مشتریان،
-                    خدمات حسابداری،
-                    پرونده‌های مالیاتی
-                    و دریافتنی‌ها
+                <div class="active-orb">
 
-                </div>
+                    <div class="orb-highlight"></div>
 
-            </div>
+                    <div class="orb-content">
 
-
-            <div class="hero-side">
-
-                <div
-                    class="circle"
-                    style="
-                        background:
-                        conic-gradient(
-                            var(--blue)
-                            0deg
-                            ${percent * 3.6}deg,
-
-                            var(--azure)
-                            ${percent * 3.6}deg
-                            ${Math.min(
-                                percent * 3.6 + 30,
-                                360
-                            )}deg,
-
-                            rgba(255,255,255,.07)
-                            ${Math.min(
-                                percent * 3.6 + 30,
-                                360
-                            )}deg
-                            360deg
-                        );
-                    "
-                >
-
-                    <div class="circle-content">
-
-                        <div class="circle-number">
-
+                        <div class="orb-number">
                             ${formatNumber(active)}
-
                         </div>
 
-
-                        <div class="circle-label">
-
+                        <div class="orb-label">
                             مشتری فعال
-
                         </div>
 
                     </div>
@@ -2381,23 +2464,25 @@ function renderHero(dashboard){
             </div>
 
         </section>
+
     `;
+
 }
 
 
 /* =========================================================
    STATS
-========================================================= */
+   ========================================================= */
 
 function renderStats(dashboard){
 
     const s =
         dashboard?.Summary || {};
 
-
     return `
 
         <section class="stats">
+
 
             <div class="stat">
 
@@ -2483,20 +2568,22 @@ function renderStats(dashboard){
 
             </div>
 
+
         </section>
+
     `;
+
 }
 
 
 /* =========================================================
    FINANCIAL
-========================================================= */
+   ========================================================= */
 
 function renderFinancial(dashboard){
 
     const s =
         dashboard?.Summary || {};
-
 
     return `
 
@@ -2564,13 +2651,15 @@ function renderFinancial(dashboard){
             </div>
 
         </section>
+
     `;
+
 }
 
 
 /* =========================================================
    SERVICE CARD
-========================================================= */
+   ========================================================= */
 
 function renderServiceCard(item){
 
@@ -2585,7 +2674,9 @@ function renderServiceCard(item){
                     <div class="card-title">
 
                         ${escapeHtml(
-                            item?.['نام مراجعه کننده'] ||
+                            item?.[
+                                'نام مراجعه کننده'
+                            ] ||
                             'بدون نام'
                         )}
 
@@ -2595,7 +2686,9 @@ function renderServiceCard(item){
                     <div class="card-subtitle">
 
                         ${escapeHtml(
-                            item?.['شرح کار'] ||
+                            item?.[
+                                'شرح کار'
+                            ] ||
                             'شرح کار ثبت نشده'
                         )}
 
@@ -2616,12 +2709,10 @@ function renderServiceCard(item){
                 </span>
 
                 <span>
-
                     ${escapeHtml(
                         item?.['وضعیت'] ||
                         'نامشخص'
                     )}
-
                 </span>
 
             </div>
@@ -2634,13 +2725,13 @@ function renderServiceCard(item){
                 </span>
 
                 <span>
-
                     ${escapeHtml(
                         formatDate(
-                            item?.['تاریخ سررسید']
+                            item?.[
+                                'تاریخ سررسید'
+                            ]
                         )
                     )}
-
                 </span>
 
             </div>
@@ -2653,43 +2744,43 @@ function renderServiceCard(item){
                 </span>
 
                 <span>
-
                     ${escapeHtml(
-                        item?.['وضعیت سررسید'] ||
+                        item?.[
+                            'وضعیت سررسید'
+                        ] ||
                         '—'
                     )}
-
                 </span>
 
             </div>
 
         </div>
+
     `;
+
 }
 
 
 /* =========================================================
    SERVICES
-========================================================= */
+   ========================================================= */
 
 function renderServicesSection(
     title,
-    items,
-    typeLabel
+    items
 ){
 
-    if(!items.length){
+    if(
+        !items.length
+    ){
 
         return `
 
             <section class="section">
 
                 <div class="section-title">
-
                     ${escapeHtml(title)}
-
                 </div>
-
 
                 <div class="card">
 
@@ -2700,9 +2791,10 @@ function renderServicesSection(
                 </div>
 
             </section>
-        `;
-    }
 
+        `;
+
+    }
 
     return `
 
@@ -2713,13 +2805,10 @@ function renderServicesSection(
                 ${escapeHtml(title)}
 
                 <span>
-
                     ${formatNumber(
                         items.length
                     )}
-
                     مورد
-
                 </span>
 
             </div>
@@ -2727,24 +2816,30 @@ function renderServicesSection(
 
             <div class="items">
 
-                ${items
-                    .map(renderServiceCard)
-                    .join('')}
+                ${
+                    items
+                        .map(renderServiceCard)
+                        .join('')
+                }
 
             </div>
 
         </section>
+
     `;
+
 }
 
 
 /* =========================================================
    CLIENTS
-========================================================= */
+   ========================================================= */
 
 function renderClients(items){
 
-    if(!items.length){
+    if(
+        !items.length
+    ){
 
         return `
 
@@ -2759,9 +2854,10 @@ function renderClients(items){
                 </div>
 
             </section>
-        `;
-    }
 
+        `;
+
+    }
 
     return `
 
@@ -2772,13 +2868,10 @@ function renderClients(items){
                 مشتریان
 
                 <span>
-
                     ${formatNumber(
                         items.length
                     )}
-
                     مشتری
-
                 </span>
 
             </div>
@@ -2786,148 +2879,162 @@ function renderClients(items){
 
             <div class="items">
 
-                ${items.map(item=>`
+                ${
+                    items.map(
+                        item=>`
 
-                    <div class="card">
+                            <div class="card">
 
-                        <div class="card-head">
+                                <div class="card-head">
 
-                            <div>
+                                    <div>
 
-                                <div class="card-title">
+                                        <div class="card-title">
 
-                                    ${escapeHtml(
-                                        item?.['نام شخص/شرکت'] ||
-                                        'بدون نام'
-                                    )}
+                                            ${escapeHtml(
+                                                item?.[
+                                                    'نام شخص/شرکت'
+                                                ] ||
+                                                'بدون نام'
+                                            )}
+
+                                        </div>
+
+
+                                        <div class="card-subtitle">
+
+                                            ${escapeHtml(
+                                                item?.[
+                                                    'نوع فعالیت'
+                                                ] ||
+                                                ''
+                                            )}
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <span class="badge badge-done">
+
+                                        ${escapeHtml(
+                                            item?.[
+                                                'وضعیت همکاری'
+                                            ] ||
+                                            'نامشخص'
+                                        )}
+
+                                    </span>
 
                                 </div>
 
 
-                                <div class="card-subtitle">
+                                <div class="card-row">
 
-                                    ${escapeHtml(
-                                        item?.['نوع فعالیت'] ||
-                                        ''
-                                    )}
+                                    <span>
+                                        نوع شخصیت
+                                    </span>
+
+                                    <span>
+                                        ${escapeHtml(
+                                            item?.[
+                                                'نوع شخصیت'
+                                            ] ||
+                                            '—'
+                                        )}
+                                    </span>
+
+                                </div>
+
+
+                                <div class="card-row">
+
+                                    <span>
+                                        خدمات
+                                    </span>
+
+                                    <span>
+                                        ${escapeHtml(
+                                            item?.[
+                                                'نوع خدمات'
+                                            ] ||
+                                            '—'
+                                        )}
+                                    </span>
+
+                                </div>
+
+
+                                <div class="card-row">
+
+                                    <span>
+                                        حق‌الزحمه
+                                    </span>
+
+                                    <span>
+
+                                        ${
+                                            item?.[
+                                                'حق الزحمه ماهانه'
+                                            ] !== null &&
+                                            item?.[
+                                                'حق الزحمه ماهانه'
+                                            ] !== undefined &&
+                                            item?.[
+                                                'حق الزحمه ماهانه'
+                                            ] !== ''
+                                                ? formatToman(
+                                                    item[
+                                                        'حق الزحمه ماهانه'
+                                                    ]
+                                                )
+                                                : '—'
+                                        }
+
+                                    </span>
 
                                 </div>
 
                             </div>
 
-
-                            <span class="badge badge-done">
-
-                                ${escapeHtml(
-                                    item?.['وضعیت همکاری'] ||
-                                    'نامشخص'
-                                )}
-
-                            </span>
-
-                        </div>
-
-
-                        <div class="card-row">
-
-                            <span>
-                                نوع شخصیت
-                            </span>
-
-                            <span>
-
-                                ${escapeHtml(
-                                    item?.['نوع شخصیت'] ||
-                                    '—'
-                                )}
-
-                            </span>
-
-                        </div>
-
-
-                        <div class="card-row">
-
-                            <span>
-                                خدمات
-                            </span>
-
-                            <span>
-
-                                ${escapeHtml(
-                                    item?.['نوع خدمات'] ||
-                                    '—'
-                                )}
-
-                            </span>
-
-                        </div>
-
-
-                        <div class="card-row">
-
-                            <span>
-                                حق‌الزحمه
-                            </span>
-
-                            <span>
-
-                                ${
-                                    item?.['حق الزحمه ماهانه'] !== null &&
-                                    item?.['حق الزحمه ماهانه'] !== undefined &&
-                                    item?.['حق الزحمه ماهانه'] !== ''
-                                    ?
-                                    formatToman(
-                                        item['حق الزحمه ماهانه']
-                                    )
-                                    :
-                                    '—'
-                                }
-
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                `).join('')}
+                        `
+                    ).join('')
+                }
 
             </div>
 
         </section>
+
     `;
+
 }
 
 
 /* =========================================================
    RECEIVABLES
-========================================================= */
+   ========================================================= */
 
 function renderReceivables(items){
 
-    if(!items.length)
+    if(
+        !items.length
+    ){
         return '';
-
+    }
 
     return `
 
-        <section
-            class="section"
-            style="grid-column:1/-1;"
-        >
+        <section class="section">
 
             <div class="section-title">
 
                 دریافتنی‌ها
 
                 <span>
-
                     ${formatNumber(
                         items.length
                     )}
-
                     مورد
-
                 </span>
 
             </div>
@@ -2935,131 +3042,144 @@ function renderReceivables(items){
 
             <div class="items">
 
-                ${items.map(item=>`
+                ${
+                    items.map(
+                        item=>`
 
-                    <div class="card">
+                            <div class="card">
 
-                        <div class="card-head">
+                                <div class="card-head">
 
-                            <div>
+                                    <div>
 
-                                <div class="card-title">
+                                        <div class="card-title">
 
-                                    ${escapeHtml(
-                                        item?.['نام مراجعه کننده'] ||
-                                        'بدون نام'
-                                    )}
+                                            ${escapeHtml(
+                                                item?.[
+                                                    'نام مراجعه کننده'
+                                                ] ||
+                                                'بدون نام'
+                                            )}
+
+                                        </div>
+
+
+                                        <div class="card-subtitle">
+
+                                            ${escapeHtml(
+                                                item?.[
+                                                    'نوع خدمات'
+                                                ] ||
+                                                ''
+                                            )}
+
+                                        </div>
+
+                                    </div>
+
+
+                                    ${
+                                        item?.[
+                                            'وضعیت دریافت'
+                                        ] ===
+                                        'دریافت شده'
+
+                                            ? `
+                                                <span class="badge badge-done">
+                                                    دریافت شده
+                                                </span>
+                                            `
+
+                                            : `
+                                                <span class="badge badge-high">
+                                                    دریافت نشده
+                                                </span>
+                                            `
+                                    }
 
                                 </div>
 
 
-                                <div class="card-subtitle">
-
-                                    ${escapeHtml(
-                                        item?.['نوع خدمات'] ||
-                                        ''
-                                    )}
-
-                                </div>
-
-                            </div>
-
-
-                            ${
-                                item?.['وضعیت دریافت']
-                                ===
-                                'دریافت شده'
-                                ?
-                                `
-                                    <span class="badge badge-done">
-                                        دریافت شده
-                                    </span>
-                                `
-                                :
-                                `
-                                    <span class="badge badge-high">
-                                        دریافت نشده
-                                    </span>
-                                `
-                            }
-
-                        </div>
-
-
-                        <div class="card-row">
-
-                            <span>
-                                مبلغ
-                            </span>
-
-                            <span>
-
-                                ${formatToman(
-                                    item?.['مبلغ دریافتنی']
-                                )}
-
-                            </span>
-
-                        </div>
-
-
-                        <div class="card-row">
-
-                            <span>
-                                سررسید
-                            </span>
-
-                            <span>
-
-                                ${escapeHtml(
-                                    formatDate(
-                                        item?.['تاریخ سررسید']
-                                    )
-                                )}
-
-                            </span>
-
-                        </div>
-
-
-                        ${
-                            item?.['مبلغ دریافتی']
-                            ?
-                            `
                                 <div class="card-row">
 
                                     <span>
-                                        مبلغ دریافتی
+                                        مبلغ
                                     </span>
 
                                     <span>
-
                                         ${formatToman(
-                                            item['مبلغ دریافتی']
+                                            item?.[
+                                                'مبلغ دریافتنی'
+                                            ]
                                         )}
-
                                     </span>
 
                                 </div>
-                            `
-                            :
-                            ''
-                        }
 
-                    </div>
 
-                `).join('')}
+                                <div class="card-row">
+
+                                    <span>
+                                        سررسید
+                                    </span>
+
+                                    <span>
+                                        ${escapeHtml(
+                                            formatDate(
+                                                item?.[
+                                                    'تاریخ سررسید'
+                                                ]
+                                            )
+                                        )}
+                                    </span>
+
+                                </div>
+
+
+                                ${
+                                    item?.[
+                                        'مبلغ دریافتی'
+                                    ]
+
+                                        ? `
+                                            <div class="card-row">
+
+                                                <span>
+                                                    مبلغ دریافتی
+                                                </span>
+
+                                                <span>
+                                                    ${formatToman(
+                                                        item[
+                                                            'مبلغ دریافتی'
+                                                        ]
+                                                    )}
+                                                </span>
+
+                                            </div>
+                                        `
+
+                                        : ''
+                                }
+
+                            </div>
+
+                        `
+                    ).join('')
+                }
 
             </div>
 
         </section>
+
     `;
+
 }
 
 
 /* =========================================================
    MAIN RENDER
-========================================================= */
+   ========================================================= */
 
 let dashboardData = null;
 
@@ -3068,7 +3188,6 @@ function renderDashboard(dashboard){
 
     dashboardData =
         dashboard;
-
 
     const content =
         document.getElementById(
@@ -3109,14 +3228,12 @@ function renderDashboard(dashboard){
                 نمای کلی
             </button>
 
-
             <button
                 class="tab"
                 data-tab="accounting"
             >
                 حسابداری
             </button>
-
 
             <button
                 class="tab"
@@ -3125,14 +3242,12 @@ function renderDashboard(dashboard){
                 مالیاتی
             </button>
 
-
             <button
                 class="tab"
                 data-tab="clients"
             >
                 مشتریان
             </button>
-
 
             <button
                 class="tab"
@@ -3167,8 +3282,7 @@ function renderDashboard(dashboard){
                     .querySelector(
                         '.tab.active'
                     )
-                    ?.dataset.tab
-                ||
+                    ?.dataset.tab ||
                 'overview'
             );
 
@@ -3211,12 +3325,13 @@ function renderDashboard(dashboard){
     renderCurrentTab(
         'overview'
     );
+
 }
 
 
 /* =========================================================
    TAB RENDER
-========================================================= */
+   ========================================================= */
 
 function renderCurrentTab(tab){
 
@@ -3225,15 +3340,17 @@ function renderCurrentTab(tab){
             'dashboardItems'
         );
 
-
     if(
         !container ||
         !dashboardData
-    )
+    ){
         return;
+    }
 
 
-    if(tab === 'overview'){
+    if(
+        tab === 'overview'
+    ){
 
         const accounting =
             sortServices(
@@ -3263,15 +3380,12 @@ function renderCurrentTab(tab){
 
             ${renderServicesSection(
                 'کارهای حسابداری',
-                accounting,
-                'حسابداری'
+                accounting
             )}
-
 
             ${renderServicesSection(
                 'پرونده‌های مالیاتی',
-                tax,
-                'مالیاتی'
+                tax
             )}
 
         `;
@@ -3280,7 +3394,9 @@ function renderCurrentTab(tab){
     }
 
 
-    if(tab === 'accounting'){
+    if(
+        tab === 'accounting'
+    ){
 
         const items =
             sortServices(
@@ -3297,15 +3413,16 @@ function renderCurrentTab(tab){
         container.innerHTML =
             renderServicesSection(
                 'کارهای حسابداری',
-                items,
-                'حسابداری'
+                items
             );
 
         return;
     }
 
 
-    if(tab === 'tax'){
+    if(
+        tab === 'tax'
+    ){
 
         const items =
             sortServices(
@@ -3322,15 +3439,16 @@ function renderCurrentTab(tab){
         container.innerHTML =
             renderServicesSection(
                 'پرونده‌های مالیاتی',
-                items,
-                'مالیاتی'
+                items
             );
 
         return;
     }
 
 
-    if(tab === 'clients'){
+    if(
+        tab === 'clients'
+    ){
 
         const items =
             (
@@ -3343,13 +3461,17 @@ function renderCurrentTab(tab){
 
 
         container.innerHTML =
-            renderClients(items);
+            renderClients(
+                items
+            );
 
         return;
     }
 
 
-    if(tab === 'receivables'){
+    if(
+        tab === 'receivables'
+    ){
 
         const items =
             (
@@ -3361,26 +3483,21 @@ function renderCurrentTab(tab){
             );
 
 
-        container.innerHTML = `
-
-            <div class="items">
-
-                ${renderReceivables(
-                    items
-                )}
-
-            </div>
-
-        `;
+        container.innerHTML =
+            renderReceivables(
+                items
+            );
 
         return;
     }
+
 }
 
 
 /* =========================================================
    API
-========================================================= */
+   همان منطق نسخه سالم قبلی
+   ========================================================= */
 
 async function loadDashboard(){
 
@@ -3388,7 +3505,6 @@ async function loadDashboard(){
         document.getElementById(
             'appContent'
         );
-
 
     try{
 
@@ -3400,10 +3516,8 @@ async function loadDashboard(){
 
         }
 
-
         const initData =
             tg.initData || '';
-
 
         if(!initData){
 
@@ -3413,19 +3527,13 @@ async function loadDashboard(){
 
         }
 
-
         const url =
             API_URL +
             '?action=getDashboard' +
             '&key=' +
-            encodeURIComponent(
-                API_KEY
-            ) +
+            encodeURIComponent(API_KEY) +
             '&initData=' +
-            encodeURIComponent(
-                initData
-            );
-
+            encodeURIComponent(initData);
 
         const response =
             await fetch(
@@ -3436,10 +3544,8 @@ async function loadDashboard(){
                 }
             );
 
-
         const result =
             await response.json();
-
 
         if(
             !result ||
@@ -3454,8 +3560,9 @@ async function loadDashboard(){
 
         }
 
-
-        if(!result.data){
+        if(
+            !result.data
+        ){
 
             throw new Error(
                 'اطلاعات داشبورد خالی است.'
@@ -3463,16 +3570,13 @@ async function loadDashboard(){
 
         }
 
-
         renderDashboard(
             result.data
         );
 
-    }
-    catch(error){
+    }catch(error){
 
         console.error(error);
-
 
         content.innerHTML = `
 
@@ -3482,7 +3586,6 @@ async function loadDashboard(){
                     خطا در دریافت اطلاعات داشبورد
                 </strong>
 
-
                 <div style="margin-top:8px;">
 
                     ${escapeHtml(
@@ -3491,7 +3594,6 @@ async function loadDashboard(){
                     )}
 
                 </div>
-
 
                 <button
                     class="retry"
@@ -3503,13 +3605,15 @@ async function loadDashboard(){
             </div>
 
         `;
+
     }
+
 }
 
 
 /* =========================================================
-   RANDOM TOUCH PALETTES
-========================================================= */
+   TOUCH LIGHT PALETTES
+   ========================================================= */
 
 const touchPalettes = [
 
@@ -3571,16 +3675,6 @@ const touchPalettes = [
         glow2:'rgba(99,102,241,.20)',
         glow3:'rgba(192,132,252,.12)',
         border:'rgba(165,180,252,.50)'
-    },
-
-    {
-        main:'rgba(96,165,250,.40)',
-        second:'rgba(125,211,252,.22)',
-        third:'rgba(214,184,108,.10)',
-        glow:'rgba(96,165,250,.28)',
-        glow2:'rgba(125,211,252,.20)',
-        glow3:'rgba(214,184,108,.10)',
-        border:'rgba(147,197,253,.50)'
     }
 
 ];
@@ -3601,95 +3695,74 @@ function getRandomTouchPalette(){
                 touchPalettes.length
             );
 
-    }
-    while(
+    }while(
         touchPalettes.length > 1 &&
         index === lastTouchPalette
     );
 
-
     lastTouchPalette =
         index;
 
-
     return touchPalettes[index];
+
 }
 
-
-/* =========================================================
-   TOUCH EFFECT
-========================================================= */
 
 function createTouchLight(x,y){
 
     const palette =
         getRandomTouchPalette();
 
-
     const light =
-        document.createElement(
-            'div'
-        );
-
+        document.createElement('div');
 
     light.className =
         'touch-light';
 
-
     light.style.left =
         `${x}px`;
 
-
     light.style.top =
         `${y}px`;
-
 
     light.style.setProperty(
         '--touch-main',
         palette.main
     );
 
-
     light.style.setProperty(
         '--touch-second',
         palette.second
     );
-
 
     light.style.setProperty(
         '--touch-third',
         palette.third
     );
 
-
     light.style.setProperty(
         '--touch-glow',
         palette.glow
     );
-
 
     light.style.setProperty(
         '--touch-glow2',
         palette.glow2
     );
 
-
     light.style.setProperty(
         '--touch-glow3',
         palette.glow3
     );
-
 
     light.style.setProperty(
         '--touch-border',
         palette.border
     );
 
-
     document.body.appendChild(
         light
     );
-
 
     setTimeout(
         ()=>{
@@ -3697,6 +3770,7 @@ function createTouchLight(x,y){
         },
         800
     );
+
 }
 
 
@@ -3707,9 +3781,9 @@ document.addEventListener(
         if(
             event.pointerType === 'mouse' &&
             event.button !== 0
-        )
+        ){
             return;
-
+        }
 
         createTouchLight(
             event.clientX,
@@ -3725,7 +3799,7 @@ document.addEventListener(
 
 /* =========================================================
    START
-========================================================= */
+   ========================================================= */
 
 loadDashboard();
 
