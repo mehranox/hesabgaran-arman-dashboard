@@ -1,259 +1,478 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0,
-                 maximum-scale=1.0, user-scalable=no">
 
-  <meta name="theme-color" content="#424d2d">
+  <meta
+    name="viewport"
+    content="width=device-width,
+             initial-scale=1.0,
+             maximum-scale=1.0,
+             user-scalable=no">
 
-  <title>داشبورد حسابگران آرمان</title>
+  <meta
+    name="theme-color"
+    content="#424d2d">
 
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <title>
+    داشبورد حسابگران آرمان
+  </title>
+
+  <script
+    src="https://telegram.org/js/telegram-web-app.js">
+  </script>
+
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap');
+
+    @import url(
+      'https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap'
+    );
+
 
     :root {
-      --olive: #687548;
-      --olive-dark: #424d2d;
-      --olive-light: #eef1e7;
 
-      --gold: #b99550;
-      --gold-light: #f6efdf;
+      --olive:
+        #687548;
 
-      --text: #252820;
-      --muted: #777b70;
+      --olive-dark:
+        #424d2d;
 
-      --bg: #f5f6f1;
-      --white: #ffffff;
+      --olive-light:
+        #eef1e7;
 
-      --danger: #b94b4b;
-      --success: #557e59;
+      --gold:
+        #b99550;
 
-      --border: #e6e8df;
+      --gold-light:
+        #f6efdf;
+
+      --text:
+        #252820;
+
+      --muted:
+        #777b70;
+
+      --bg:
+        #f5f6f1;
+
+      --white:
+        #ffffff;
+
+      --danger:
+        #b94b4b;
+
+      --success:
+        #557e59;
+
+      --border:
+        #e6e8df;
 
       --shadow:
-        0 8px 24px rgba(45, 54, 30, .07);
+        0 8px 24px
+        rgba(45, 54, 30, .07);
+
     }
+
 
     * {
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
+
+      box-sizing:
+        border-box;
+
+      -webkit-tap-highlight-color:
+        transparent;
+
     }
+
 
     html {
-      background: var(--bg);
+
+      background:
+        var(--bg);
+
     }
 
+
     body {
-      margin: 0;
-      padding: 0;
 
-      min-height: 100vh;
+      margin:
+        0;
 
-      background: var(--bg);
-      color: var(--text);
+      padding:
+        0;
+
+      min-height:
+        100vh;
+
+      background:
+        var(--bg);
+
+      color:
+        var(--text);
 
       font-family:
         'Vazirmatn',
         Tahoma,
         Arial,
         sans-serif;
+
     }
+
 
     button {
-      font-family: inherit;
+
+      font-family:
+        inherit;
+
     }
+
 
     #app {
-      width: 100%;
-      max-width: 760px;
 
-      margin: 0 auto;
-      padding: 16px;
+      width:
+        100%;
+
+      max-width:
+        760px;
+
+      margin:
+        0 auto;
+
+      padding:
+        16px;
+
     }
 
-    /* ======================================================
+
+    /* ==================================================
        LOADING
-       ====================================================== */
+    ================================================== */
+
 
     .loading,
     .error-box {
-      min-height: 85vh;
 
-      display: flex;
-      flex-direction: column;
+      min-height:
+        85vh;
 
-      justify-content: center;
-      align-items: center;
+      display:
+        flex;
 
-      text-align: center;
+      flex-direction:
+        column;
 
-      padding: 30px 18px;
+      justify-content:
+        center;
+
+      align-items:
+        center;
+
+      text-align:
+        center;
+
+      padding:
+        30px 18px;
+
     }
+
 
     .loading h3,
     .error-box h3 {
-      margin: 18px 0 8px;
 
-      font-size: 18px;
-      font-weight: 800;
+      margin:
+        18px 0 8px;
+
+      font-size:
+        18px;
+
+      font-weight:
+        800;
+
     }
+
 
     .loading p,
     .error-box p {
-      margin: 0;
 
-      color: var(--muted);
+      margin:
+        0;
 
-      font-size: 13px;
-      line-height: 2;
+      color:
+        var(--muted);
 
-      white-space: pre-line;
+      font-size:
+        13px;
+
+      line-height:
+        2;
+
+      white-space:
+        pre-line;
+
     }
 
+
     .spinner {
-      width: 42px;
-      height: 42px;
 
-      border: 4px solid #dfe4d5;
-      border-top-color: var(--olive);
+      width:
+        42px;
 
-      border-radius: 50%;
+      height:
+        42px;
+
+      border:
+        4px solid #dfe4d5;
+
+      border-top-color:
+        var(--olive);
+
+      border-radius:
+        50%;
 
       animation:
         spin .8s linear infinite;
+
     }
+
 
     @keyframes spin {
+
       to {
-        transform: rotate(360deg);
+
+        transform:
+          rotate(360deg);
+
       }
+
     }
 
-    /* ======================================================
+
+    /* ==================================================
        ERROR
-       ====================================================== */
+    ================================================== */
+
 
     .error-icon {
-      width: 62px;
-      height: 62px;
 
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width:
+        62px;
 
-      border-radius: 50%;
+      height:
+        62px;
 
-      background: #f9e7e7;
-      color: var(--danger);
+      display:
+        flex;
 
-      font-size: 28px;
-      font-weight: 800;
+      align-items:
+        center;
+
+      justify-content:
+        center;
+
+      border-radius:
+        50%;
+
+      background:
+        #f9e7e7;
+
+      color:
+        var(--danger);
+
+      font-size:
+        28px;
+
+      font-weight:
+        800;
+
     }
+
 
     .retry-btn {
-      margin-top: 18px;
 
-      padding: 12px 28px;
+      margin-top:
+        18px;
 
-      border: 0;
-      border-radius: 12px;
+      padding:
+        12px 28px;
 
-      background: var(--olive);
-      color: white;
+      border:
+        0;
 
-      font-size: 14px;
-      font-weight: 700;
+      border-radius:
+        12px;
+
+      background:
+        var(--olive);
+
+      color:
+        white;
+
+      font-size:
+        14px;
+
+      font-weight:
+        700;
+
     }
+
 
     .retry-btn:active {
-      transform: scale(.98);
+
+      transform:
+        scale(.98);
+
     }
 
-    /* ======================================================
-       TOP BAR
-       ====================================================== */
+
+    /* ==================================================
+       TOPBAR
+    ================================================== */
+
 
     .topbar {
-      display: flex;
 
-      justify-content: space-between;
-      align-items: center;
+      display:
+        flex;
 
-      gap: 12px;
+      justify-content:
+        space-between;
 
-      margin-bottom: 18px;
+      align-items:
+        center;
+
+      gap:
+        12px;
+
+      margin-bottom:
+        18px;
+
     }
+
 
     .brand {
-      display: flex;
-      align-items: center;
 
-      gap: 10px;
+      display:
+        flex;
 
-      min-width: 0;
+      align-items:
+        center;
+
+      gap:
+        10px;
+
+      min-width:
+        0;
+
     }
+
 
     .brand-logo {
-      width: 45px;
-      height: 45px;
 
-      flex: 0 0 45px;
+      width:
+        45px;
 
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      height:
+        45px;
 
-      border-radius: 13px;
+      flex:
+        0 0 45px;
 
-      background: var(--olive);
-      color: white;
+      display:
+        flex;
 
-      font-size: 20px;
-      font-weight: 800;
+      align-items:
+        center;
+
+      justify-content:
+        center;
+
+      border-radius:
+        13px;
+
+      background:
+        var(--olive);
+
+      color:
+        white;
+
+      font-size:
+        20px;
+
+      font-weight:
+        800;
+
     }
+
 
     .brand h1 {
-      margin: 0;
 
-      font-size: 16px;
-      font-weight: 800;
+      margin:
+        0;
+
+      font-size:
+        16px;
+
+      font-weight:
+        800;
+
     }
+
 
     .brand p {
-      margin: 3px 0 0;
 
-      color: var(--muted);
+      margin:
+        3px 0 0;
 
-      font-size: 10px;
+      color:
+        var(--muted);
+
+      font-size:
+        10px;
+
     }
+
 
     .date-badge {
-      padding: 8px 10px;
 
-      background: var(--gold-light);
+      padding:
+        8px 10px;
 
-      border: 1px solid #eadfc8;
-      border-radius: 10px;
+      background:
+        var(--gold-light);
 
-      color: #80652e;
+      border:
+        1px solid #eadfc8;
 
-      font-size: 10px;
+      border-radius:
+        10px;
 
-      white-space: nowrap;
+      color:
+        #80652e;
+
+      font-size:
+        10px;
+
+      white-space:
+        nowrap;
+
     }
 
-    /* ======================================================
+
+    /* ==================================================
        WELCOME
-       ====================================================== */
+    ================================================== */
+
 
     .welcome {
-      margin-bottom: 16px;
 
-      padding: 23px 20px;
+      margin-bottom:
+        16px;
+
+      padding:
+        23px 20px;
 
       background:
         linear-gradient(
@@ -262,258 +481,453 @@
           var(--olive)
         );
 
-      color: white;
+      color:
+        white;
 
-      border-radius: 20px;
+      border-radius:
+        20px;
 
-      box-shadow: var(--shadow);
+      box-shadow:
+        var(--shadow);
+
     }
+
 
     .welcome small {
-      opacity: .78;
 
-      font-size: 11px;
+      opacity:
+        .78;
+
+      font-size:
+        11px;
+
     }
+
 
     .welcome h2 {
-      margin: 7px 0 4px;
 
-      font-size: 21px;
-      font-weight: 800;
+      margin:
+        7px 0 4px;
+
+      font-size:
+        21px;
+
+      font-weight:
+        800;
+
     }
+
 
     .welcome p {
-      margin: 0;
 
-      opacity: .85;
+      margin:
+        0;
 
-      font-size: 12px;
-      line-height: 2;
+      opacity:
+        .85;
+
+      font-size:
+        12px;
+
+      line-height:
+        2;
+
     }
 
-    /* ======================================================
+
+    /* ==================================================
        SECTION
-       ====================================================== */
+    ================================================== */
+
 
     .section-title {
-      display: flex;
 
-      align-items: center;
-      justify-content: space-between;
+      display:
+        flex;
 
-      margin: 22px 2px 10px;
+      align-items:
+        center;
+
+      justify-content:
+        space-between;
+
+      margin:
+        22px 2px 10px;
+
     }
+
 
     .section-title h3 {
-      margin: 0;
 
-      font-size: 14px;
-      font-weight: 800;
+      margin:
+        0;
+
+      font-size:
+        14px;
+
+      font-weight:
+        800;
+
     }
+
 
     .section-title span {
-      color: var(--muted);
 
-      font-size: 10px;
+      color:
+        var(--muted);
+
+      font-size:
+        10px;
+
     }
 
-    /* ======================================================
+
+    /* ==================================================
        STATS
-       ====================================================== */
+    ================================================== */
+
 
     .stats {
-      display: grid;
+
+      display:
+        grid;
 
       grid-template-columns:
         repeat(2, minmax(0, 1fr));
 
-      gap: 10px;
+      gap:
+        10px;
+
     }
+
 
     .stat-card {
-      min-width: 0;
 
-      padding: 15px;
+      min-width:
+        0;
 
-      background: var(--white);
+      padding:
+        15px;
 
-      border: 1px solid var(--border);
-      border-radius: 16px;
+      background:
+        var(--white);
 
-      box-shadow: var(--shadow);
+      border:
+        1px solid var(--border);
+
+      border-radius:
+        16px;
+
+      box-shadow:
+        var(--shadow);
+
     }
+
 
     .stat-icon {
-      width: 31px;
-      height: 31px;
 
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width:
+        31px;
 
-      margin-bottom: 10px;
+      height:
+        31px;
 
-      background: var(--olive-light);
+      display:
+        flex;
 
-      color: var(--olive-dark);
+      align-items:
+        center;
 
-      border-radius: 10px;
+      justify-content:
+        center;
 
-      font-size: 15px;
+      margin-bottom:
+        10px;
+
+      background:
+        var(--olive-light);
+
+      color:
+        var(--olive-dark);
+
+      border-radius:
+        10px;
+
+      font-size:
+        15px;
+
     }
+
 
     .stat-label {
-      margin-bottom: 10px;
 
-      color: var(--muted);
+      margin-bottom:
+        10px;
 
-      font-size: 11px;
+      color:
+        var(--muted);
+
+      font-size:
+        11px;
+
     }
+
 
     .stat-value {
-      overflow-wrap: anywhere;
 
-      font-size: 18px;
-      font-weight: 800;
+      overflow-wrap:
+        anywhere;
 
-      direction: rtl;
+      font-size:
+        18px;
+
+      font-weight:
+        800;
+
+      direction:
+        rtl;
+
     }
+
 
     .stat-subtitle {
-      margin-top: 5px;
 
-      color: var(--muted);
+      margin-top:
+        5px;
 
-      font-size: 9px;
+      color:
+        var(--muted);
+
+      font-size:
+        9px;
+
     }
 
-    /* ======================================================
+
+    /* ==================================================
        ITEMS
-       ====================================================== */
+    ================================================== */
+
 
     .items {
-      display: flex;
-      flex-direction: column;
 
-      gap: 9px;
+      display:
+        flex;
+
+      flex-direction:
+        column;
+
+      gap:
+        9px;
+
     }
+
 
     .item-card {
-      display: flex;
 
-      align-items: center;
-      justify-content: space-between;
+      display:
+        flex;
 
-      gap: 12px;
+      align-items:
+        center;
 
-      padding: 14px;
+      justify-content:
+        space-between;
 
-      background: white;
+      gap:
+        12px;
 
-      border: 1px solid var(--border);
-      border-radius: 15px;
+      padding:
+        14px;
 
-      box-shadow: var(--shadow);
+      background:
+        white;
+
+      border:
+        1px solid var(--border);
+
+      border-radius:
+        15px;
+
+      box-shadow:
+        var(--shadow);
+
     }
+
 
     .item-main {
-      min-width: 0;
-      flex: 1;
+
+      min-width:
+        0;
+
+      flex:
+        1;
+
     }
+
 
     .item-title {
-      overflow-wrap: anywhere;
 
-      font-size: 12px;
-      font-weight: 700;
+      overflow-wrap:
+        anywhere;
+
+      font-size:
+        12px;
+
+      font-weight:
+        700;
+
     }
+
 
     .item-subtitle {
-      margin-top: 5px;
 
-      color: var(--muted);
+      margin-top:
+        5px;
 
-      font-size: 10px;
+      color:
+        var(--muted);
 
-      overflow-wrap: anywhere;
+      font-size:
+        10px;
+
+      overflow-wrap:
+        anywhere;
+
     }
+
 
     .item-value {
-      max-width: 45%;
 
-      color: var(--olive-dark);
+      max-width:
+        45%;
 
-      font-size: 12px;
-      font-weight: 800;
+      color:
+        var(--olive-dark);
 
-      text-align: left;
+      font-size:
+        12px;
 
-      overflow-wrap: anywhere;
+      font-weight:
+        800;
+
+      text-align:
+        left;
+
+      overflow-wrap:
+        anywhere;
+
     }
+
 
     .status {
-      display: inline-block;
 
-      margin-top: 6px;
+      display:
+        inline-block;
 
-      padding: 3px 8px;
+      margin-top:
+        6px;
 
-      background: var(--olive-light);
-      color: var(--success);
+      padding:
+        3px 8px;
 
-      border-radius: 20px;
+      background:
+        var(--olive-light);
 
-      font-size: 9px;
+      color:
+        var(--success);
+
+      border-radius:
+        20px;
+
+      font-size:
+        9px;
+
     }
+
 
     .empty {
-      padding: 25px 15px;
 
-      text-align: center;
+      padding:
+        25px 15px;
 
-      background: white;
+      text-align:
+        center;
 
-      border: 1px dashed #d7dccd;
-      border-radius: 15px;
+      background:
+        white;
 
-      color: var(--muted);
+      border:
+        1px dashed #d7dccd;
 
-      font-size: 12px;
+      border-radius:
+        15px;
+
+      color:
+        var(--muted);
+
+      font-size:
+        12px;
+
     }
 
-    /* ======================================================
+
+    /* ==================================================
        FOOTER
-       ====================================================== */
+    ================================================== */
+
 
     .footer {
-      padding: 30px 0 15px;
 
-      text-align: center;
+      padding:
+        30px 0 15px;
 
-      color: #a1a59b;
+      text-align:
+        center;
 
-      font-size: 10px;
+      color:
+        #a1a59b;
+
+      font-size:
+        10px;
+
     }
 
-    /* ======================================================
+
+    /* ==================================================
        RESPONSIVE
-       ====================================================== */
+    ================================================== */
+
 
     @media (min-width: 600px) {
 
       #app {
-        padding: 25px;
+
+        padding:
+          25px;
+
       }
+
 
       .stats {
+
         grid-template-columns:
-          repeat(4, minmax(0, 1fr));
+          repeat(
+            4,
+            minmax(0, 1fr)
+          );
+
       }
+
     }
+
   </style>
+
 </head>
 
+
 <body>
+
 
 <main id="app">
 
@@ -535,51 +949,47 @@
 
 
 <script>
+
 'use strict';
 
-/*
- * ==========================================================
- * حسابگران آرمان
- * Telegram Mini App
- *
- * Frontend:
- * GitHub Pages
- *
- * Backend:
- * Google Apps Script
- *
- * ==========================================================
- */
 
-
-/* ==========================================================
+/* ==================================================
    CONFIG
-   ========================================================== */
+================================================== */
+
 
 /*
- * این آدرس را بعداً با Web App URL جدید Apps Script
- * جایگزین می‌کنیم.
+ * Google Apps Script Web App
  *
- * فعلاً خالی می‌ماند تا Backend را در مرحله بعد تنظیم کنیم.
+ * IMPORTANT:
+ * بدون ?key
  */
 
-const API_URL = '';
+const API_URL =
+  'https://script.google.com/macros/s/AKfycbzK62xIUIm8VyTektiy9EKOZBnMeXb1bxIKtcCxKfABIYFezMNEH6yfcrWAeL34zmI/exec';
 
 
-/* ==========================================================
+/* ==================================================
    GLOBALS
-   ========================================================== */
-
-let telegramApp = null;
-
-let authInitData = '';
-
-let dashboardData = null;
+================================================== */
 
 
-/* ==========================================================
+let telegramApp =
+  null;
+
+
+let authInitData =
+  '';
+
+
+let dashboardData =
+  null;
+
+
+/* ==================================================
    TELEGRAM
-   ========================================================== */
+================================================== */
+
 
 function getTelegramApp() {
 
@@ -588,10 +998,14 @@ function getTelegramApp() {
     window.Telegram.WebApp
   ) {
 
-    return window.Telegram.WebApp;
+    return (
+      window.Telegram.WebApp
+    );
+
   }
 
   return null;
+
 }
 
 
@@ -604,6 +1018,7 @@ function initializeTelegram() {
   if (!telegramApp) {
 
     return false;
+
   }
 
 
@@ -619,17 +1034,9 @@ function initializeTelegram() {
       'Telegram initialization warning:',
       error
     );
+
   }
 
-
-  /*
-   * مهم:
-   *
-   * فقط initData برای احراز هویت استفاده می‌شود.
-   *
-   * initDataUnsafe برای authentication
-   * قابل اعتماد نیست.
-   */
 
   authInitData =
     telegramApp.initData || '';
@@ -639,17 +1046,19 @@ function initializeTelegram() {
     authInitData &&
     authInitData.trim()
   );
+
 }
 
 
-/* ==========================================================
-   FIND TELEGRAM INIT DATA
-   ========================================================== */
+/* ==================================================
+   FIND INIT DATA
+================================================== */
+
 
 function findTelegramInitData() {
 
   /*
-   * روش اصلی
+   * Primary
    */
 
   if (
@@ -661,11 +1070,12 @@ function findTelegramInitData() {
     return (
       window.Telegram.WebApp.initData
     );
+
   }
 
 
   /*
-   * روش دوم
+   * Secondary
    */
 
   if (
@@ -673,12 +1083,15 @@ function findTelegramInitData() {
     telegramApp.initData
   ) {
 
-    return telegramApp.initData;
+    return (
+      telegramApp.initData
+    );
+
   }
 
 
   /*
-   * بعضی محیط‌ها ممکن است داده را در URL قرار دهند.
+   * URL fallback
    */
 
   try {
@@ -690,13 +1103,18 @@ function findTelegramInitData() {
 
 
     const urlData =
-      params.get('tgWebAppData') ||
-      params.get('tg_init_data');
+      params.get(
+        'tgWebAppData'
+      ) ||
+      params.get(
+        'tg_init_data'
+      );
 
 
     if (urlData) {
 
       return urlData;
+
     }
 
   } catch (error) {
@@ -705,21 +1123,26 @@ function findTelegramInitData() {
       'URL initData warning:',
       error
     );
+
   }
 
 
   return '';
+
 }
 
 
-/* ==========================================================
+/* ==================================================
    START
-   ========================================================== */
+================================================== */
+
 
 function start() {
 
   const app =
-    document.getElementById('app');
+    document.getElementById(
+      'app'
+    );
 
 
   app.innerHTML = `
@@ -741,63 +1164,75 @@ function start() {
   `;
 
 
-  let attempts = 0;
+  let attempts =
+    0;
 
-  const maxAttempts = 30;
+
+  const maxAttempts =
+    30;
 
 
   const timer =
-    setInterval(function () {
+    setInterval(
+      function () {
 
-      attempts++;
-
-
-      initializeTelegram();
+        attempts++;
 
 
-      const detected =
-        findTelegramInitData();
+        initializeTelegram();
 
 
-      if (detected) {
-
-        authInitData =
-          detected;
+        const detected =
+          findTelegramInitData();
 
 
-        clearInterval(timer);
+        if (detected) {
+
+          authInitData =
+            detected;
 
 
-        setTimeout(
-          loadDashboard,
-          150
-        );
+          clearInterval(
+            timer
+          );
 
 
-        return;
-      }
+          loadDashboard();
 
 
-      if (
-        attempts >= maxAttempts
-      ) {
+          return;
 
-        clearInterval(timer);
+        }
 
 
-        showError(
-          'اطلاعات ورود تلگرام دریافت نشد.\n' +
-          'لطفاً داشبورد را مستقیماً از داخل Telegram باز کنید.'
-        );
-      }
+        if (
+          attempts >=
+          maxAttempts
+        ) {
 
-    }, 200);
+          clearInterval(
+            timer
+          );
+
+
+          showError(
+            'اطلاعات ورود تلگرام دریافت نشد.\n' +
+            'لطفاً داشبورد را مستقیماً از داخل Telegram باز کنید.'
+          );
+
+        }
+
+      },
+      200
+    );
+
 }
 
 
-/* ==========================================================
+/* ==================================================
    LOAD DASHBOARD
-   ========================================================== */
+================================================== */
+
 
 async function loadDashboard() {
 
@@ -816,24 +1251,14 @@ async function loadDashboard() {
     );
 
     return;
-  }
 
-
-  if (
-    !API_URL ||
-    !API_URL.trim()
-  ) {
-
-    showError(
-      'اتصال به سرور هنوز تنظیم نشده است.'
-    );
-
-    return;
   }
 
 
   const app =
-    document.getElementById('app');
+    document.getElementById(
+      'app'
+    );
 
 
   app.innerHTML = `
@@ -862,7 +1287,8 @@ async function loadDashboard() {
         API_URL,
         {
 
-          method: 'POST',
+          method:
+            'POST',
 
           headers: {
 
@@ -886,12 +1312,15 @@ async function loadDashboard() {
       );
 
 
-    if (!response.ok) {
+    if (
+      !response.ok
+    ) {
 
       throw new Error(
         'خطای HTTP: ' +
         response.status
       );
+
     }
 
 
@@ -910,6 +1339,7 @@ async function loadDashboard() {
           ? result.error
           : 'دریافت اطلاعات داشبورد ناموفق بود.'
       );
+
     }
 
 
@@ -917,7 +1347,9 @@ async function loadDashboard() {
       result;
 
 
-    render(result);
+    render(
+      result
+    );
 
 
   } catch (error) {
@@ -935,18 +1367,25 @@ async function loadDashboard() {
         'خطای نامشخص'
       )
     );
+
   }
+
 }
 
 
-/* ==========================================================
+/* ==================================================
    ERROR
-   ========================================================== */
+================================================== */
 
-function showError(message) {
+
+function showError(
+  message
+) {
 
   const app =
-    document.getElementById('app');
+    document.getElementById(
+      'app'
+    );
 
 
   app.innerHTML = `
@@ -976,16 +1415,20 @@ function showError(message) {
     </div>
 
   `;
+
 }
 
 
-/* ==========================================================
+/* ==================================================
    RETRY
-   ========================================================== */
+================================================== */
+
 
 function retryLoading() {
 
-  authInitData = '';
+  authInitData =
+    '';
+
 
   telegramApp =
     getTelegramApp();
@@ -999,8 +1442,12 @@ function retryLoading() {
 
     } catch (error) {
 
-      console.warn(error);
+      console.warn(
+        error
+      );
+
     }
+
   }
 
 
@@ -1015,38 +1462,39 @@ function retryLoading() {
   } else {
 
     start();
+
   }
+
 }
 
 
-/* ==========================================================
+/* ==================================================
    RENDER
-   ========================================================== */
+================================================== */
 
-function render(result) {
+
+function render(
+  result
+) {
 
   const dashboard =
     result.dashboard || {};
 
 
   const stats =
-    dashboard.stats ||
-    [];
+    dashboard.stats || {};
 
 
   const sections =
-    dashboard.sections ||
-    [];
+    dashboard.sections || [];
 
 
   const receivables =
-    dashboard.receivables ||
-    [];
+    dashboard.receivables || [];
 
 
   const user =
-    result.user ||
-    {};
+    result.user || {};
 
 
   const title =
@@ -1067,7 +1515,9 @@ function render(result) {
 
 
   const app =
-    document.getElementById('app');
+    document.getElementById(
+      'app'
+    );
 
 
   app.innerHTML = `
@@ -1097,7 +1547,9 @@ function render(result) {
 
       <div class="date-badge">
 
-        ${escapeHtml(today)}
+        ${escapeHtml(
+          today
+        )}
 
       </div>
 
@@ -1111,11 +1563,15 @@ function render(result) {
       </small>
 
       <h2>
-        ${escapeHtml(title)}
+        ${escapeHtml(
+          title
+        )}
       </h2>
 
       <p>
-        ${escapeHtml(subtitle)}
+        ${escapeHtml(
+          subtitle
+        )}
       </p>
 
     </section>
@@ -1127,10 +1583,14 @@ function render(result) {
     ${renderStats(stats)}
 
 
-    ${renderReceivables(receivables)}
+    ${renderReceivables(
+      receivables
+    )}
 
 
-    ${renderSections(sections)}
+    ${renderSections(
+      sections
+    )}
 
 
     <div class="footer">
@@ -1142,14 +1602,18 @@ function render(result) {
     </div>
 
   `;
+
 }
 
 
-/* ==========================================================
+/* ==================================================
    USER
-   ========================================================== */
+================================================== */
 
-function renderUser(user) {
+
+function renderUser(
+  user
+) {
 
   if (
     !user ||
@@ -1157,24 +1621,37 @@ function renderUser(user) {
   ) {
 
     return '';
+
   }
 
 
   const name =
     user.name ||
     user.fullName ||
-    '';
+    (
+      (
+        user.first_name ||
+        ''
+      ) +
+      ' ' +
+      (
+        user.last_name ||
+        ''
+      )
+    ).trim();
 
 
   if (!name) {
 
     return '';
+
   }
 
 
-  const role =
-    user.role ||
-    'کاربر سامانه';
+  const username =
+    user.username
+      ? '@' + user.username
+      : 'کاربر سامانه';
 
 
   return `
@@ -1194,13 +1671,17 @@ function renderUser(user) {
 
         <div class="item-title">
 
-          ${escapeHtml(name)}
+          ${escapeHtml(
+            name
+          )}
 
         </div>
 
         <div class="item-subtitle">
 
-          ${escapeHtml(role)}
+          ${escapeHtml(
+            username
+          )}
 
         </div>
 
@@ -1209,113 +1690,94 @@ function renderUser(user) {
     </div>
 
   `;
+
 }
 
 
-/* ==========================================================
+/* ==================================================
    STATS
-   ========================================================== */
+================================================== */
 
-function renderStats(stats) {
+
+function renderStats(
+  stats
+) {
+
+  /*
+   * Backend currently returns:
+   *
+   * {
+   *   clients: 10,
+   *   accounting: 4,
+   *   tax: 6,
+   *   receivables: 2
+   * }
+   *
+   * بنابراین object را به کارت تبدیل می‌کنیم.
+   */
+
 
   if (
-    !Array.isArray(stats) ||
-    stats.length === 0
+    !stats ||
+    typeof stats !== 'object'
   ) {
 
     return '';
+
   }
 
 
-  const cards =
-    stats.map(function (stat) {
+  const cards = [
 
-      if (
-        !stat ||
-        typeof stat !== 'object'
-      ) {
+    {
+      label:
+        'مشتریان',
 
-        return '';
-      }
+      value:
+        stats.clients || 0,
 
+      icon:
+        '👥'
 
-      const label =
-        stat.label ||
-        stat.title ||
-        stat.name ||
-        '';
+    },
 
+    {
+      label:
+        'حسابداری',
 
-      const value =
-        stat.value ??
-        stat.amount ??
-        stat.total ??
-        '-';
+      value:
+        stats.accounting || 0,
 
+      icon:
+        '📘'
 
-      const subtitle =
-        stat.subtitle ||
-        stat.description ||
-        '';
+    },
 
+    {
+      label:
+        'مالیاتی',
 
-      const icon =
-        stat.icon ||
-        '◈';
+      value:
+        stats.tax || 0,
 
+      icon:
+        '📑'
 
-      return `
+    },
 
-        <div class="stat-card">
+    {
+      label:
+        'دریافتنی‌ها',
 
-          <div class="stat-icon">
+      value:
+        stats.receivables || 0,
 
-            ${escapeHtml(
-              String(icon)
-            )}
+      icon:
+        '💰'
 
-          </div>
+    }
 
-
-          <div class="stat-label">
-
-            ${escapeHtml(
-              String(label)
-            )}
-
-          </div>
-
-
-          <div class="stat-value">
-
-            ${escapeHtml(
-              formatValue(value)
-            )}
-
-          </div>
-
-
-          ${
-            subtitle
-              ? `
-
-                <div class="stat-subtitle">
-
-                  ${escapeHtml(
-                    String(subtitle)
-                  )}
-
-                </div>
-
-              `
-              : ''
-          }
-
-        </div>
-
-      `;
-
-    }).join('');
+  ];
 
 
   return `
@@ -1331,36 +1793,89 @@ function renderStats(stats) {
 
     <div class="stats">
 
-      ${cards}
+      ${
+        cards
+          .map(
+            function (stat) {
+
+              return `
+
+                <div class="stat-card">
+
+                  <div class="stat-icon">
+
+                    ${escapeHtml(
+                      stat.icon
+                    )}
+
+                  </div>
+
+
+                  <div class="stat-label">
+
+                    ${escapeHtml(
+                      stat.label
+                    )}
+
+                  </div>
+
+
+                  <div class="stat-value">
+
+                    ${formatValue(
+                      stat.value
+                    )}
+
+                  </div>
+
+                </div>
+
+              `;
+
+            }
+          )
+          .join('')
+      }
 
     </div>
 
   `;
+
 }
 
 
-/* ==========================================================
+/* ==================================================
    RECEIVABLES
-   ========================================================== */
+================================================== */
 
-function renderReceivables(receivables) {
+
+function renderReceivables(
+  receivables
+) {
 
   if (
-    !Array.isArray(receivables) ||
+    !Array.isArray(
+      receivables
+    ) ||
     receivables.length === 0
   ) {
 
     return '';
+
   }
 
 
   const items =
     receivables
-      .map(function (item) {
+      .map(
+        function (item) {
 
-        return renderItem(item);
+          return renderItem(
+            item
+          );
 
-      })
+        }
+      )
       .join('');
 
 
@@ -1373,7 +1888,10 @@ function renderReceivables(receivables) {
       </h3>
 
       <span>
-        ${receivables.length} مورد
+
+        ${receivables.length}
+        مورد
+
       </span>
 
     </div>
@@ -1386,136 +1904,159 @@ function renderReceivables(receivables) {
     </div>
 
   `;
+
 }
 
 
-/* ==========================================================
+/* ==================================================
    SECTIONS
-   ========================================================== */
+================================================== */
 
-function renderSections(sections) {
+
+function renderSections(
+  sections
+) {
 
   if (
-    !Array.isArray(sections) ||
+    !Array.isArray(
+      sections
+    ) ||
     sections.length === 0
   ) {
 
     return '';
+
   }
 
 
   return sections
-    .map(function (section) {
+    .map(
+      function (section) {
 
-      if (
-        !section ||
-        typeof section !== 'object'
-      ) {
+        if (
+          !section ||
+          typeof section !==
+            'object'
+        ) {
 
-        return '';
-      }
+          return '';
 
-
-      const title =
-        section.title ||
-        section.name ||
-        'گزارش';
+        }
 
 
-      const items =
-        section.items ||
-        section.data ||
-        section.rows ||
-        [];
+        const title =
+          section.title ||
+          section.name ||
+          'گزارش';
 
 
-      let content = '';
+        const items =
+          section.items ||
+          section.data ||
+          section.rows ||
+          [];
 
 
-      if (
-        Array.isArray(items)
-      ) {
+        let content = '';
 
-        content =
-          items
-            .map(function (item) {
 
-              return renderItem(item);
+        if (
+          Array.isArray(
+            items
+          )
+        ) {
 
-            })
-            .join('');
+          content =
+            items
+              .map(
+                function (item) {
 
-      } else {
+                  return renderItem(
+                    item
+                  );
 
-        content = `
+                }
+              )
+              .join('');
 
-          <div class="item-card">
+        } else {
 
-            <div class="item-main">
+          content = `
 
-              <div class="item-title">
+            <div class="item-card">
 
-                ${escapeHtml(
-                  String(items)
-                )}
+              <div class="item-main">
+
+                <div class="item-title">
+
+                  ${escapeHtml(
+                    String(items)
+                  )}
+
+                </div>
 
               </div>
 
             </div>
 
+          `;
+
+        }
+
+
+        if (!content) {
+
+          content = `
+
+            <div class="empty">
+
+              اطلاعاتی برای نمایش وجود ندارد.
+
+            </div>
+
+          `;
+
+        }
+
+
+        return `
+
+          <div class="section-title">
+
+            <h3>
+
+              ${escapeHtml(
+                String(title)
+              )}
+
+            </h3>
+
+          </div>
+
+
+          <div class="items">
+
+            ${content}
+
           </div>
 
         `;
+
       }
-
-
-      if (!content) {
-
-        content = `
-
-          <div class="empty">
-
-            اطلاعاتی برای نمایش وجود ندارد.
-
-          </div>
-
-        `;
-      }
-
-
-      return `
-
-        <div class="section-title">
-
-          <h3>
-
-            ${escapeHtml(
-              String(title)
-            )}
-
-          </h3>
-
-        </div>
-
-
-        <div class="items">
-
-          ${content}
-
-        </div>
-
-      `;
-
-    })
+    )
     .join('');
+
 }
 
 
-/* ==========================================================
+/* ==================================================
    ITEM
-   ========================================================== */
+================================================== */
 
-function renderItem(item) {
+
+function renderItem(
+  item
+) {
 
   if (
     item === null ||
@@ -1523,11 +2064,13 @@ function renderItem(item) {
   ) {
 
     return '';
+
   }
 
 
   if (
-    typeof item !== 'object'
+    typeof item !==
+    'object'
   ) {
 
     return `
@@ -1549,6 +2092,7 @@ function renderItem(item) {
       </div>
 
     `;
+
   }
 
 
@@ -1639,7 +2183,9 @@ function renderItem(item) {
             <div class="item-value">
 
               ${escapeHtml(
-                formatValue(value)
+                formatValue(
+                  value
+                )
               )}
 
             </div>
@@ -1651,14 +2197,18 @@ function renderItem(item) {
     </div>
 
   `;
+
 }
 
 
-/* ==========================================================
+/* ==================================================
    FORMAT
-   ========================================================== */
+================================================== */
 
-function formatValue(value) {
+
+function formatValue(
+  value
+) {
 
   if (
     value === null ||
@@ -1666,30 +2216,41 @@ function formatValue(value) {
   ) {
 
     return '-';
+
   }
 
 
   if (
-    typeof value === 'number'
+    typeof value ===
+    'number'
   ) {
 
     return value.toLocaleString(
       'fa-IR'
     );
+
   }
 
 
-  return String(value);
+  return String(
+    value
+  );
+
 }
 
 
-/* ==========================================================
+/* ==================================================
    ESCAPE HTML
-   ========================================================== */
+================================================== */
 
-function escapeHtml(value) {
 
-  return String(value)
+function escapeHtml(
+  value
+) {
+
+  return String(
+    value
+  )
 
     .replace(
       /&/g,
@@ -1715,15 +2276,18 @@ function escapeHtml(value) {
       /'/g,
       '&#039;'
     );
+
 }
 
 
-/* ==========================================================
+/* ==================================================
    START APPLICATION
-   ========================================================== */
+================================================== */
+
 
 if (
-  document.readyState === 'loading'
+  document.readyState ===
+  'loading'
 ) {
 
   document.addEventListener(
@@ -1734,9 +2298,12 @@ if (
 } else {
 
   start();
+
 }
 
 </script>
 
+
 </body>
+
 </html>
