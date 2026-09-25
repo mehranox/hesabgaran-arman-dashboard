@@ -1596,7 +1596,401 @@ button{
         font-size:21px;
     }
 }
+/* =========================================================
+   MAGIC ORB — SLOW / MYSTERIOUS / PREMIUM
+   فقط انیمیشن گوی فعال
+========================================================= */
 
+.active-orb-aura{
+    animation:
+        auraPulse 8.5s ease-in-out infinite,
+        auraColor 24s ease-in-out infinite,
+        auraSpin 30s linear infinite;
+}
+
+.active-orb-aura::before{
+    animation:
+        auraInnerPulse 7s ease-in-out infinite alternate;
+}
+
+.active-orb-ring{
+    animation:
+        ringRotate 22s linear infinite;
+}
+
+.active-orb-ring::before{
+    animation:
+        ringRotateReverse 31s linear infinite;
+}
+
+.active-orb-ring::after{
+    animation:
+        ringRotate 27s linear infinite;
+}
+
+.active-orb{
+    animation:
+        orbFloat 7.5s ease-in-out infinite,
+        orbColor 25s ease-in-out infinite,
+        orbGlow 8s ease-in-out infinite;
+}
+
+.active-orb::before{
+    animation:
+        orbSurface 21s linear infinite;
+}
+
+.active-orb::after{
+    animation:
+        innerLight 7s ease-in-out infinite alternate;
+}
+
+.orb-highlight{
+    animation:
+        highlightPulse 6s ease-in-out infinite alternate;
+}
+
+.orb-particle{
+    animation:
+        particlePulse 4.8s ease-in-out infinite,
+        particleFloat 7s ease-in-out infinite;
+}
+
+.active-orb-wrap::before{
+    animation:
+        orbitParticleOne 18s linear infinite;
+}
+
+.active-orb-wrap::after{
+    animation:
+        orbitParticleTwo 22s linear infinite reverse;
+}
+
+
+/* =========================================================
+   SLOW MAGIC MOTION
+========================================================= */
+
+@keyframes orbFloat{
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-3px);
+    }
+}
+
+
+@keyframes auraPulse{
+
+    0%,100%{
+        transform:scale(.91);
+        opacity:.46;
+    }
+
+    50%{
+        transform:scale(1.04);
+        opacity:.72;
+    }
+}
+
+
+@keyframes auraInnerPulse{
+
+    0%{
+        transform:scale(.94);
+        opacity:.28;
+    }
+
+    50%{
+        transform:scale(1.03);
+        opacity:.48;
+    }
+
+    100%{
+        transform:scale(.96);
+        opacity:.32;
+    }
+}
+
+
+@keyframes auraSpin{
+
+    from{
+        rotate:0deg;
+    }
+
+    to{
+        rotate:360deg;
+    }
+}
+
+
+@keyframes ringRotate{
+
+    from{
+        transform:rotate(0deg);
+    }
+
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+
+@keyframes ringRotateReverse{
+
+    from{
+        transform:rotate(0deg);
+    }
+
+    to{
+        transform:rotate(-360deg);
+    }
+}
+
+
+@keyframes orbSurface{
+
+    from{
+        transform:rotate(0deg);
+    }
+
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+
+/* =========================================================
+   DEEP / BREATHING GLOW
+========================================================= */
+
+@keyframes orbGlow{
+
+    0%,100%{
+
+        box-shadow:
+            inset -20px -24px 37px rgba(0,0,0,.38),
+            inset 12px 10px 28px rgba(255,255,255,.20),
+            0 0 27px rgba(40,151,255,.38),
+            0 0 52px rgba(40,151,255,.23),
+            0 0 82px rgba(40,151,255,.13),
+            0 0 115px rgba(56,189,248,.06);
+    }
+
+    50%{
+
+        box-shadow:
+            inset -20px -24px 37px rgba(0,0,0,.35),
+            inset 12px 10px 28px rgba(255,255,255,.23),
+            0 0 34px rgba(40,151,255,.47),
+            0 0 63px rgba(40,151,255,.27),
+            0 0 96px rgba(40,151,255,.16),
+            0 0 130px rgba(56,189,248,.08);
+    }
+}
+
+
+/* =========================================================
+   SLOW INNER LIGHT
+========================================================= */
+
+@keyframes innerLight{
+
+    0%{
+        opacity:.58;
+        transform:scale(.985);
+    }
+
+    50%{
+        opacity:.78;
+        transform:scale(1);
+    }
+
+    100%{
+        opacity:.62;
+        transform:scale(.99);
+    }
+}
+
+
+/* =========================================================
+   GLASS REFLECTION
+========================================================= */
+
+@keyframes highlightPulse{
+
+    0%,100%{
+        opacity:.60;
+        transform:
+            rotate(-28deg)
+            translateY(1px)
+            scale(.95);
+    }
+
+    50%{
+        opacity:.82;
+        transform:
+            rotate(-28deg)
+            translateY(-1px)
+            scale(1.03);
+    }
+}
+
+
+/* =========================================================
+   FLOATING PARTICLES
+========================================================= */
+
+@keyframes particlePulse{
+
+    0%,100%{
+        opacity:.32;
+        transform:scale(.78);
+    }
+
+    50%{
+        opacity:.72;
+        transform:scale(1.12);
+    }
+}
+
+
+@keyframes particleFloat{
+
+    0%,100%{
+        margin-top:0;
+    }
+
+    50%{
+        margin-top:-4px;
+    }
+}
+
+
+/* =========================================================
+   ORBITING PARTICLES — VERY SLOW
+========================================================= */
+
+@keyframes orbitParticleOne{
+
+    0%{
+        transform:
+            rotate(0deg)
+            translateX(83px)
+            rotate(0deg);
+    }
+
+    100%{
+        transform:
+            rotate(360deg)
+            translateX(83px)
+            rotate(-360deg);
+    }
+}
+
+
+@keyframes orbitParticleTwo{
+
+    0%{
+        transform:
+            rotate(0deg)
+            translateX(91px)
+            rotate(0deg);
+    }
+
+    100%{
+        transform:
+            rotate(360deg)
+            translateX(91px)
+            rotate(-360deg);
+    }
+}
+
+
+/* =========================================================
+   VERY SLOW COLOR SHIFT
+========================================================= */
+
+@keyframes orbColor{
+
+    0%,100%{
+        filter:
+            hue-rotate(0deg)
+            saturate(1);
+    }
+
+    25%{
+        filter:
+            hue-rotate(7deg)
+            saturate(1.025);
+    }
+
+    50%{
+        filter:
+            hue-rotate(14deg)
+            saturate(1.045);
+    }
+
+    75%{
+        filter:
+            hue-rotate(-6deg)
+            saturate(1.025);
+    }
+}
+
+
+@keyframes auraColor{
+
+    0%,100%{
+        filter:
+            hue-rotate(0deg)
+            blur(18px);
+    }
+
+    25%{
+        filter:
+            hue-rotate(8deg)
+            blur(19px);
+    }
+
+    50%{
+        filter:
+            hue-rotate(15deg)
+            blur(18px);
+    }
+
+    75%{
+        filter:
+            hue-rotate(-7deg)
+            blur(19px);
+    }
+}
+
+
+/* =========================================================
+   MOBILE — KEEP THE MAGIC SUBTLE
+========================================================= */
+
+@media(max-width:700px){
+
+    .active-orb-aura{
+        animation-duration:
+            9s,
+            26s,
+            34s;
+    }
+
+    .active-orb{
+        animation-duration:
+            8s,
+            27s,
+            8.5s;
+    }
+}
 </style>
 
 </head>
