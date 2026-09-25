@@ -1,55 +1,1262 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <title>داشبورد حسابگران آرمان</title>
 
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
   <style>
-    body {
-      margin: 0;
-      font-family: Tahoma, Arial, sans-serif;
-      background: #f5f3ed;
-      color: #222;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
+
+    * {
+      box-sizing: border-box;
     }
 
-    .box {
-      background: white;
-      padding: 30px;
-      border-radius: 20px;
-      text-align: center;
-      box-shadow: 0 10px 30px rgba(0,0,0,.08);
+    body {
+      margin: 0;
+      font-family:
+        Tahoma,
+        Arial,
+        sans-serif;
+
+      background:
+        #f5f3ed;
+
+      color:
+        #25251f;
+
+      min-height:
+        100vh;
     }
+
+
+    /* ================================
+       APP
+    ================================= */
+
+    #app {
+      width:
+        100%;
+
+      min-height:
+        100vh;
+
+      padding:
+        20px;
+    }
+
+
+    /* ================================
+       LOADING
+    ================================= */
+
+    .loading {
+      min-height:
+        80vh;
+
+      display:
+        flex;
+
+      flex-direction:
+        column;
+
+      align-items:
+        center;
+
+      justify-content:
+        center;
+
+      text-align:
+        center;
+    }
+
+    .spinner {
+      width:
+        42px;
+
+      height:
+        42px;
+
+      border:
+        4px solid #ddd8c8;
+
+      border-top-color:
+        #68734b;
+
+      border-radius:
+        50%;
+
+      animation:
+        spin 0.8s linear infinite;
+
+      margin-bottom:
+        18px;
+    }
+
+    @keyframes spin {
+
+      to {
+        transform:
+          rotate(360deg);
+      }
+
+    }
+
+
+    /* ================================
+       ERROR
+    ================================= */
+
+    .error-box {
+      min-height:
+        80vh;
+
+      display:
+        flex;
+
+      flex-direction:
+        column;
+
+      align-items:
+        center;
+
+      justify-content:
+        center;
+
+      text-align:
+        center;
+    }
+
+    .error-icon {
+      width:
+        54px;
+
+      height:
+        54px;
+
+      border-radius:
+        50%;
+
+      background:
+        #eee5d9;
+
+      color:
+        #8a5a35;
+
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      justify-content:
+        center;
+
+      font-size:
+        28px;
+
+      font-weight:
+        bold;
+
+      margin-bottom:
+        15px;
+    }
+
+    .error-box button {
+      margin-top:
+        18px;
+
+      border:
+        0;
+
+      border-radius:
+        12px;
+
+      padding:
+        12px 22px;
+
+      background:
+        #68734b;
+
+      color:
+        white;
+
+      font-family:
+        inherit;
+
+      cursor:
+        pointer;
+    }
+
+
+    /* ================================
+       HEADER
+    ================================= */
+
+    .header {
+      background:
+        linear-gradient(
+          135deg,
+          #5d6743,
+          #7b8458
+        );
+
+      color:
+        white;
+
+      border-radius:
+        22px;
+
+      padding:
+        24px;
+
+      margin-bottom:
+        18px;
+
+      box-shadow:
+        0 10px 30px rgba(0,0,0,.08);
+    }
+
+    .header h1 {
+      margin:
+        0 0 8px;
+
+      font-size:
+        24px;
+    }
+
+    .header p {
+      margin:
+        0;
+
+      opacity:
+        .9;
+
+      font-size:
+        13px;
+    }
+
+
+    /* ================================
+       STATS
+    ================================= */
+
+    .stats {
+      display:
+        grid;
+
+      grid-template-columns:
+        repeat(
+          auto-fit,
+          minmax(
+            140px,
+            1fr
+          )
+        );
+
+      gap:
+        12px;
+
+      margin-bottom:
+        18px;
+    }
+
+    .stat {
+      background:
+        white;
+
+      border-radius:
+        18px;
+
+      padding:
+        18px;
+
+      box-shadow:
+        0 5px 20px rgba(0,0,0,.05);
+    }
+
+    .stat-label {
+      font-size:
+        12px;
+
+      color:
+        #777;
+
+      margin-bottom:
+        8px;
+    }
+
+    .stat-value {
+      font-size:
+        26px;
+
+      font-weight:
+        bold;
+
+      color:
+        #5d6743;
+    }
+
+
+    /* ================================
+       SECTION
+    ================================= */
+
+    .section {
+      margin-bottom:
+        18px;
+    }
+
+    .section-title {
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      justify-content:
+        space-between;
+
+      margin:
+        0 0 10px;
+
+      font-size:
+        18px;
+
+      font-weight:
+        bold;
+
+      color:
+        #4f5639;
+    }
+
+
+    /* ================================
+       CARDS
+    ================================= */
+
+    .card {
+      background:
+        white;
+
+      border-radius:
+        18px;
+
+      padding:
+        17px;
+
+      margin-bottom:
+        10px;
+
+      box-shadow:
+        0 5px 20px rgba(0,0,0,.05);
+    }
+
+    .card-title {
+      font-weight:
+        bold;
+
+      margin-bottom:
+        7px;
+    }
+
+    .card-description {
+      font-size:
+        13px;
+
+      color:
+        #777;
+
+      line-height:
+        1.8;
+    }
+
+    .card-row {
+      display:
+        flex;
+
+      justify-content:
+        space-between;
+
+      gap:
+        10px;
+
+      padding:
+        6px 0;
+
+      font-size:
+        13px;
+
+      border-bottom:
+        1px solid #eee;
+    }
+
+    .card-row:last-child {
+      border-bottom:
+        0;
+    }
+
+    .empty {
+      background:
+        white;
+
+      border-radius:
+        16px;
+
+      padding:
+        20px;
+
+      text-align:
+        center;
+
+      color:
+        #888;
+
+      font-size:
+        13px;
+    }
+
+
+    /* ================================
+       FOOTER
+    ================================= */
+
+    .footer {
+      text-align:
+        center;
+
+      color:
+        #999;
+
+      font-size:
+        11px;
+
+      padding:
+        15px 0 25px;
+    }
+
   </style>
+
 </head>
+
 
 <body>
 
-<div class="box">
-  <h2>داشبورد حسابگران آرمان</h2>
-  <p id="status">در حال اتصال...</p>
+<div id="app">
+
+  <div class="loading">
+
+    <div class="spinner"></div>
+
+    <h3>
+      در حال اتصال به Telegram...
+    </h3>
+
+    <p>
+      لطفاً چند لحظه صبر کنید.
+    </p>
+
+  </div>
+
 </div>
 
+
 <script>
-const tg = window.Telegram?.WebApp;
 
-if (tg) {
-  tg.ready();
-  tg.expand();
+/* ==================================================
+   CONFIG
+================================================== */
 
-  document.getElementById('status').textContent =
-    '✅ اتصال به Telegram برقرار شد';
-} else {
-  document.getElementById('status').textContent =
-    'داشبورد را از داخل ربات تلگرام باز کنید.';
+const GAS_API =
+  'https://script.google.com/macros/s/AKfycbzK62xIUIm8VyTektiy9EKOZBnMeXb1bxIKtcCxKfABIYFezMNEH6yfcrWAeL34zmI/exec';
+
+
+/* ==================================================
+   TELEGRAM
+================================================== */
+
+let tg = null;
+
+let authInitData = '';
+
+
+function initTelegram() {
+
+  tg =
+    window.Telegram &&
+    window.Telegram.WebApp
+      ? window.Telegram.WebApp
+      : null;
+
+
+  if (!tg) {
+
+    return false;
+
+  }
+
+
+  try {
+
+    tg.ready();
+
+    tg.expand();
+
+  }
+
+  catch (error) {
+
+    console.error(
+      'Telegram initialization:',
+      error
+    );
+
+  }
+
+
+  authInitData =
+    tg.initData || '';
+
+
+  return (
+    authInitData.length > 0
+  );
+
 }
+
+
+/* ==================================================
+   START
+================================================== */
+
+function startDashboard() {
+
+  showLoading(
+    'در حال اتصال به Telegram...'
+  );
+
+
+  let attempts = 0;
+
+  const timer =
+    setInterval(
+      function () {
+
+        attempts++;
+
+
+        if (
+          initTelegram()
+        ) {
+
+          clearInterval(
+            timer
+          );
+
+
+          loadDashboard();
+
+
+          return;
+
+        }
+
+
+        if (
+          attempts >= 20
+        ) {
+
+          clearInterval(
+            timer
+          );
+
+
+          showError(
+            'اطلاعات ورود تلگرام دریافت نشد.<br>' +
+            'لطفاً داشبورد را مستقیماً از داخل Telegram باز کنید.'
+          );
+
+        }
+
+      },
+      300
+    );
+
+}
+
+
+/* ==================================================
+   LOAD DASHBOARD
+================================================== */
+
+function loadDashboard() {
+
+  if (
+    !authInitData
+  ) {
+
+    showError(
+      'اطلاعات Telegram دریافت نشد.'
+    );
+
+    return;
+
+  }
+
+
+  showLoading(
+    'در حال دریافت اطلاعات داشبورد...'
+  );
+
+
+  const callbackName =
+    'handleDashboardResponse';
+
+
+  const oldScript =
+    document.getElementById(
+      'dashboard-api-script'
+    );
+
+
+  if (
+    oldScript
+  ) {
+
+    oldScript.remove();
+
+  }
+
+
+  const url =
+    GAS_API +
+    '?action=getDashboard' +
+    '&initData=' +
+    encodeURIComponent(
+      authInitData
+    ) +
+    '&callback=' +
+    callbackName;
+
+
+  const script =
+    document.createElement(
+      'script'
+    );
+
+
+  script.id =
+    'dashboard-api-script';
+
+
+  script.src =
+    url;
+
+
+  script.onerror =
+    function () {
+
+      showError(
+        'ارتباط با سرور داشبورد برقرار نشد.'
+      );
+
+    };
+
+
+  document.body.appendChild(
+    script
+  );
+
+}
+
+
+/* ==================================================
+   JSONP RESPONSE
+================================================== */
+
+window.handleDashboardResponse =
+  function (result) {
+
+
+    const script =
+      document.getElementById(
+        'dashboard-api-script'
+      );
+
+
+    if (
+      script
+    ) {
+
+      script.remove();
+
+    }
+
+
+    if (
+      !result
+    ) {
+
+      showError(
+        'پاسخ معتبری از سرور دریافت نشد.'
+      );
+
+      return;
+
+    }
+
+
+    if (
+      result.ok !== true
+    ) {
+
+      showError(
+        result.error ||
+        'بارگذاری داشبورد ناموفق بود.'
+      );
+
+      return;
+
+    }
+
+
+    if (
+      !result.dashboard
+    ) {
+
+      showError(
+        'اطلاعات داشبورد در پاسخ سرور وجود ندارد.'
+      );
+
+      return;
+
+    }
+
+
+    render(
+      result
+    );
+
+  };
+
+
+/* ==================================================
+   RENDER
+================================================== */
+
+function render(result) {
+
+  const data =
+    result.dashboard || {};
+
+
+  const summary =
+    data.summary || {};
+
+
+  const stats =
+    data.stats || {};
+
+
+  const sections =
+    data.sections || [];
+
+
+  let html = '';
+
+
+  /* HEADER */
+
+  html += `
+
+    <div class="header">
+
+      <h1>
+        حسابگران آرمان
+      </h1>
+
+      <p>
+        داشبورد مدیریت خدمات مالی، حسابداری و مالیاتی
+      </p>
+
+    </div>
+
+  `;
+
+
+  /* STATS */
+
+  html += `
+
+    <div class="stats">
+
+      ${statCard(
+        'مشتریان',
+        stats.clients || 0
+      )}
+
+      ${statCard(
+        'خدمات حسابداری',
+        stats.accounting || 0
+      )}
+
+      ${statCard(
+        'خدمات مالیاتی',
+        stats.tax || 0
+      )}
+
+      ${statCard(
+        'مطالبات',
+        stats.receivables || 0
+      )}
+
+    </div>
+
+  `;
+
+
+  /* SUMMARY */
+
+  if (
+    Object.keys(summary).length
+  ) {
+
+    html += `
+
+      <div class="section">
+
+        <div class="section-title">
+          خلاصه وضعیت
+        </div>
+
+        <div class="card">
+
+          ${renderObject(
+            summary
+          )}
+
+        </div>
+
+      </div>
+
+    `;
+
+  }
+
+
+  /* SECTIONS */
+
+  sections.forEach(
+    function(section) {
+
+      html += `
+
+        <div class="section">
+
+          <div class="section-title">
+
+            ${escapeHtml(
+              section.title ||
+              ''
+            )}
+
+          </div>
+
+          ${renderItems(
+            section.items || []
+          )}
+
+        </div>
+
+      `;
+
+    }
+  );
+
+
+  /* RECEIVABLES */
+
+  if (
+    Array.isArray(
+      data.receivables
+    ) &&
+    data.receivables.length
+  ) {
+
+    html += `
+
+      <div class="section">
+
+        <div class="section-title">
+          مطالبات
+        </div>
+
+        ${renderItems(
+          data.receivables
+        )}
+
+      </div>
+
+    `;
+
+  }
+
+
+  /* EMPTY */
+
+  if (
+    !sections.length &&
+    !Object.keys(summary).length &&
+    !(
+      data.receivables &&
+      data.receivables.length
+    )
+  ) {
+
+    html += `
+
+      <div class="empty">
+
+        اطلاعات داشبورد هنوز ثبت نشده است.
+
+      </div>
+
+    `;
+
+  }
+
+
+  html += `
+
+    <div class="footer">
+
+      آخرین بروزرسانی:
+      ${escapeHtml(
+        data.updatedAt || '-'
+      )}
+
+    </div>
+
+  `;
+
+
+  document.getElementById(
+    'app'
+  ).innerHTML =
+    html;
+
+}
+
+
+/* ==================================================
+   STAT CARD
+================================================== */
+
+function statCard(
+  label,
+  value
+) {
+
+  return `
+
+    <div class="stat">
+
+      <div class="stat-label">
+        ${escapeHtml(
+          label
+        )}
+      </div>
+
+      <div class="stat-value">
+        ${escapeHtml(
+          String(value)
+        )}
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* ==================================================
+   OBJECT
+================================================== */
+
+function renderObject(
+  object
+) {
+
+  return Object.keys(
+    object
+  )
+  .map(
+    function(key) {
+
+      const value =
+        object[key];
+
+
+      return `
+
+        <div class="card-row">
+
+          <span>
+            ${escapeHtml(
+              key
+            )}
+          </span>
+
+          <strong>
+            ${escapeHtml(
+              formatValue(value)
+            )}
+          </strong>
+
+        </div>
+
+      `;
+
+    }
+  )
+  .join('');
+
+}
+
+
+/* ==================================================
+   ITEMS
+================================================== */
+
+function renderItems(
+  items
+) {
+
+  if (
+    !Array.isArray(items) ||
+    !items.length
+  ) {
+
+    return `
+
+      <div class="empty">
+        موردی ثبت نشده است.
+      </div>
+
+    `;
+
+  }
+
+
+  return items
+    .map(
+      function(item) {
+
+        if (
+          typeof item !== 'object' ||
+          item === null
+        ) {
+
+          return `
+
+            <div class="card">
+
+              ${escapeHtml(
+                formatValue(
+                  item
+                )
+              )}
+
+            </div>
+
+          `;
+
+        }
+
+
+        return `
+
+          <div class="card">
+
+            ${renderObject(
+              item
+            )}
+
+          </div>
+
+        `;
+
+      }
+    )
+    .join('');
+
+}
+
+
+/* ==================================================
+   FORMAT VALUE
+================================================== */
+
+function formatValue(
+  value
+) {
+
+  if (
+    value === null ||
+    value === undefined
+  ) {
+
+    return '';
+
+  }
+
+
+  if (
+    typeof value === 'object'
+  ) {
+
+    return JSON.stringify(
+      value
+    );
+
+  }
+
+
+  return String(
+    value
+  );
+
+}
+
+
+/* ==================================================
+   ESCAPE HTML
+================================================== */
+
+function escapeHtml(
+  value
+) {
+
+  return String(
+    value ?? ''
+  )
+  .replace(
+    /&/g,
+    '&amp;'
+  )
+  .replace(
+    /</g,
+    '&lt;'
+  )
+  .replace(
+    />/g,
+    '&gt;'
+  )
+  .replace(
+    /"/g,
+    '&quot;'
+  )
+  .replace(
+    /'/g,
+    '&#039;'
+  );
+
+}
+
+
+/* ==================================================
+   LOADING
+================================================== */
+
+function showLoading(
+  message
+) {
+
+  document.getElementById(
+    'app'
+  ).innerHTML = `
+
+    <div class="loading">
+
+      <div class="spinner"></div>
+
+      <h3>
+        ${escapeHtml(
+          message
+        )}
+      </h3>
+
+      <p>
+        لطفاً چند لحظه صبر کنید...
+      </p>
+
+    </div>
+
+  `;
+
+}
+
+
+/* ==================================================
+   ERROR
+================================================== */
+
+function showError(
+  message
+) {
+
+  document.getElementById(
+    'app'
+  ).innerHTML = `
+
+    <div class="error-box">
+
+      <div class="error-icon">
+        !
+      </div>
+
+      <h3>
+        خطا در بارگذاری داشبورد
+      </h3>
+
+      <p>
+        ${message}
+      </p>
+
+      <button
+        onclick="startDashboard()"
+      >
+        تلاش مجدد
+      </button>
+
+    </div>
+
+  `;
+
+}
+
+
+/* ==================================================
+   START
+================================================== */
+
+document.addEventListener(
+  'DOMContentLoaded',
+  function() {
+
+    startDashboard();
+
+  }
+);
+
 </script>
 
 </body>
