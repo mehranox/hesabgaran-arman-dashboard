@@ -12,17 +12,16 @@
 
   <title>حسابگران آرمان</title>
 
-  <!-- Telegram Mini App -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
   <style>
 
-    /* ==========================================================
-       ROOT
-    ========================================================== */
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
 
     :root {
-
       --bg: #07131b;
       --bg2: #0b1d25;
 
@@ -39,56 +38,40 @@
       --muted: #9caeb4;
 
       --glass: rgba(255,255,255,.065);
-      --glass2: rgba(255,255,255,.09);
+      --glass2: rgba(255,255,255,.095);
 
-      --border: rgba(255,255,255,.09);
+      --border: rgba(255,255,255,.10);
 
-      --green: #65d6a0;
-      --red: #ff6675;
-
-      --shadow:
-        0 20px 60px rgba(0,0,0,.35);
-
-      --radius: 22px;
-
-    }
-
-
-    /* ==========================================================
-       RESET
-    ========================================================== */
-
-    * {
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
+      --success: #65d6a0;
+      --danger: #ff6675;
+      --warning: #f4c96b;
     }
 
     html {
       background: var(--bg);
-      min-height: 100%;
     }
 
     body {
-
       margin: 0;
+      padding: 0;
 
       min-height: 100vh;
 
       background:
         radial-gradient(
-          circle at 85% 5%,
+          circle at 15% 10%,
           rgba(56,189,248,.10),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 85% 15%,
+          rgba(214,181,109,.09),
           transparent 28%
         ),
         radial-gradient(
-          circle at 10% 20%,
-          rgba(137,150,74,.09),
-          transparent 25%
-        ),
-        radial-gradient(
-          circle at 80% 85%,
-          rgba(214,181,109,.07),
-          transparent 30%
+          circle at 50% 100%,
+          rgba(137,150,74,.08),
+          transparent 35%
         ),
         linear-gradient(
           145deg,
@@ -104,36 +87,38 @@
         sans-serif;
 
       overflow-x: hidden;
-
     }
 
+    body::before {
+      content: "";
 
-    button,
-    input {
-      font-family: inherit;
+      position: fixed;
+
+      inset: 0;
+
+      pointer-events: none;
+
+      background:
+        linear-gradient(
+          120deg,
+          transparent 0%,
+          rgba(255,255,255,.015) 50%,
+          transparent 100%
+        );
+
+      z-index: 0;
     }
-
-
-    /* ==========================================================
-       ROOT
-    ========================================================== */
 
     #root {
+      position: relative;
+      z-index: 1;
 
-      width: 100%;
       min-height: 100vh;
-
     }
 
-
-    /* ==========================================================
-       APP
-    ========================================================== */
-
     .app {
-
       width: 100%;
-      max-width: 920px;
+      max-width: 1100px;
 
       margin: 0 auto;
 
@@ -141,66 +126,41 @@
         14px
         14px
         30px;
-
     }
 
-
-    /* ==========================================================
-       GLASS
-    ========================================================== */
-
-    .hero,
-    .section,
-    .stat,
-    .circle-card,
-    .item,
-    .client {
-
-      background:
-        linear-gradient(
-          145deg,
-          rgba(255,255,255,.075),
-          rgba(255,255,255,.025)
-        );
-
-      border:
-        1px solid
-        var(--border);
-
-      box-shadow:
-        var(--shadow);
-
-      backdrop-filter:
-        blur(18px);
-
-      -webkit-backdrop-filter:
-        blur(18px);
-
-    }
-
-
-    /* ==========================================================
+    /* ======================================================
        HERO
-    ========================================================== */
+    ====================================================== */
 
     .hero {
-
       position: relative;
 
       overflow: hidden;
 
       padding: 20px;
 
-      border-radius:
-        28px;
-
       margin-bottom: 14px;
 
+      border-radius: 24px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255,255,255,.095),
+          rgba(255,255,255,.035)
+        );
+
+      border: 1px solid var(--border);
+
+      box-shadow:
+        0 20px 60px rgba(0,0,0,.28),
+        inset 0 1px 0 rgba(255,255,255,.07);
+
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
     }
 
-
-    .hero::before {
-
+    .hero::after {
       content: "";
 
       position: absolute;
@@ -208,78 +168,43 @@
       width: 220px;
       height: 220px;
 
+      left: -100px;
       top: -120px;
-      left: -80px;
+
+      border-radius: 50%;
 
       background:
         radial-gradient(
           circle,
-          rgba(56,189,248,.20),
+          rgba(56,189,248,.16),
           transparent 68%
         );
 
       pointer-events: none;
-
     }
-
-
-    .hero::after {
-
-      content: "";
-
-      position: absolute;
-
-      width: 190px;
-      height: 190px;
-
-      bottom: -120px;
-      right: -60px;
-
-      background:
-        radial-gradient(
-          circle,
-          rgba(214,181,109,.13),
-          transparent 68%
-        );
-
-      pointer-events: none;
-
-    }
-
 
     .hero-top {
-
       position: relative;
       z-index: 2;
 
       display: flex;
 
-      align-items: center;
-
       justify-content: space-between;
 
-      gap: 12px;
+      align-items: center;
 
+      gap: 12px;
     }
 
-
     .brand {
-
       display: flex;
 
       align-items: center;
 
       gap: 12px;
-
-      min-width: 0;
-
     }
 
-
     .brand-icon {
-
-      flex: 0 0 auto;
-
       width: 52px;
       height: 52px;
 
@@ -288,124 +213,80 @@
       align-items: center;
       justify-content: center;
 
-      border-radius: 17px;
+      border-radius: 16px;
+
+      font-size: 27px;
 
       color: var(--gold2);
-
-      font-size: 28px;
 
       background:
         linear-gradient(
           145deg,
-          rgba(214,181,109,.18),
+          rgba(214,181,109,.20),
           rgba(56,189,248,.08)
         );
 
-      border:
-        1px solid
-        rgba(214,181,109,.25);
+      border: 1px solid rgba(214,181,109,.25);
 
       box-shadow:
-        inset 0 0 25px rgba(255,255,255,.025),
-        0 0 30px rgba(214,181,109,.05);
-
+        0 8px 30px rgba(214,181,109,.08),
+        inset 0 1px 0 rgba(255,255,255,.08);
     }
 
-
     .brand h1 {
-
       margin: 0;
 
-      font-size: 19px;
+      font-size: 21px;
 
       font-weight: 800;
 
       letter-spacing: -.5px;
-
     }
 
-
     .brand p {
-
       margin: 5px 0 0;
 
       color: var(--muted);
 
-      font-size: 10px;
-
+      font-size: 11px;
     }
 
-
     .connection {
-
-      flex: 0 0 auto;
-
       display: flex;
 
       align-items: center;
 
-      gap: 6px;
-
-      padding: 7px 10px;
-
-      border-radius: 999px;
-
-      color: #bdeed8;
-
-      background:
-        rgba(101,214,160,.08);
-
-      border:
-        1px solid
-        rgba(101,214,160,.16);
-
-      font-size: 9px;
+      gap: 7px;
 
       white-space: nowrap;
 
+      color: var(--success);
+
+      font-size: 10px;
+
+      background: rgba(101,214,160,.07);
+
+      border: 1px solid rgba(101,214,160,.14);
+
+      border-radius: 30px;
+
+      padding: 7px 10px;
     }
 
-
     .pulse {
-
       width: 7px;
       height: 7px;
 
       border-radius: 50%;
 
-      background: var(--green);
+      background: var(--success);
 
       box-shadow:
-        0 0 0 0 rgba(101,214,160,.5);
-
-      animation:
-        pulse 1.8s infinite;
-
+        0 0 0 4px rgba(101,214,160,.08),
+        0 0 15px rgba(101,214,160,.6);
     }
-
-
-    @keyframes pulse {
-
-      0% {
-        box-shadow:
-          0 0 0 0 rgba(101,214,160,.5);
-      }
-
-      70% {
-        box-shadow:
-          0 0 0 7px rgba(101,214,160,0);
-      }
-
-      100% {
-        box-shadow:
-          0 0 0 0 rgba(101,214,160,0);
-      }
-
-    }
-
 
     .user-line {
-
       position: relative;
       z-index: 2;
 
@@ -413,40 +294,32 @@
 
       justify-content: space-between;
 
-      align-items: center;
-
       gap: 10px;
 
-      margin-top: 18px;
+      margin-top: 17px;
 
       padding-top: 14px;
 
       border-top:
         1px solid
-        rgba(255,255,255,.065);
+        rgba(255,255,255,.07);
 
       color: var(--muted);
 
-      font-size: 9px;
-
+      font-size: 10px;
     }
 
-
     .user-name {
-
       color: var(--gold2);
 
       font-weight: 700;
-
     }
 
-
-    /* ==========================================================
+    /* ======================================================
        STATS
-    ========================================================== */
+    ====================================================== */
 
     .stats {
-
       display: grid;
 
       grid-template-columns:
@@ -455,180 +328,157 @@
       gap: 10px;
 
       margin-bottom: 14px;
-
     }
 
-
     .stat {
-
-      position: relative;
-
-      overflow: hidden;
-
       min-width: 0;
 
-      padding: 15px 11px;
-
-      border-radius: 19px;
+      padding: 15px 12px;
 
       text-align: center;
 
-    }
-
-
-    .stat::after {
-
-      content: "";
-
-      position: absolute;
-
-      width: 80px;
-      height: 80px;
-
-      top: -45px;
-      right: -35px;
+      border-radius: 18px;
 
       background:
-        radial-gradient(
-          circle,
-          rgba(56,189,248,.12),
-          transparent 70%
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.075),
+          rgba(255,255,255,.035)
         );
 
-    }
+      border:
+        1px solid
+        rgba(255,255,255,.08);
 
+      box-shadow:
+        0 10px 35px rgba(0,0,0,.18),
+        inset 0 1px 0 rgba(255,255,255,.05);
+
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
 
     .stat-icon {
+      margin-bottom: 8px;
 
-      position: relative;
-      z-index: 1;
-
-      margin-bottom: 7px;
-
-      font-size: 16px;
+      font-size: 19px;
 
       color: var(--blue);
-
     }
 
-
     .stat-number {
+      overflow: hidden;
 
-      position: relative;
-      z-index: 1;
-
-      color: var(--text);
-
-      font-size: 17px;
+      font-size: 18px;
 
       font-weight: 800;
 
-      line-height: 1.25;
+      color: var(--text);
 
-      direction: rtl;
+      white-space: nowrap;
 
-      word-break: break-word;
-
+      text-overflow: ellipsis;
     }
 
-
     .stat-label {
-
-      position: relative;
-      z-index: 1;
-
       margin-top: 5px;
 
       color: var(--muted);
 
-      font-size: 8px;
-
+      font-size: 9px;
     }
 
-
-    /* ==========================================================
-       SECTION
-    ========================================================== */
+    /* ======================================================
+       SECTIONS
+    ====================================================== */
 
     .section {
+      margin-bottom: 14px;
 
       padding: 16px;
 
-      margin-bottom: 14px;
+      border-radius: 22px;
 
-      border-radius: var(--radius);
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.065),
+          rgba(255,255,255,.025)
+        );
 
+      border:
+        1px solid
+        rgba(255,255,255,.08);
+
+      box-shadow:
+        0 15px 45px rgba(0,0,0,.20),
+        inset 0 1px 0 rgba(255,255,255,.045);
+
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
     }
 
-
     .section-title {
-
       display: flex;
 
-      align-items: baseline;
-
       justify-content: space-between;
+
+      align-items: baseline;
 
       gap: 10px;
 
       margin-bottom: 14px;
-
     }
-
 
     .section-title h2 {
-
       margin: 0;
 
-      font-size: 14px;
+      font-size: 15px;
 
       font-weight: 800;
-
     }
-
 
     .section-title span {
-
       color: var(--muted);
 
-      font-size: 8px;
-
+      font-size: 9px;
     }
 
-
-    /* ==========================================================
+    /* ======================================================
        OVERVIEW
-    ========================================================== */
+    ====================================================== */
 
     .overview {
-
       display: grid;
 
       grid-template-columns:
-        repeat(2,minmax(0,1fr));
+        repeat(2, minmax(0,1fr));
 
       gap: 12px;
-
     }
 
-
     .circle-card {
-
-      padding: 18px 12px;
-
-      border-radius: 20px;
+      padding: 15px;
 
       text-align: center;
 
+      border-radius: 18px;
+
+      background:
+        rgba(0,0,0,.13);
+
+      border:
+        1px solid
+        rgba(255,255,255,.055);
     }
 
-
     .donut {
+      position: relative;
 
-      width: 120px;
-      height: 120px;
+      width: 135px;
+      height: 135px;
 
-      margin: 0 auto 13px;
+      margin: 0 auto 12px;
 
       border-radius: 50%;
 
@@ -637,324 +487,272 @@
       align-items: center;
       justify-content: center;
 
-      position: relative;
-
       box-shadow:
-        0 0 35px rgba(56,189,248,.07);
-
+        0 12px 35px rgba(0,0,0,.25);
     }
 
-
-    .donut::before {
-
+    .donut::after {
       content: "";
 
       position: absolute;
 
-      inset: 9px;
+      width: 101px;
+      height: 101px;
 
       border-radius: 50%;
 
       background:
         linear-gradient(
           145deg,
-          #0a1c25,
+          #0b1d25,
           #07131b
         );
 
       box-shadow:
-        inset 0 0 20px rgba(0,0,0,.5);
-
+        inset 0 0 25px rgba(0,0,0,.3);
     }
-
 
     .donut-center {
-
       position: relative;
+
       z-index: 2;
 
+      text-align: center;
     }
-
 
     .donut-number {
-
       font-size: 22px;
 
-      font-weight: 900;
-
-      color: var(--text);
-
+      font-weight: 800;
     }
 
-
     .donut-label {
-
-      margin-top: 2px;
+      margin-top: 3px;
 
       color: var(--muted);
 
       font-size: 8px;
-
     }
 
-
     .legend {
-
       display: flex;
 
       justify-content: center;
 
-      gap: 14px;
+      gap: 15px;
 
-      flex-wrap: wrap;
+      color: var(--muted);
 
+      font-size: 8px;
     }
 
-
     .legend-item {
-
       display: flex;
 
       align-items: center;
 
       gap: 5px;
-
-      color: var(--muted);
-
-      font-size: 8px;
-
     }
 
-
     .legend-dot {
-
       width: 7px;
       height: 7px;
 
       border-radius: 50%;
-
-      display: inline-block;
-
     }
-
 
     .legend-dot.blue {
       background: var(--blue);
-    }
 
+      box-shadow:
+        0 0 9px
+        rgba(56,189,248,.5);
+    }
 
     .legend-dot.olive {
-      background: var(--olive2);
-    }
+      background: var(--olive);
 
+      box-shadow:
+        0 0 9px
+        rgba(137,150,74,.5);
+    }
 
     .legend-dot.gold {
-      background: var(--gold2);
+      background: var(--gold);
+
+      box-shadow:
+        0 0 9px
+        rgba(214,181,109,.5);
     }
 
-
-    /* ==========================================================
+    /* ======================================================
        SEARCH
-    ========================================================== */
+    ====================================================== */
 
     .search {
-
       display: block;
 
       width: 100%;
 
-      border: 1px solid
-        rgba(255,255,255,.08);
+      height: 43px;
+
+      margin-bottom: 10px;
+
+      padding:
+        0
+        14px;
+
+      border-radius: 14px;
+
+      border:
+        1px solid
+        rgba(255,255,255,.09);
 
       outline: none;
 
-      border-radius: 15px;
-
-      background:
-        rgba(255,255,255,.045);
-
       color: var(--text);
 
-      padding:
-        12px
-        14px;
+      background:
+        rgba(0,0,0,.18);
 
-      font-size: 10px;
+      font-family: inherit;
+
+      font-size: 11px;
 
       direction: rtl;
-
-      transition:
-        .2s ease;
-
-      margin-bottom: 10px;
-
     }
-
 
     .search::placeholder {
-
-      color:
-        #71858b;
-
+      color: #72868c;
     }
 
-
     .search:focus {
-
       border-color:
-        rgba(56,189,248,.35);
-
-      background:
-        rgba(255,255,255,.065);
+        rgba(56,189,248,.38);
 
       box-shadow:
         0 0 0 3px
-        rgba(56,189,248,.05);
-
+        rgba(56,189,248,.06);
     }
 
-
-    /* ==========================================================
+    /* ======================================================
        TABS
-    ========================================================== */
+    ====================================================== */
 
     .tabs {
-
       display: flex;
 
-      gap: 6px;
+      gap: 7px;
 
       overflow-x: auto;
 
+      padding-bottom: 3px;
+
       scrollbar-width: none;
-
-      padding-bottom: 2px;
-
-      margin-bottom: 10px;
-
     }
-
 
     .tabs::-webkit-scrollbar {
       display: none;
     }
 
-
     .tab {
-
       flex: 0 0 auto;
 
       border: 1px solid
-        rgba(255,255,255,.07);
+        rgba(255,255,255,.08);
 
       background:
         rgba(255,255,255,.035);
 
       color: var(--muted);
 
-      padding:
-        8px
-        12px;
-
       border-radius: 12px;
 
-      cursor: pointer;
+      padding:
+        9px
+        13px;
+
+      font-family: inherit;
 
       font-size: 9px;
 
-      transition:
-        .2s ease;
-
+      cursor: pointer;
     }
-
-
-    .tab:hover {
-
-      border-color:
-        rgba(56,189,248,.2);
-
-    }
-
 
     .tab.active {
-
-      color: #07131b;
+      color: #fff;
 
       background:
         linear-gradient(
           135deg,
-          var(--blue),
-          #74d9ff
+          rgba(56,189,248,.20),
+          rgba(37,99,235,.12)
         );
 
       border-color:
-        transparent;
-
-      font-weight: 800;
+        rgba(56,189,248,.30);
 
       box-shadow:
-        0 7px 20px
-        rgba(56,189,248,.12);
-
+        0 6px 20px
+        rgba(56,189,248,.08);
     }
 
-
-    /* ==========================================================
+    /* ======================================================
        ITEMS
-    ========================================================== */
+    ====================================================== */
 
     .items {
-
       display: grid;
 
       gap: 9px;
-
     }
 
-
     .item {
-
       position: relative;
-
-      overflow: hidden;
 
       padding: 14px;
 
-      border-radius: 18px;
+      border-radius: 17px;
 
-      border-right:
-        3px solid
-        var(--blue);
+      background:
+        rgba(0,0,0,.14);
 
+      border:
+        1px solid
+        rgba(255,255,255,.065);
+
+      overflow: hidden;
     }
 
+    .item::before {
+      content: "";
 
-    .item.priority-high {
+      position: absolute;
 
-      border-right-color:
-        var(--red);
+      right: 0;
+      top: 0;
+      bottom: 0;
 
+      width: 3px;
+
+      background: var(--blue);
+
+      opacity: .7;
     }
 
-
-    .item.priority-medium {
-
-      border-right-color:
-        var(--gold);
-
+    .item.priority-high::before {
+      background: var(--danger);
     }
 
-
-    .item.priority-low {
-
-      border-right-color:
-        var(--olive2);
-
+    .item.priority-medium::before {
+      background: var(--warning);
     }
 
+    .item.priority-low::before {
+      background: var(--olive);
+    }
 
     .item-head {
-
       display: flex;
 
       align-items: flex-start;
@@ -962,182 +760,136 @@
       justify-content: space-between;
 
       gap: 10px;
-
     }
 
-
     .item-title {
-
       min-width: 0;
 
-      color: var(--text);
-
-      font-size: 11px;
+      font-size: 12px;
 
       font-weight: 800;
 
       line-height: 1.8;
-
     }
-
 
     .item-code {
+      color: var(--gold);
 
-      display: inline-block;
-
-      direction: ltr;
+      font-size: 9px;
 
       margin-left: 5px;
-
-      color: var(--blue);
-
-      font-size: 8px;
-
-      font-weight: 700;
-
-      opacity: .8;
-
     }
 
-
     .item-description {
-
-      margin-top: 8px;
+      margin-top: 6px;
 
       color: var(--muted);
 
       font-size: 9px;
 
       line-height: 1.9;
-
     }
 
-
     .badge {
-
       flex: 0 0 auto;
 
       padding:
         5px
         8px;
 
-      border-radius: 999px;
+      border-radius: 9px;
 
-      font-size: 7px;
+      font-size: 8px;
 
       white-space: nowrap;
-
-      border: 1px solid
-        rgba(255,255,255,.08);
-
     }
 
-
     .badge-done {
-
-      color: #9de7c1;
+      color: var(--success);
 
       background:
         rgba(101,214,160,.08);
 
-      border-color:
-        rgba(101,214,160,.16);
-
+      border:
+        1px solid
+        rgba(101,214,160,.12);
     }
 
-
     .badge-progress {
-
-      color: #8edfff;
+      color: var(--blue);
 
       background:
         rgba(56,189,248,.08);
 
-      border-color:
-        rgba(56,189,248,.16);
-
+      border:
+        1px solid
+        rgba(56,189,248,.12);
     }
-
 
     .badge-pending {
-
-      color: #d8c58f;
+      color: var(--warning);
 
       background:
-        rgba(214,181,109,.08);
+        rgba(244,201,107,.07);
 
-      border-color:
-        rgba(214,181,109,.16);
-
+      border:
+        1px solid
+        rgba(244,201,107,.11);
     }
 
-
     .item-meta {
-
       display: grid;
 
       grid-template-columns:
-        repeat(2,minmax(0,1fr));
+        repeat(2, minmax(0,1fr));
 
       gap: 7px;
 
       margin-top: 12px;
-
     }
 
-
     .meta {
-
       min-width: 0;
 
       padding: 8px;
 
-      border-radius: 11px;
+      border-radius: 10px;
 
       background:
         rgba(255,255,255,.025);
-
-      border:
-        1px solid
-        rgba(255,255,255,.045);
-
     }
 
-
     .meta-label {
-
-      color: #71858b;
+      color: #70838a;
 
       font-size: 7px;
 
-      margin-bottom: 4px;
-
+      margin-bottom: 3px;
     }
 
-
     .meta-value {
+      overflow: hidden;
 
-      color: #dbe6e8;
+      color: #d8e0e2;
 
       font-size: 8px;
 
-      line-height: 1.7;
+      line-height: 1.6;
 
-      word-break: break-word;
+      white-space: nowrap;
 
+      text-overflow: ellipsis;
     }
 
-
-    /* ==========================================================
+    /* ======================================================
        CLIENTS
-    ========================================================== */
+    ====================================================== */
 
     .client {
-
       display: grid;
 
       grid-template-columns:
-        auto
+        44px
         minmax(0,1fr)
         auto;
 
@@ -1145,26 +897,34 @@
 
       gap: 10px;
 
-      padding: 13px;
+      padding: 12px;
 
-      border-radius: 18px;
+      border-radius: 16px;
 
+      background:
+        rgba(0,0,0,.14);
+
+      border:
+        1px solid
+        rgba(255,255,255,.065);
     }
 
-
     .avatar {
-
-      width: 43px;
-      height: 43px;
-
-      border-radius: 15px;
+      width: 44px;
+      height: 44px;
 
       display: flex;
 
       align-items: center;
       justify-content: center;
 
+      border-radius: 14px;
+
       color: var(--gold2);
+
+      font-size: 18px;
+
+      font-weight: 800;
 
       background:
         linear-gradient(
@@ -1176,90 +936,65 @@
       border:
         1px solid
         rgba(214,181,109,.16);
-
-      font-size: 16px;
-
-      font-weight: 900;
-
     }
-
 
     .client-info {
-
       min-width: 0;
-
     }
-
 
     .client-name {
+      overflow: hidden;
 
-      color: var(--text);
-
-      font-size: 10px;
-
-      font-weight: 800;
-
-      line-height: 1.7;
-
-      word-break: break-word;
-
-    }
-
-
-    .client-type {
-
-      margin-top: 3px;
-
-      color: var(--muted);
-
-      font-size: 8px;
-
-      line-height: 1.6;
-
-    }
-
-
-    .client-fee {
-
-      text-align: left;
-
-      direction: rtl;
-
-      min-width: 70px;
-
-    }
-
-
-    .fee-number {
-
-      color: var(--gold2);
-
-      font-size: 9px;
+      font-size: 11px;
 
       font-weight: 800;
 
       white-space: nowrap;
 
+      text-overflow: ellipsis;
     }
 
+    .client-type {
+      margin-top: 4px;
+
+      color: var(--muted);
+
+      font-size: 8px;
+
+      white-space: nowrap;
+
+      overflow: hidden;
+
+      text-overflow: ellipsis;
+    }
+
+    .client-fee {
+      min-width: 70px;
+
+      text-align: left;
+    }
+
+    .fee-number {
+      color: var(--gold2);
+
+      font-size: 10px;
+
+      font-weight: 800;
+    }
 
     .fee-label {
-
       margin-top: 3px;
 
       color: #71858b;
 
       font-size: 7px;
-
     }
 
-
-    /* ==========================================================
+    /* ======================================================
        LOADING
-    ========================================================== */
+    ====================================================== */
 
     .loading {
-
       min-height: 100vh;
 
       display: flex;
@@ -1270,28 +1005,14 @@
 
       justify-content: center;
 
-      gap: 13px;
+      gap: 15px;
 
       padding: 30px;
 
       text-align: center;
-
     }
-
-
-    .loading-text {
-
-      color: var(--muted);
-
-      font-size: 10px;
-
-      line-height: 2;
-
-    }
-
 
     .loading-spinner {
-
       width: 42px;
       height: 42px;
 
@@ -1299,223 +1020,164 @@
 
       border:
         3px solid
-        rgba(255,255,255,.07);
+        rgba(255,255,255,.08);
 
       border-top-color:
         var(--blue);
 
-      border-right-color:
-        var(--gold);
-
       animation:
         spin .8s linear infinite;
-
     }
 
-
     @keyframes spin {
-
       to {
         transform: rotate(360deg);
       }
-
     }
 
+    .loading-text {
+      color: var(--muted);
 
-    /* ==========================================================
-       FOOTER
-    ========================================================== */
+      font-size: 11px;
 
-    footer {
-
-      padding:
-        8px
-        5px
-        20px;
-
-      text-align: center;
-
-      color: #5f747b;
-
-      font-size: 8px;
-
+      line-height: 2;
     }
 
+    .debug-box {
+      width: 100%;
+      max-width: 700px;
 
-    footer strong {
+      max-height: 280px;
 
-      color: var(--gold);
+      overflow: auto;
 
-      margin-right: 5px;
+      direction: ltr;
 
+      text-align: left;
+
+      padding: 12px;
+
+      border-radius: 12px;
+
+      background:
+        rgba(0,0,0,.30);
+
+      border:
+        1px solid
+        rgba(255,255,255,.08);
+
+      color: #a9c6d0;
+
+      font-family:
+        Consolas,
+        monospace;
+
+      font-size: 9px;
+
+      white-space: pre-wrap;
+
+      word-break: break-word;
     }
 
-
-    /* ==========================================================
+    /* ======================================================
        TOUCH LIGHT
-    ========================================================== */
+    ====================================================== */
 
     .touch-light {
-
       position: fixed;
 
-      width: 8px;
-      height: 8px;
+      width: 12px;
+      height: 12px;
+
+      margin-left: -6px;
+      margin-top: -6px;
 
       border-radius: 50%;
 
-      transform:
-        translate(-50%,-50%);
-
       pointer-events: none;
 
-      z-index: 99999;
+      z-index: 9999;
 
       animation:
         touchLight .85s ease-out forwards;
-
     }
-
 
     @keyframes touchLight {
 
       0% {
-
         opacity: .9;
 
         transform:
-          translate(-50%,-50%)
           scale(.7);
-
       }
 
       100% {
-
         opacity: 0;
 
         transform:
-          translate(-50%,-50%)
-          scale(1.8);
-
+          scale(5);
       }
 
     }
 
+    /* ======================================================
+       FOOTER
+    ====================================================== */
 
-    /* ==========================================================
+    footer {
+      padding: 20px 10px 8px;
+
+      text-align: center;
+
+      color: #61757c;
+
+      font-size: 8px;
+    }
+
+    footer strong {
+      margin-right: 6px;
+
+      color: var(--gold);
+    }
+
+    /* ======================================================
        RESPONSIVE
-    ========================================================== */
+    ====================================================== */
 
     @media (max-width: 600px) {
 
-      .app {
-
-        padding:
-          10px
-          10px
-          24px;
-
+      .stats {
+        grid-template-columns:
+          repeat(2, minmax(0,1fr));
       }
 
       .hero {
-
         padding: 17px;
-
       }
 
       .brand h1 {
-
-        font-size: 17px;
-
+        font-size: 18px;
       }
 
-      .brand p {
-
-        font-size: 8px;
-
-      }
-
-      .connection {
-
-        font-size: 8px;
-
-        padding:
-          6px
-          8px;
-
-      }
-
-      .stats {
-
-        gap: 7px;
-
-      }
-
-      .stat {
-
-        padding:
-          12px
-          7px;
-
-      }
-
-      .stat-number {
-
-        font-size: 15px;
-
-      }
-
-      .stat-label {
-
-        font-size: 7px;
-
+      .brand-icon {
+        width: 46px;
+        height: 46px;
       }
 
     }
 
+    @media (min-width: 700px) {
 
-    @media (max-width: 380px) {
-
-      .hero-top {
-
-        align-items: flex-start;
-
-      }
-
-      .connection {
-
-        display: none;
-
-      }
-
-      .stats {
-
+      .item-meta {
         grid-template-columns:
-          repeat(2,minmax(0,1fr));
-
+          repeat(4, minmax(0,1fr));
       }
 
-      .overview {
-
-        grid-template-columns:
-          1fr;
-
-      }
-
-      .item-head {
-
-        flex-direction: column;
-
-      }
-
-      .badge {
-
-        align-self: flex-start;
-
+      .client {
+        padding: 15px;
       }
 
     }
-
 
   </style>
 
@@ -1524,11 +1186,6 @@
 
 <body>
 
-
-  <!-- ========================================================
-       ROOT
-  ========================================================= -->
-
   <div id="root">
 
     <div class="loading">
@@ -1536,7 +1193,7 @@
       <div class="loading-spinner"></div>
 
       <div class="loading-text">
-        در حال اتصال به داشبورد حسابگران آرمان...
+        در حال اتصال به داشبورد...
       </div>
 
     </div>
@@ -1607,30 +1264,15 @@
 
       return String(value)
 
-        .replaceAll(
-          "&",
-          "&amp;"
-        )
+        .replaceAll("&", "&amp;")
 
-        .replaceAll(
-          "<",
-          "&lt;"
-        )
+        .replaceAll("<", "&lt;")
 
-        .replaceAll(
-          ">",
-          "&gt;"
-        )
+        .replaceAll(">", "&gt;")
 
-        .replaceAll(
-          '"',
-          "&quot;"
-        )
+        .replaceAll('"', "&quot;")
 
-        .replaceAll(
-          "'",
-          "&#039;"
-        );
+        .replaceAll("'", "&#039;");
 
     }
 
@@ -1644,41 +1286,33 @@
     }
 
 
-    /* ==========================================================
-       NORMALIZE
-    ========================================================== */
-
     function normalizeKey(value) {
 
       return String(
         value ?? ""
       )
 
-      .replace(
-        /[\u200c\u200d\u200e\u200f\ufeff]/g,
-        ""
-      )
+        .replace(
+          /[\u200c\u200d\u200e\u200f\ufeff]/g,
+          ""
+        )
 
-      .replace(
-        /\s+/g,
-        ""
-      )
+        .replace(
+          /\s+/g,
+          ""
+        )
 
-      .replace(
-        /[_\-]/g,
-        ""
-      )
+        .replace(
+          /[_\-]/g,
+          ""
+        )
 
-      .trim()
+        .trim()
 
-      .toLowerCase();
+        .toLowerCase();
 
     }
 
-
-    /* ==========================================================
-       OBJECT GETTER
-    ========================================================== */
 
     function get(
       obj,
@@ -1746,130 +1380,10 @@
 
 
     /* ==========================================================
-       PARSE RESPONSE
-    ========================================================== */
-
-    function parseDashboardData(
-      result
-    ) {
-
-      let data =
-        result?.data;
-
-
-      if (
-        typeof data === "string"
-      ) {
-
-        const text =
-          data.trim();
-
-
-        if (text) {
-
-          try {
-
-            data =
-              JSON.parse(text);
-
-          } catch (e) {
-
-            throw new Error(
-              "اطلاعات دریافتی از سرور قابل پردازش نیست."
-            );
-
-          }
-
-        }
-
-      }
-
-
-      if (
-        data &&
-        typeof data === "object" &&
-        data.data &&
-        !data.Summary
-      ) {
-
-        let nested =
-          data.data;
-
-
-        if (
-          typeof nested === "string"
-        ) {
-
-          try {
-
-            nested =
-              JSON.parse(
-                nested
-              );
-
-          } catch (e) {
-
-            throw new Error(
-              "ساختار اطلاعات داشبورد نامعتبر است."
-            );
-
-          }
-
-        }
-
-
-        if (
-          nested &&
-          typeof nested === "object"
-        ) {
-
-          data =
-            nested;
-
-        }
-
-      }
-
-
-      if (
-        !data ||
-        typeof data !== "object"
-      ) {
-
-        throw new Error(
-          "اطلاعات داشبورد دریافت نشد."
-        );
-
-      }
-
-
-      if (
-        !data.Summary &&
-        !data.Clients &&
-        !data.Accounting &&
-        !data.Tax &&
-        !data.Receivables
-      ) {
-
-        throw new Error(
-          "ساختار Summary / Clients / Accounting / Tax پیدا نشد."
-        );
-
-      }
-
-
-      return data;
-
-    }
-
-
-    /* ==========================================================
        MONEY
     ========================================================== */
 
-    function numericValue(
-      value
-    ) {
+    function formatMoney(value) {
 
       if (
         value === null ||
@@ -1877,39 +1391,16 @@
         value === ""
       ) {
 
-        return NaN;
+        return "—";
 
       }
 
 
-      const normalized =
-        String(value)
-
-          .replaceAll(
-            ",",
-            ""
-          )
-
-          .replace(
-            /[^\d.-]/g,
-            ""
-          );
-
-
-      return Number(
-        normalized
-      );
-
-    }
-
-
-    function formatMoney(
-      value
-    ) {
-
       const n =
-        numericValue(
-          value
+        Number(
+          String(value)
+            .replaceAll(",", "")
+            .replace(/[^\d.-]/g, "")
         );
 
 
@@ -1936,13 +1427,24 @@
     }
 
 
-    function formatMoneyShort(
-      value
-    ) {
+    function formatMoneyShort(value) {
+
+      if (
+        value === null ||
+        value === undefined ||
+        value === ""
+      ) {
+
+        return "—";
+
+      }
+
 
       const n =
-        numericValue(
-          value
+        Number(
+          String(value)
+            .replaceAll(",", "")
+            .replace(/[^\d.-]/g, "")
         );
 
 
@@ -1967,8 +1469,7 @@
             }
           ).format(
             n / 1000000000
-          )
-          +
+          ) +
           " میلیارد"
         );
 
@@ -1987,17 +1488,14 @@
             }
           ).format(
             n / 1000000
-          )
-          +
+          ) +
           " میلیون"
         );
 
       }
 
 
-      return formatMoney(
-        n
-      );
+      return formatMoney(n);
 
     }
 
@@ -2006,9 +1504,7 @@
        STATUS
     ========================================================== */
 
-    function statusClass(
-      status
-    ) {
+    function statusClass(status) {
 
       const s =
         String(
@@ -2017,9 +1513,7 @@
 
 
       if (
-        s.includes(
-          "انجام شده"
-        )
+        s.includes("انجام شده")
       ) {
 
         return "badge-done";
@@ -2028,9 +1522,7 @@
 
 
       if (
-        s.includes(
-          "در حال انجام"
-        )
+        s.includes("در حال انجام")
       ) {
 
         return "badge-progress";
@@ -2043,9 +1535,7 @@
     }
 
 
-    function priorityClass(
-      priority
-    ) {
+    function priorityClass(priority) {
 
       const p =
         String(
@@ -2077,9 +1567,7 @@
     }
 
 
-    function statusIcon(
-      status
-    ) {
+    function statusIcon(status) {
 
       const s =
         String(
@@ -2088,9 +1576,7 @@
 
 
       if (
-        s.includes(
-          "انجام شده"
-        )
+        s.includes("انجام شده")
       ) {
 
         return "✓";
@@ -2099,9 +1585,7 @@
 
 
       if (
-        s.includes(
-          "در حال انجام"
-        )
+        s.includes("در حال انجام")
       ) {
 
         return "◐";
@@ -2121,7 +1605,8 @@
     function summaryData() {
 
       return (
-        dashboard?.Summary || {}
+        dashboard?.Summary ||
+        {}
       );
 
     }
@@ -2193,6 +1678,273 @@
 
 
     /* ==========================================================
+       PARSE SERVER RESPONSE
+    ========================================================== */
+
+    function parseDashboardData(
+      result
+    ) {
+
+      console.log(
+        "========== RAW JSONP RESULT =========="
+      );
+
+      console.log(
+        result
+      );
+
+      console.log(
+        "Result type:",
+        typeof result
+      );
+
+
+      if (
+        result &&
+        typeof result === "object"
+      ) {
+
+        console.log(
+          "Result keys:",
+          Object.keys(result)
+        );
+
+      }
+
+
+      let data = null;
+
+
+      /*
+       * 1
+       * { ok:true, data:{...} }
+       */
+
+      if (
+        result &&
+        result.data !== undefined &&
+        result.data !== null
+      ) {
+
+        data =
+          result.data;
+
+      }
+
+
+      /*
+       * 2
+       * { ok:true, dashboard:{...} }
+       */
+
+      else if (
+        result &&
+        result.dashboard !== undefined &&
+        result.dashboard !== null
+      ) {
+
+        data =
+          result.dashboard;
+
+      }
+
+
+      /*
+       * 3
+       * خود result همان داشبورد است
+       */
+
+      else if (
+        result &&
+        typeof result === "object" &&
+        (
+          result.Summary ||
+          result.Clients ||
+          result.Accounting ||
+          result.Tax ||
+          result.Receivables
+        )
+      ) {
+
+        data =
+          result;
+
+      }
+
+
+      /*
+       * 4
+       * { ok:true, result:{...} }
+       */
+
+      else if (
+        result &&
+        result.result !== undefined &&
+        result.result !== null
+      ) {
+
+        data =
+          result.result;
+
+      }
+
+
+      /*
+       * 5
+       * { ok:true, payload:{...} }
+       */
+
+      else if (
+        result &&
+        result.payload !== undefined &&
+        result.payload !== null
+      ) {
+
+        data =
+          result.payload;
+
+      }
+
+
+      console.log(
+        "Detected data:",
+        data
+      );
+
+
+      /*
+       * String JSON
+       */
+
+      if (
+        typeof data === "string"
+      ) {
+
+        const text =
+          data.trim();
+
+
+        if (!text) {
+
+          throw new Error(
+            "سرور پاسخ خالی ارسال کرده است."
+          );
+
+        }
+
+
+        try {
+
+          data =
+            JSON.parse(
+              text
+            );
+
+        } catch (error) {
+
+          console.error(
+            "JSON parse error:",
+            error
+          );
+
+          throw new Error(
+            "داده دریافتی از سرور JSON معتبر نیست."
+          );
+
+        }
+
+      }
+
+
+      /*
+       * nested data
+       */
+
+      if (
+        data &&
+        typeof data === "object" &&
+        data.data &&
+        !data.Summary &&
+        !data.Clients &&
+        !data.Accounting &&
+        !data.Tax &&
+        !data.Receivables
+      ) {
+
+        data =
+          data.data;
+
+
+        if (
+          typeof data === "string"
+        ) {
+
+          try {
+
+            data =
+              JSON.parse(
+                data
+              );
+
+          } catch (error) {
+
+            throw new Error(
+              "ساختار داخلی اطلاعات داشبورد قابل پردازش نیست."
+            );
+
+          }
+
+        }
+
+      }
+
+
+      /*
+       * final validation
+       */
+
+      if (
+        !data ||
+        typeof data !== "object"
+      ) {
+
+        throw new Error(
+          "Apps Script پاسخ داد، اما اطلاعات داشبورد داخل پاسخ وجود ندارد."
+        );
+
+      }
+
+
+      const hasStructure =
+        !!(
+          data.Summary ||
+          data.Clients ||
+          data.Accounting ||
+          data.Tax ||
+          data.Receivables
+        );
+
+
+      if (!hasStructure) {
+
+        console.error(
+          "Unknown dashboard structure:",
+          data
+        );
+
+        throw new Error(
+          "پاسخ سرور دریافت شد، اما ساختار داشبورد در آن پیدا نشد."
+        );
+
+      }
+
+
+      return data;
+
+    }
+
+
+    /* ==========================================================
        TOUCH LIGHT
     ========================================================== */
 
@@ -2211,15 +1963,10 @@
 
 
         const colors = [
-
           "#38bdf8",
-
           "#d6b56d",
-
           "#9aa94f",
-
           "#67e8f9"
-
         ];
 
 
@@ -2267,140 +2014,12 @@
 
 
     /* ==========================================================
-       LOAD DASHBOARD
-    ========================================================== */
-
-    function loadDashboard() {
-
-      if (
-        !tg ||
-        !tg.initData
-      ) {
-
-        showError(
-          "داشبورد را از داخل ربات تلگرام باز کنید."
-        );
-
-        return;
-
-      }
-
-
-      const callbackName =
-        "dashboardCallback_" +
-        Date.now() +
-        "_" +
-        Math.floor(
-          Math.random() *
-          100000
-        );
-
-
-      window[callbackName] =
-        function(result) {
-
-          try {
-
-            if (
-              !result ||
-              !result.ok
-            ) {
-
-              throw new Error(
-                result?.error ||
-                "خطا در دریافت اطلاعات"
-              );
-
-            }
-
-
-            dashboard =
-              parseDashboardData(
-                result
-              );
-
-
-            console.log(
-              "Dashboard loaded:",
-              dashboard
-            );
-
-
-            render();
-
-
-          } catch (err) {
-
-            console.error(
-              "Dashboard error:",
-              err
-            );
-
-
-            showError(
-              err.message
-            );
-
-
-          } finally {
-
-            delete window[
-              callbackName
-            ];
-
-          }
-
-        };
-
-
-      const script =
-        document.createElement(
-          "script"
-        );
-
-
-      const url =
-        GAS_API +
-        "?action=getDashboard" +
-        "&initData=" +
-        encodeURIComponent(
-          tg.initData
-        ) +
-        "&callback=" +
-        encodeURIComponent(
-          callbackName
-        ) +
-        "&t=" +
-        Date.now();
-
-
-      script.src =
-        url;
-
-
-      script.onerror =
-        function() {
-
-          showError(
-            "ارتباط با سرور داشبورد برقرار نشد."
-          );
-
-        };
-
-
-      document.body.appendChild(
-        script
-      );
-
-    }
-
-
-    /* ==========================================================
        ERROR
     ========================================================== */
 
     function showError(
-      message
+      message,
+      debug
     ) {
 
       const root =
@@ -2422,17 +2041,34 @@
 
           <div
             style="
-              font-size:38px;
+              font-size:42px;
             "
           >
             ⚠️
           </div>
 
           <div
-            class="loading-text"
+            style="
+              font-size:15px;
+              font-weight:800;
+            "
           >
+            خطا در دریافت اطلاعات
+          </div>
+
+          <div class="loading-text">
             ${esc(message)}
           </div>
+
+          ${
+            debug
+              ? `
+                <div class="debug-box">
+                  ${esc(debug)}
+                </div>
+              `
+              : ""
+          }
 
           <button
             class="tab active"
@@ -2449,34 +2085,251 @@
 
 
     /* ==========================================================
-       STAT CARD
+       LOAD DASHBOARD
     ========================================================== */
 
-    function statCard(
-      icon,
-      number,
-      label
-    ) {
+    function loadDashboard() {
 
-      return `
+      const root =
+        document.getElementById(
+          "root"
+        );
 
-        <div class="stat">
 
-          <div class="stat-icon">
-            ${icon}
+      if (
+        !tg ||
+        !tg.initData
+      ) {
+
+        showError(
+          "داشبورد باید از داخل ربات تلگرام باز شود."
+        );
+
+        return;
+
+      }
+
+
+      /*
+       * نمایش Loading
+       */
+
+      if (root) {
+
+        root.innerHTML = `
+
+          <div class="loading">
+
+            <div class="loading-spinner"></div>
+
+            <div class="loading-text">
+              در حال دریافت اطلاعات داشبورد...
+            </div>
+
           </div>
 
-          <div class="stat-number">
-            ${esc(number)}
-          </div>
+        `;
 
-          <div class="stat-label">
-            ${esc(label)}
-          </div>
+      }
 
-        </div>
 
-      `;
+      const callbackName =
+        "dashboardCallback_" +
+        Date.now() +
+        "_" +
+        Math.floor(
+          Math.random() * 100000
+        );
+
+
+      window[callbackName] =
+        function(result) {
+
+          try {
+
+            console.log(
+              "Telegram initData exists:",
+              !!tg.initData
+            );
+
+
+            console.log(
+              "Apps Script callback received:",
+              result
+            );
+
+
+            /*
+             * فقط false بودن ok را خطا می‌گیریم.
+             *
+             * قبلاً وجود نداشتن ok را هم
+             * خطا حساب می‌کردیم.
+             */
+
+            if (
+              !result
+            ) {
+
+              throw new Error(
+                "پاسخ خالی از سرور دریافت شد."
+              );
+
+            }
+
+
+            if (
+              result.ok === false
+            ) {
+
+              throw new Error(
+                result.error ||
+                "Apps Script خطا برگرداند."
+              );
+
+            }
+
+
+            dashboard =
+              parseDashboardData(
+                result
+              );
+
+
+            console.log(
+              "========== DASHBOARD =========="
+            );
+
+            console.log(
+              dashboard
+            );
+
+
+            console.log(
+              "Summary:",
+              dashboard.Summary
+            );
+
+            console.log(
+              "Clients:",
+              dashboard.Clients
+            );
+
+            console.log(
+              "Accounting:",
+              dashboard.Accounting
+            );
+
+            console.log(
+              "Tax:",
+              dashboard.Tax
+            );
+
+            console.log(
+              "Receivables:",
+              dashboard.Receivables
+            );
+
+
+            render();
+
+
+          } catch (error) {
+
+            console.error(
+              "Dashboard processing error:",
+              error
+            );
+
+
+            let debug = "";
+
+            try {
+
+              debug =
+                JSON.stringify(
+                  result,
+                  null,
+                  2
+                );
+
+            } catch (e) {
+
+              debug =
+                String(result);
+
+            }
+
+
+            showError(
+              error.message ||
+              "خطای ناشناخته",
+              debug
+            );
+
+
+          } finally {
+
+            delete window[
+              callbackName
+            ];
+
+          }
+
+        };
+
+
+      const url =
+        GAS_API +
+        "?action=getDashboard" +
+        "&initData=" +
+        encodeURIComponent(
+          tg.initData
+        ) +
+        "&callback=" +
+        encodeURIComponent(
+          callbackName
+        ) +
+        "&t=" +
+        Date.now();
+
+
+      console.log(
+        "Request URL:",
+        url.replace(
+          /initData=[^&]+/,
+          "initData=HIDDEN"
+        )
+      );
+
+
+      const script =
+        document.createElement(
+          "script"
+        );
+
+
+      script.src =
+        url;
+
+
+      script.onerror =
+        function() {
+
+          delete window[
+            callbackName
+          ];
+
+
+          showError(
+            "ارتباط با Apps Script برقرار نشد."
+          );
+
+        };
+
+
+      document.body.appendChild(
+        script
+      );
 
     }
 
@@ -2500,11 +2353,8 @@
 
 
       const allServices = [
-
         ...accounting,
-
         ...tax
-
       ];
 
 
@@ -2539,8 +2389,7 @@
               "TaxCompleted"
             )
           ) || 0
-        )
-        +
+        ) +
         (
           Number(
             summaryValue(
@@ -2580,7 +2429,7 @@
         ).length;
 
 
-      const progressDegree =
+      const progressAngle =
         allServices.length
           ? Math.max(
               1,
@@ -2593,14 +2442,11 @@
           : 1;
 
 
-      const completionDegree =
+      const completionAngle =
         Math.max(
           1,
-          Math.min(
-            360,
-            completion * 3.6
-          )
-        );
+          completion
+        ) * 3.6;
 
 
       const root =
@@ -2666,6 +2512,7 @@
               <div>
 
                 کاربر:
+
                 <span class="user-name">
                   کاربر تلگرام
                 </span>
@@ -2682,7 +2529,7 @@
           </section>
 
 
-          <!-- MAIN STATS -->
+          <!-- STATS -->
 
           <section class="stats">
 
@@ -2742,10 +2589,10 @@
                       conic-gradient(
                         var(--blue)
                         0deg
-                        ${completionDegree}deg,
+                        ${completionAngle}deg,
 
                         var(--olive)
-                        ${completionDegree}deg
+                        ${completionAngle}deg
                         360deg
                       );
                   "
@@ -2803,10 +2650,10 @@
                       conic-gradient(
                         var(--gold)
                         0deg
-                        ${progressDegree}deg,
+                        ${progressAngle}deg,
 
                         var(--blue)
-                        ${progressDegree}deg
+                        ${progressAngle}deg
                         360deg
                       );
                   "
@@ -2888,7 +2735,6 @@
                 "کل دریافتنی"
               )}
 
-
               ${statCard(
                 "✓",
                 formatMoneyShort(
@@ -2899,7 +2745,6 @@
                 "دریافت شده"
               )}
 
-
               ${statCard(
                 "◷",
                 formatMoneyShort(
@@ -2909,7 +2754,6 @@
                 ),
                 "مانده دریافتنی"
               )}
-
 
               ${statCard(
                 "!",
@@ -2946,6 +2790,7 @@
               id="search"
               placeholder="جستجو در خدمات و مشتریان..."
               value="${esc(searchText)}"
+              oninput="setSearch(this.value)"
             >
 
 
@@ -2957,7 +2802,7 @@
                     ? "active"
                     : ""
                 }"
-                data-tab="all"
+                onclick="setTab('all')"
               >
                 همه
               </button>
@@ -2969,7 +2814,7 @@
                     ? "active"
                     : ""
                 }"
-                data-tab="accounting"
+                onclick="setTab('accounting')"
               >
                 حسابداری
               </button>
@@ -2981,7 +2826,7 @@
                     ? "active"
                     : ""
                 }"
-                data-tab="tax"
+                onclick="setTab('tax')"
               >
                 مالیاتی
               </button>
@@ -2993,7 +2838,7 @@
                     ? "active"
                     : ""
                 }"
-                data-tab="clients"
+                onclick="setTab('clients')"
               >
                 مشتریان
               </button>
@@ -3025,59 +2870,71 @@
       `;
 
 
-      /*
-        Event listeners را بعد از ساخت DOM وصل می‌کنیم.
-      */
+      renderItems();
 
-      const search =
-        document.getElementById(
-          "search"
-        );
+    }
 
 
-      if (search) {
+    /* ==========================================================
+       STAT CARD
+    ========================================================== */
 
-        search.addEventListener(
-          "input",
-          function() {
+    function statCard(
+      icon,
+      number,
+      label
+    ) {
 
-            searchText =
-              String(
-                this.value || ""
-              )
-              .trim()
-              .toLowerCase();
+      return `
+
+        <div class="stat">
+
+          <div class="stat-icon">
+            ${icon}
+          </div>
+
+          <div class="stat-number">
+            ${esc(number)}
+          </div>
+
+          <div class="stat-label">
+            ${esc(label)}
+          </div>
+
+        </div>
+
+      `;
+
+    }
 
 
-            renderItems();
+    /* ==========================================================
+       TABS
+    ========================================================== */
 
-          }
-        );
+    function setTab(
+      tab
+    ) {
 
-      }
+      activeTab =
+        tab;
 
 
-      document
-        .querySelectorAll(
-          "[data-tab]"
+      render();
+
+    }
+
+
+    function setSearch(
+      value
+    ) {
+
+      searchText =
+        String(
+          value || ""
         )
-        .forEach(
-          button => {
-
-            button.addEventListener(
-              "click",
-              function() {
-
-                activeTab =
-                  this.dataset.tab;
-
-                render();
-
-              }
-            );
-
-          }
-        );
+        .trim()
+        .toLowerCase();
 
 
       renderItems();
@@ -3146,11 +3003,8 @@
       else {
 
         data = [
-
           ...accountingData(),
-
           ...taxData()
-
         ];
 
       }
@@ -3328,15 +3182,9 @@
 
             <div class="item-title">
 
-              ${
-                code
-                  ? `
-                    <span class="item-code">
-                      #${esc(code)}
-                    </span>
-                  `
-                  : ""
-              }
+              <span class="item-code">
+                #${esc(code)}
+              </span>
 
               ${esc(title)}
 
@@ -3373,7 +3221,6 @@
 
 
           <div class="item-meta">
-
 
             <div class="meta">
 
@@ -3586,10 +3433,6 @@
     }
 
 
-    /* ==========================================================
-       CLIENT CARD
-    ========================================================== */
-
     function clientCard(
       client
     ) {
@@ -3653,16 +3496,9 @@
         "م";
 
 
-      const hasFee =
-        fee !== null &&
-        fee !== undefined &&
-        fee !== "";
-
-
       return `
 
         <div class="client">
-
 
           <div class="avatar">
             ${esc(firstLetter)}
@@ -3677,13 +3513,9 @@
 
 
             <div class="client-type">
-
               ${esc(type)}
-
               ·
-
               ${esc(activity)}
-
             </div>
 
 
@@ -3728,7 +3560,9 @@
             <div class="fee-number">
 
               ${
-                hasFee
+                fee !== null &&
+                fee !== undefined &&
+                fee !== ""
                   ? formatMoney(fee)
                   : "موردی"
               }
@@ -3739,7 +3573,9 @@
             <div class="fee-label">
 
               ${
-                hasFee
+                fee !== null &&
+                fee !== undefined &&
+                fee !== ""
                   ? "حق‌الزحمه"
                   : "نوع همکاری"
               }
@@ -3758,15 +3594,12 @@
                 font-size:8px;
               "
             >
-
               ${esc(
                 status || "—"
               )}
-
             </div>
 
           </div>
-
 
         </div>
 
@@ -3779,28 +3612,7 @@
        START
     ========================================================== */
 
-    function startDashboard() {
-
-      loadDashboard();
-
-    }
-
-
-    if (
-      document.readyState ===
-      "loading"
-    ) {
-
-      document.addEventListener(
-        "DOMContentLoaded",
-        startDashboard
-      );
-
-    } else {
-
-      startDashboard();
-
-    }
+    loadDashboard();
 
   </script>
 
