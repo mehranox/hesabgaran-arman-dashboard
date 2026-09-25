@@ -14,12 +14,7 @@
 
   <style>
 
-    /* ==================================================
-       ROOT
-       ================================================== */
-
     :root {
-
       --bg: #07131b;
       --bg2: #0b1d25;
 
@@ -44,33 +39,23 @@
       --danger: #ff6675;
       --warning: #f4c96b;
 
-      --shadow:
-        0 20px 60px rgba(0,0,0,.30);
+      --shadow: 0 20px 60px rgba(0,0,0,.30);
 
       --radius: 22px;
     }
-
-
-    /* ==================================================
-       RESET
-       ================================================== */
 
     * {
       box-sizing: border-box;
       -webkit-tap-highlight-color: transparent;
     }
 
-
     html {
       min-height: 100%;
       background: var(--bg);
     }
 
-
     body {
-
       margin: 0;
-
       min-height: 100vh;
 
       color: var(--text);
@@ -81,7 +66,6 @@
         sans-serif;
 
       background:
-
         radial-gradient(
           circle at 8% 4%,
           rgba(56,189,248,.15),
@@ -109,29 +93,17 @@
       overflow-x: hidden;
     }
 
-
     button,
     input {
       font: inherit;
     }
 
-
     button {
       cursor: pointer;
     }
 
-
-    /* ==================================================
-       APP
-       ================================================== */
-
     .app {
-
-      width: min(
-        1180px,
-        100%
-      );
-
+      width: min(1180px, 100%);
       margin: 0 auto;
 
       padding:
@@ -140,13 +112,7 @@
         calc(30px + env(safe-area-inset-bottom));
     }
 
-
-    /* ==================================================
-       GLASS
-       ================================================== */
-
     .glass {
-
       background:
         linear-gradient(
           145deg,
@@ -154,42 +120,29 @@
           rgba(255,255,255,.035)
         );
 
-      border:
-        1px solid var(--border);
+      border: 1px solid var(--border);
 
       box-shadow:
         var(--shadow),
         inset 0 1px 0 rgba(255,255,255,.04);
 
-      backdrop-filter:
-        blur(18px);
-
-      -webkit-backdrop-filter:
-        blur(18px);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
     }
 
-
-    /* ==================================================
-       HEADER
-       ================================================== */
+    /* HERO */
 
     .hero {
-
       position: relative;
-
       overflow: hidden;
 
       padding: 25px;
-
-      border-radius:
-        28px;
+      border-radius: 28px;
 
       margin-bottom: 16px;
     }
 
-
     .hero::before {
-
       content: "";
 
       position: absolute;
@@ -212,9 +165,7 @@
       pointer-events: none;
     }
 
-
     .hero::after {
-
       content: "";
 
       position: absolute;
@@ -237,42 +188,31 @@
       pointer-events: none;
     }
 
-
     .hero-content {
-
       position: relative;
-
       z-index: 2;
 
       display: flex;
 
       align-items: center;
-
       justify-content: space-between;
 
       gap: 18px;
     }
 
-
     .brand {
-
       display: flex;
-
       align-items: center;
-
       gap: 14px;
     }
 
-
     .brand-logo {
-
       width: 54px;
       height: 54px;
 
       border-radius: 17px;
 
       display: grid;
-
       place-items: center;
 
       background:
@@ -291,21 +231,16 @@
       font-size: 24px;
     }
 
-
     .brand-title {
-
       margin: 0;
 
       font-size: 23px;
-
       font-weight: 800;
 
       letter-spacing: -.5px;
     }
 
-
     .brand-subtitle {
-
       margin-top: 6px;
 
       color: var(--muted);
@@ -313,17 +248,12 @@
       font-size: 12px;
     }
 
-
     .secure {
-
       display: flex;
-
       align-items: center;
-
       gap: 7px;
 
-      padding:
-        8px 11px;
+      padding: 8px 11px;
 
       border-radius: 999px;
 
@@ -340,9 +270,7 @@
       white-space: nowrap;
     }
 
-
     .secure-dot {
-
       width: 7px;
       height: 7px;
 
@@ -351,41 +279,30 @@
       background: var(--success);
 
       box-shadow:
-        0 0 12px
-        rgba(101,214,160,.75);
+        0 0 12px rgba(101,214,160,.75);
     }
 
-
-    /* ==================================================
-       LOADING
-       ================================================== */
+    /* LOADING */
 
     .loading {
-
       min-height: 70vh;
 
       display: grid;
-
       place-items: center;
 
       text-align: center;
     }
 
-
     .loader-box {
-
       padding: 32px;
 
       border-radius: 26px;
 
       max-width: 340px;
-
       width: 100%;
     }
 
-
     .spinner {
-
       width: 45px;
       height: 45px;
 
@@ -394,8 +311,7 @@
       border-radius: 50%;
 
       border:
-        3px solid
-        rgba(255,255,255,.10);
+        3px solid rgba(255,255,255,.10);
 
       border-top-color:
         var(--blue);
@@ -404,49 +320,35 @@
         spin .8s linear infinite;
     }
 
-
     @keyframes spin {
-
       to {
         transform: rotate(360deg);
       }
-
     }
 
-
     .loading-title {
-
       font-size: 16px;
-
       font-weight: 700;
 
       margin-bottom: 8px;
     }
 
-
     .loading-text {
-
       color: var(--muted);
 
       font-size: 12px;
-
       line-height: 1.9;
     }
 
-
-    /* ==================================================
-       ERROR
-       ================================================== */
+    /* ERROR */
 
     .error-box {
-
       padding: 22px;
 
       border-radius: 22px;
 
       border:
-        1px solid
-        rgba(255,102,117,.20);
+        1px solid rgba(255,102,117,.20);
 
       background:
         rgba(255,102,117,.065);
@@ -456,44 +358,63 @@
       text-align: center;
     }
 
-
     .error-icon {
-
       font-size: 30px;
-
       margin-bottom: 10px;
     }
 
-
     .error-title {
-
       font-weight: 800;
-
       margin-bottom: 8px;
     }
 
-
     .error-text {
-
       color: var(--muted);
 
       font-size: 12px;
-
       line-height: 1.9;
 
       word-break: break-word;
     }
 
+    .error-debug {
+      margin-top: 14px;
+
+      padding: 12px;
+
+      direction: ltr;
+      text-align: left;
+
+      white-space: pre-wrap;
+      word-break: break-word;
+
+      max-height: 180px;
+      overflow: auto;
+
+      border-radius: 12px;
+
+      background:
+        rgba(0,0,0,.22);
+
+      border:
+        1px solid rgba(255,255,255,.06);
+
+      color:
+        #b9c8cc;
+
+      font-family:
+        Consolas,
+        monospace;
+
+      font-size: 10px;
+    }
 
     .retry {
-
       margin-top: 17px;
 
-      padding:
-        11px 18px;
+      padding: 11px 18px;
 
       border: 0;
-
       border-radius: 13px;
 
       background:
@@ -508,13 +429,9 @@
       font-weight: 700;
     }
 
-
-    /* ==================================================
-       STAT GRID
-       ================================================== */
+    /* STATS */
 
     .stats {
-
       display: grid;
 
       grid-template-columns:
@@ -525,9 +442,7 @@
       margin-bottom: 16px;
     }
 
-
     .stat {
-
       padding: 18px;
 
       border-radius: var(--radius);
@@ -535,13 +450,10 @@
       min-width: 0;
 
       position: relative;
-
       overflow: hidden;
     }
 
-
     .stat::after {
-
       content: "";
 
       position: absolute;
@@ -562,9 +474,7 @@
         );
     }
 
-
     .stat-label {
-
       color: var(--muted);
 
       font-size: 11px;
@@ -572,19 +482,13 @@
       margin-bottom: 9px;
     }
 
-
     .stat-value {
-
       font-size: 25px;
-
       font-weight: 800;
-
       line-height: 1;
     }
 
-
     .stat-note {
-
       margin-top: 9px;
 
       color: var(--muted);
@@ -592,54 +496,36 @@
       font-size: 10px;
     }
 
-
-    /* ==================================================
-       SECTION
-       ================================================== */
+    /* SECTION */
 
     .section {
-
       margin-bottom: 16px;
     }
 
-
     .section-title {
-
       display: flex;
 
       justify-content: space-between;
-
       align-items: center;
 
-      margin:
-        0 3px 11px;
+      margin: 0 3px 11px;
     }
 
-
     .section-title h2 {
-
       margin: 0;
 
       font-size: 16px;
-
       font-weight: 800;
     }
 
-
     .section-title span {
-
       color: var(--muted);
-
       font-size: 10px;
     }
 
-
-    /* ==================================================
-       OVERVIEW
-       ================================================== */
+    /* OVERVIEW */
 
     .overview {
-
       display: grid;
 
       grid-template-columns:
@@ -648,35 +534,27 @@
       gap: 12px;
     }
 
-
     .chart-card {
-
       padding: 18px;
 
       border-radius: var(--radius);
     }
 
-
     .chart {
-
       width: 122px;
       height: 122px;
 
-      margin:
-        3px auto 16px;
+      margin: 3px auto 16px;
 
       border-radius: 50%;
 
       display: grid;
-
       place-items: center;
 
       position: relative;
     }
 
-
     .chart::after {
-
       content: "";
 
       position: absolute;
@@ -685,34 +563,25 @@
 
       border-radius: 50%;
 
-      background:
-        #0c2028;
+      background: #0c2028;
 
       box-shadow:
         inset 0 0 25px rgba(0,0,0,.25);
     }
 
-
     .chart-center {
-
       position: relative;
-
       z-index: 2;
 
       text-align: center;
     }
 
-
     .chart-number {
-
       font-size: 22px;
-
       font-weight: 800;
     }
 
-
     .chart-label {
-
       margin-top: 5px;
 
       color: var(--muted);
@@ -720,9 +589,7 @@
       font-size: 9px;
     }
 
-
     .chart-name {
-
       text-align: center;
 
       font-weight: 700;
@@ -730,9 +597,7 @@
       font-size: 12px;
     }
 
-
     .chart-detail {
-
       text-align: center;
 
       margin-top: 7px;
@@ -742,13 +607,9 @@
       font-size: 10px;
     }
 
-
-    /* ==================================================
-       FINANCIAL
-       ================================================== */
+    /* FINANCIAL */
 
     .financial {
-
       display: grid;
 
       grid-template-columns:
@@ -757,54 +618,39 @@
       gap: 12px;
     }
 
-
     .money-card {
-
       padding: 20px;
 
       border-radius: var(--radius);
     }
 
-
     .money-label {
-
       color: var(--muted);
-
       font-size: 11px;
     }
 
-
     .money-value {
-
       margin-top: 11px;
 
       font-size: 22px;
-
       font-weight: 800;
     }
-
 
     .money-value.gold {
       color: var(--gold2);
     }
 
-
     .money-value.green {
       color: var(--success);
     }
-
 
     .money-value.red {
       color: var(--danger);
     }
 
-
-    /* ==================================================
-       SERVICES
-       ================================================== */
+    /* TOOLBAR */
 
     .toolbar {
-
       display: flex;
 
       gap: 9px;
@@ -812,15 +658,11 @@
       margin-bottom: 12px;
     }
 
-
     .search {
-
       flex: 1;
-
       min-width: 0;
 
-      padding:
-        12px 14px;
+      padding: 12px 14px;
 
       border-radius: 14px;
 
@@ -837,14 +679,11 @@
       direction: rtl;
     }
 
-
     .search::placeholder {
       color: #71858d;
     }
 
-
     .search:focus {
-
       border-color:
         rgba(56,189,248,.35);
 
@@ -853,9 +692,9 @@
         rgba(56,189,248,.06);
     }
 
+    /* TABS */
 
     .tabs {
-
       display: flex;
 
       gap: 7px;
@@ -867,14 +706,11 @@
       margin-bottom: 12px;
     }
 
-
     .tabs::-webkit-scrollbar {
       display: none;
     }
 
-
     .tab {
-
       flex: 0 0 auto;
 
       border:
@@ -885,8 +721,7 @@
 
       color: var(--muted);
 
-      padding:
-        9px 13px;
+      padding: 9px 13px;
 
       border-radius: 999px;
 
@@ -895,9 +730,7 @@
       transition: .2s ease;
     }
 
-
     .tab.active {
-
       color: white;
 
       border-color:
@@ -915,13 +748,9 @@
         rgba(37,99,235,.10);
     }
 
-
-    /* ==================================================
-       SERVICE CARDS
-       ================================================== */
+    /* SERVICE */
 
     .service-list {
-
       display: grid;
 
       grid-template-columns:
@@ -930,9 +759,7 @@
       gap: 12px;
     }
 
-
     .service-card {
-
       padding: 18px;
 
       border-radius: var(--radius);
@@ -942,9 +769,7 @@
       overflow: hidden;
     }
 
-
     .service-card::before {
-
       content: "";
 
       position: absolute;
@@ -965,9 +790,7 @@
         );
     }
 
-
     .service-top {
-
       display: flex;
 
       justify-content: space-between;
@@ -977,19 +800,14 @@
       align-items: flex-start;
     }
 
-
     .service-name {
-
       font-size: 13px;
-
       font-weight: 800;
 
       line-height: 1.7;
     }
 
-
     .service-type {
-
       margin-top: 3px;
 
       color: var(--muted);
@@ -997,13 +815,10 @@
       font-size: 10px;
     }
 
-
     .badge {
-
       flex: 0 0 auto;
 
-      padding:
-        6px 8px;
+      padding: 6px 8px;
 
       border-radius: 9px;
 
@@ -1012,9 +827,7 @@
       white-space: nowrap;
     }
 
-
     .badge.success {
-
       color: var(--success);
 
       background:
@@ -1025,9 +838,7 @@
         rgba(101,214,160,.13);
     }
 
-
     .badge.warning {
-
       color: var(--warning);
 
       background:
@@ -1038,9 +849,7 @@
         rgba(244,201,107,.13);
     }
 
-
     .badge.danger {
-
       color: var(--danger);
 
       background:
@@ -1051,9 +860,7 @@
         rgba(255,102,117,.13);
     }
 
-
     .badge.info {
-
       color: var(--blue);
 
       background:
@@ -1064,9 +871,7 @@
         rgba(56,189,248,.13);
     }
 
-
     .service-grid {
-
       display: grid;
 
       grid-template-columns:
@@ -1077,9 +882,7 @@
       margin-top: 15px;
     }
 
-
     .mini {
-
       padding: 9px;
 
       border-radius: 12px;
@@ -1094,9 +897,7 @@
       min-width: 0;
     }
 
-
     .mini-label {
-
       color: #71858d;
 
       font-size: 8px;
@@ -1104,13 +905,10 @@
       margin-bottom: 5px;
     }
 
-
     .mini-value {
-
       color: #e9efed;
 
       font-size: 10px;
-
       font-weight: 700;
 
       line-height: 1.6;
@@ -1118,21 +916,15 @@
       word-break: break-word;
     }
 
-
-    /* ==================================================
-       CLIENT CARD
-       ================================================== */
+    /* CLIENT */
 
     .client-card {
-
       padding: 18px;
 
       border-radius: var(--radius);
     }
 
-
     .client-name {
-
       font-weight: 800;
 
       font-size: 13px;
@@ -1140,9 +932,7 @@
       line-height: 1.7;
     }
 
-
     .client-meta {
-
       margin-top: 5px;
 
       color: var(--muted);
@@ -1150,9 +940,7 @@
       font-size: 10px;
     }
 
-
     .client-details {
-
       margin-top: 14px;
 
       display: grid;
@@ -1163,13 +951,9 @@
       gap: 8px;
     }
 
-
-    /* ==================================================
-       EMPTY
-       ================================================== */
+    /* EMPTY */
 
     .empty {
-
       padding: 35px 20px;
 
       text-align: center;
@@ -1179,15 +963,13 @@
       border-radius: var(--radius);
 
       font-size: 12px;
+
+      grid-column: 1 / -1;
     }
 
-
-    /* ==================================================
-       FOOTER
-       ================================================== */
+    /* FOOTER */
 
     .footer {
-
       text-align: center;
 
       padding: 17px;
@@ -1197,13 +979,9 @@
       font-size: 9px;
     }
 
-
-    /* ==================================================
-       TOUCH LIGHT
-       ================================================== */
+    /* TOUCH */
 
     .touch-light {
-
       position: fixed;
 
       width: 180px;
@@ -1232,10 +1010,7 @@
         opacity .18s ease;
     }
 
-
-    /* ==================================================
-       RESPONSIVE
-       ================================================== */
+    /* RESPONSIVE */
 
     @media (max-width: 760px) {
 
@@ -1243,60 +1018,49 @@
         padding: 12px;
       }
 
-
       .hero {
         padding: 19px;
         border-radius: 22px;
       }
 
-
       .hero-content {
         align-items: flex-start;
       }
 
-
       .brand-title {
         font-size: 18px;
       }
-
 
       .brand-logo {
         width: 46px;
         height: 46px;
       }
 
-
       .secure {
         font-size: 9px;
         padding: 7px 9px;
       }
-
 
       .stats {
         grid-template-columns:
           repeat(2, 1fr);
       }
 
-
       .overview {
         grid-template-columns:
           1fr;
       }
-
 
       .financial {
         grid-template-columns:
           1fr;
       }
 
-
       .service-list {
         grid-template-columns:
           1fr;
       }
-
     }
-
 
     @media (max-width: 430px) {
 
@@ -1304,27 +1068,22 @@
         flex-direction: column;
       }
 
-
       .secure {
         align-self: flex-start;
       }
-
 
       .stat-value {
         font-size: 22px;
       }
 
-
       .service-grid {
         grid-template-columns:
           1fr 1fr;
       }
-
     }
 
   </style>
 </head>
-
 
 <body>
 
@@ -1350,11 +1109,12 @@
 
       </div>
 
-
-      <div id="content" style="display:none;"></div>
+      <div
+        id="content"
+        style="display:none;"
+      ></div>
 
     </div>
-
 
     <div
       id="touchLight"
@@ -1391,8 +1151,6 @@
 
     let searchText = '';
 
-    let requestFinished = false;
-
 
     /* ==================================================
        TELEGRAM
@@ -1405,27 +1163,15 @@
         : null;
 
 
-    if (tg) {
-
-      tg.ready();
-
-      tg.expand();
-
-      try {
-        tg.setHeaderColor('#07131b');
-        tg.setBackgroundColor('#07131b');
-      } catch (e) {}
-
-    }
-
-
     /* ==================================================
-       INIT
+       INITIALIZE
        ================================================== */
 
     document.addEventListener(
       'DOMContentLoaded',
-      function() {
+      function () {
+
+        setupTelegram();
 
         setupTouchLight();
 
@@ -1433,6 +1179,38 @@
 
       }
     );
+
+
+    function setupTelegram() {
+
+      if (!tg) {
+        return;
+      }
+
+      try {
+
+        tg.ready();
+
+        tg.expand();
+
+        tg.setHeaderColor(
+          '#07131b'
+        );
+
+        tg.setBackgroundColor(
+          '#07131b'
+        );
+
+      } catch (error) {
+
+        console.warn(
+          'Telegram initialization warning:',
+          error
+        );
+
+      }
+
+    }
 
 
     /* ==================================================
@@ -1448,7 +1226,8 @@
 
         showError(
           'Telegram WebApp پیدا نشد.',
-          'این صفحه باید از داخل ربات Telegram حسابگران آرمان باز شود.'
+          'این صفحه باید از داخل ربات Telegram حسابگران آرمان باز شود.',
+          null
         );
 
         return;
@@ -1463,7 +1242,8 @@
 
         showError(
           'اطلاعات امنیتی Telegram دریافت نشد.',
-          'لطفاً Mini App را از داخل Telegram باز کنید، نه مستقیماً از مرورگر.'
+          'Mini App را از داخل Telegram باز کنید. باز کردن مستقیم لینک در مرورگر مجاز نیست.',
+          null
         );
 
         return;
@@ -1471,23 +1251,35 @@
 
 
       const callbackName =
-        '__dashboard_' +
+        '__dashboardCallback_' +
         Date.now();
 
 
       const script =
-        document.createElement('script');
+        document.createElement(
+          'script'
+        );
+
+
+      let finished = false;
 
 
       const timeout =
         setTimeout(
-          function() {
+          function () {
+
+            if (finished) {
+              return;
+            }
+
+            finished = true;
 
             cleanup();
 
             showError(
               'پاسخ سرور دریافت نشد.',
-              'ارتباط با سرور در زمان تعیین‌شده کامل نشد.'
+              'Google Apps Script در مدت ۱۵ ثانیه پاسخ نداد.',
+              null
             );
 
           },
@@ -1496,9 +1288,28 @@
 
 
       window[callbackName] =
-        function(response) {
+        function (response) {
+
+          if (finished) {
+            return;
+          }
+
+          finished = true;
 
           cleanup();
+
+          console.log(
+            '===== DASHBOARD RAW RESPONSE ====='
+          );
+
+          console.log(
+            response
+          );
+
+          console.log(
+            '=================================='
+          );
+
 
           handleServerResponse(
             response
@@ -1511,13 +1322,31 @@
 
         clearTimeout(timeout);
 
+
         try {
-          delete window[callbackName];
-        } catch (e) {}
+
+          delete window[
+            callbackName
+          ];
+
+        } catch (error) {
+
+          console.warn(
+            'Callback cleanup warning:',
+            error
+          );
+
+        }
+
 
         if (script.parentNode) {
-          script.parentNode.removeChild(script);
+
+          script.parentNode.removeChild(
+            script
+          );
+
         }
+
       }
 
 
@@ -1540,25 +1369,41 @@
         Date.now();
 
 
+      console.log(
+        'Dashboard request URL:',
+        CONFIG.GAS_API
+      );
+
+
       script.src = url;
 
       script.async = true;
 
 
       script.onerror =
-        function() {
+        function () {
+
+          if (finished) {
+            return;
+          }
+
+          finished = true;
 
           cleanup();
 
           showError(
             'خطا در ارتباط با سرور.',
-            'درخواست JSONP به Apps Script با خطا مواجه شد.'
+            'مرورگر نتوانست پاسخ JSONP از Google Apps Script را دریافت کند.',
+            null
           );
 
         };
 
 
-      document.body.appendChild(script);
+      document.body.appendChild(
+        script
+      );
+
     }
 
 
@@ -1566,27 +1411,25 @@
        SERVER RESPONSE
        ================================================== */
 
-    function handleServerResponse(response) {
+    function handleServerResponse(
+      response
+    ) {
 
-      if (!response) {
+      console.log(
+        'handleServerResponse:',
+        response
+      );
+
+
+      if (
+        response === null ||
+        response === undefined
+      ) {
 
         showError(
           'پاسخ خالی دریافت شد.',
-          'سرور پاسخ معتبری ارسال نکرد.'
-        );
-
-        return;
-      }
-
-
-      if (response.ok !== true) {
-
-        showError(
-          serverErrorTitle(
-            response.error
-          ),
-          response.message ||
-          'سرور درخواست را تأیید نکرد.'
+          'Google Apps Script هیچ داده‌ای برنگرداند.',
+          null
         );
 
         return;
@@ -1594,54 +1437,120 @@
 
 
       /*
-       * FIXED CONTRACT:
+       * Backend contract:
        *
-       * response.data
+       * {
+       *   ok: true,
+       *   data: {...}
+       * }
        */
+
+
+      if (
+        response.ok !== true
+      ) {
+
+        console.error(
+          'Dashboard API Error:',
+          response
+        );
+
+
+        const errorCode =
+          response.error ||
+          'UNKNOWN_ERROR';
+
+
+        const errorMessage =
+          response.message ||
+          response.error ||
+          'سرور درخواست را تأیید نکرد.';
+
+
+        showError(
+          serverErrorTitle(
+            errorCode
+          ),
+          errorMessage,
+          response
+        );
+
+
+        return;
+      }
+
+
       if (
         !response.data ||
         typeof response.data !== 'object'
       ) {
 
+        console.error(
+          'Missing response.data:',
+          response
+        );
+
+
         showError(
           'ساختار Dashboard معتبر نیست.',
-          'سرور پاسخ داد اما بخش data وجود ندارد.'
+          'سرور پاسخ موفق داد اما بخش data در پاسخ وجود ندارد.',
+          response
         );
+
 
         return;
       }
 
 
-      if (
-        !response.data.Summary ||
-        !Array.isArray(
-          response.data.Clients
-        ) ||
-        !Array.isArray(
-          response.data.Accounting
-        ) ||
-        !Array.isArray(
-          response.data.Tax
-        ) ||
-        !Array.isArray(
-          response.data.Receivables
-        )
-      ) {
-
-        showError(
-          'ساختار Dashboard ناقص است.',
-          'بخش‌های Summary، Clients، Accounting، Tax یا Receivables پیدا نشدند.'
-        );
-
-        return;
-      }
-
-
-      dashboard =
+      const data =
         response.data;
 
 
-      requestFinished = true;
+      /*
+       * Validate exact schema.
+       */
+
+      const validSchema =
+        data.Summary &&
+        typeof data.Summary === 'object' &&
+
+        Array.isArray(
+          data.Clients
+        ) &&
+
+        Array.isArray(
+          data.Accounting
+        ) &&
+
+        Array.isArray(
+          data.Tax
+        ) &&
+
+        Array.isArray(
+          data.Receivables
+        );
+
+
+      if (!validSchema) {
+
+        console.error(
+          'Invalid dashboard schema:',
+          data
+        );
+
+
+        showError(
+          'ساختار Dashboard ناقص است.',
+          'یکی از بخش‌های Summary، Clients، Accounting، Tax یا Receivables وجود ندارد.',
+          response
+        );
+
+
+        return;
+      }
+
+
+      dashboard = data;
 
 
       render();
@@ -1653,7 +1562,9 @@
        ERROR TITLE
        ================================================== */
 
-    function serverErrorTitle(code) {
+    function serverErrorTitle(
+      code
+    ) {
 
       const map = {
 
@@ -1661,7 +1572,7 @@
           'کلید دسترسی نامعتبر است.',
 
         MISSING_INIT_DATA:
-          'Mini App معتبر نیست.',
+          'اطلاعات Telegram دریافت نشد.',
 
         INVALID_INIT_DATA:
           'اعتبارسنجی Telegram ناموفق بود.',
@@ -1673,15 +1584,22 @@
           'خطای داخلی سرور.',
 
         ACTION_NOT_FOUND:
-          'درخواست نامعتبر.'
+          'درخواست نامعتبر است.',
+
+        EMPTY_REQUEST:
+          'درخواست خالی است.',
+
+        WEBHOOK_ERROR:
+          'خطای Webhook.'
 
       };
 
 
       return (
         map[code] ||
-        'خطا در دریافت Dashboard'
+        'خطا در دریافت اطلاعات داشبورد'
       );
+
     }
 
 
@@ -1697,27 +1615,32 @@
         );
 
 
+      if (!content) {
+        return;
+      }
+
+
       content.style.display =
         'block';
 
 
-      content.innerHTML = `
+      content.innerHTML =
 
-        ${renderHero()}
+        renderHero() +
 
-        ${renderStats()}
+        renderStats() +
 
-        ${renderOverview()}
+        renderOverview() +
 
-        ${renderFinancial()}
+        renderFinancial() +
 
-        ${renderServices()}
+        renderServices() +
 
-        <div class="footer">
-          حسابگران آرمان · سامانه مدیریت اطلاعات مؤسسه
-        </div>
-
-      `;
+        `
+          <div class="footer">
+            حسابگران آرمان · سامانه مدیریت اطلاعات مؤسسه
+          </div>
+        `;
 
 
       hideLoading();
@@ -1760,12 +1683,11 @@
 
             </div>
 
-
             <div class="secure">
 
               <span class="secure-dot"></span>
 
-              Telegram Verified
+              اتصال امن Telegram
 
             </div>
 
@@ -1774,6 +1696,7 @@
         </section>
 
       `;
+
     }
 
 
@@ -1800,7 +1723,6 @@
             `${number(s.ActiveClients)} فعال`
           )}
 
-
           ${statCard(
             '📘',
             'کارهای حسابداری',
@@ -1809,7 +1731,6 @@
             ),
             `${number(s.AccountingCompleted)} انجام شده`
           )}
-
 
           ${statCard(
             '⚖️',
@@ -1820,10 +1741,9 @@
             `${number(s.TaxCompleted)} انجام شده`
           )}
 
-
           ${statCard(
             '💰',
-            'دریافتنی',
+            'مانده دریافتنی',
             formatMoneyShort(
               s.RemainingReceivables
             ),
@@ -1833,6 +1753,7 @@
         </section>
 
       `;
+
     }
 
 
@@ -1848,7 +1769,7 @@
         <div class="stat glass">
 
           <div class="stat-label">
-            ${icon} ${esc(label)}
+            ${esc(label)}
           </div>
 
           <div class="stat-value">
@@ -1862,6 +1783,7 @@
         </div>
 
       `;
+
     }
 
 
@@ -1876,24 +1798,39 @@
 
 
       const clientsTotal =
-        Number(s.ClientsCount) || 0;
+        Number(
+          s.ClientsCount
+        ) || 0;
+
 
       const clientsActive =
-        Number(s.ActiveClients) || 0;
+        Number(
+          s.ActiveClients
+        ) || 0;
 
 
       const accountingTotal =
-        Number(s.AccountingCount) || 0;
+        Number(
+          s.AccountingCount
+        ) || 0;
+
 
       const accountingDone =
-        Number(s.AccountingCompleted) || 0;
+        Number(
+          s.AccountingCompleted
+        ) || 0;
 
 
       const taxTotal =
-        Number(s.TaxCount) || 0;
+        Number(
+          s.TaxCount
+        ) || 0;
+
 
       const taxDone =
-        Number(s.TaxCompleted) || 0;
+        Number(
+          s.TaxCompleted
+        ) || 0;
 
 
       return `
@@ -1912,7 +1849,6 @@
 
           </div>
 
-
           <div class="overview">
 
             ${chartCard(
@@ -1922,14 +1858,12 @@
               'فعال'
             )}
 
-
             ${chartCard(
               'حسابداری',
               accountingDone,
               accountingTotal,
               'انجام شده'
             )}
-
 
             ${chartCard(
               'مالیاتی',
@@ -1943,6 +1877,7 @@
         </section>
 
       `;
+
     }
 
 
@@ -1956,7 +1891,10 @@
       const percent =
         total > 0
           ? Math.round(
-              (done / total) * 100
+              (
+                done /
+                total
+              ) * 100
             )
           : 0;
 
@@ -1981,17 +1919,18 @@
             <div class="chart-center">
 
               <div class="chart-number">
-                ${percent}%
+                ${number(percent)}%
               </div>
 
               <div class="chart-label">
-                ${number(done)} از ${number(total)}
+                ${number(done)}
+                از
+                ${number(total)}
               </div>
 
             </div>
 
           </div>
-
 
           <div class="chart-name">
             ${esc(title)}
@@ -2004,6 +1943,7 @@
         </div>
 
       `;
+
     }
 
 
@@ -2033,7 +1973,6 @@
 
           </div>
 
-
           <div class="financial">
 
             <div class="money-card glass">
@@ -2050,7 +1989,6 @@
 
             </div>
 
-
             <div class="money-card glass">
 
               <div class="money-label">
@@ -2064,7 +2002,6 @@
               </div>
 
             </div>
-
 
             <div class="money-card glass">
 
@@ -2085,6 +2022,7 @@
         </section>
 
       `;
+
     }
 
 
@@ -2114,7 +2052,6 @@
 
           </div>
 
-
           <div class="toolbar">
 
             <input
@@ -2126,7 +2063,6 @@
             >
 
           </div>
-
 
           <div class="tabs">
 
@@ -2152,12 +2088,15 @@
 
           </div>
 
-
           <div class="service-list">
 
             ${
               items.length
-                ? items.map(renderItem).join('')
+                ? items
+                    .map(
+                      renderItem
+                    )
+                    .join('')
                 : `
                   <div class="empty glass">
                     موردی با این مشخصات پیدا نشد.
@@ -2170,11 +2109,12 @@
         </section>
 
       `;
+
     }
 
 
     /* ==================================================
-       TABS
+       TAB
        ================================================== */
 
     function tabButton(
@@ -2185,13 +2125,19 @@
       return `
 
         <button
-          class="tab ${activeTab === id ? 'active' : ''}"
-          data-tab="${id}"
+          type="button"
+          class="tab ${
+            activeTab === id
+              ? 'active'
+              : ''
+          }"
+          data-tab="${escAttribute(id)}"
         >
           ${esc(title)}
         </button>
 
       `;
+
     }
 
 
@@ -2206,18 +2152,23 @@
 
       if (
         activeTab === 'all' ||
-        activeTab === 'accounting'
+        activeTab === 'tax'
       ) {
 
-        if (activeTab === 'accounting') {
+        if (
+          activeTab === 'all' ||
+          activeTab === 'tax'
+        ) {
 
           items.push(
-            ...dashboard.Accounting.map(
-              function(item) {
+            ...dashboard.Tax.map(
+              function (item) {
+
                 return {
-                  type: 'accounting',
+                  type: 'tax',
                   data: item
                 };
+
               }
             )
           );
@@ -2229,23 +2180,21 @@
 
       if (
         activeTab === 'all' ||
-        activeTab === 'tax'
+        activeTab === 'accounting'
       ) {
 
-        if (activeTab === 'tax') {
+        items.push(
+          ...dashboard.Accounting.map(
+            function (item) {
 
-          items.push(
-            ...dashboard.Tax.map(
-              function(item) {
-                return {
-                  type: 'tax',
-                  data: item
-                };
-              }
-            )
-          );
+              return {
+                type: 'accounting',
+                data: item
+              };
 
-        }
+            }
+          )
+        );
 
       }
 
@@ -2255,84 +2204,57 @@
         activeTab === 'clients'
       ) {
 
-        if (activeTab === 'clients') {
-
-          items.push(
-            ...dashboard.Clients.map(
-              function(item) {
-                return {
-                  type: 'client',
-                  data: item
-                };
-              }
-            )
-          );
-
-        }
-
-      }
-
-
-      if (activeTab === 'all') {
-
-        items = [
-
-          ...dashboard.Tax.map(
-            item => ({
-              type: 'tax',
-              data: item
-            })
-          ),
-
-          ...dashboard.Accounting.map(
-            item => ({
-              type: 'accounting',
-              data: item
-            })
-          ),
-
+        items.push(
           ...dashboard.Clients.map(
-            item => ({
-              type: 'client',
-              data: item
-            })
-          )
+            function (item) {
 
-        ];
+              return {
+                type: 'client',
+                data: item
+              };
+
+            }
+          )
+        );
 
       }
 
 
-      const q =
+      const query =
         normalizeSearch(
           searchText
         );
 
 
-      if (!q) {
+      if (!query) {
         return items;
       }
 
 
       return items.filter(
-        function(item) {
+        function (item) {
 
           return normalizeSearch(
             JSON.stringify(
               item.data
             )
-          ).includes(q);
+          ).includes(
+            query
+          );
 
         }
       );
+
     }
 
 
     /* ==================================================
-       ITEM RENDER
+       ITEM
        ================================================== */
 
-    function renderItem(item) {
+    function renderItem(
+      item
+    ) {
 
       if (
         item.type === 'tax'
@@ -2341,6 +2263,7 @@
         return renderTax(
           item.data
         );
+
       }
 
 
@@ -2351,12 +2274,14 @@
         return renderAccounting(
           item.data
         );
+
       }
 
 
       return renderClient(
         item.data
       );
+
     }
 
 
@@ -2383,7 +2308,8 @@
               <div class="service-type">
                 ${esc(
                   d['نوع پرونده']
-                )} ·
+                )}
+                ·
                 ${esc(
                   d['مرحله پرونده']
                 )}
@@ -2397,7 +2323,6 @@
             )}
 
           </div>
-
 
           <div class="service-grid">
 
@@ -2426,6 +2351,7 @@
         </article>
 
       `;
+
     }
 
 
@@ -2464,7 +2390,6 @@
 
           </div>
 
-
           <div class="service-grid">
 
             ${mini(
@@ -2489,7 +2414,10 @@
 
           </div>
 
-          <div class="mini" style="margin-top:8px">
+          <div
+            class="mini"
+            style="margin-top:8px"
+          >
 
             <div class="mini-label">
               شرح کار
@@ -2506,6 +2434,7 @@
         </article>
 
       `;
+
     }
 
 
@@ -2532,7 +2461,8 @@
               <div class="client-meta">
                 ${esc(
                   d['نوع شخصیت']
-                )} ·
+                )}
+                ·
                 ${esc(
                   d['نوع فعالیت']
                 )}
@@ -2546,7 +2476,6 @@
             )}
 
           </div>
-
 
           <div class="client-details">
 
@@ -2587,6 +2516,7 @@
         </article>
 
       `;
+
     }
 
 
@@ -2600,19 +2530,26 @@
     ) {
 
       const s =
-        String(status || '');
-
+        String(
+          status || ''
+        );
 
       const p =
-        String(priority || '');
+        String(
+          priority || ''
+        );
 
 
       let cls = 'info';
 
 
       if (
-        s.includes('انجام نشده') ||
-        s.includes('دریافت نشده')
+        s.includes(
+          'انجام نشده'
+        ) ||
+        s.includes(
+          'دریافت نشده'
+        )
       ) {
 
         cls = 'warning';
@@ -2621,8 +2558,8 @@
 
 
       if (
-        s.includes('فوری') ||
-        p.includes('فوری')
+        p.includes('فوری') ||
+        s.includes('فوری')
       ) {
 
         cls = 'danger';
@@ -2641,17 +2578,23 @@
       }
 
 
+      const label =
+        p &&
+        p !== 'پایین'
+          ? p
+          : s;
+
+
       return `
 
         <span class="badge ${cls}">
           ${esc(
-            priority && priority !== 'پایین'
-              ? priority
-              : status
+            label || '—'
           )}
         </span>
 
       `;
+
     }
 
 
@@ -2692,6 +2635,7 @@
         </div>
 
       `;
+
     }
 
 
@@ -2711,12 +2655,12 @@
 
         search.addEventListener(
           'input',
-          function(e) {
+          function (event) {
 
             searchText =
-              e.target.value || '';
+              event.target.value || '';
 
-            refreshServices();
+            render();
 
           }
         );
@@ -2729,43 +2673,22 @@
           '[data-tab]'
         )
         .forEach(
-          function(button) {
+          function (button) {
 
             button.addEventListener(
               'click',
-              function() {
+              function () {
 
                 activeTab =
                   button.dataset.tab;
 
-                refreshServices();
+                render();
 
               }
             );
 
           }
         );
-    }
-
-
-    /* ==================================================
-       REFRESH SERVICES
-       ================================================== */
-
-    function refreshServices() {
-
-      const section =
-        document.querySelector(
-          '.section:nth-of-type(5)'
-        );
-
-
-      /*
-       * Safer approach:
-       * rebuild the complete page while preserving
-       * dashboard state.
-       */
-      render();
 
     }
 
@@ -2776,46 +2699,10 @@
 
     function showLoading() {
 
-      document
-        .getElementById('loading')
-        .style.display = 'grid';
-
-      document
-        .getElementById('content')
-        .style.display = 'none';
-
-    }
-
-
-    function hideLoading() {
-
-      document
-        .getElementById('loading')
-        .style.display = 'none';
-
-      document
-        .getElementById('content')
-        .style.display = 'block';
-
-    }
-
-
-    /* ==================================================
-       ERROR UI
-       ================================================== */
-
-    function showError(
-      title,
-      text
-    ) {
-
-      requestFinished = true;
-
-
-      document
-        .getElementById('loading')
-        .style.display = 'none';
-
+      const loading =
+        document.getElementById(
+          'loading'
+        );
 
       const content =
         document.getElementById(
@@ -2823,8 +2710,120 @@
         );
 
 
+      if (loading) {
+        loading.style.display = 'grid';
+      }
+
+
+      if (content) {
+        content.style.display = 'none';
+      }
+
+    }
+
+
+    function hideLoading() {
+
+      const loading =
+        document.getElementById(
+          'loading'
+        );
+
+      const content =
+        document.getElementById(
+          'content'
+        );
+
+
+      if (loading) {
+        loading.style.display = 'none';
+      }
+
+
+      if (content) {
+        content.style.display = 'block';
+      }
+
+    }
+
+
+    /* ==================================================
+       ERROR
+       ================================================== */
+
+    function showError(
+      title,
+      text,
+      debugData
+    ) {
+
+      const loading =
+        document.getElementById(
+          'loading'
+        );
+
+      const content =
+        document.getElementById(
+          'content'
+        );
+
+
+      if (loading) {
+        loading.style.display = 'none';
+      }
+
+
+      if (!content) {
+        return;
+      }
+
+
       content.style.display =
         'block';
+
+
+      const safeTitle =
+        title === null ||
+        title === undefined
+          ? 'خطا در دریافت اطلاعات داشبورد'
+          : String(title);
+
+
+      const safeText =
+        text === null ||
+        text === undefined
+          ? 'خطای نامشخصی رخ داده است.'
+          : String(text);
+
+
+      let debugHtml = '';
+
+
+      if (debugData) {
+
+        try {
+
+          debugHtml = `
+
+            <div class="error-debug">
+              ${esc(
+                JSON.stringify(
+                  debugData,
+                  null,
+                  2
+                )
+              )}
+            </div>
+
+          `;
+
+        } catch (error) {
+
+          debugHtml = '';
+
+        }
+
+      }
 
 
       content.innerHTML = `
@@ -2836,14 +2835,17 @@
           </div>
 
           <div class="error-title">
-            ${esc(title)}
+            ${esc(safeTitle)}
           </div>
 
           <div class="error-text">
-            ${esc(text)}
+            ${esc(safeText)}
           </div>
 
+          ${debugHtml}
+
           <button
+            type="button"
             class="retry"
             onclick="location.reload()"
           >
@@ -2853,31 +2855,55 @@
         </div>
 
       `;
+
+
+      console.error(
+        'Dashboard Error:',
+        {
+          title: safeTitle,
+          message: safeText,
+          debug: debugData
+        }
+      );
+
     }
 
 
     /* ==================================================
-       FORMATTERS
+       FORMAT NUMBER
        ================================================== */
 
-    function number(value) {
+    function number(
+      value
+    ) {
 
       const n =
         Number(value);
 
 
-      if (!isFinite(n)) {
+      if (
+        !isFinite(n)
+      ) {
+
         return '۰';
+
       }
 
 
       return n.toLocaleString(
         'fa-IR'
       );
+
     }
 
 
-    function formatMoney(value) {
+    /* ==================================================
+       MONEY
+       ================================================== */
+
+    function formatMoney(
+      value
+    ) {
 
       if (
         value === null ||
@@ -2894,66 +2920,87 @@
         Number(value);
 
 
-      if (!isFinite(n)) {
+      if (
+        !isFinite(n)
+      ) {
+
         return '۰ ریال';
+
       }
 
 
       return (
-        n.toLocaleString('fa-IR') +
+        n.toLocaleString(
+          'fa-IR'
+        ) +
         ' ریال'
       );
+
     }
 
 
-    function formatMoneyShort(value) {
+    function formatMoneyShort(
+      value
+    ) {
 
       const n =
         Number(value) || 0;
 
 
-      if (n >= 1000000000) {
+      if (
+        n >= 1000000000
+      ) {
 
         return (
-          (n / 1000000000)
-            .toLocaleString(
-              'fa-IR',
-              {
-                maximumFractionDigits: 1
-              }
-            ) +
+          (
+            n /
+            1000000000
+          ).toLocaleString(
+            'fa-IR',
+            {
+              maximumFractionDigits: 1
+            }
+          ) +
           ' میلیارد'
         );
 
       }
 
 
-      if (n >= 1000000) {
+      if (
+        n >= 1000000
+      ) {
 
         return (
-          (n / 1000000)
-            .toLocaleString(
-              'fa-IR',
-              {
-                maximumFractionDigits: 1
-              }
-            ) +
+          (
+            n /
+            1000000
+          ).toLocaleString(
+            'fa-IR',
+            {
+              maximumFractionDigits: 1
+            }
+          ) +
           ' میلیون'
         );
 
       }
 
 
-      if (n >= 1000) {
+      if (
+        n >= 1000
+      ) {
 
         return (
-          (n / 1000)
-            .toLocaleString(
-              'fa-IR',
-              {
-                maximumFractionDigits: 1
-              }
-            ) +
+          (
+            n /
+            1000
+          ).toLocaleString(
+            'fa-IR',
+            {
+              maximumFractionDigits: 1
+            }
+          ) +
           ' هزار'
         );
 
@@ -2961,6 +3008,7 @@
 
 
       return number(n);
+
     }
 
 
@@ -2968,26 +3016,42 @@
        SEARCH NORMALIZATION
        ================================================== */
 
-    function normalizeSearch(value) {
+    function normalizeSearch(
+      value
+    ) {
 
       return String(
         value || ''
       )
         .toLowerCase()
-        .replace(/ي/g, 'ی')
-        .replace(/ى/g, 'ی')
-        .replace(/ك/g, 'ک')
-        .replace(/\u200c/g, ' ')
+        .replace(
+          /ي/g,
+          'ی'
+        )
+        .replace(
+          /ى/g,
+          'ی'
+        )
+        .replace(
+          /ك/g,
+          'ک'
+        )
+        .replace(
+          /\u200c/g,
+          ' '
+        )
         .trim();
 
     }
 
 
     /* ==================================================
-       HTML ESCAPE
+       ESCAPE HTML
        ================================================== */
 
-    function esc(value) {
+    function esc(
+      value
+    ) {
 
       if (
         value === null ||
@@ -3024,8 +3088,12 @@
     }
 
 
-    function escAttribute(value) {
+    function escAttribute(
+      value
+    ) {
+
       return esc(value);
+
     }
 
 
@@ -3041,18 +3109,20 @@
         );
 
 
-      if (!light) return;
+      if (!light) {
+        return;
+      }
 
 
       document.addEventListener(
         'pointermove',
-        function(e) {
+        function (event) {
 
           light.style.left =
-            e.clientX + 'px';
+            event.clientX + 'px';
 
           light.style.top =
-            e.clientY + 'px';
+            event.clientY + 'px';
 
           light.style.opacity =
             '.75';
@@ -3066,7 +3136,7 @@
 
       document.addEventListener(
         'pointerleave',
-        function() {
+        function () {
 
           light.style.opacity =
             '0';
