@@ -1,30 +1,56 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
-
 <head>
-
   <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <title>
-    داشبورد حسابگران آرمان
-  </title>
+  <title>داشبورد حسابگران آرمان</title>
 
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
   <style>
+    :root {
+      --bg: #07131b;
+      --bg2: #0b1d25;
+
+      --blue: #38bdf8;
+      --blue2: #2563eb;
+
+      --gold: #d6b56d;
+      --gold2: #f0d28a;
+
+      --olive: #89964a;
+      --olive2: #a8b85d;
+
+      --text: #f5f7f4;
+      --muted: #9caeb4;
+
+      --glass: rgba(255,255,255,.065);
+      --glass2: rgba(255,255,255,.095);
+      --border: rgba(255,255,255,.12);
+
+      --danger: #ff6675;
+      --warning: #e6bd63;
+      --success: #65d6a0;
+
+      --radius: 24px;
+    }
 
     * {
       box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      background: var(--bg);
+      scroll-behavior: smooth;
     }
 
     body {
-
       margin: 0;
+      min-height: 100vh;
+      color: var(--text);
 
       font-family:
         Tahoma,
@@ -32,1631 +58,2191 @@
         sans-serif;
 
       background:
+        radial-gradient(circle at 15% 5%, rgba(37,99,235,.20), transparent 28%),
+        radial-gradient(circle at 90% 15%, rgba(137,150,74,.18), transparent 30%),
+        radial-gradient(circle at 50% 100%, rgba(214,181,109,.08), transparent 35%),
+        linear-gradient(145deg, #061017, #0a1a21 50%, #071219);
+
+      overflow-x: hidden;
+    }
+
+    /* -----------------------------
+       Ambient luxury lights
+    ----------------------------- */
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: .18;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::before {
+      background: var(--blue);
+      top: -100px;
+      right: -80px;
+    }
+
+    body::after {
+      background: var(--olive);
+      bottom: -120px;
+      left: -90px;
+    }
+
+    .app {
+      position: relative;
+      z-index: 1;
+      width: min(100%, 980px);
+      margin: auto;
+      padding: 18px 14px 50px;
+    }
+
+    /* -----------------------------
+       Header
+    ----------------------------- */
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+
+      padding: 22px 20px;
+      margin-bottom: 15px;
+
+      border: 1px solid rgba(214,181,109,.20);
+      border-radius: 28px;
+
+      background:
         linear-gradient(
           135deg,
-          #f5f3ed,
-          #ebe7dc
+          rgba(255,255,255,.105),
+          rgba(255,255,255,.035)
         );
 
-      color: #222;
-
-      min-height: 100vh;
-
-      padding: 20px;
-
-    }
-
-
-    .container {
-
-      width: 100%;
-
-      max-width: 1100px;
-
-      margin:
-        0 auto;
-
-    }
-
-
-    .header {
-
-      background: white;
-
-      border-radius: 24px;
-
-      padding: 25px;
-
-      margin-bottom: 20px;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
 
       box-shadow:
-        0 10px 35px
-        rgba(0,0,0,.08);
-
+        0 20px 60px rgba(0,0,0,.30),
+        inset 0 1px rgba(255,255,255,.10);
     }
 
-
-    .header h1 {
-
-      margin:
-        0 0 8px;
-
-      font-size: 25px;
-
-    }
-
-
-    .header p {
-
-      margin: 0;
-
-      color: #777;
-
-      font-size: 14px;
-
-    }
-
-
-    .status {
-
-      background: white;
-
-      border-radius: 20px;
-
-      padding: 20px;
-
-      margin-bottom: 20px;
-
-      box-shadow:
-        0 8px 25px
-        rgba(0,0,0,.06);
-
-    }
-
-
-    .status-title {
-
-      font-weight: bold;
-
-      margin-bottom: 12px;
-
-    }
-
-
-    #status {
-
-      line-height: 2;
-
-      font-size: 14px;
-
-      white-space: pre-wrap;
-
-      word-break: break-word;
-
-    }
-
-
-    .loading {
-
-      display: inline-block;
-
-      width: 10px;
-
-      height: 10px;
-
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 180px;
+      height: 180px;
       border-radius: 50%;
 
-      background: #b08d57;
+      background: rgba(56,189,248,.10);
+      filter: blur(30px);
 
-      margin-left: 8px;
-
-      animation:
-        pulse 1s infinite;
-
+      left: -60px;
+      top: -80px;
     }
 
+    .hero-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+    }
+
+    .brand-icon {
+      width: 48px;
+      height: 48px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 15px;
+
+      color: var(--gold2);
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(214,181,109,.25),
+          rgba(56,189,248,.08)
+        );
+
+      border: 1px solid rgba(214,181,109,.35);
+
+      box-shadow:
+        0 0 30px rgba(214,181,109,.08),
+        inset 0 1px rgba(255,255,255,.15);
+
+      font-size: 23px;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: -.4px;
+    }
+
+    .brand p {
+      margin: 5px 0 0;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .connection {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+
+      padding: 8px 11px;
+
+      border-radius: 100px;
+
+      background: rgba(101,214,160,.07);
+      border: 1px solid rgba(101,214,160,.18);
+
+      color: var(--success);
+      font-size: 10px;
+      white-space: nowrap;
+    }
+
+    .pulse {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--success);
+      box-shadow: 0 0 12px var(--success);
+
+      animation: pulse 1.8s infinite;
+    }
 
     @keyframes pulse {
-
-      0% {
-        opacity: .3;
+      0%,100% {
+        opacity: .45;
+        transform: scale(.85);
       }
 
       50% {
         opacity: 1;
+        transform: scale(1.2);
       }
-
-      100% {
-        opacity: .3;
-      }
-
     }
 
+    .user-line {
+      margin-top: 17px;
 
-    .user-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
 
-      display: none;
+      padding-top: 14px;
 
-      background: white;
+      border-top: 1px solid rgba(255,255,255,.07);
 
-      border-radius: 20px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .user-name {
+      color: var(--gold2);
+      font-weight: 700;
+    }
+
+    /* -----------------------------
+       Stats
+    ----------------------------- */
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+
+      margin-bottom: 15px;
+    }
+
+    .stat {
+      position: relative;
+      overflow: hidden;
+
+      padding: 15px 12px;
+
+      min-height: 100px;
+
+      border-radius: 21px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.095),
+          rgba(255,255,255,.035)
+        );
+
+      border: 1px solid var(--border);
+
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+
+      box-shadow:
+        0 12px 35px rgba(0,0,0,.20),
+        inset 0 1px rgba(255,255,255,.08);
+
+      transition: transform .25s ease, border-color .25s ease;
+    }
+
+    .stat:active {
+      transform: scale(.97);
+    }
+
+    .stat::after {
+      content: "";
+      position: absolute;
+
+      width: 80px;
+      height: 80px;
+
+      border-radius: 50%;
+
+      right: -35px;
+      bottom: -35px;
+
+      filter: blur(22px);
+      opacity: .25;
+    }
+
+    .stat:nth-child(1)::after {
+      background: var(--blue);
+    }
+
+    .stat:nth-child(2)::after {
+      background: var(--olive);
+    }
+
+    .stat:nth-child(3)::after {
+      background: var(--gold);
+    }
+
+    .stat:nth-child(4)::after {
+      background: #b56dff;
+    }
+
+    .stat-icon {
+      font-size: 17px;
+      opacity: .9;
+    }
+
+    .stat-number {
+      margin-top: 8px;
+
+      font-size: 24px;
+      font-weight: 800;
+
+      background:
+        linear-gradient(
+          135deg,
+          #fff,
+          var(--gold2)
+        );
+
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .stat-label {
+      margin-top: 3px;
+
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    /* -----------------------------
+       Section
+    ----------------------------- */
+
+    .section {
+      margin-top: 18px;
+    }
+
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      margin-bottom: 11px;
+      padding: 0 4px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .section-title span {
+      color: var(--muted);
+      font-size: 10px;
+    }
+
+    /* -----------------------------
+       Circular dashboard
+    ----------------------------- */
+
+    .overview {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .circle-card {
+      position: relative;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      min-height: 230px;
 
       padding: 20px;
 
-      margin-bottom: 20px;
+      border-radius: var(--radius);
 
-      box-shadow:
-        0 8px 25px
-        rgba(0,0,0,.06);
-
-    }
-
-
-    .user-name {
-
-      font-size: 18px;
-
-      font-weight: bold;
-
-    }
-
-
-    .user-id {
-
-      margin-top: 6px;
-
-      color: #888;
-
-      font-size: 13px;
-
-    }
-
-
-    .stats {
-
-      display: grid;
-
-      grid-template-columns:
-        repeat(
-          auto-fit,
-          minmax(
-            180px,
-            1fr
-          )
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.085),
+          rgba(255,255,255,.025)
         );
 
-      gap: 15px;
+      border: 1px solid var(--border);
 
-      margin-bottom: 20px;
-
-    }
-
-
-    .stat {
-
-      background: white;
-
-      border-radius: 20px;
-
-      padding: 22px;
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
 
       box-shadow:
-        0 8px 25px
-        rgba(0,0,0,.06);
-
+        0 20px 50px rgba(0,0,0,.22),
+        inset 0 1px rgba(255,255,255,.08);
     }
 
+    .donut {
+      position: relative;
 
-    .stat-title {
+      width: 155px;
+      height: 155px;
 
-      color: #777;
+      border-radius: 50%;
 
-      font-size: 13px;
-
-      margin-bottom: 10px;
-
-    }
-
-
-    .stat-value {
-
-      font-size: 30px;
-
-      font-weight: bold;
-
-    }
-
-
-    .sections {
-
-      display: grid;
-
-      gap: 18px;
-
-    }
-
-
-    .section {
-
-      background: white;
-
-      border-radius: 20px;
-
-      padding: 22px;
+      background:
+        conic-gradient(
+          var(--blue) 0deg 115deg,
+          var(--olive) 115deg 205deg,
+          var(--gold) 205deg 295deg,
+          rgba(255,255,255,.07) 295deg 360deg
+        );
 
       box-shadow:
-        0 8px 25px
-        rgba(0,0,0,.06);
-
+        0 0 35px rgba(56,189,248,.08);
     }
 
+    .donut::before {
+      content: "";
 
-    .section h2 {
+      position: absolute;
 
-      margin:
-        0 0 15px;
+      inset: 17px;
 
-      font-size: 19px;
+      border-radius: 50%;
 
+      background:
+        radial-gradient(
+          circle at 35% 25%,
+          #132831,
+          #09171e 75%
+        );
+
+      box-shadow:
+        inset 0 0 25px rgba(0,0,0,.35);
     }
 
+    .donut-center {
+      position: absolute;
+      inset: 0;
 
-    .item {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
 
-      border-top:
-        1px solid #eee;
-
-      padding:
-        13px 0;
-
+      z-index: 2;
     }
 
+    .donut-number {
+      font-size: 28px;
+      font-weight: 800;
 
-    .item:first-child {
-
-      border-top: none;
-
+      color: #fff;
     }
 
+    .donut-label {
+      margin-top: 2px;
 
-    .item-title {
-
-      font-weight: bold;
-
-      margin-bottom: 5px;
-
+      color: var(--muted);
+      font-size: 10px;
     }
 
+    .legend {
+      position: absolute;
+      bottom: 15px;
 
-    .item-text {
+      display: flex;
+      gap: 12px;
 
-      color: #666;
-
-      font-size: 13px;
-
-      line-height: 1.8;
-
+      color: var(--muted);
+      font-size: 9px;
     }
 
-
-    .error {
-
-      color: #b42318;
-
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
     }
 
-
-    .success {
-
-      color: #16803c;
-
+    .legend-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
     }
 
-
-    .warning {
-
-      color: #a15c00;
-
+    .blue {
+      background: var(--blue);
     }
 
-
-    .hidden {
-
-      display: none !important;
-
+    .olive {
+      background: var(--olive2);
     }
 
+    .gold {
+      background: var(--gold2);
+    }
 
-    .retry {
+    /* -----------------------------
+       Tabs
+    ----------------------------- */
 
-      margin-top: 15px;
+    .tabs {
+      display: flex;
+      gap: 7px;
 
-      border: none;
+      overflow-x: auto;
+      padding-bottom: 2px;
 
-      border-radius: 12px;
+      scrollbar-width: none;
+    }
 
-      padding:
-        12px 20px;
+    .tabs::-webkit-scrollbar {
+      display: none;
+    }
 
-      background: #222;
+    .tab {
+      flex: 0 0 auto;
 
-      color: white;
+      border: 1px solid rgba(255,255,255,.08);
+
+      background: rgba(255,255,255,.045);
+
+      color: var(--muted);
+
+      border-radius: 100px;
+
+      padding: 9px 15px;
+
+      font-family: inherit;
+      font-size: 10px;
 
       cursor: pointer;
 
-      font-family: inherit;
-
+      transition: .25s ease;
     }
 
+    .tab.active {
+      color: #fff;
 
-    .footer {
+      background:
+        linear-gradient(
+          135deg,
+          rgba(56,189,248,.20),
+          rgba(137,150,74,.16)
+        );
+
+      border-color: rgba(214,181,109,.28);
+
+      box-shadow:
+        0 0 20px rgba(56,189,248,.06);
+    }
+
+    /* -----------------------------
+       Cards
+    ----------------------------- */
+
+    .items {
+      display: grid;
+      gap: 10px;
+    }
+
+    .item {
+      position: relative;
+      overflow: hidden;
+
+      padding: 16px;
+
+      border-radius: 21px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.075),
+          rgba(255,255,255,.028)
+        );
+
+      border: 1px solid rgba(255,255,255,.095);
+
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+
+      box-shadow:
+        0 14px 35px rgba(0,0,0,.18);
+
+      transition:
+        transform .2s ease,
+        border-color .2s ease;
+    }
+
+    .item:active {
+      transform: scale(.985);
+    }
+
+    .item::before {
+      content: "";
+
+      position: absolute;
+      top: 0;
+      right: 0;
+
+      width: 3px;
+      height: 100%;
+
+      background: var(--blue);
+      opacity: .7;
+    }
+
+    .item.priority-high::before {
+      background: var(--danger);
+    }
+
+    .item.priority-medium::before {
+      background: var(--gold);
+    }
+
+    .item.priority-low::before {
+      background: var(--olive2);
+    }
+
+    .item-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .item-title {
+      font-size: 13px;
+      font-weight: 700;
+
+      color: #fff;
+
+      line-height: 1.8;
+    }
+
+    .item-code {
+      color: var(--gold);
+      font-size: 9px;
+      margin-left: 5px;
+    }
+
+    .badge {
+      flex: 0 0 auto;
+
+      padding: 5px 9px;
+
+      border-radius: 100px;
+
+      font-size: 9px;
+
+      white-space: nowrap;
+    }
+
+    .badge-done {
+      color: var(--success);
+      background: rgba(101,214,160,.09);
+      border: 1px solid rgba(101,214,160,.15);
+    }
+
+    .badge-progress {
+      color: var(--blue);
+      background: rgba(56,189,248,.08);
+      border: 1px solid rgba(56,189,248,.14);
+    }
+
+    .badge-pending {
+      color: var(--warning);
+      background: rgba(230,189,99,.08);
+      border: 1px solid rgba(230,189,99,.14);
+    }
+
+    .item-description {
+      margin-top: 9px;
+
+      color: #aab9bd;
+
+      font-size: 10px;
+      line-height: 1.9;
+    }
+
+    .item-meta {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+
+      gap: 7px;
+
+      margin-top: 13px;
+    }
+
+    .meta {
+      padding: 8px 9px;
+
+      border-radius: 12px;
+
+      background: rgba(0,0,0,.14);
+
+      border: 1px solid rgba(255,255,255,.045);
+    }
+
+    .meta-label {
+      color: #71858b;
+      font-size: 8px;
+    }
+
+    .meta-value {
+      margin-top: 4px;
+
+      color: #dbe4e3;
+      font-size: 9px;
+    }
+
+    /* -----------------------------
+       Client cards
+    ----------------------------- */
+
+    .client {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      padding: 14px;
+
+      border-radius: 20px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255,255,255,.075),
+          rgba(255,255,255,.025)
+        );
+
+      border: 1px solid rgba(255,255,255,.08);
+
+      backdrop-filter: blur(20px);
+    }
+
+    .avatar {
+      width: 44px;
+      height: 44px;
+
+      flex: 0 0 auto;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 15px;
+
+      color: var(--gold2);
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(214,181,109,.17),
+          rgba(56,189,248,.10)
+        );
+
+      border: 1px solid rgba(214,181,109,.18);
+
+      font-size: 17px;
+    }
+
+    .client-info {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .client-name {
+      color: #fff;
+
+      font-size: 12px;
+      font-weight: 700;
+
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .client-type {
+      margin-top: 5px;
+
+      color: var(--muted);
+      font-size: 9px;
+    }
+
+    .client-fee {
+      text-align: left;
+      flex: 0 0 auto;
+    }
+
+    .fee-number {
+      color: var(--gold2);
+
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .fee-label {
+      margin-top: 3px;
+
+      color: #72858a;
+      font-size: 8px;
+    }
+
+    /* -----------------------------
+       Search
+    ----------------------------- */
+
+    .search {
+      width: 100%;
+
+      margin-bottom: 10px;
+
+      padding: 13px 15px;
+
+      outline: none;
+
+      border-radius: 16px;
+
+      border: 1px solid rgba(255,255,255,.08);
+
+      background: rgba(255,255,255,.045);
+
+      color: #fff;
+
+      font-family: inherit;
+      font-size: 11px;
+
+      backdrop-filter: blur(16px);
+    }
+
+    .search::placeholder {
+      color: #657a80;
+    }
+
+    .search:focus {
+      border-color: rgba(56,189,248,.30);
+
+      box-shadow:
+        0 0 25px rgba(56,189,248,.05);
+    }
+
+    /* -----------------------------
+       Footer
+    ----------------------------- */
+
+    footer {
+      margin-top: 30px;
 
       text-align: center;
 
-      color: #999;
+      color: #52666c;
 
-      font-size: 12px;
-
-      padding: 25px 0;
-
+      font-size: 9px;
     }
 
+    footer strong {
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    /* -----------------------------
+       Touch light
+    ----------------------------- */
+
+    .touch-light {
+      position: fixed;
+
+      width: 16px;
+      height: 16px;
+
+      border-radius: 50%;
+
+      pointer-events: none;
+
+      transform:
+        translate(-50%, -50%)
+        scale(.2);
+
+      opacity: .9;
+
+      z-index: 9999;
+
+      animation: touchLight .8s ease-out forwards;
+    }
+
+    @keyframes touchLight {
+      0% {
+        transform:
+          translate(-50%, -50%)
+          scale(.2);
+
+        opacity: .85;
+      }
+
+      40% {
+        opacity: .55;
+      }
+
+      100% {
+        transform:
+          translate(-50%, -50%)
+          scale(10);
+
+        opacity: 0;
+      }
+    }
+
+    /* -----------------------------
+       Loading
+    ----------------------------- */
+
+    .loading {
+      min-height: 55vh;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .loader {
+      width: 55px;
+      height: 55px;
+
+      border-radius: 50%;
+
+      border:
+        2px solid rgba(255,255,255,.08);
+
+      border-top-color: var(--gold);
+      border-right-color: var(--blue);
+
+      animation: spin .8s linear infinite;
+
+      box-shadow:
+        0 0 30px rgba(56,189,248,.10);
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .loading-text {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    /* -----------------------------
+       Mobile
+    ----------------------------- */
+
+    @media (max-width: 650px) {
+
+      .app {
+        padding: 11px 10px 35px;
+      }
+
+      .hero {
+        padding: 18px 15px;
+        border-radius: 23px;
+      }
+
+      .brand h1 {
+        font-size: 16px;
+      }
+
+      .brand p {
+        font-size: 9px;
+      }
+
+      .connection {
+        padding: 7px 9px;
+        font-size: 8px;
+      }
+
+      .stats {
+        gap: 7px;
+      }
+
+      .stat {
+        min-height: 91px;
+        padding: 12px 9px;
+        border-radius: 18px;
+      }
+
+      .stat-number {
+        font-size: 21px;
+      }
+
+      .stat-label {
+        font-size: 8px;
+      }
+
+      .overview {
+        grid-template-columns: 1fr;
+      }
+
+      .circle-card {
+        min-height: 220px;
+      }
+    }
+
+    @media (max-width: 390px) {
+
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .user-line {
+        font-size: 9px;
+      }
+    }
   </style>
-
 </head>
-
 
 <body>
 
+<div id="root">
 
-<div class="container">
-
-
-  <!-- HEADER -->
-
-  <div class="header">
-
-    <h1>
-      📊 داشبورد حسابگران آرمان
-    </h1>
-
-    <p>
-      سامانه مدیریت اطلاعات مؤسسه
-    </p>
-
+  <div class="loading">
+    <div class="loader"></div>
+    <div class="loading-text">
+      در حال اتصال به داشبورد حسابگران آرمان...
+    </div>
   </div>
-
-
-  <!-- STATUS -->
-
-  <div class="status">
-
-    <div class="status-title">
-      وضعیت اتصال
-    </div>
-
-    <div id="status">
-      <span class="loading"></span>
-      در حال راه‌اندازی...
-    </div>
-
-    <button
-      id="retryButton"
-      class="retry hidden"
-      onclick="startApp()"
-    >
-      تلاش مجدد
-    </button>
-
-  </div>
-
-
-  <!-- USER -->
-
-  <div
-    id="userCard"
-    class="user-card"
-  >
-
-    <div
-      id="userName"
-      class="user-name"
-    ></div>
-
-    <div
-      id="userId"
-      class="user-id"
-    ></div>
-
-  </div>
-
-
-  <!-- STATS -->
-
-  <div
-    id="stats"
-    class="stats hidden"
-  >
-
-    <div class="stat">
-
-      <div class="stat-title">
-        مشتریان
-      </div>
-
-      <div
-        id="clientsCount"
-        class="stat-value"
-      >
-        0
-      </div>
-
-    </div>
-
-
-    <div class="stat">
-
-      <div class="stat-title">
-        خدمات حسابداری
-      </div>
-
-      <div
-        id="accountingCount"
-        class="stat-value"
-      >
-        0
-      </div>
-
-    </div>
-
-
-    <div class="stat">
-
-      <div class="stat-title">
-        خدمات مالیاتی
-      </div>
-
-      <div
-        id="taxCount"
-        class="stat-value"
-      >
-        0
-      </div>
-
-    </div>
-
-
-    <div class="stat">
-
-      <div class="stat-title">
-        مطالبات
-      </div>
-
-      <div
-        id="receivablesCount"
-        class="stat-value"
-      >
-        0
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <!-- SECTIONS -->
-
-  <div
-    id="sections"
-    class="sections hidden"
-  ></div>
-
-
-  <div class="footer">
-    حسابگران آرمان © ۱۴۰۵
-  </div>
-
 
 </div>
 
-
 <script>
 
+  /* ==========================================================
+     CONFIG
+  ========================================================== */
 
-/* ==================================================
-   CONFIG
-================================================== */
-
-const GAS_API =
-  'https://script.google.com/macros/s/AKfycbzK62xIUIm8VyTektiy9EKOZBnMeXb1bxIKtcCxKfABIYFezMNEH6yfcrWAeL34zmI/exec';
-
-
-/* ==================================================
-   TELEGRAM
-================================================== */
-
-const tg =
-  window.Telegram &&
-  window.Telegram.WebApp
-    ? window.Telegram.WebApp
-    : null;
+  const GAS_API =
+    "https://script.google.com/macros/s/AKfycbzK62xIUIm8VyTektiy9EKOZBnMeXb1bxIKtcCxKfABIYFezMNEH6yfcrWAeL34zmI/exec";
 
 
-/* ==================================================
-   DOM HELPERS
-================================================== */
+  /* ==========================================================
+     TELEGRAM
+  ========================================================== */
 
-function setStatus(
-  message,
-  type = ''
-) {
+  const tg = window.Telegram?.WebApp;
 
-  const element =
-    document.getElementById(
-      'status'
-    );
-
-  element.className =
-    type;
-
-  element.innerHTML =
-    message;
-
-}
-
-
-function showRetry() {
-
-  document
-    .getElementById(
-      'retryButton'
-    )
-    .classList.remove(
-      'hidden'
-    );
-
-}
-
-
-function hideRetry() {
-
-  document
-    .getElementById(
-      'retryButton'
-    )
-    .classList.add(
-      'hidden'
-    );
-
-}
-
-
-/* ==================================================
-   START APP
-================================================== */
-
-function startApp() {
-
-  hideRetry();
-
-
-  /*
-   * -----------------------------------------------
-   * Step 1
-   * -----------------------------------------------
-   */
-
-  setStatus(
-    '<span class="loading"></span>' +
-    'در حال اتصال به Telegram...'
-  );
-
-
-  if (!tg) {
-
-    setStatus(
-      '❌ Telegram WebApp پیدا نشد.<br><br>' +
-      'این صفحه باید از طریق دکمه داشبورد داخل ربات باز شود.',
-      'error'
-    );
-
-    showRetry();
-
-    return;
-
-  }
-
-
-  /*
-   * Telegram initialization
-   */
-
-  try {
-
+  if (tg) {
     tg.ready();
-
     tg.expand();
 
-  } catch (error) {
-
-    console.error(
-      error
-    );
-
+    try {
+      tg.setHeaderColor("#07131b");
+      tg.setBackgroundColor("#07131b");
+    } catch (e) {}
   }
 
 
-  /*
-   * -----------------------------------------------
-   * Step 2
-   * -----------------------------------------------
-   */
+  /* ==========================================================
+     STATE
+  ========================================================== */
 
-  setStatus(
-    '✅ اتصال به Telegram برقرار شد.<br>' +
-    '<span class="loading"></span>' +
-    'در حال دریافت اطلاعات امنیتی Telegram...'
-  );
+  let dashboard = null;
+  let activeTab = "all";
+  let searchText = "";
 
 
-  /*
-   * -----------------------------------------------
-   * initData
-   * -----------------------------------------------
-   */
+  /* ==========================================================
+     HELPERS
+  ========================================================== */
 
-  const initData =
-    tg.initData || '';
+  function esc(value) {
+    if (value === null || value === undefined) return "";
 
-
-  console.log(
-    'Telegram initData length:',
-    initData.length
-  );
-
-
-  if (!initData) {
-
-    setStatus(
-      '❌ اطلاعات ورود Telegram دریافت نشد.<br><br>' +
-      'صفحه را باید مستقیماً از دکمه «📊 ورود به داشبورد» داخل ربات باز کنید.',
-      'error'
-    );
-
-    showRetry();
-
-    return;
-
+    return String(value)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
   }
 
 
-  /*
-   * -----------------------------------------------
-   * Step 3
-   * -----------------------------------------------
-   */
-
-  setStatus(
-    '✅ Telegram تأیید شد.<br>' +
-    '<span class="loading"></span>' +
-    'در حال اتصال به سرور حسابگران آرمان...'
-  );
+  function arr(value) {
+    return Array.isArray(value) ? value : [];
+  }
 
 
-  /*
-   * -----------------------------------------------
-   * Create JSONP callback
-   * -----------------------------------------------
-   */
+  function get(obj, ...keys) {
 
-  const callbackName =
-    'dashboardCallback_' +
-    Date.now();
+    for (const key of keys) {
+      if (
+        obj &&
+        obj[key] !== undefined &&
+        obj[key] !== null
+      ) {
+        return obj[key];
+      }
+    }
+
+    return "";
+  }
 
 
-  /*
-   * -----------------------------------------------
-   * Global callback
-   * -----------------------------------------------
-   */
+  function formatMoney(value) {
 
-  window[callbackName] =
-    function(result) {
+    const n = Number(
+      String(value)
+        .replaceAll(",", "")
+        .replace(/[^\d.-]/g, "")
+    );
+
+    if (!Number.isFinite(n) || n === 0) {
+      return "—";
+    }
+
+    return new Intl.NumberFormat("fa-IR").format(n);
+  }
+
+
+  function statusClass(status) {
+
+    const s = String(status || "");
+
+    if (s.includes("انجام شده")) {
+      return "badge-done";
+    }
+
+    if (s.includes("در حال انجام")) {
+      return "badge-progress";
+    }
+
+    return "badge-pending";
+  }
+
+
+  function priorityClass(priority) {
+
+    const p = String(priority || "");
+
+    if (p.includes("بالا") || p.includes("فوری")) {
+      return "priority-high";
+    }
+
+    if (p.includes("متوسط")) {
+      return "priority-medium";
+    }
+
+    return "priority-low";
+  }
+
+
+  function statusIcon(status) {
+
+    const s = String(status || "");
+
+    if (s.includes("انجام شده")) return "✓";
+    if (s.includes("در حال انجام")) return "◐";
+
+    return "○";
+  }
+
+
+  /* ==========================================================
+     TOUCH LIGHT EFFECT
+  ========================================================== */
+
+  document.addEventListener("pointerdown", function(e) {
+
+    const light = document.createElement("div");
+
+    light.className = "touch-light";
+
+    const colors = [
+      "#38bdf8",
+      "#d6b56d",
+      "#9aa94f",
+      "#67e8f9"
+    ];
+
+    const color =
+      colors[
+        Math.floor(Math.random() * colors.length)
+      ];
+
+    light.style.left = e.clientX + "px";
+    light.style.top = e.clientY + "px";
+
+    light.style.background = color;
+
+    light.style.boxShadow =
+      `
+      0 0 12px ${color},
+      0 0 35px ${color},
+      0 0 70px ${color}
+      `;
+
+    document.body.appendChild(light);
+
+    setTimeout(() => {
+      light.remove();
+    }, 850);
+
+  });
+
+
+  /* ==========================================================
+     LOAD DASHBOARD
+  ========================================================== */
+
+  function loadDashboard() {
+
+    if (!tg || !tg.initData) {
+
+      document.getElementById("root").innerHTML = `
+        <div class="loading">
+          <div style="font-size:35px">🔐</div>
+
+          <div class="loading-text">
+            داشبورد را از داخل ربات تلگرام باز کنید.
+          </div>
+        </div>
+      `;
+
+      return;
+    }
+
+
+    const callbackName =
+      "dashboardCallback_" +
+      Date.now() +
+      "_" +
+      Math.floor(Math.random() * 100000);
+
+
+    window[callbackName] = function(result) {
 
       try {
 
-        console.log(
-          'Apps Script response:',
-          result
-        );
+        if (!result || !result.ok) {
 
+          throw new Error(
+            result?.error ||
+            "خطا در دریافت اطلاعات"
+          );
+        }
 
-        /*
-         * Remove script
-         */
+        dashboard = result.data;
 
-        cleanup();
+        render();
 
+      } catch (err) {
 
-        /*
-         * Process response
-         */
+        showError(err.message);
 
-        handleDashboardResult(
-          result
-        );
+      } finally {
 
-
-      } catch (error) {
-
-        console.error(
-          error
-        );
-
-        setStatus(
-          '❌ خطا هنگام پردازش اطلاعات داشبورد:<br><br>' +
-          escapeHtml(
-            error.message
-          ),
-          'error'
-        );
-
-        showRetry();
+        delete window[callbackName];
 
       }
 
     };
 
 
-  /*
-   * -----------------------------------------------
-   * Create script
-   * -----------------------------------------------
-   */
+    const script = document.createElement("script");
 
-  const script =
-    document.createElement(
-      'script'
-    );
-
-
-  /*
-   * Build URL
-   *
-   * encodeURIComponent is essential because
-   * initData contains special characters.
-   */
-
-  const url =
-    GAS_API +
-    '?action=getDashboard' +
-    '&callback=' +
-    encodeURIComponent(
-      callbackName
-    ) +
-    '&initData=' +
-    encodeURIComponent(
-      initData
-    );
+    const url =
+      GAS_API +
+      "?action=getDashboard" +
+      "&initData=" +
+      encodeURIComponent(tg.initData) +
+      "&callback=" +
+      encodeURIComponent(callbackName) +
+      "&t=" +
+      Date.now();
 
 
-  console.log(
-    'Apps Script URL:',
-    url
-  );
+    script.src = url;
 
+    script.onerror = function() {
 
-  script.src =
-    url;
-
-
-  script.async =
-    true;
-
-
-  /*
-   * -----------------------------------------------
-   * Load error
-   * -----------------------------------------------
-   */
-
-  script.onerror =
-    function() {
-
-      cleanup();
-
-
-      setStatus(
-        '❌ اتصال به سرور حسابگران آرمان برقرار نشد.<br><br>' +
-        'Apps Script پاسخ قابل دریافت نداد.<br><br>' +
-        '<small>' +
-        escapeHtml(
-          GAS_API
-        ) +
-        '</small>',
-        'error'
+      showError(
+        "ارتباط با سرور داشبورد برقرار نشد."
       );
-
-
-      showRetry();
 
     };
 
 
-  /*
-   * -----------------------------------------------
-   * Timeout
-   * -----------------------------------------------
-   */
+    document.body.appendChild(script);
 
-  const timeout =
-    setTimeout(
-      function() {
-
-        cleanup();
+  }
 
 
-        setStatus(
-          '❌ زمان اتصال به سرور تمام شد.<br><br>' +
-          'Apps Script در زمان مقرر پاسخ نداد.',
-          'error'
-        );
+  /* ==========================================================
+     ERROR
+  ========================================================== */
+
+  function showError(message) {
+
+    document.getElementById("root").innerHTML = `
+      <div class="loading">
+
+        <div style="font-size:38px">
+          ⚠️
+        </div>
+
+        <div class="loading-text">
+          ${esc(message)}
+        </div>
+
+        <button
+          class="tab active"
+          onclick="location.reload()"
+        >
+          تلاش مجدد
+        </button>
+
+      </div>
+    `;
+
+  }
 
 
-        showRetry();
+  /* ==========================================================
+     DATA NORMALIZATION
+  ========================================================== */
 
-      },
-      15000
+  function accountingData() {
+
+    return arr(
+      get(
+        dashboard,
+        "accounting",
+        "accountingServices",
+        "حسابداری"
+      )
     );
 
-
-  /*
-   * Store timeout
-   */
-
-  script.dataset.timeout =
-    timeout;
+  }
 
 
-  /*
-   * -----------------------------------------------
-   * Cleanup
-   * -----------------------------------------------
-   */
+  function taxData() {
 
-  function cleanup() {
-
-    clearTimeout(
-      timeout
+    return arr(
+      get(
+        dashboard,
+        "tax",
+        "taxServices",
+        "مالیاتی"
+      )
     );
 
+  }
 
-    if (
-      script.parentNode
-    ) {
 
-      script.parentNode
-        .removeChild(
-          script
-        );
+  function clientsData() {
+
+    return arr(
+      get(
+        dashboard,
+        "clients",
+        "customers",
+        "مشتریان"
+      )
+    );
+
+  }
+
+
+  /* ==========================================================
+     RENDER
+  ========================================================== */
+
+  function render() {
+
+    const accounting = accountingData();
+    const tax = taxData();
+    const clients = clientsData();
+
+    const allServices = [
+      ...accounting,
+      ...tax
+    ];
+
+
+    const done =
+      allServices.filter(x =>
+        String(
+          get(x, "status", "وضعیت")
+        ).includes("انجام شده")
+      ).length;
+
+
+    const progress =
+      allServices.filter(x =>
+        String(
+          get(x, "status", "وضعیت")
+        ).includes("در حال انجام")
+      ).length;
+
+
+    const completion =
+      allServices.length
+        ? Math.round(
+            (done / allServices.length) * 100
+          )
+        : 0;
+
+
+    document.getElementById("root").innerHTML = `
+
+      <main class="app">
+
+        <!-- HERO -->
+
+        <section class="hero">
+
+          <div class="hero-top">
+
+            <div class="brand">
+
+              <div class="brand-icon">
+                ◈
+              </div>
+
+              <div>
+
+                <h1>
+                  حسابگران آرمان
+                </h1>
+
+                <p>
+                  سامانه مدیریت اطلاعات مؤسسه
+                </p>
+
+              </div>
+
+            </div>
+
+            <div class="connection">
+
+              <span class="pulse"></span>
+
+              اتصال امن
+
+            </div>
+
+          </div>
+
+
+          <div class="user-line">
+
+            <div>
+              کاربر:
+              <span class="user-name">
+                ${esc(
+                  get(
+                    dashboard,
+                    "userName",
+                    "username",
+                    "user"
+                  ) || "کاربر تلگرام"
+                )}
+              </span>
+            </div>
+
+            <div>
+              ✓ Telegram تأیید شد
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- STATS -->
+
+        <section class="stats">
+
+          ${statCard(
+            "👥",
+            clients.length,
+            "مشتری"
+          )}
+
+          ${statCard(
+            "▣",
+            accounting.length,
+            "خدمات حسابداری"
+          )}
+
+          ${statCard(
+            "◉",
+            tax.length,
+            "خدمات مالیاتی"
+          )}
+
+          ${statCard(
+            "✓",
+            done,
+            "تکمیل شده"
+          )}
+
+        </section>
+
+
+        <!-- CIRCULAR OVERVIEW -->
+
+        <section class="section">
+
+          <div class="section-title">
+
+            <h2>
+              نمای کلی
+            </h2>
+
+            <span>
+              وضعیت جاری خدمات
+            </span>
+
+          </div>
+
+
+          <div class="overview">
+
+            <div class="circle-card">
+
+              <div
+                class="donut"
+                style="
+                  background:
+                    conic-gradient(
+                      var(--blue) 0deg ${Math.max(
+                        1,
+                        completion
+                      ) * 3.6}deg,
+                      var(--olive)
+                      ${Math.max(
+                        1,
+                        completion
+                      ) * 3.6}deg 360deg
+                    );
+                "
+              >
+
+                <div class="donut-center">
+
+                  <div class="donut-number">
+                    ${completion}%
+                  </div>
+
+                  <div class="donut-label">
+                    تکمیل خدمات
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div class="legend">
+
+                <div class="legend-item">
+                  <span class="legend-dot blue"></span>
+                  تکمیل
+                </div>
+
+                <div class="legend-item">
+                  <span class="legend-dot olive"></span>
+                  باقی‌مانده
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div class="circle-card">
+
+              <div
+                class="donut"
+                style="
+                  background:
+                    conic-gradient(
+                      var(--gold) 0deg
+                      ${allServices.length
+                        ? Math.max(
+                            1,
+                            Math.round(
+                              progress /
+                              allServices.length *
+                              360
+                            )
+                          )
+                        : 1}deg,
+
+                      var(--blue)
+                      ${allServices.length
+                        ? Math.max(
+                            1,
+                            Math.round(
+                              progress /
+                              allServices.length *
+                              360
+                            )
+                          )
+                        : 1}deg
+                      360deg
+                    );
+                "
+              >
+
+                <div class="donut-center">
+
+                  <div class="donut-number">
+                    ${progress}
+                  </div>
+
+                  <div class="donut-label">
+                    در حال انجام
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div class="legend">
+
+                <div class="legend-item">
+                  <span class="legend-dot gold"></span>
+                  فعال
+                </div>
+
+                <div class="legend-item">
+                  <span class="legend-dot blue"></span>
+                  خدمات
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- SERVICES -->
+
+        <section class="section">
+
+          <div class="section-title">
+
+            <h2>
+              خدمات
+            </h2>
+
+            <span>
+              ${allServices.length} مورد
+            </span>
+
+          </div>
+
+
+          <input
+            class="search"
+            id="search"
+            placeholder="جستجو در خدمات و مشتریان..."
+            oninput="setSearch(this.value)"
+          >
+
+
+          <div class="tabs">
+
+            <button
+              class="tab ${activeTab === "all" ? "active" : ""}"
+              onclick="setTab('all')"
+            >
+              همه
+            </button>
+
+            <button
+              class="tab ${activeTab === "accounting" ? "active" : ""}"
+              onclick="setTab('accounting')"
+            >
+              حسابداری
+            </button>
+
+            <button
+              class="tab ${activeTab === "tax" ? "active" : ""}"
+              onclick="setTab('tax')"
+            >
+              مالیاتی
+            </button>
+
+            <button
+              class="tab ${activeTab === "clients" ? "active" : ""}"
+              onclick="setTab('clients')"
+            >
+              مشتریان
+            </button>
+
+          </div>
+
+
+          <div
+            class="items"
+            id="items"
+            style="margin-top:10px"
+          ></div>
+
+        </section>
+
+
+        <footer>
+          حسابگران آرمان
+          <strong>© ۱۴۰۵</strong>
+        </footer>
+
+      </main>
+    `;
+
+
+    renderItems();
+
+  }
+
+
+  /* ==========================================================
+     STAT CARD
+  ========================================================== */
+
+  function statCard(icon, number, label) {
+
+    return `
+
+      <div class="stat">
+
+        <div class="stat-icon">
+          ${icon}
+        </div>
+
+        <div class="stat-number">
+          ${number}
+        </div>
+
+        <div class="stat-label">
+          ${label}
+        </div>
+
+      </div>
+
+    `;
+
+  }
+
+
+  /* ==========================================================
+     TABS
+  ========================================================== */
+
+  function setTab(tab) {
+
+    activeTab = tab;
+
+    render();
+
+  }
+
+
+  function setSearch(value) {
+
+    searchText =
+      String(value || "")
+        .trim()
+        .toLowerCase();
+
+    renderItems();
+
+  }
+
+
+  /* ==========================================================
+     RENDER ITEMS
+  ========================================================== */
+
+  function renderItems() {
+
+    const container =
+      document.getElementById("items");
+
+    if (!container) return;
+
+
+    let data = [];
+
+
+    if (activeTab === "accounting") {
+
+      data = accountingData();
 
     }
 
+    else if (activeTab === "tax") {
 
-    try {
+      data = taxData();
 
-      delete window[
-        callbackName
+    }
+
+    else if (activeTab === "clients") {
+
+      renderClients(container);
+
+      return;
+
+    }
+
+    else {
+
+      data = [
+        ...accountingData(),
+        ...taxData()
       ];
 
-    } catch (error) {
+    }
 
-      window[
-        callbackName
-      ] = undefined;
+
+    if (searchText) {
+
+      data = data.filter(item => {
+
+        const text =
+          JSON.stringify(item)
+            .toLowerCase();
+
+        return text.includes(searchText);
+
+      });
 
     }
 
-  }
 
+    if (!data.length) {
 
-  /*
-   * -----------------------------------------------
-   * Add script to page
-   * -----------------------------------------------
-   */
+      container.innerHTML = `
 
-  document.body.appendChild(
-    script
-  );
+        <div class="item">
 
-}
+          <div class="item-title">
+            موردی پیدا نشد
+          </div>
 
+          <div class="item-description">
+            برای این جستجو اطلاعاتی وجود ندارد.
+          </div>
 
-/* ==================================================
-   DASHBOARD RESULT
-================================================== */
+        </div>
 
-function handleDashboardResult(
-  result
-) {
+      `;
 
-  /*
-   * -----------------------------------------------
-   * Invalid response
-   * -----------------------------------------------
-   */
+      return;
 
-  if (
-    !result
-  ) {
+    }
 
-    setStatus(
-      '❌ پاسخ خالی از سرور دریافت شد.',
-      'error'
-    );
-
-    showRetry();
-
-    return;
-
-  }
-
-
-  /*
-   * -----------------------------------------------
-   * Backend error
-   * -----------------------------------------------
-   */
-
-  if (
-    result.ok !== true
-  ) {
-
-    setStatus(
-
-      '❌ سرور داشبورد خطا داد.<br><br>' +
-
-      '<strong>' +
-
-      escapeHtml(
-        result.error ||
-        'خطای نامشخص'
-      ) +
-
-      '</strong>',
-
-      'error'
-
-    );
-
-
-    showRetry();
-
-    return;
-
-  }
-
-
-  /*
-   * -----------------------------------------------
-   * Success
-   * -----------------------------------------------
-   */
-
-  setStatus(
-    '✅ اتصال کامل برقرار شد.<br>' +
-    '✅ Telegram تأیید شد.<br>' +
-    '✅ اطلاعات داشبورد دریافت شد.',
-    'success'
-  );
-
-
-  /*
-   * User
-   */
-
-  renderUser(
-    result.user
-  );
-
-
-  /*
-   * Dashboard
-   */
-
-  renderDashboard(
-    result.dashboard
-  );
-
-}
-
-
-/* ==================================================
-   RENDER USER
-================================================== */
-
-function renderUser(
-  user
-) {
-
-  if (
-    !user
-  ) {
-
-    return;
-
-  }
-
-
-  const card =
-    document.getElementById(
-      'userCard'
-    );
-
-
-  const name =
-    document.getElementById(
-      'userName'
-    );
-
-
-  const id =
-    document.getElementById(
-      'userId'
-    );
-
-
-  let fullName = '';
-
-
-  if (
-    user.first_name
-  ) {
-
-    fullName +=
-      user.first_name;
-
-  }
-
-
-  if (
-    user.last_name
-  ) {
-
-    fullName +=
-      ' ' +
-      user.last_name;
-
-  }
-
-
-  if (
-    !fullName
-  ) {
-
-    fullName =
-      user.username
-        ? '@' +
-          user.username
-        : 'کاربر Telegram';
-
-  }
-
-
-  name.textContent =
-    '👤 ' +
-    fullName;
-
-
-  id.textContent =
-    'Telegram ID: ' +
-    (
-      user.id || '-'
-    );
-
-
-  card.style.display =
-    'block';
-
-}
-
-
-/* ==================================================
-   RENDER DASHBOARD
-================================================== */
-
-function renderDashboard(
-  dashboard
-) {
-
-  if (
-    !dashboard
-  ) {
-
-    setStatus(
-      '❌ داده داشبورد خالی است.',
-      'error'
-    );
-
-    showRetry();
-
-    return;
-
-  }
-
-
-  /*
-   * -----------------------------------------------
-   * Stats
-   * -----------------------------------------------
-   */
-
-  const stats =
-    dashboard.stats || {};
-
-
-  document.getElementById(
-    'clientsCount'
-  ).textContent =
-    formatNumber(
-      stats.clients || 0
-    );
-
-
-  document.getElementById(
-    'accountingCount'
-  ).textContent =
-    formatNumber(
-      stats.accounting || 0
-    );
-
-
-  document.getElementById(
-    'taxCount'
-  ).textContent =
-    formatNumber(
-      stats.tax || 0
-    );
-
-
-  document.getElementById(
-    'receivablesCount'
-  ).textContent =
-    formatNumber(
-      stats.receivables || 0
-    );
-
-
-  document.getElementById(
-    'stats'
-  ).classList.remove(
-    'hidden'
-  );
-
-
-  /*
-   * -----------------------------------------------
-   * Sections
-   * -----------------------------------------------
-   */
-
-  const sections =
-    dashboard.sections || [];
-
-
-  renderSections(
-    sections
-  );
-
-}
-
-
-/* ==================================================
-   RENDER SECTIONS
-================================================== */
-
-function renderSections(
-  sections
-) {
-
-  const container =
-    document.getElementById(
-      'sections'
-    );
-
-
-  container.innerHTML =
-    '';
-
-
-  if (
-    !Array.isArray(sections) ||
-    !sections.length
-  ) {
 
     container.innerHTML =
-
-      '<div class="section">' +
-
-      '<h2>📋 اطلاعات داشبورد</h2>' +
-
-      '<div class="item-text">' +
-
-      'اتصال برقرار شد، اما در فایل JSON ' +
-      'اطلاعاتی برای نمایش وجود ندارد.' +
-
-      '</div>' +
-
-      '</div>';
-
-    container.classList.remove(
-      'hidden'
-    );
-
-    return;
+      data.map(serviceCard).join("");
 
   }
 
 
-  sections.forEach(
-    function(section) {
+  /* ==========================================================
+     SERVICE CARD
+  ========================================================== */
 
-      const sectionElement =
-        document.createElement(
-          'div'
-        );
-
-
-      sectionElement.className =
-        'section';
-
-
-      const title =
-        document.createElement(
-          'h2'
-        );
-
-
-      title.textContent =
-        section.title ||
-        section.id ||
-        'بخش';
-
-
-      sectionElement.appendChild(
-        title
-      );
-
-
-      const items =
-        Array.isArray(
-          section.items
-        )
-          ? section.items
-          : [];
-
-
-      if (
-        !items.length
-      ) {
-
-        const empty =
-          document.createElement(
-            'div'
-          );
-
-
-        empty.className =
-          'item-text';
-
-
-        empty.textContent =
-          'اطلاعاتی وجود ندارد.';
-
-
-        sectionElement.appendChild(
-          empty
-        );
-
-      }
-
-
-      items.forEach(
-        function(item) {
-
-          sectionElement.appendChild(
-            createItemElement(
-              item
-            )
-          );
-
-        }
-      );
-
-
-      container.appendChild(
-        sectionElement
-      );
-
-    }
-  );
-
-
-  container.classList.remove(
-    'hidden'
-  );
-
-}
-
-
-/* ==================================================
-   CREATE ITEM
-================================================== */
-
-function createItemElement(
-  item
-) {
-
-  const element =
-    document.createElement(
-      'div'
-    );
-
-
-  element.className =
-    'item';
-
-
-  /*
-   * Object
-   */
-
-  if (
-    item &&
-    typeof item === 'object'
-  ) {
+  function serviceCard(item) {
 
     const title =
-      document.createElement(
-        'div'
+      get(
+        item,
+        "clientName",
+        "customerName",
+        "client",
+        "مشتری",
+        "نام مشتری"
+      ) ||
+      "بدون نام";
+
+
+    const code =
+      get(
+        item,
+        "code",
+        "clientCode",
+        "کد"
       );
 
 
-    title.className =
-      'item-title';
-
-
-    const possibleTitle =
-
-      item.title ||
-      item.name ||
-      item.Name ||
-      item.client ||
-      item.Client ||
-      item.subject ||
-      item.Subject ||
-      item.id ||
-      'مورد';
-
-
-    title.textContent =
-      possibleTitle;
-
-
-    element.appendChild(
-      title
-    );
-
-
-    const text =
-      document.createElement(
-        'div'
+    const service =
+      get(
+        item,
+        "service",
+        "serviceType",
+        "نوع خدمت",
+        "نوع"
       );
 
 
-    text.className =
-      'item-text';
-
-
-    const keys =
-      Object.keys(
-        item
+    const description =
+      get(
+        item,
+        "description",
+        "شرح",
+        "شرح کار"
       );
 
 
-    const values =
-      keys
-        .filter(
-          function(key) {
-
-            return ![
-              'title',
-              'name',
-              'Name',
-              'client',
-              'Client'
-            ].includes(
-              key
-            );
-
-          }
-        )
-        .map(
-          function(key) {
-
-            return (
-              key +
-              ': ' +
-              formatValue(
-                item[key]
-              )
-            );
-
-          }
-        );
-
-
-    text.textContent =
-      values.join(
-        ' | '
+    const status =
+      get(
+        item,
+        "status",
+        "وضعیت"
       );
 
 
-    element.appendChild(
-      text
-    );
+    const priority =
+      get(
+        item,
+        "priority",
+        "اولویت"
+      );
+
+
+    const due =
+      get(
+        item,
+        "dueDate",
+        "deadline",
+        "سررسید",
+        "تاریخ سررسید"
+      );
+
+
+    const waiting =
+      get(
+        item,
+        "waiting",
+        "منتظر",
+        "در انتظار"
+      );
+
+
+    return `
+
+      <article
+        class="
+          item
+          ${priorityClass(priority)}
+        "
+      >
+
+        <div class="item-head">
+
+          <div class="item-title">
+
+            <span class="item-code">
+              #${esc(code)}
+            </span>
+
+            ${esc(title)}
+
+          </div>
+
+          <div
+            class="
+              badge
+              ${statusClass(status)}
+            "
+          >
+
+            ${statusIcon(status)}
+            ${esc(status || "در انتظار")}
+
+          </div>
+
+        </div>
+
+
+        <div class="item-description">
+
+          ${esc(
+            description ||
+            service ||
+            "خدمت ثبت شده در سامانه"
+          )}
+
+        </div>
+
+
+        <div class="item-meta">
+
+          <div class="meta">
+
+            <div class="meta-label">
+              نوع خدمت
+            </div>
+
+            <div class="meta-value">
+              ${esc(service || "—")}
+            </div>
+
+          </div>
+
+
+          <div class="meta">
+
+            <div class="meta-label">
+              سررسید
+            </div>
+
+            <div class="meta-value">
+              ${esc(due || "—")}
+            </div>
+
+          </div>
+
+
+          <div class="meta">
+
+            <div class="meta-label">
+              اولویت
+            </div>
+
+            <div class="meta-value">
+              ${esc(priority || "—")}
+            </div>
+
+          </div>
+
+
+          <div class="meta">
+
+            <div class="meta-label">
+              در انتظار
+            </div>
+
+            <div class="meta-value">
+              ${esc(waiting || "—")}
+            </div>
+
+          </div>
+
+        </div>
+
+      </article>
+
+    `;
 
   }
 
 
-  /*
-   * Primitive value
-   */
+  /* ==========================================================
+     CLIENTS
+  ========================================================== */
 
-  else {
+  function renderClients(container) {
 
-    element.textContent =
-      String(
-        item
-      );
-
-  }
+    let clients = clientsData();
 
 
-  return element;
+    if (searchText) {
 
-}
+      clients = clients.filter(client => {
 
+        return JSON.stringify(client)
+          .toLowerCase()
+          .includes(searchText);
 
-/* ==================================================
-   FORMAT VALUE
-================================================== */
-
-function formatValue(
-  value
-) {
-
-  if (
-    value === null ||
-    value === undefined
-  ) {
-
-    return '-';
-
-  }
-
-
-  if (
-    typeof value === 'object'
-  ) {
-
-    try {
-
-      return JSON.stringify(
-        value
-      );
-
-    } catch (error) {
-
-      return String(
-        value
-      );
+      });
 
     }
 
-  }
+
+    if (!clients.length) {
+
+      container.innerHTML = `
+
+        <div class="item">
+
+          <div class="item-title">
+            مشتری پیدا نشد
+          </div>
+
+        </div>
+
+      `;
+
+      return;
+
+    }
 
 
-  return String(
-    value
-  );
-
-}
-
-
-/* ==================================================
-   NUMBER FORMAT
-================================================== */
-
-function formatNumber(
-  value
-) {
-
-  const number =
-    Number(
-      value
-    );
-
-
-  if (
-    Number.isNaN(
-      number
-    )
-  ) {
-
-    return '0';
+    container.innerHTML =
+      clients.map(clientCard).join("");
 
   }
 
 
-  return number.toLocaleString(
-    'fa-IR'
-  );
+  function clientCard(client) {
 
-}
-
-
-/* ==================================================
-   HTML ESCAPE
-================================================== */
-
-function escapeHtml(
-  value
-) {
-
-  return String(
-    value
-  )
-
-    .replace(
-      /&/g,
-      '&amp;'
-    )
-
-    .replace(
-      /</g,
-      '&lt;'
-    )
-
-    .replace(
-      />/g,
-      '&gt;'
-    )
-
-    .replace(
-      /"/g,
-      '&quot;'
-    )
-
-    .replace(
-      /'/g,
-      '&#039;'
-    );
-
-}
+    const name =
+      get(
+        client,
+        "name",
+        "clientName",
+        "customerName",
+        "مشتری",
+        "نام مشتری"
+      ) ||
+      "بدون نام";
 
 
-/* ==================================================
-   START
-================================================== */
+    const type =
+      get(
+        client,
+        "type",
+        "entityType",
+        "نوع شخصیت",
+        "نوع"
+      ) ||
+      "—";
 
-startApp();
 
+    const activity =
+      get(
+        client,
+        "activity",
+        "business",
+        "فعالیت"
+      ) ||
+      "—";
+
+
+    const fee =
+      get(
+        client,
+        "monthlyFee",
+        "fee",
+        "حق الزحمه ماهانه"
+      );
+
+
+    const firstLetter =
+      String(name).trim().charAt(0) || "م";
+
+
+    return `
+
+      <div class="client">
+
+        <div class="avatar">
+          ${esc(firstLetter)}
+        </div>
+
+
+        <div class="client-info">
+
+          <div class="client-name">
+            ${esc(name)}
+          </div>
+
+          <div class="client-type">
+            ${esc(type)}
+            ·
+            ${esc(activity)}
+          </div>
+
+        </div>
+
+
+        <div class="client-fee">
+
+          <div class="fee-number">
+            ${formatMoney(fee)}
+          </div>
+
+          <div class="fee-label">
+            حق‌الزحمه
+          </div>
+
+        </div>
+
+      </div>
+
+    `;
+
+  }
+
+
+  /* ==========================================================
+     START
+  ========================================================== */
+
+  loadDashboard();
 
 </script>
 
-
 </body>
-
 </html>
