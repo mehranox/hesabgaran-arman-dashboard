@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
 
   <meta charset="UTF-8">
@@ -9,7 +10,9 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>داشبورد حسابگران آرمان</title>
+  <title>
+    داشبورد حسابگران آرمان
+  </title>
 
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
@@ -20,426 +23,382 @@
     }
 
     body {
+
       margin: 0;
+
       font-family:
         Tahoma,
         Arial,
         sans-serif;
 
       background:
-        #f5f3ed;
+        linear-gradient(
+          135deg,
+          #f5f3ed,
+          #ebe7dc
+        );
 
-      color:
-        #25251f;
+      color: #222;
 
-      min-height:
-        100vh;
+      min-height: 100vh;
+
+      padding: 20px;
+
     }
 
 
-    /* ================================
-       APP
-    ================================= */
+    .container {
 
-    #app {
-      width:
-        100%;
+      width: 100%;
 
-      min-height:
-        100vh;
+      max-width: 1100px;
 
-      padding:
-        20px;
+      margin:
+        0 auto;
+
     }
 
 
-    /* ================================
-       LOADING
-    ================================= */
+    .header {
+
+      background: white;
+
+      border-radius: 24px;
+
+      padding: 25px;
+
+      margin-bottom: 20px;
+
+      box-shadow:
+        0 10px 35px
+        rgba(0,0,0,.08);
+
+    }
+
+
+    .header h1 {
+
+      margin:
+        0 0 8px;
+
+      font-size: 25px;
+
+    }
+
+
+    .header p {
+
+      margin: 0;
+
+      color: #777;
+
+      font-size: 14px;
+
+    }
+
+
+    .status {
+
+      background: white;
+
+      border-radius: 20px;
+
+      padding: 20px;
+
+      margin-bottom: 20px;
+
+      box-shadow:
+        0 8px 25px
+        rgba(0,0,0,.06);
+
+    }
+
+
+    .status-title {
+
+      font-weight: bold;
+
+      margin-bottom: 12px;
+
+    }
+
+
+    #status {
+
+      line-height: 2;
+
+      font-size: 14px;
+
+      white-space: pre-wrap;
+
+      word-break: break-word;
+
+    }
+
 
     .loading {
-      min-height:
-        80vh;
 
-      display:
-        flex;
+      display: inline-block;
 
-      flex-direction:
-        column;
+      width: 10px;
 
-      align-items:
-        center;
+      height: 10px;
 
-      justify-content:
-        center;
+      border-radius: 50%;
 
-      text-align:
-        center;
-    }
+      background: #b08d57;
 
-    .spinner {
-      width:
-        42px;
-
-      height:
-        42px;
-
-      border:
-        4px solid #ddd8c8;
-
-      border-top-color:
-        #68734b;
-
-      border-radius:
-        50%;
+      margin-left: 8px;
 
       animation:
-        spin 0.8s linear infinite;
+        pulse 1s infinite;
 
-      margin-bottom:
-        18px;
     }
 
-    @keyframes spin {
 
-      to {
-        transform:
-          rotate(360deg);
+    @keyframes pulse {
+
+      0% {
+        opacity: .3;
+      }
+
+      50% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: .3;
       }
 
     }
 
 
-    /* ================================
-       ERROR
-    ================================= */
+    .user-card {
 
-    .error-box {
-      min-height:
-        80vh;
+      display: none;
 
-      display:
-        flex;
+      background: white;
 
-      flex-direction:
-        column;
+      border-radius: 20px;
 
-      align-items:
-        center;
+      padding: 20px;
 
-      justify-content:
-        center;
-
-      text-align:
-        center;
-    }
-
-    .error-icon {
-      width:
-        54px;
-
-      height:
-        54px;
-
-      border-radius:
-        50%;
-
-      background:
-        #eee5d9;
-
-      color:
-        #8a5a35;
-
-      display:
-        flex;
-
-      align-items:
-        center;
-
-      justify-content:
-        center;
-
-      font-size:
-        28px;
-
-      font-weight:
-        bold;
-
-      margin-bottom:
-        15px;
-    }
-
-    .error-box button {
-      margin-top:
-        18px;
-
-      border:
-        0;
-
-      border-radius:
-        12px;
-
-      padding:
-        12px 22px;
-
-      background:
-        #68734b;
-
-      color:
-        white;
-
-      font-family:
-        inherit;
-
-      cursor:
-        pointer;
-    }
-
-
-    /* ================================
-       HEADER
-    ================================= */
-
-    .header {
-      background:
-        linear-gradient(
-          135deg,
-          #5d6743,
-          #7b8458
-        );
-
-      color:
-        white;
-
-      border-radius:
-        22px;
-
-      padding:
-        24px;
-
-      margin-bottom:
-        18px;
+      margin-bottom: 20px;
 
       box-shadow:
-        0 10px 30px rgba(0,0,0,.08);
-    }
+        0 8px 25px
+        rgba(0,0,0,.06);
 
-    .header h1 {
-      margin:
-        0 0 8px;
-
-      font-size:
-        24px;
-    }
-
-    .header p {
-      margin:
-        0;
-
-      opacity:
-        .9;
-
-      font-size:
-        13px;
     }
 
 
-    /* ================================
-       STATS
-    ================================= */
+    .user-name {
+
+      font-size: 18px;
+
+      font-weight: bold;
+
+    }
+
+
+    .user-id {
+
+      margin-top: 6px;
+
+      color: #888;
+
+      font-size: 13px;
+
+    }
+
 
     .stats {
-      display:
-        grid;
+
+      display: grid;
 
       grid-template-columns:
         repeat(
           auto-fit,
           minmax(
-            140px,
+            180px,
             1fr
           )
         );
 
-      gap:
-        12px;
+      gap: 15px;
 
-      margin-bottom:
-        18px;
+      margin-bottom: 20px;
+
     }
+
 
     .stat {
-      background:
-        white;
 
-      border-radius:
-        18px;
+      background: white;
 
-      padding:
-        18px;
+      border-radius: 20px;
+
+      padding: 22px;
 
       box-shadow:
-        0 5px 20px rgba(0,0,0,.05);
+        0 8px 25px
+        rgba(0,0,0,.06);
+
     }
 
-    .stat-label {
-      font-size:
-        12px;
 
-      color:
-        #777;
+    .stat-title {
 
-      margin-bottom:
-        8px;
+      color: #777;
+
+      font-size: 13px;
+
+      margin-bottom: 10px;
+
     }
+
 
     .stat-value {
-      font-size:
-        26px;
 
-      font-weight:
-        bold;
+      font-size: 30px;
 
-      color:
-        #5d6743;
+      font-weight: bold;
+
     }
 
 
-    /* ================================
-       SECTION
-    ================================= */
+    .sections {
+
+      display: grid;
+
+      gap: 18px;
+
+    }
+
 
     .section {
-      margin-bottom:
-        18px;
-    }
 
-    .section-title {
-      display:
-        flex;
+      background: white;
 
-      align-items:
-        center;
+      border-radius: 20px;
 
-      justify-content:
-        space-between;
-
-      margin:
-        0 0 10px;
-
-      font-size:
-        18px;
-
-      font-weight:
-        bold;
-
-      color:
-        #4f5639;
-    }
-
-
-    /* ================================
-       CARDS
-    ================================= */
-
-    .card {
-      background:
-        white;
-
-      border-radius:
-        18px;
-
-      padding:
-        17px;
-
-      margin-bottom:
-        10px;
+      padding: 22px;
 
       box-shadow:
-        0 5px 20px rgba(0,0,0,.05);
+        0 8px 25px
+        rgba(0,0,0,.06);
+
     }
 
-    .card-title {
-      font-weight:
-        bold;
 
-      margin-bottom:
-        7px;
+    .section h2 {
+
+      margin:
+        0 0 15px;
+
+      font-size: 19px;
+
     }
 
-    .card-description {
-      font-size:
-        13px;
 
-      color:
-        #777;
+    .item {
 
-      line-height:
-        1.8;
-    }
-
-    .card-row {
-      display:
-        flex;
-
-      justify-content:
-        space-between;
-
-      gap:
-        10px;
-
-      padding:
-        6px 0;
-
-      font-size:
-        13px;
-
-      border-bottom:
+      border-top:
         1px solid #eee;
-    }
-
-    .card-row:last-child {
-      border-bottom:
-        0;
-    }
-
-    .empty {
-      background:
-        white;
-
-      border-radius:
-        16px;
 
       padding:
-        20px;
+        13px 0;
 
-      text-align:
-        center;
-
-      color:
-        #888;
-
-      font-size:
-        13px;
     }
 
 
-    /* ================================
-       FOOTER
-    ================================= */
+    .item:first-child {
+
+      border-top: none;
+
+    }
+
+
+    .item-title {
+
+      font-weight: bold;
+
+      margin-bottom: 5px;
+
+    }
+
+
+    .item-text {
+
+      color: #666;
+
+      font-size: 13px;
+
+      line-height: 1.8;
+
+    }
+
+
+    .error {
+
+      color: #b42318;
+
+    }
+
+
+    .success {
+
+      color: #16803c;
+
+    }
+
+
+    .warning {
+
+      color: #a15c00;
+
+    }
+
+
+    .hidden {
+
+      display: none !important;
+
+    }
+
+
+    .retry {
+
+      margin-top: 15px;
+
+      border: none;
+
+      border-radius: 12px;
+
+      padding:
+        12px 20px;
+
+      background: #222;
+
+      color: white;
+
+      cursor: pointer;
+
+      font-family: inherit;
+
+    }
+
 
     .footer {
-      text-align:
-        center;
 
-      color:
-        #999;
+      text-align: center;
 
-      font-size:
-        11px;
+      color: #999;
 
-      padding:
-        15px 0 25px;
+      font-size: 12px;
+
+      padding: 25px 0;
+
     }
 
   </style>
@@ -449,26 +408,160 @@
 
 <body>
 
-<div id="app">
 
-  <div class="loading">
+<div class="container">
 
-    <div class="spinner"></div>
 
-    <h3>
-      در حال اتصال به Telegram...
-    </h3>
+  <!-- HEADER -->
+
+  <div class="header">
+
+    <h1>
+      📊 داشبورد حسابگران آرمان
+    </h1>
 
     <p>
-      لطفاً چند لحظه صبر کنید.
+      سامانه مدیریت اطلاعات مؤسسه
     </p>
 
   </div>
+
+
+  <!-- STATUS -->
+
+  <div class="status">
+
+    <div class="status-title">
+      وضعیت اتصال
+    </div>
+
+    <div id="status">
+      <span class="loading"></span>
+      در حال راه‌اندازی...
+    </div>
+
+    <button
+      id="retryButton"
+      class="retry hidden"
+      onclick="startApp()"
+    >
+      تلاش مجدد
+    </button>
+
+  </div>
+
+
+  <!-- USER -->
+
+  <div
+    id="userCard"
+    class="user-card"
+  >
+
+    <div
+      id="userName"
+      class="user-name"
+    ></div>
+
+    <div
+      id="userId"
+      class="user-id"
+    ></div>
+
+  </div>
+
+
+  <!-- STATS -->
+
+  <div
+    id="stats"
+    class="stats hidden"
+  >
+
+    <div class="stat">
+
+      <div class="stat-title">
+        مشتریان
+      </div>
+
+      <div
+        id="clientsCount"
+        class="stat-value"
+      >
+        0
+      </div>
+
+    </div>
+
+
+    <div class="stat">
+
+      <div class="stat-title">
+        خدمات حسابداری
+      </div>
+
+      <div
+        id="accountingCount"
+        class="stat-value"
+      >
+        0
+      </div>
+
+    </div>
+
+
+    <div class="stat">
+
+      <div class="stat-title">
+        خدمات مالیاتی
+      </div>
+
+      <div
+        id="taxCount"
+        class="stat-value"
+      >
+        0
+      </div>
+
+    </div>
+
+
+    <div class="stat">
+
+      <div class="stat-title">
+        مطالبات
+      </div>
+
+      <div
+        id="receivablesCount"
+        class="stat-value"
+      >
+        0
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- SECTIONS -->
+
+  <div
+    id="sections"
+    class="sections hidden"
+  ></div>
+
+
+  <div class="footer">
+    حسابگران آرمان © ۱۴۰۵
+  </div>
+
 
 </div>
 
 
 <script>
+
 
 /* ==================================================
    CONFIG
@@ -482,26 +575,101 @@ const GAS_API =
    TELEGRAM
 ================================================== */
 
-let tg = null;
+const tg =
+  window.Telegram &&
+  window.Telegram.WebApp
+    ? window.Telegram.WebApp
+    : null;
 
-let authInitData = '';
+
+/* ==================================================
+   DOM HELPERS
+================================================== */
+
+function setStatus(
+  message,
+  type = ''
+) {
+
+  const element =
+    document.getElementById(
+      'status'
+    );
+
+  element.className =
+    type;
+
+  element.innerHTML =
+    message;
+
+}
 
 
-function initTelegram() {
+function showRetry() {
 
-  tg =
-    window.Telegram &&
-    window.Telegram.WebApp
-      ? window.Telegram.WebApp
-      : null;
+  document
+    .getElementById(
+      'retryButton'
+    )
+    .classList.remove(
+      'hidden'
+    );
+
+}
+
+
+function hideRetry() {
+
+  document
+    .getElementById(
+      'retryButton'
+    )
+    .classList.add(
+      'hidden'
+    );
+
+}
+
+
+/* ==================================================
+   START APP
+================================================== */
+
+function startApp() {
+
+  hideRetry();
+
+
+  /*
+   * -----------------------------------------------
+   * Step 1
+   * -----------------------------------------------
+   */
+
+  setStatus(
+    '<span class="loading"></span>' +
+    'در حال اتصال به Telegram...'
+  );
 
 
   if (!tg) {
 
-    return false;
+    setStatus(
+      '❌ Telegram WebApp پیدا نشد.<br><br>' +
+      'این صفحه باید از طریق دکمه داشبورد داخل ربات باز شود.',
+      'error'
+    );
+
+    showRetry();
+
+    return;
 
   }
 
+
+  /*
+   * Telegram initialization
+   */
 
   try {
 
@@ -509,142 +677,142 @@ function initTelegram() {
 
     tg.expand();
 
-  }
-
-  catch (error) {
+  } catch (error) {
 
     console.error(
-      'Telegram initialization:',
       error
     );
 
   }
 
 
-  authInitData =
+  /*
+   * -----------------------------------------------
+   * Step 2
+   * -----------------------------------------------
+   */
+
+  setStatus(
+    '✅ اتصال به Telegram برقرار شد.<br>' +
+    '<span class="loading"></span>' +
+    'در حال دریافت اطلاعات امنیتی Telegram...'
+  );
+
+
+  /*
+   * -----------------------------------------------
+   * initData
+   * -----------------------------------------------
+   */
+
+  const initData =
     tg.initData || '';
 
 
-  return (
-    authInitData.length > 0
-  );
-
-}
-
-
-/* ==================================================
-   START
-================================================== */
-
-function startDashboard() {
-
-  showLoading(
-    'در حال اتصال به Telegram...'
+  console.log(
+    'Telegram initData length:',
+    initData.length
   );
 
 
-  let attempts = 0;
+  if (!initData) {
 
-  const timer =
-    setInterval(
-      function () {
-
-        attempts++;
-
-
-        if (
-          initTelegram()
-        ) {
-
-          clearInterval(
-            timer
-          );
-
-
-          loadDashboard();
-
-
-          return;
-
-        }
-
-
-        if (
-          attempts >= 20
-        ) {
-
-          clearInterval(
-            timer
-          );
-
-
-          showError(
-            'اطلاعات ورود تلگرام دریافت نشد.<br>' +
-            'لطفاً داشبورد را مستقیماً از داخل Telegram باز کنید.'
-          );
-
-        }
-
-      },
-      300
+    setStatus(
+      '❌ اطلاعات ورود Telegram دریافت نشد.<br><br>' +
+      'صفحه را باید مستقیماً از دکمه «📊 ورود به داشبورد» داخل ربات باز کنید.',
+      'error'
     );
 
-}
-
-
-/* ==================================================
-   LOAD DASHBOARD
-================================================== */
-
-function loadDashboard() {
-
-  if (
-    !authInitData
-  ) {
-
-    showError(
-      'اطلاعات Telegram دریافت نشد.'
-    );
+    showRetry();
 
     return;
 
   }
 
 
-  showLoading(
-    'در حال دریافت اطلاعات داشبورد...'
+  /*
+   * -----------------------------------------------
+   * Step 3
+   * -----------------------------------------------
+   */
+
+  setStatus(
+    '✅ Telegram تأیید شد.<br>' +
+    '<span class="loading"></span>' +
+    'در حال اتصال به سرور حسابگران آرمان...'
   );
 
 
+  /*
+   * -----------------------------------------------
+   * Create JSONP callback
+   * -----------------------------------------------
+   */
+
   const callbackName =
-    'handleDashboardResponse';
+    'dashboardCallback_' +
+    Date.now();
 
 
-  const oldScript =
-    document.getElementById(
-      'dashboard-api-script'
-    );
+  /*
+   * -----------------------------------------------
+   * Global callback
+   * -----------------------------------------------
+   */
+
+  window[callbackName] =
+    function(result) {
+
+      try {
+
+        console.log(
+          'Apps Script response:',
+          result
+        );
 
 
-  if (
-    oldScript
-  ) {
+        /*
+         * Remove script
+         */
 
-    oldScript.remove();
-
-  }
+        cleanup();
 
 
-  const url =
-    GAS_API +
-    '?action=getDashboard' +
-    '&initData=' +
-    encodeURIComponent(
-      authInitData
-    ) +
-    '&callback=' +
-    callbackName;
+        /*
+         * Process response
+         */
 
+        handleDashboardResult(
+          result
+        );
+
+
+      } catch (error) {
+
+        console.error(
+          error
+        );
+
+        setStatus(
+          '❌ خطا هنگام پردازش اطلاعات داشبورد:<br><br>' +
+          escapeHtml(
+            error.message
+          ),
+          'error'
+        );
+
+        showRetry();
+
+      }
+
+    };
+
+
+  /*
+   * -----------------------------------------------
+   * Create script
+   * -----------------------------------------------
+   */
 
   const script =
     document.createElement(
@@ -652,23 +820,151 @@ function loadDashboard() {
     );
 
 
-  script.id =
-    'dashboard-api-script';
+  /*
+   * Build URL
+   *
+   * encodeURIComponent is essential because
+   * initData contains special characters.
+   */
+
+  const url =
+    GAS_API +
+    '?action=getDashboard' +
+    '&callback=' +
+    encodeURIComponent(
+      callbackName
+    ) +
+    '&initData=' +
+    encodeURIComponent(
+      initData
+    );
+
+
+  console.log(
+    'Apps Script URL:',
+    url
+  );
 
 
   script.src =
     url;
 
 
-  script.onerror =
-    function () {
+  script.async =
+    true;
 
-      showError(
-        'ارتباط با سرور داشبورد برقرار نشد.'
+
+  /*
+   * -----------------------------------------------
+   * Load error
+   * -----------------------------------------------
+   */
+
+  script.onerror =
+    function() {
+
+      cleanup();
+
+
+      setStatus(
+        '❌ اتصال به سرور حسابگران آرمان برقرار نشد.<br><br>' +
+        'Apps Script پاسخ قابل دریافت نداد.<br><br>' +
+        '<small>' +
+        escapeHtml(
+          GAS_API
+        ) +
+        '</small>',
+        'error'
       );
+
+
+      showRetry();
 
     };
 
+
+  /*
+   * -----------------------------------------------
+   * Timeout
+   * -----------------------------------------------
+   */
+
+  const timeout =
+    setTimeout(
+      function() {
+
+        cleanup();
+
+
+        setStatus(
+          '❌ زمان اتصال به سرور تمام شد.<br><br>' +
+          'Apps Script در زمان مقرر پاسخ نداد.',
+          'error'
+        );
+
+
+        showRetry();
+
+      },
+      15000
+    );
+
+
+  /*
+   * Store timeout
+   */
+
+  script.dataset.timeout =
+    timeout;
+
+
+  /*
+   * -----------------------------------------------
+   * Cleanup
+   * -----------------------------------------------
+   */
+
+  function cleanup() {
+
+    clearTimeout(
+      timeout
+    );
+
+
+    if (
+      script.parentNode
+    ) {
+
+      script.parentNode
+        .removeChild(
+          script
+        );
+
+    }
+
+
+    try {
+
+      delete window[
+        callbackName
+      ];
+
+    } catch (error) {
+
+      window[
+        callbackName
+      ] = undefined;
+
+    }
+
+  }
+
+
+  /*
+   * -----------------------------------------------
+   * Add script to page
+   * -----------------------------------------------
+   */
 
   document.body.appendChild(
     script
@@ -678,425 +974,557 @@ function loadDashboard() {
 
 
 /* ==================================================
-   JSONP RESPONSE
+   DASHBOARD RESULT
 ================================================== */
 
-window.handleDashboardResponse =
-  function (result) {
+function handleDashboardResult(
+  result
+) {
 
-
-    const script =
-      document.getElementById(
-        'dashboard-api-script'
-      );
-
-
-    if (
-      script
-    ) {
-
-      script.remove();
-
-    }
-
-
-    if (
-      !result
-    ) {
-
-      showError(
-        'پاسخ معتبری از سرور دریافت نشد.'
-      );
-
-      return;
-
-    }
-
-
-    if (
-      result.ok !== true
-    ) {
-
-      showError(
-        result.error ||
-        'بارگذاری داشبورد ناموفق بود.'
-      );
-
-      return;
-
-    }
-
-
-    if (
-      !result.dashboard
-    ) {
-
-      showError(
-        'اطلاعات داشبورد در پاسخ سرور وجود ندارد.'
-      );
-
-      return;
-
-    }
-
-
-    render(
-      result
-    );
-
-  };
-
-
-/* ==================================================
-   RENDER
-================================================== */
-
-function render(result) {
-
-  const data =
-    result.dashboard || {};
-
-
-  const summary =
-    data.summary || {};
-
-
-  const stats =
-    data.stats || {};
-
-
-  const sections =
-    data.sections || [];
-
-
-  let html = '';
-
-
-  /* HEADER */
-
-  html += `
-
-    <div class="header">
-
-      <h1>
-        حسابگران آرمان
-      </h1>
-
-      <p>
-        داشبورد مدیریت خدمات مالی، حسابداری و مالیاتی
-      </p>
-
-    </div>
-
-  `;
-
-
-  /* STATS */
-
-  html += `
-
-    <div class="stats">
-
-      ${statCard(
-        'مشتریان',
-        stats.clients || 0
-      )}
-
-      ${statCard(
-        'خدمات حسابداری',
-        stats.accounting || 0
-      )}
-
-      ${statCard(
-        'خدمات مالیاتی',
-        stats.tax || 0
-      )}
-
-      ${statCard(
-        'مطالبات',
-        stats.receivables || 0
-      )}
-
-    </div>
-
-  `;
-
-
-  /* SUMMARY */
+  /*
+   * -----------------------------------------------
+   * Invalid response
+   * -----------------------------------------------
+   */
 
   if (
-    Object.keys(summary).length
+    !result
   ) {
 
-    html += `
+    setStatus(
+      '❌ پاسخ خالی از سرور دریافت شد.',
+      'error'
+    );
 
-      <div class="section">
+    showRetry();
 
-        <div class="section-title">
-          خلاصه وضعیت
-        </div>
-
-        <div class="card">
-
-          ${renderObject(
-            summary
-          )}
-
-        </div>
-
-      </div>
-
-    `;
+    return;
 
   }
 
 
-  /* SECTIONS */
+  /*
+   * -----------------------------------------------
+   * Backend error
+   * -----------------------------------------------
+   */
+
+  if (
+    result.ok !== true
+  ) {
+
+    setStatus(
+
+      '❌ سرور داشبورد خطا داد.<br><br>' +
+
+      '<strong>' +
+
+      escapeHtml(
+        result.error ||
+        'خطای نامشخص'
+      ) +
+
+      '</strong>',
+
+      'error'
+
+    );
+
+
+    showRetry();
+
+    return;
+
+  }
+
+
+  /*
+   * -----------------------------------------------
+   * Success
+   * -----------------------------------------------
+   */
+
+  setStatus(
+    '✅ اتصال کامل برقرار شد.<br>' +
+    '✅ Telegram تأیید شد.<br>' +
+    '✅ اطلاعات داشبورد دریافت شد.',
+    'success'
+  );
+
+
+  /*
+   * User
+   */
+
+  renderUser(
+    result.user
+  );
+
+
+  /*
+   * Dashboard
+   */
+
+  renderDashboard(
+    result.dashboard
+  );
+
+}
+
+
+/* ==================================================
+   RENDER USER
+================================================== */
+
+function renderUser(
+  user
+) {
+
+  if (
+    !user
+  ) {
+
+    return;
+
+  }
+
+
+  const card =
+    document.getElementById(
+      'userCard'
+    );
+
+
+  const name =
+    document.getElementById(
+      'userName'
+    );
+
+
+  const id =
+    document.getElementById(
+      'userId'
+    );
+
+
+  let fullName = '';
+
+
+  if (
+    user.first_name
+  ) {
+
+    fullName +=
+      user.first_name;
+
+  }
+
+
+  if (
+    user.last_name
+  ) {
+
+    fullName +=
+      ' ' +
+      user.last_name;
+
+  }
+
+
+  if (
+    !fullName
+  ) {
+
+    fullName =
+      user.username
+        ? '@' +
+          user.username
+        : 'کاربر Telegram';
+
+  }
+
+
+  name.textContent =
+    '👤 ' +
+    fullName;
+
+
+  id.textContent =
+    'Telegram ID: ' +
+    (
+      user.id || '-'
+    );
+
+
+  card.style.display =
+    'block';
+
+}
+
+
+/* ==================================================
+   RENDER DASHBOARD
+================================================== */
+
+function renderDashboard(
+  dashboard
+) {
+
+  if (
+    !dashboard
+  ) {
+
+    setStatus(
+      '❌ داده داشبورد خالی است.',
+      'error'
+    );
+
+    showRetry();
+
+    return;
+
+  }
+
+
+  /*
+   * -----------------------------------------------
+   * Stats
+   * -----------------------------------------------
+   */
+
+  const stats =
+    dashboard.stats || {};
+
+
+  document.getElementById(
+    'clientsCount'
+  ).textContent =
+    formatNumber(
+      stats.clients || 0
+    );
+
+
+  document.getElementById(
+    'accountingCount'
+  ).textContent =
+    formatNumber(
+      stats.accounting || 0
+    );
+
+
+  document.getElementById(
+    'taxCount'
+  ).textContent =
+    formatNumber(
+      stats.tax || 0
+    );
+
+
+  document.getElementById(
+    'receivablesCount'
+  ).textContent =
+    formatNumber(
+      stats.receivables || 0
+    );
+
+
+  document.getElementById(
+    'stats'
+  ).classList.remove(
+    'hidden'
+  );
+
+
+  /*
+   * -----------------------------------------------
+   * Sections
+   * -----------------------------------------------
+   */
+
+  const sections =
+    dashboard.sections || [];
+
+
+  renderSections(
+    sections
+  );
+
+}
+
+
+/* ==================================================
+   RENDER SECTIONS
+================================================== */
+
+function renderSections(
+  sections
+) {
+
+  const container =
+    document.getElementById(
+      'sections'
+    );
+
+
+  container.innerHTML =
+    '';
+
+
+  if (
+    !Array.isArray(sections) ||
+    !sections.length
+  ) {
+
+    container.innerHTML =
+
+      '<div class="section">' +
+
+      '<h2>📋 اطلاعات داشبورد</h2>' +
+
+      '<div class="item-text">' +
+
+      'اتصال برقرار شد، اما در فایل JSON ' +
+      'اطلاعاتی برای نمایش وجود ندارد.' +
+
+      '</div>' +
+
+      '</div>';
+
+    container.classList.remove(
+      'hidden'
+    );
+
+    return;
+
+  }
+
 
   sections.forEach(
     function(section) {
 
-      html += `
+      const sectionElement =
+        document.createElement(
+          'div'
+        );
 
-        <div class="section">
 
-          <div class="section-title">
+      sectionElement.className =
+        'section';
 
-            ${escapeHtml(
-              section.title ||
-              ''
-            )}
 
-          </div>
+      const title =
+        document.createElement(
+          'h2'
+        );
 
-          ${renderItems(
-            section.items || []
-          )}
 
-        </div>
+      title.textContent =
+        section.title ||
+        section.id ||
+        'بخش';
 
-      `;
+
+      sectionElement.appendChild(
+        title
+      );
+
+
+      const items =
+        Array.isArray(
+          section.items
+        )
+          ? section.items
+          : [];
+
+
+      if (
+        !items.length
+      ) {
+
+        const empty =
+          document.createElement(
+            'div'
+          );
+
+
+        empty.className =
+          'item-text';
+
+
+        empty.textContent =
+          'اطلاعاتی وجود ندارد.';
+
+
+        sectionElement.appendChild(
+          empty
+        );
+
+      }
+
+
+      items.forEach(
+        function(item) {
+
+          sectionElement.appendChild(
+            createItemElement(
+              item
+            )
+          );
+
+        }
+      );
+
+
+      container.appendChild(
+        sectionElement
+      );
 
     }
   );
 
 
-  /* RECEIVABLES */
-
-  if (
-    Array.isArray(
-      data.receivables
-    ) &&
-    data.receivables.length
-  ) {
-
-    html += `
-
-      <div class="section">
-
-        <div class="section-title">
-          مطالبات
-        </div>
-
-        ${renderItems(
-          data.receivables
-        )}
-
-      </div>
-
-    `;
-
-  }
-
-
-  /* EMPTY */
-
-  if (
-    !sections.length &&
-    !Object.keys(summary).length &&
-    !(
-      data.receivables &&
-      data.receivables.length
-    )
-  ) {
-
-    html += `
-
-      <div class="empty">
-
-        اطلاعات داشبورد هنوز ثبت نشده است.
-
-      </div>
-
-    `;
-
-  }
-
-
-  html += `
-
-    <div class="footer">
-
-      آخرین بروزرسانی:
-      ${escapeHtml(
-        data.updatedAt || '-'
-      )}
-
-    </div>
-
-  `;
-
-
-  document.getElementById(
-    'app'
-  ).innerHTML =
-    html;
+  container.classList.remove(
+    'hidden'
+  );
 
 }
 
 
 /* ==================================================
-   STAT CARD
+   CREATE ITEM
 ================================================== */
 
-function statCard(
-  label,
-  value
+function createItemElement(
+  item
 ) {
 
-  return `
-
-    <div class="stat">
-
-      <div class="stat-label">
-        ${escapeHtml(
-          label
-        )}
-      </div>
-
-      <div class="stat-value">
-        ${escapeHtml(
-          String(value)
-        )}
-      </div>
-
-    </div>
-
-  `;
-
-}
+  const element =
+    document.createElement(
+      'div'
+    );
 
 
-/* ==================================================
-   OBJECT
-================================================== */
-
-function renderObject(
-  object
-) {
-
-  return Object.keys(
-    object
-  )
-  .map(
-    function(key) {
-
-      const value =
-        object[key];
+  element.className =
+    'item';
 
 
-      return `
+  /*
+   * Object
+   */
 
-        <div class="card-row">
+  if (
+    item &&
+    typeof item === 'object'
+  ) {
 
-          <span>
-            ${escapeHtml(
+    const title =
+      document.createElement(
+        'div'
+      );
+
+
+    title.className =
+      'item-title';
+
+
+    const possibleTitle =
+
+      item.title ||
+      item.name ||
+      item.Name ||
+      item.client ||
+      item.Client ||
+      item.subject ||
+      item.Subject ||
+      item.id ||
+      'مورد';
+
+
+    title.textContent =
+      possibleTitle;
+
+
+    element.appendChild(
+      title
+    );
+
+
+    const text =
+      document.createElement(
+        'div'
+      );
+
+
+    text.className =
+      'item-text';
+
+
+    const keys =
+      Object.keys(
+        item
+      );
+
+
+    const values =
+      keys
+        .filter(
+          function(key) {
+
+            return ![
+              'title',
+              'name',
+              'Name',
+              'client',
+              'Client'
+            ].includes(
               key
-            )}
-          </span>
+            );
 
-          <strong>
-            ${escapeHtml(
-              formatValue(value)
-            )}
-          </strong>
+          }
+        )
+        .map(
+          function(key) {
 
-        </div>
+            return (
+              key +
+              ': ' +
+              formatValue(
+                item[key]
+              )
+            );
 
-      `;
-
-    }
-  )
-  .join('');
-
-}
+          }
+        );
 
 
-/* ==================================================
-   ITEMS
-================================================== */
+    text.textContent =
+      values.join(
+        ' | '
+      );
 
-function renderItems(
-  items
-) {
 
-  if (
-    !Array.isArray(items) ||
-    !items.length
-  ) {
-
-    return `
-
-      <div class="empty">
-        موردی ثبت نشده است.
-      </div>
-
-    `;
+    element.appendChild(
+      text
+    );
 
   }
 
 
-  return items
-    .map(
-      function(item) {
+  /*
+   * Primitive value
+   */
 
-        if (
-          typeof item !== 'object' ||
-          item === null
-        ) {
+  else {
 
-          return `
+    element.textContent =
+      String(
+        item
+      );
 
-            <div class="card">
-
-              ${escapeHtml(
-                formatValue(
-                  item
-                )
-              )}
-
-            </div>
-
-          `;
-
-        }
+  }
 
 
-        return `
-
-          <div class="card">
-
-            ${renderObject(
-              item
-            )}
-
-          </div>
-
-        `;
-
-      }
-    )
-    .join('');
+  return element;
 
 }
 
@@ -1114,7 +1542,7 @@ function formatValue(
     value === undefined
   ) {
 
-    return '';
+    return '-';
 
   }
 
@@ -1123,9 +1551,19 @@ function formatValue(
     typeof value === 'object'
   ) {
 
-    return JSON.stringify(
-      value
-    );
+    try {
+
+      return JSON.stringify(
+        value
+      );
+
+    } catch (error) {
+
+      return String(
+        value
+      );
+
+    }
 
   }
 
@@ -1138,7 +1576,39 @@ function formatValue(
 
 
 /* ==================================================
-   ESCAPE HTML
+   NUMBER FORMAT
+================================================== */
+
+function formatNumber(
+  value
+) {
+
+  const number =
+    Number(
+      value
+    );
+
+
+  if (
+    Number.isNaN(
+      number
+    )
+  ) {
+
+    return '0';
+
+  }
+
+
+  return number.toLocaleString(
+    'fa-IR'
+  );
+
+}
+
+
+/* ==================================================
+   HTML ESCAPE
 ================================================== */
 
 function escapeHtml(
@@ -1146,100 +1616,33 @@ function escapeHtml(
 ) {
 
   return String(
-    value ?? ''
+    value
   )
-  .replace(
-    /&/g,
-    '&amp;'
-  )
-  .replace(
-    /</g,
-    '&lt;'
-  )
-  .replace(
-    />/g,
-    '&gt;'
-  )
-  .replace(
-    /"/g,
-    '&quot;'
-  )
-  .replace(
-    /'/g,
-    '&#039;'
-  );
 
-}
+    .replace(
+      /&/g,
+      '&amp;'
+    )
 
+    .replace(
+      /</g,
+      '&lt;'
+    )
 
-/* ==================================================
-   LOADING
-================================================== */
+    .replace(
+      />/g,
+      '&gt;'
+    )
 
-function showLoading(
-  message
-) {
+    .replace(
+      /"/g,
+      '&quot;'
+    )
 
-  document.getElementById(
-    'app'
-  ).innerHTML = `
-
-    <div class="loading">
-
-      <div class="spinner"></div>
-
-      <h3>
-        ${escapeHtml(
-          message
-        )}
-      </h3>
-
-      <p>
-        لطفاً چند لحظه صبر کنید...
-      </p>
-
-    </div>
-
-  `;
-
-}
-
-
-/* ==================================================
-   ERROR
-================================================== */
-
-function showError(
-  message
-) {
-
-  document.getElementById(
-    'app'
-  ).innerHTML = `
-
-    <div class="error-box">
-
-      <div class="error-icon">
-        !
-      </div>
-
-      <h3>
-        خطا در بارگذاری داشبورد
-      </h3>
-
-      <p>
-        ${message}
-      </p>
-
-      <button
-        onclick="startDashboard()"
-      >
-        تلاش مجدد
-      </button>
-
-    </div>
-
-  `;
+    .replace(
+      /'/g,
+      '&#039;'
+    );
 
 }
 
@@ -1248,16 +1651,12 @@ function showError(
    START
 ================================================== */
 
-document.addEventListener(
-  'DOMContentLoaded',
-  function() {
+startApp();
 
-    startDashboard();
-
-  }
-);
 
 </script>
 
+
 </body>
+
 </html>
