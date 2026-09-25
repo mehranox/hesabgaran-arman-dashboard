@@ -4,756 +4,188 @@
 <head>
 
 <meta charset="UTF-8">
+
 <meta
   name="viewport"
-  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+  content="width=device-width, initial-scale=1.0, viewport-fit=cover"
 >
 
 <title>حسابگران آرمان</title>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 <style>
 
-@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap');
-
-:root {
-  --bg:#07131B;
-  --bg2:#0B1D25;
-
-  --blue:#38BDF8;
-  --blue2:#2563EB;
-
-  --gold:#D6B56D;
-  --gold2:#F0D28A;
-
-  --olive:#89964A;
-  --olive2:#A8B85D;
-
-  --text:#F5F7F4;
-  --muted:#9CAEB4;
-
-  --glass:rgba(255,255,255,.065);
-  --glass2:rgba(255,255,255,.095);
-
-  --border:rgba(255,255,255,.10);
-
-  --success:#65D6A0;
-  --warning:#F4C96B;
-  --danger:#FF6675;
-}
-
 * {
-  box-sizing:border-box;
-  -webkit-tap-highlight-color:transparent;
+  box-sizing: border-box;
 }
 
 body {
 
-  margin:0;
-
-  min-height:100vh;
+  margin: 0;
 
   background:
-    radial-gradient(
-      circle at 0% 0%,
-      rgba(56,189,248,.10),
-      transparent 30%
-    ),
-    radial-gradient(
-      circle at 100% 0%,
-      rgba(214,181,109,.10),
-      transparent 28%
-    ),
-    radial-gradient(
-      circle at 50% 100%,
-      rgba(137,150,74,.08),
-      transparent 35%
-    ),
-    var(--bg);
+    #07131B;
 
-  color:var(--text);
+  color:
+    #F5F7F4;
 
   font-family:
-    Vazirmatn,
     Tahoma,
     Arial,
     sans-serif;
 
-  padding:16px;
-
 }
 
-.app {
+.container {
 
-  width:100%;
-  max-width:1100px;
+  width: 100%;
 
-  margin:auto;
+  max-width: 1100px;
 
-}
+  margin: auto;
 
-.glass {
-
-  background:var(--glass);
-
-  border:1px solid var(--border);
-
-  backdrop-filter:blur(18px);
-  -webkit-backdrop-filter:blur(18px);
-
-  box-shadow:
-    0 15px 45px rgba(0,0,0,.25),
-    inset 0 1px 0 rgba(255,255,255,.05);
-
-  border-radius:22px;
+  padding: 20px;
 
 }
 
 .hero {
 
-  padding:22px;
+  background:
+    rgba(255,255,255,.06);
 
-  margin-bottom:14px;
+  border:
+    1px solid rgba(255,255,255,.1);
 
-  position:relative;
+  border-radius:
+    22px;
 
-  overflow:hidden;
+  padding:
+    25px;
 
-}
-
-.hero::after {
-
-  content:"";
-
-  position:absolute;
-
-  width:180px;
-  height:180px;
-
-  left:-80px;
-  top:-90px;
-
-  background:rgba(56,189,248,.08);
-
-  filter:blur(45px);
-
-  border-radius:50%;
+  margin-bottom:
+    18px;
 
 }
 
-.hero-top {
+.hero h1 {
 
-  display:flex;
+  margin:
+    0 0 8px;
 
-  justify-content:space-between;
-
-  align-items:flex-start;
-
-  gap:15px;
+  color:
+    #F0D28A;
 
 }
 
-.brand {
+.hero p {
 
-  font-size:21px;
-  font-weight:800;
+  margin:
+    0;
 
-}
-
-.subtitle {
-
-  color:var(--muted);
-
-  font-size:11px;
-
-  margin-top:5px;
+  color:
+    #9CAEB4;
 
 }
 
-.connection {
+.status {
 
-  font-size:9px;
+  margin-top:
+    15px;
 
-  color:var(--success);
-
-  background:rgba(101,214,160,.08);
-
-  border:1px solid rgba(101,214,160,.15);
-
-  padding:6px 9px;
-
-  border-radius:999px;
-
-  white-space:nowrap;
+  color:
+    #65D6A0;
 
 }
 
-.pulse {
+.grid {
 
-  display:inline-block;
-
-  width:6px;
-  height:6px;
-
-  border-radius:50%;
-
-  background:var(--success);
-
-  margin-left:4px;
-
-  box-shadow:0 0 0 0 rgba(101,214,160,.4);
-
-  animation:pulse 2s infinite;
-
-}
-
-@keyframes pulse {
-
-  70% {
-    box-shadow:0 0 0 7px rgba(101,214,160,0);
-  }
-
-  100% {
-    box-shadow:0 0 0 0 rgba(101,214,160,0);
-  }
-
-}
-
-.user {
-
-  margin-top:20px;
-
-  color:var(--muted);
-
-  font-size:10px;
-
-}
-
-.stats {
-
-  display:grid;
+  display:
+    grid;
 
   grid-template-columns:
-    repeat(2,1fr);
+    repeat(2, 1fr);
 
-  gap:10px;
-
-  margin-bottom:14px;
-
-}
-
-.stat {
-
-  padding:15px;
+  gap:
+    12px;
 
 }
 
-.stat-title {
-
-  font-size:10px;
-
-  color:var(--muted);
-
-}
-
-.stat-value {
-
-  margin-top:6px;
-
-  font-size:23px;
-
-  font-weight:800;
-
-}
-
-.stat-icon {
-
-  font-size:17px;
-
-  margin-bottom:5px;
-
-}
-
-.section {
-
-  margin-bottom:14px;
-
-}
-
-.section-title {
-
-  font-size:15px;
-
-  font-weight:700;
-
-  margin-bottom:10px;
-
-}
-
-.charts {
-
-  display:grid;
-
-  grid-template-columns:
-    repeat(2,1fr);
-
-  gap:10px;
-
-}
-
-.chart-card {
-
-  padding:14px;
-
-  text-align:center;
-
-}
-
-.chart-title {
-
-  font-size:10px;
-
-  color:var(--muted);
-
-  margin-bottom:8px;
-
-}
-
-.chart-wrap {
-
-  height:125px;
-
-}
-
-.finance {
-
-  padding:17px;
-
-}
-
-.finance-grid {
-
-  display:grid;
-
-  grid-template-columns:
-    repeat(2,1fr);
-
-  gap:10px;
-
-}
-
-.finance-item {
-
-  background:rgba(255,255,255,.035);
-
-  border-radius:15px;
-
-  padding:12px;
-
-}
-
-.finance-label {
-
-  color:var(--muted);
-
-  font-size:9px;
-
-}
-
-.finance-value {
-
-  margin-top:5px;
-
-  font-size:14px;
-
-  font-weight:700;
-
-}
-
-.search {
-
-  width:100%;
-
-  border:none;
-
-  outline:none;
-
-  background:var(--glass);
-
-  color:var(--text);
-
-  border:1px solid var(--border);
-
-  border-radius:16px;
-
-  padding:13px;
-
-  font-family:inherit;
-
-  font-size:11px;
-
-  margin-bottom:10px;
-
-}
-
-.search::placeholder {
-
-  color:#72848A;
-
-}
-
-.tabs {
-
-  display:flex;
-
-  gap:7px;
-
-  overflow-x:auto;
-
-  padding-bottom:5px;
-
-  scrollbar-width:none;
-
-}
-
-.tabs::-webkit-scrollbar {
-
-  display:none;
-
-}
-
-.tab {
-
-  border:1px solid var(--border);
-
-  background:var(--glass);
-
-  color:var(--muted);
-
-  padding:8px 13px;
-
-  border-radius:999px;
-
-  white-space:nowrap;
-
-  font-family:inherit;
-
-  font-size:10px;
-
-}
-
-.tab.active {
-
-  color:var(--blue);
-
-  background:rgba(56,189,248,.10);
-
-  border-color:rgba(56,189,248,.25);
-
-}
-
-.item {
-
-  padding:16px;
-
-  margin-bottom:9px;
-
-  position:relative;
-
-  overflow:hidden;
-
-}
-
-.item::before {
-
-  content:"";
-
-  position:absolute;
-
-  right:0;
-  top:10px;
-  bottom:10px;
-
-  width:3px;
-
-  border-radius:5px;
-
-  background:var(--blue);
-
-}
-
-.item.priority-فوری::before {
-  background:var(--danger);
-}
-
-.item.priority-بالا::before {
-  background:var(--danger);
-}
-
-.item.priority-عادی::before {
-  background:var(--gold);
-}
-
-.item.priority-پایین::before {
-  background:var(--olive);
-}
-
-.item-head {
-
-  display:flex;
-
-  justify-content:space-between;
-
-  gap:10px;
-
-  align-items:flex-start;
-
-}
-
-.item-name {
-
-  font-size:12px;
-
-  font-weight:700;
-
-}
-
-.item-code {
-
-  color:var(--muted);
-
-  font-size:9px;
-
-  margin-top:3px;
-
-}
-
-.badge {
-
-  font-size:8px;
-
-  padding:5px 8px;
-
-  border-radius:999px;
-
-  white-space:nowrap;
-
-}
-
-.badge-success {
-
-  color:var(--success);
-
-  background:rgba(101,214,160,.09);
-
-}
-
-.badge-warning {
-
-  color:var(--warning);
-
-  background:rgba(244,201,107,.09);
-
-}
-
-.badge-danger {
-
-  color:var(--danger);
-
-  background:rgba(255,102,117,.09);
-
-}
-
-.badge-info {
-
-  color:var(--blue);
-
-  background:rgba(56,189,248,.09);
-
-}
-
-.details {
-
-  display:grid;
-
-  grid-template-columns:
-    repeat(2,1fr);
-
-  gap:7px;
-
-  margin-top:13px;
-
-}
-
-.detail {
-
-  background:rgba(255,255,255,.025);
-
-  border-radius:10px;
-
-  padding:8px;
-
-}
-
-.detail-label {
-
-  color:#72848A;
-
-  font-size:8px;
-
-}
-
-.detail-value {
-
-  margin-top:3px;
-
-  font-size:9px;
-
-  line-height:1.6;
-
-}
-
-.client {
-
-  padding:15px;
-
-  margin-bottom:9px;
-
-  display:flex;
-
-  gap:12px;
-
-  align-items:flex-start;
-
-}
-
-.avatar {
-
-  width:40px;
-  height:40px;
-
-  flex-shrink:0;
-
-  border-radius:13px;
-
-  display:flex;
-
-  justify-content:center;
-  align-items:center;
-
-  font-weight:800;
-
-  color:var(--gold2);
+.card {
 
   background:
-    linear-gradient(
-      135deg,
-      rgba(214,181,109,.18),
-      rgba(137,150,74,.12)
-    );
+    rgba(255,255,255,.065);
 
-  border:1px solid rgba(214,181,109,.16);
+  border:
+    1px solid rgba(255,255,255,.1);
 
-}
+  border-radius:
+    18px;
 
-.client-main {
-
-  flex:1;
-
-  min-width:0;
+  padding:
+    20px;
 
 }
 
-.client-name {
+.number {
 
-  font-size:11px;
+  font-size:
+    28px;
 
-  font-weight:700;
+  font-weight:
+    bold;
 
-}
+  color:
+    #38BDF8;
 
-.client-meta {
-
-  color:var(--muted);
-
-  font-size:8px;
-
-  margin-top:3px;
+  margin-top:
+    8px;
 
 }
 
-.client-grid {
+.label {
 
-  display:grid;
-
-  grid-template-columns:
-    repeat(2,1fr);
-
-  gap:5px;
-
-  margin-top:9px;
+  color:
+    #9CAEB4;
 
 }
 
-.loading,
-.error {
+pre {
 
-  text-align:center;
+  white-space:
+    pre-wrap;
 
-  padding:40px 15px;
+  word-break:
+    break-word;
 
-  color:var(--muted);
+  direction:
+    ltr;
 
-  font-size:11px;
+  text-align:
+    left;
+
+  color:
+    #65D6A0;
+
+  font-size:
+    12px;
 
 }
 
 .error {
 
-  color:var(--danger);
+  color:
+    #FF6675;
 
 }
 
-.empty {
+@media (max-width:600px) {
 
-  text-align:center;
+  .grid {
 
-  color:var(--muted);
-
-  font-size:10px;
-
-  padding:25px;
-
-}
-
-@media(min-width:700px) {
-
-  body {
-    padding:30px;
-  }
-
-  .stats {
     grid-template-columns:
-      repeat(4,1fr);
-  }
+      1fr;
 
-  .finance-grid {
-    grid-template-columns:
-      repeat(4,1fr);
-  }
-
-  .details,
-  .client-grid {
-    grid-template-columns:
-      repeat(4,1fr);
-  }
-
-  .charts {
-    grid-template-columns:
-      repeat(2,1fr);
   }
 
 }
@@ -762,902 +194,255 @@ body {
 
 </head>
 
+
 <body>
 
-<div class="app" id="app">
+<div class="container">
 
-  <div class="loading">
-    در حال اتصال به حسابگران آرمان...
+  <div class="hero">
+
+    <h1>
+      حسابگران آرمان
+    </h1>
+
+    <p>
+      سامانه مدیریت اطلاعات مؤسسه
+    </p>
+
+    <div
+      id="connection"
+      class="status"
+    >
+      در حال اتصال...
+    </div>
+
+  </div>
+
+
+  <div
+    id="stats"
+    class="grid"
+  ></div>
+
+
+  <div
+    id="debug"
+    class="card"
+    style="margin-top:15px;"
+  >
+
+    <div class="label">
+      وضعیت API
+    </div>
+
+    <pre id="output">
+در حال دریافت اطلاعات...
+    </pre>
+
   </div>
 
 </div>
 
+
 <script>
 
 const API_URL =
-  "PASTE_GOOGLE_APPS_SCRIPT_EXEC_URL_HERE";
-
-
-const tg = window.Telegram?.WebApp;
-
-if (tg) {
-
-  tg.ready();
-
-  tg.expand();
-
-  tg.setHeaderColor("#07131B");
-
-  tg.setBackgroundColor("#07131B");
-
-}
-
-
-let dashboard = null;
+  "https://script.google.com/macros/s/AKfycbzK62xIUIm8VyTektiy9EKOZBnMeXb1bxIKtcCxKfABIYFezMNEH6yfcrWAeL34zmI/exec";
 
 
 async function loadDashboard() {
 
+  const output =
+    document.getElementById("output");
+
+  const connection =
+    document.getElementById("connection");
+
+
   try {
 
-    const initData =
-      tg?.initData || "";
+    const tg =
+      window.Telegram &&
+      window.Telegram.WebApp;
 
-    const url =
-      API_URL +
-      "?initData=" +
-      encodeURIComponent(initData);
+
+    if (tg) {
+
+      tg.ready();
+
+      tg.expand();
+
+    }
+
+
+    let url =
+      API_URL;
+
+
+    // برای تست فعلی
+    url +=
+      "?test=1";
+
 
     const response =
       await fetch(url);
 
-    const result =
-      await response.json();
+
+    const raw =
+      await response.text();
+
+
+    console.log(
+      "API STATUS:",
+      response.status
+    );
+
+
+    console.log(
+      "API RESPONSE:",
+      raw
+    );
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        "HTTP " +
+        response.status +
+        ": " +
+        raw.substring(0,300)
+      );
+
+    }
+
+
+    let result;
+
+
+    try {
+
+      result =
+        JSON.parse(raw);
+
+    } catch (e) {
+
+      throw new Error(
+        "Apps Script به جای JSON این را برگرداند:\n\n" +
+        raw.substring(0,500)
+      );
+
+    }
+
 
     if (!result.ok) {
 
       throw new Error(
-        result.error || "خطا در دریافت اطلاعات"
+        result.error ||
+        "خطای نامشخص در Apps Script"
       );
 
     }
 
-    dashboard = result.data;
 
-    renderDashboard(result);
+    connection.textContent =
+      "● اتصال به Apps Script برقرار است";
+
+
+    connection.style.color =
+      "#65D6A0";
+
+
+    output.textContent =
+      JSON.stringify(
+        result,
+        null,
+        2
+      );
+
+
+    renderStats(
+      result.data.Summary
+    );
+
+
+  } catch (error) {
+
+    connection.textContent =
+      "● اتصال ناموفق";
+
+
+    connection.style.color =
+      "#FF6675";
+
+
+    output.className =
+      "error";
+
+
+    output.textContent =
+      error.message;
+
+
+    console.error(error);
 
   }
 
-  catch(error) {
-
-    document.getElementById("app").innerHTML = `
-      <div class="glass error">
-        خطا در دریافت اطلاعات داشبورد
-        <br><br>
-        ${escapeHtml(error.message)}
-      </div>
-    `;
-
-  }
-
 }
 
 
-function renderDashboard(result) {
+function renderStats(summary) {
 
-  const s = dashboard.Summary;
-
-  const user =
-    result.user || {};
-
-  document.getElementById("app").innerHTML = `
-
-    ${hero(user)}
-
-    ${stats(s)}
-
-    ${overview(s)}
-
-    ${finance(s)}
-
-    <section class="section">
-
-      <div class="section-title">
-        خدمات
-      </div>
-
-      <input
-        id="search"
-        class="search"
-        placeholder="جستجو در خدمات و مشتریان..."
-      >
-
-      <div class="tabs">
-
-        <button class="tab active" data-tab="all">
-          همه
-        </button>
-
-        <button class="tab" data-tab="accounting">
-          حسابداری
-        </button>
-
-        <button class="tab" data-tab="tax">
-          مالیاتی
-        </button>
-
-        <button class="tab" data-tab="clients">
-          مشتریان
-        </button>
-
-      </div>
-
-      <div
-        id="content"
-        style="margin-top:10px"
-      ></div>
-
-    </section>
-
-  `;
-
-  setupTabs();
-
-  renderItems("all");
-
-  document
-    .getElementById("search")
-    .addEventListener("input", function() {
-
-      renderItems(
-        document.querySelector(".tab.active").dataset.tab
-      );
-
-    });
-
-}
+  const stats =
+    document.getElementById("stats");
 
 
-function hero(user) {
+  const items = [
 
-  const name =
-    user.first_name ||
-    "کاربر تلگرام";
+    [
+      "مراجعین",
+      summary.ClientsCount
+    ],
 
-  return `
+    [
+      "خدمات حسابداری",
+      summary.AccountingCount
+    ],
 
-    <section class="hero glass">
+    [
+      "خدمات مالیاتی",
+      summary.TaxCount
+    ],
 
-      <div class="hero-top">
+    [
+      "مطالبات",
+      summary.ReceivablesCount
+    ]
 
-        <div>
+  ];
 
-          <div class="brand">
-            حسابگران آرمان
+
+  stats.innerHTML =
+    items.map(function(item) {
+
+      return `
+
+        <div class="card">
+
+          <div class="label">
+            ${item[0]}
           </div>
 
-          <div class="subtitle">
-            سامانه مدیریت اطلاعات مؤسسه
+          <div class="number">
+            ${item[1]}
           </div>
 
         </div>
 
-        <div class="connection">
-          <span class="pulse"></span>
-          اتصال امن
-        </div>
+      `;
 
-      </div>
-
-      <div class="user">
-
-        کاربر:
-        ${escapeHtml(name)}
-
-        <br>
-
-        <span style="color:var(--success)">
-          ✓ Telegram تأیید شد
-        </span>
-
-      </div>
-
-    </section>
-
-  `;
+    }).join("");
 
 }
-
-
-function stats(s) {
-
-  return `
-
-    <section class="stats">
-
-      <div class="stat glass">
-        <div class="stat-icon">👥</div>
-        <div class="stat-title">
-          تعداد مشتریان
-        </div>
-        <div class="stat-value">
-          ${num(s.ClientsCount)}
-        </div>
-      </div>
-
-      <div class="stat glass">
-        <div class="stat-icon">▣</div>
-        <div class="stat-title">
-          خدمات حسابداری
-        </div>
-        <div class="stat-value">
-          ${num(s.AccountingCount)}
-        </div>
-      </div>
-
-      <div class="stat glass">
-        <div class="stat-icon">◉</div>
-        <div class="stat-title">
-          خدمات مالیاتی
-        </div>
-        <div class="stat-value">
-          ${num(s.TaxCount)}
-        </div>
-      </div>
-
-      <div class="stat glass">
-        <div class="stat-icon">✓</div>
-        <div class="stat-title">
-          تکمیل شده
-        </div>
-        <div class="stat-value">
-          ${num(s.TaxCompleted)}
-        </div>
-      </div>
-
-    </section>
-
-  `;
-
-}
-
-
-function overview(s) {
-
-  const total =
-    s.AccountingCount +
-    s.TaxCount;
-
-  const completed =
-    s.TaxCompleted +
-    s.AccountingCompleted;
-
-  const percentage =
-    total ?
-    Math.round(
-      completed / total * 100
-    ) : 0;
-
-  return `
-
-    <section class="section">
-
-      <div class="section-title">
-        نمای کلی
-      </div>
-
-      <div class="charts">
-
-        <div class="chart-card glass">
-
-          <div class="chart-title">
-            تکمیل خدمات
-          </div>
-
-          <div class="chart-wrap">
-            <canvas id="completionChart"></canvas>
-          </div>
-
-        </div>
-
-        <div class="chart-card glass">
-
-          <div class="chart-title">
-            در حال انجام
-          </div>
-
-          <div class="chart-wrap">
-            <canvas id="activeChart"></canvas>
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-  `;
-
-}
-
-
-function finance(s) {
-
-  return `
-
-    <section class="section">
-
-      <div class="finance glass">
-
-        <div class="section-title">
-          وضعیت مالی
-        </div>
-
-        <div
-          style="
-            color:var(--muted);
-            font-size:9px;
-            margin-bottom:12px;
-          "
-        >
-          دریافتنی‌ها
-        </div>
-
-        <div class="finance-grid">
-
-          <div class="finance-item">
-
-            <div class="finance-label">
-              💰 کل دریافتنی
-            </div>
-
-            <div class="finance-value">
-              ${money(s.TotalReceivables)}
-            </div>
-
-          </div>
-
-          <div class="finance-item">
-
-            <div class="finance-label">
-              ✓ دریافت شده
-            </div>
-
-            <div class="finance-value">
-              ${money(s.TotalCollected)}
-            </div>
-
-          </div>
-
-          <div class="finance-item">
-
-            <div class="finance-label">
-              ◷ مانده دریافتنی
-            </div>
-
-            <div class="finance-value">
-              ${money(s.RemainingReceivables)}
-            </div>
-
-          </div>
-
-          <div class="finance-item">
-
-            <div class="finance-label">
-              ! تعداد صورتحساب
-            </div>
-
-            <div class="finance-value">
-              ${num(s.ReceivablesCount)}
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-  `;
-
-}
-
-
-function setupTabs() {
-
-  document
-    .querySelectorAll(".tab")
-    .forEach(tab => {
-
-      tab.addEventListener("click", () => {
-
-        document
-          .querySelectorAll(".tab")
-          .forEach(x =>
-            x.classList.remove("active")
-          );
-
-        tab.classList.add("active");
-
-        renderItems(tab.dataset.tab);
-
-      });
-
-    });
-
-}
-
-
-function renderItems(type) {
-
-  const container =
-    document.getElementById("content");
-
-  const query =
-    document.getElementById("search")
-      ?.value
-      .trim()
-      .toLowerCase() || "";
-
-  let html = "";
-
-  if (type === "clients") {
-
-    let clients =
-      dashboard.Clients || [];
-
-    clients =
-      clients.filter(x =>
-        matchesClient(x, query)
-      );
-
-    html =
-      clients.length
-        ? clients.map(clientCard).join("")
-        : empty();
-
-  }
-
-  else {
-
-    let items = [];
-
-    if (type === "all" || type === "accounting") {
-
-      items = items.concat(
-        (dashboard.Accounting || []).map(x => ({
-          ...x,
-          category:"حسابداری"
-        }))
-      );
-
-    }
-
-    if (type === "all" || type === "tax") {
-
-      items = items.concat(
-        (dashboard.Tax || []).map(x => ({
-          ...x,
-          category:"مالیاتی"
-        }))
-      );
-
-    }
-
-    items =
-      items.filter(x =>
-        matchesService(x, query)
-      );
-
-    html =
-      items.length
-        ? items.map(serviceCard).join("")
-        : empty();
-
-  }
-
-  container.innerHTML = html;
-
-}
-
-
-function matchesService(x, query) {
-
-  if (!query) return true;
-
-  return JSON.stringify(x)
-    .toLowerCase()
-    .includes(query);
-
-}
-
-
-function matchesClient(x, query) {
-
-  if (!query) return true;
-
-  return JSON.stringify(x)
-    .toLowerCase()
-    .includes(query);
-
-}
-
-
-function serviceCard(x) {
-
-  const statusClass =
-    x["وضعیت"] === "انجام شده"
-      ? "badge-success"
-      : x["وضعیت"] === "در حال انجام"
-      ? "badge-info"
-      : "badge-warning";
-
-  const priority =
-    x["الویت"] || "عادی";
-
-  return `
-
-    <div
-      class="
-        item
-        glass
-        priority-${escapeHtml(priority)}
-      "
-    >
-
-      <div class="item-head">
-
-        <div>
-
-          <div class="item-name">
-            ${escapeHtml(
-              x["نام مراجعه کننده"] ||
-              x["نام شخص/شرکت"] ||
-              "-"
-            )}
-          </div>
-
-          <div class="item-code">
-            کد:
-            ${escapeHtml(
-              x["کد مراجعه کننده"] || "-"
-            )}
-          </div>
-
-        </div>
-
-        <span class="badge ${statusClass}">
-          ${escapeHtml(
-            x["وضعیت"] || "-"
-          )}
-        </span>
-
-      </div>
-
-      <div class="details">
-
-        ${detail(
-          "نوع",
-          x.category ||
-          x["نوع پرونده"] ||
-          x["نوع کار"]
-        )}
-
-        ${detail(
-          "شرح",
-          x["شرح کار"]
-        )}
-
-        ${detail(
-          "اولویت",
-          x["الویت"]
-        )}
-
-        ${detail(
-          "سررسید",
-          x["تاریخ سررسید"]
-        )}
-
-        ${detail(
-          "وضعیت سررسید",
-          x["وضعیت سررسید"]
-        )}
-
-        ${detail(
-          "روز باقی‌مانده",
-          x["روزهای باقی مانده"]
-        )}
-
-        ${detail(
-          "منتظر",
-          x["منتظر چه کسی"]
-        )}
-
-        ${detail(
-          "دوره مالی",
-          x["دوره مالی"]
-        )}
-
-        ${detail(
-          "تاریخ شروع",
-          x["تاریخ شروع"]
-        )}
-
-        ${detail(
-          "تاریخ انجام",
-          x["تاریخ انجام"]
-        )}
-
-      </div>
-
-    </div>
-
-  `;
-
-}
-
-
-function clientCard(x) {
-
-  const name =
-    x["نام شخص/شرکت"] || "-";
-
-  const avatar =
-    name.trim().charAt(0);
-
-  return `
-
-    <div class="client glass">
-
-      <div class="avatar">
-        ${escapeHtml(avatar)}
-      </div>
-
-      <div class="client-main">
-
-        <div class="client-name">
-          ${escapeHtml(name)}
-        </div>
-
-        <div class="client-meta">
-
-          ${escapeHtml(
-            x["نوع شخصیت"] || ""
-          )}
-
-          ·
-
-          ${escapeHtml(
-            x["نوع فعالیت"] || ""
-          )}
-
-        </div>
-
-        <div class="client-grid">
-
-          ${detail(
-            "خدمات",
-            x["نوع خدمات"]
-          )}
-
-          ${detail(
-            "شهر",
-            x["شهر"]
-          )}
-
-          ${detail(
-            "وضعیت",
-            x["وضعیت همکاری"]
-          )}
-
-          ${detail(
-            "حق‌الزحمه",
-            x["حق الزحمه ماهانه"]
-              ? money(x["حق الزحمه ماهانه"])
-              : "-"
-          )}
-
-        </div>
-
-      </div>
-
-    </div>
-
-  `;
-
-}
-
-
-function detail(label, value) {
-
-  if (
-    value === null ||
-    value === undefined ||
-    value === ""
-  ) {
-    value = "-";
-  }
-
-  return `
-
-    <div class="detail">
-
-      <div class="detail-label">
-        ${escapeHtml(label)}
-      </div>
-
-      <div class="detail-value">
-        ${escapeHtml(String(value))}
-      </div>
-
-    </div>
-
-  `;
-
-}
-
-
-function empty() {
-
-  return `
-    <div class="glass empty">
-      موردی پیدا نشد
-    </div>
-  `;
-
-}
-
-
-function num(value) {
-
-  return Number(value || 0)
-    .toLocaleString("fa-IR");
-
-}
-
-
-function money(value) {
-
-  return Number(value || 0)
-    .toLocaleString("fa-IR") +
-    " ریال";
-
-}
-
-
-function escapeHtml(value) {
-
-  return String(value ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-
-}
-
-
-function initCharts() {
-
-  if (!dashboard) return;
-
-  const s = dashboard.Summary;
-
-  const total =
-    s.AccountingCount +
-    s.TaxCount;
-
-  const completed =
-    s.AccountingCompleted +
-    s.TaxCompleted;
-
-  const active =
-    total - completed;
-
-  new Chart(
-    document.getElementById(
-      "completionChart"
-    ),
-    {
-      type:"doughnut",
-
-      data:{
-        labels:[
-          "تکمیل شده",
-          "باقی مانده"
-        ],
-
-        datasets:[{
-          data:[
-            completed,
-            Math.max(total - completed,0)
-          ],
-
-          backgroundColor:[
-            "#65D6A0",
-            "rgba(255,255,255,.08)"
-          ],
-
-          borderWidth:0
-        }]
-      },
-
-      options:{
-        responsive:true,
-        maintainAspectRatio:false,
-
-        cutout:"72%",
-
-        plugins:{
-          legend:{
-            display:false
-          }
-        }
-      }
-    }
-  );
-
-
-  new Chart(
-    document.getElementById(
-      "activeChart"
-    ),
-    {
-      type:"doughnut",
-
-      data:{
-        labels:[
-          "فعال",
-          "تکمیل شده"
-        ],
-
-        datasets:[{
-          data:[
-            active,
-            completed
-          ],
-
-          backgroundColor:[
-            "#38BDF8",
-            "#89964A"
-          ],
-
-          borderWidth:0
-        }]
-      },
-
-      options:{
-        responsive:true,
-        maintainAspectRatio:false,
-
-        cutout:"72%",
-
-        plugins:{
-          legend:{
-            display:false
-          }
-        }
-      }
-    }
-  );
-
-}
-
-
-const originalRenderDashboard =
-  renderDashboard;
-
-renderDashboard = function(result) {
-
-  originalRenderDashboard(result);
-
-  setTimeout(
-    initCharts,
-    50
-  );
-
-};
 
 
 loadDashboard();
@@ -1665,4 +450,5 @@ loadDashboard();
 </script>
 
 </body>
+
 </html>
