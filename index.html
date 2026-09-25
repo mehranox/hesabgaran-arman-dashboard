@@ -50,33 +50,22 @@
       .replaceAll(">", "&gt;")
       .replaceAll('"', "&quot;")
       .replaceAll("'", "&#039;");
-
   }
 
 
   function arr(value) {
-
     return Array.isArray(value) ? value : [];
-
   }
 
 
-  /*
-     نرمال‌سازی کلیدهای JSON
-
-     این قسمت مهم است چون در JSON شما بعضی کلیدها
-     به صورت چندخطی ذخیره شده‌اند:
-
-     "کد مراجعه
-     کننده"
-
-     و بعضی فاصله‌های متفاوت دارند.
-  */
+  /* ==========================================================
+     NORMALIZE JSON KEY
+  ========================================================== */
 
   function normalizeKey(value) {
 
     return String(value ?? "")
-      .replace(/[\u200c\u200d\u200e\u200f]/g, "")
+      .replace(/[\u200c\u200d\u200e\u200f\ufeff]/g, "")
       .replace(/\s+/g, "")
       .replace(/[_\-]/g, "")
       .trim()
@@ -85,9 +74,10 @@
   }
 
 
-  /*
-     پیدا کردن مقدار بر اساس چند نام احتمالی کلید
-  */
+  /* ==========================================================
+     GET VALUE FROM OBJECT
+     Supports Persian keys with spaces/newlines
+  ========================================================== */
 
   function get(obj, ...keys) {
 
@@ -95,20 +85,21 @@
       return "";
     }
 
-
     const objectKeys = Object.keys(obj);
-
 
     for (const wantedKey of keys) {
 
-      const wanted = normalizeKey(wantedKey);
-
+      const wanted =
+        normalizeKey(wantedKey);
 
       for (const realKey of objectKeys) {
 
-        if (normalizeKey(realKey) === wanted) {
+        if (
+          normalizeKey(realKey) === wanted
+        ) {
 
-          const value = obj[realKey];
+          const value =
+            obj[realKey];
 
           if (
             value !== undefined &&
@@ -126,11 +117,133 @@
 
     }
 
-
     return "";
+  }
+
+
+  /* ==========================================================
+     PARSE DASHBOARD DATA
+     
+     مهم:
+     result.data ممکن است Object یا String باشد.
+  ========================================================== */
+
+  function parseDashboardData(result) {
+
+    let data = result?.data;
+
+    /*
+      حالت اول:
+      data خودش JSON string است.
+    */
+
+    if (typeof data === "string") {
+
+      const text =
+        data.trim();
+
+      if (text) {
+
+        try {
+
+          data =
+            JSON.parse(text);
+
+        } catch (e) {
+
+          /*
+            اگر String معمولی بود، ادامه می‌دهیم
+            تا خطای واضح‌تری نشان دهیم.
+          */
+
+        }
+
+      }
+
+    }
+
+
+    /*
+      حالت دوم:
+      ممکن است data دوباره داخل data باشد.
+    */
+
+    if (
+      data &&
+      typeof data === "object" &&
+      !data.Summary &&
+      data.data
+    ) {
+
+      let nested =
+        data.data;
+
+      if (
+        typeof nested === "string"
+      ) {
+
+        try {
+
+          nested =
+            JSON.parse(
+              nested
+            );
+
+        } catch (e) {}
+
+      }
+
+      if (
+        nested &&
+        typeof nested === "object"
+      ) {
+
+        data = nested;
+
+      }
+
+    }
+
+
+    /*
+      بررسی ساختار واقعی داشبورد
+    */
+
+    if (
+      !data ||
+      typeof data !== "object"
+    ) {
+
+      throw new Error(
+        "ساختار اطلاعات داشبورد نامعتبر است."
+      );
+
+    }
+
+
+    if (
+      !data.Summary &&
+      !data.Clients &&
+      !data.Accounting &&
+      !data.Tax &&
+      !data.Receivables
+    ) {
+
+      throw new Error(
+        "اطلاعات داشبورد دریافت شد، اما ساختار Summary / Clients / Accounting / Tax پیدا نشد."
+      );
+
+    }
+
+
+    return data;
 
   }
 
+
+  /* ==========================================================
+     MONEY
+  ========================================================== */
 
   function formatMoney(value) {
 
@@ -144,25 +257,24 @@
 
     }
 
-
-    const n = Number(
-      String(value)
-        .replaceAll(",", "")
-        .replace(/[^\d.-]/g, "")
-    );
-
+    const n =
+      Number(
+        String(value)
+          .replaceAll(",", "")
+          .replace(/[^\d.-]/g, "")
+      );
 
     if (!Number.isFinite(n)) {
       return "—";
     }
 
-
     if (n === 0) {
       return "۰";
     }
 
-
-    return new Intl.NumberFormat("fa-IR").format(n);
+    return new Intl.NumberFormat(
+      "fa-IR"
+    ).format(n);
 
   }
 
@@ -174,61 +286,83 @@
       value === undefined ||
       value === ""
     ) {
+
       return "—";
+
     }
 
-
-    const n = Number(value);
-
+    const n =
+      Number(
+        String(value)
+          .replaceAll(",", "")
+          .replace(/[^\d.-]/g, "")
+      );
 
     if (!Number.isFinite(n)) {
       return "—";
     }
 
-
     if (n >= 1000000000) {
 
       return (
-        new Intl.NumberFormat("fa-IR", {
-          maximumFractionDigits: 1
-        }).format(n / 1000000000)
-        + " میلیارد"
+        new Intl.NumberFormat(
+          "fa-IR",
+          {
+            maximumFractionDigits: 1
+          }
+        ).format(
+          n / 1000000000
+        ) +
+        " میلیارد"
       );
 
     }
-
 
     if (n >= 1000000) {
 
       return (
-        new Intl.NumberFormat("fa-IR", {
-          maximumFractionDigits: 1
-        }).format(n / 1000000)
-        + " میلیون"
+        new Intl.NumberFormat(
+          "fa-IR",
+          {
+            maximumFractionDigits: 1
+          }
+        ).format(
+          n / 1000000
+        ) +
+        " میلیون"
       );
 
     }
-
 
     return formatMoney(n);
 
   }
 
 
+  /* ==========================================================
+     STATUS
+  ========================================================== */
+
   function statusClass(status) {
 
-    const s = String(status || "");
+    const s =
+      String(status || "");
 
+    if (
+      s.includes("انجام شده")
+    ) {
 
-    if (s.includes("انجام شده")) {
       return "badge-done";
+
     }
 
+    if (
+      s.includes("در حال انجام")
+    ) {
 
-    if (s.includes("در حال انجام")) {
       return "badge-progress";
-    }
 
+    }
 
     return "badge-pending";
 
@@ -237,8 +371,8 @@
 
   function priorityClass(priority) {
 
-    const p = String(priority || "");
-
+    const p =
+      String(priority || "");
 
     if (
       p.includes("بالا") ||
@@ -249,13 +383,13 @@
 
     }
 
-
-    if (p.includes("متوسط")) {
+    if (
+      p.includes("متوسط")
+    ) {
 
       return "priority-medium";
 
     }
-
 
     return "priority-low";
 
@@ -264,18 +398,24 @@
 
   function statusIcon(status) {
 
-    const s = String(status || "");
+    const s =
+      String(status || "");
 
+    if (
+      s.includes("انجام شده")
+    ) {
 
-    if (s.includes("انجام شده")) {
       return "✓";
+
     }
 
+    if (
+      s.includes("در حال انجام")
+    ) {
 
-    if (s.includes("در حال انجام")) {
       return "◐";
-    }
 
+    }
 
     return "○";
 
@@ -288,7 +428,9 @@
 
   function summaryData() {
 
-    return dashboard?.Summary || {};
+    return (
+      dashboard?.Summary || {}
+    );
 
   }
 
@@ -329,15 +471,14 @@
   }
 
 
-  /* ==========================================================
-     SUMMARY HELPERS
-  ========================================================== */
-
   function summaryValue(...keys) {
 
-    const summary = summaryData();
+    const summary =
+      summaryData();
 
-    for (const key of keys) {
+    for (
+      const key of keys
+    ) {
 
       if (
         summary[key] !== undefined &&
@@ -364,11 +505,12 @@
     function(e) {
 
       const light =
-        document.createElement("div");
+        document.createElement(
+          "div"
+        );
 
       light.className =
         "touch-light";
-
 
       const colors = [
         "#38bdf8",
@@ -377,14 +519,13 @@
         "#67e8f9"
       ];
 
-
       const color =
         colors[
           Math.floor(
-            Math.random() * colors.length
+            Math.random() *
+            colors.length
           )
         ];
-
 
       light.style.left =
         e.clientX + "px";
@@ -402,9 +543,9 @@
         0 0 70px ${color}
         `;
 
-
-      document.body.appendChild(light);
-
+      document.body.appendChild(
+        light
+      );
 
       setTimeout(
         () => light.remove(),
@@ -421,23 +562,35 @@
 
   function loadDashboard() {
 
-    if (!tg || !tg.initData) {
+    if (
+      !tg ||
+      !tg.initData
+    ) {
 
-      document.getElementById("root").innerHTML = `
+      const root =
+        document.getElementById(
+          "root"
+        );
 
-        <div class="loading">
+      if (root) {
 
-          <div style="font-size:35px">
-            🔐
+        root.innerHTML = `
+
+          <div class="loading">
+
+            <div style="font-size:35px">
+              🔐
+            </div>
+
+            <div class="loading-text">
+              داشبورد را از داخل ربات تلگرام باز کنید.
+            </div>
+
           </div>
 
-          <div class="loading-text">
-            داشبورد را از داخل ربات تلگرام باز کنید.
-          </div>
+        `;
 
-        </div>
-
-      `;
+      }
 
       return;
 
@@ -471,14 +624,60 @@
           }
 
 
+          /*
+            اینجا مشکل اصلی را پوشش می‌دهیم.
+          */
+
           dashboard =
-            result.data;
+            parseDashboardData(
+              result
+            );
+
+
+          /*
+            یک بررسی واقعی قبل از render
+          */
+
+          console.log(
+            "Dashboard loaded:",
+            dashboard
+          );
+
+          console.log(
+            "Summary:",
+            dashboard.Summary
+          );
+
+          console.log(
+            "Clients:",
+            dashboard.Clients
+          );
+
+          console.log(
+            "Accounting:",
+            dashboard.Accounting
+          );
+
+          console.log(
+            "Tax:",
+            dashboard.Tax
+          );
+
+          console.log(
+            "Receivables:",
+            dashboard.Receivables
+          );
 
 
           render();
 
 
         } catch (err) {
+
+          console.error(
+            "Dashboard error:",
+            err
+          );
 
           showError(
             err.message
@@ -497,7 +696,9 @@
 
 
     const script =
-      document.createElement("script");
+      document.createElement(
+        "script"
+      );
 
 
     const url =
@@ -515,7 +716,8 @@
       Date.now();
 
 
-    script.src = url;
+    script.src =
+      url;
 
 
     script.onerror =
@@ -541,29 +743,37 @@
 
   function showError(message) {
 
-    document.getElementById("root")
-      .innerHTML = `
+    const root =
+      document.getElementById(
+        "root"
+      );
 
-        <div class="loading">
+    if (!root) {
+      return;
+    }
 
-          <div style="font-size:38px">
-            ⚠️
-          </div>
+    root.innerHTML = `
 
-          <div class="loading-text">
-            ${esc(message)}
-          </div>
+      <div class="loading">
 
-          <button
-            class="tab active"
-            onclick="location.reload()"
-          >
-            تلاش مجدد
-          </button>
-
+        <div style="font-size:38px">
+          ⚠️
         </div>
 
-      `;
+        <div class="loading-text">
+          ${esc(message)}
+        </div>
+
+        <button
+          class="tab active"
+          onclick="location.reload()"
+        >
+          تلاش مجدد
+        </button>
+
+      </div>
+
+    `;
 
   }
 
@@ -588,39 +798,48 @@
       ...tax
     ];
 
-
     const summary =
       summaryData();
 
 
-    /*
-       آمار اصلی را مستقیماً از Summary می‌گیریم.
-    */
-
     const clientsCount =
-      summaryValue(
-        "ClientsCount"
-      );
+      Number(
+        summaryValue(
+          "ClientsCount"
+        )
+      ) || 0;
 
 
     const accountingCount =
-      summaryValue(
-        "AccountingCount"
-      );
+      Number(
+        summaryValue(
+          "AccountingCount"
+        )
+      ) || 0;
 
 
     const taxCount =
-      summaryValue(
-        "TaxCount"
-      );
+      Number(
+        summaryValue(
+          "TaxCount"
+        )
+      ) || 0;
 
 
     const completed =
-      summaryValue(
-        "TaxCompleted"
+      (
+        Number(
+          summaryValue(
+            "TaxCompleted"
+          )
+        ) || 0
       ) +
-      summaryValue(
-        "AccountingCompleted"
+      (
+        Number(
+          summaryValue(
+            "AccountingCompleted"
+          )
+        ) || 0
       );
 
 
@@ -654,16 +873,22 @@
       ).length;
 
 
-    const remaining =
-      Math.max(
-        0,
-        totalServices -
-        completed
+    const root =
+      document.getElementById(
+        "root"
       );
 
 
-    document.getElementById("root")
-      .innerHTML = `
+    if (!root) {
+
+      throw new Error(
+        "عنصر root در HTML پیدا نشد."
+      );
+
+    }
+
+
+    root.innerHTML = `
 
       <main class="app">
 
@@ -711,17 +936,7 @@
             <div>
               کاربر:
               <span class="user-name">
-                ${
-                  esc(
-                    get(
-                      dashboard,
-                      "userName",
-                      "username",
-                      "user"
-                    ) ||
-                    "کاربر تلگرام"
-                  )
-                }
+                کاربر تلگرام
               </span>
             </div>
 
@@ -745,20 +960,17 @@
             "مشتری"
           )}
 
-
           ${statCard(
             "▣",
             accountingCount,
             "خدمات حسابداری"
           )}
 
-
           ${statCard(
             "◉",
             taxCount,
             "خدمات مالیاتی"
           )}
-
 
           ${statCard(
             "✓",
@@ -788,8 +1000,6 @@
 
           <div class="overview">
 
-
-            <!-- COMPLETION -->
 
             <div class="circle-card">
 
@@ -857,8 +1067,6 @@
 
             </div>
 
-
-            <!-- ACTIVE -->
 
             <div class="circle-card">
 
@@ -947,7 +1155,7 @@
         </section>
 
 
-        <!-- RECEIVABLES -->
+        <!-- FINANCIAL -->
 
         <section class="section">
 
@@ -966,7 +1174,6 @@
 
           <div class="stats">
 
-
             ${statCard(
               "💰",
               formatMoneyShort(
@@ -976,7 +1183,6 @@
               ),
               "کل دریافتنی"
             )}
-
 
             ${statCard(
               "✓",
@@ -988,7 +1194,6 @@
               "دریافت شده"
             )}
 
-
             ${statCard(
               "◷",
               formatMoneyShort(
@@ -998,7 +1203,6 @@
               ),
               "مانده دریافتنی"
             )}
-
 
             ${statCard(
               "!",
@@ -1160,7 +1364,8 @@
 
   function setTab(tab) {
 
-    activeTab = tab;
+    activeTab =
+      tab;
 
     render();
 
@@ -1170,10 +1375,11 @@
   function setSearch(value) {
 
     searchText =
-      String(value || "")
-        .trim()
-        .toLowerCase();
-
+      String(
+        value || ""
+      )
+      .trim()
+      .toLowerCase();
 
     renderItems();
 
@@ -1190,7 +1396,6 @@
       document.getElementById(
         "items"
       );
-
 
     if (!container) {
       return;
@@ -1210,7 +1415,6 @@
 
     }
 
-
     else if (
       activeTab ===
       "tax"
@@ -1220,7 +1424,6 @@
         taxData();
 
     }
-
 
     else if (
       activeTab ===
@@ -1235,7 +1438,6 @@
 
     }
 
-
     else {
 
       data = [
@@ -1245,8 +1447,6 @@
 
     }
 
-
-    /* SEARCH */
 
     if (searchText) {
 
@@ -1259,7 +1459,6 @@
                 item
               )
               .toLowerCase();
-
 
             return text.includes(
               searchText
@@ -1414,9 +1613,7 @@
         "
       >
 
-
         <div class="item-head">
-
 
           <div class="item-title">
 
@@ -1445,7 +1642,6 @@
 
           </div>
 
-
         </div>
 
 
@@ -1460,7 +1656,6 @@
 
 
         <div class="item-meta">
-
 
           <div class="meta">
 
@@ -1605,7 +1800,6 @@
 
         </div>
 
-
       </article>
 
     `;
@@ -1730,13 +1924,6 @@
       );
 
 
-    const mobile =
-      get(
-        client,
-        "شماره موبایل"
-      );
-
-
     const firstLetter =
       String(name)
         .trim()
@@ -1748,7 +1935,6 @@
 
       <div class="client">
 
-
         <div class="avatar">
           ${esc(firstLetter)}
         </div>
@@ -1757,20 +1943,14 @@
         <div class="client-info">
 
           <div class="client-name">
-
             ${esc(name)}
-
           </div>
 
 
           <div class="client-type">
-
             ${esc(type)}
-
             ·
-
             ${esc(activity)}
-
           </div>
 
 
@@ -1807,12 +1987,10 @@
               : ""
           }
 
-
         </div>
 
 
         <div class="client-fee">
-
 
           <div class="fee-number">
 
@@ -1851,12 +2029,12 @@
               font-size:8px;
             "
           >
-            ${esc(status || "—")}
+            ${esc(
+              status || "—"
+            )}
           </div>
 
-
         </div>
-
 
       </div>
 
