@@ -1,1 +1,38 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>حسابگران آرمان</title>
 
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+
+<body>
+
+  <h2>داشبورد حسابگران آرمان</h2>
+
+  <p id="status">در حال بررسی اتصال Telegram...</p>
+
+  <script>
+    const status = document.getElementById('status');
+
+    if (window.Telegram && Telegram.WebApp) {
+
+      Telegram.WebApp.ready();
+
+      status.innerHTML =
+        '✅ Telegram Web App شناسایی شد<br><br>' +
+        'initData length: ' +
+        Telegram.WebApp.initData.length;
+
+    } else {
+
+      status.innerHTML =
+        '❌ Telegram Web App شناسایی نشد';
+
+    }
+  </script>
+
+</body>
+</html>
