@@ -1,24 +1,44 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
+<meta
+    name="viewport"
+    content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
+>
 
 <title>حسابگران آرمان</title>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+>
+
+<link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+>
+
 
 <style>
 
 /* =========================================================
    BASE
-   ========================================================= */
+========================================================= */
 
 :root{
+
     --bg:#071522;
     --bg2:#0b1c2d;
 
@@ -42,36 +62,48 @@
     --muted:#9eb1c5;
 
     --radius:22px;
+
 }
 
+
 *{
+
     box-sizing:border-box;
+
     -webkit-tap-highlight-color:transparent;
+
 }
+
 
 html,
 body{
+
     margin:0;
     padding:0;
+
     width:100%;
     min-height:100%;
 
     background:
+
         radial-gradient(
             circle at 8% 5%,
             rgba(37,99,235,.19),
             transparent 27%
         ),
+
         radial-gradient(
             circle at 92% 15%,
             rgba(56,189,248,.12),
             transparent 28%
         ),
+
         radial-gradient(
             circle at 50% 100%,
             rgba(214,184,108,.075),
             transparent 35%
         ),
+
         linear-gradient(
             145deg,
             #06121e,
@@ -85,51 +117,71 @@ body{
         Tahoma,
         Arial,
         sans-serif;
+
 }
 
+
 body{
+
     overflow-x:hidden;
+
 }
+
 
 button,
 input{
+
     font:inherit;
+
 }
 
+
 button{
+
     cursor:pointer;
+
 }
 
 
 /* =========================================================
    APP
-   ========================================================= */
+========================================================= */
 
 .app{
+
     width:min(1450px,100%);
+
     margin:auto;
+
     padding:22px;
+
 }
 
 
 /* =========================================================
    HEADER
-   ========================================================= */
+========================================================= */
 
 .header{
+
     position:relative;
+
     overflow:hidden;
 
     display:flex;
+
     align-items:center;
+
     justify-content:space-between;
 
     gap:20px;
 
     padding:19px 23px;
+
     margin-bottom:20px;
 
     background:
+
         linear-gradient(
             135deg,
             rgba(37,99,235,.17),
@@ -142,14 +194,20 @@ button{
     border-radius:28px;
 
     backdrop-filter:blur(20px);
+
     -webkit-backdrop-filter:blur(20px);
 
     box-shadow:
+
         0 20px 60px rgba(0,0,0,.27),
+
         inset 0 1px rgba(255,255,255,.07);
+
 }
 
+
 .header::before{
+
     content:"";
 
     position:absolute;
@@ -161,6 +219,7 @@ button{
     top:-170px;
 
     background:
+
         radial-gradient(
             circle,
             rgba(59,130,246,.25),
@@ -168,9 +227,12 @@ button{
         );
 
     pointer-events:none;
+
 }
 
+
 .header::after{
+
     content:"";
 
     position:absolute;
@@ -182,6 +244,7 @@ button{
     bottom:-120px;
 
     background:
+
         radial-gradient(
             circle,
             rgba(214,184,108,.11),
@@ -189,29 +252,39 @@ button{
         );
 
     pointer-events:none;
+
 }
 
+
 .brand{
+
     position:relative;
+
     z-index:2;
 
     display:flex;
+
     align-items:center;
 
     gap:15px;
+
 }
 
+
 .logo{
+
     width:54px;
     height:54px;
 
     display:flex;
+
     align-items:center;
     justify-content:center;
 
     border-radius:17px;
 
     background:
+
         linear-gradient(
             145deg,
             rgba(59,130,246,.23),
@@ -222,13 +295,18 @@ button{
     border:1px solid rgba(120,184,240,.20);
 
     box-shadow:
+
         0 0 30px rgba(37,99,235,.16),
+
         inset 0 1px rgba(255,255,255,.10);
 
     font-size:24px;
+
 }
 
+
 .brand h1{
+
     margin:0;
 
     font-family:
@@ -237,29 +315,40 @@ button{
         serif;
 
     font-size:27px;
+
     font-weight:600;
+
     line-height:1.7;
 
     color:#f8fbff;
 
     text-shadow:
         0 2px 15px rgba(37,99,235,.25);
+
 }
 
+
 .header-status{
+
     position:relative;
+
     z-index:2;
 
     display:flex;
+
     align-items:center;
 
     gap:8px;
 
     color:#b9cadb;
+
     font-size:12px;
+
 }
 
+
 .status-dot{
+
     width:9px;
     height:9px;
 
@@ -269,18 +358,20 @@ button{
 
     box-shadow:
         0 0 12px rgba(74,222,128,.75);
+
 }
 
 
 /* =========================================================
    HERO
-   فقط Orb — هیچ عنوان یا زیرعنوانی ندارد
-   ========================================================= */
+========================================================= */
 
 .hero{
+
     position:relative;
 
     display:flex;
+
     align-items:center;
     justify-content:center;
 
@@ -291,6 +382,7 @@ button{
     overflow:hidden;
 
     background:
+
         linear-gradient(
             135deg,
             rgba(31,84,135,.30),
@@ -303,14 +395,20 @@ button{
     border-radius:var(--radius);
 
     backdrop-filter:blur(20px);
+
     -webkit-backdrop-filter:blur(20px);
 
     box-shadow:
+
         0 20px 60px rgba(0,0,0,.23),
+
         inset 0 1px rgba(255,255,255,.055);
+
 }
 
+
 .hero::before{
+
     content:"";
 
     position:absolute;
@@ -321,9 +419,11 @@ button{
     left:50%;
     top:50%;
 
-    transform:translate(-50%,-50%);
+    transform:
+        translate(-50%,-50%);
 
     background:
+
         radial-gradient(
             circle,
             rgba(37,99,235,.10),
@@ -331,30 +431,29 @@ button{
         );
 
     pointer-events:none;
+
 }
 
 
-/* =========================================================
-   ORB
-   ========================================================= */
-
 .active-orb-wrap{
+
     position:relative;
 
     width:205px;
     height:205px;
 
     display:flex;
+
     align-items:center;
     justify-content:center;
 
     z-index:2;
+
 }
 
 
-/* بزرگ‌ترین هاله */
-
 .active-orb-aura{
+
     position:absolute;
 
     inset:-45px;
@@ -362,6 +461,7 @@ button{
     border-radius:50%;
 
     background:
+
         radial-gradient(
             circle,
             rgba(56,189,248,.24),
@@ -376,12 +476,12 @@ button{
         auraColor 22s ease-in-out infinite;
 
     pointer-events:none;
+
 }
 
 
-/* حلقه بیرونی */
-
 .active-orb-ring{
+
     position:absolute;
 
     inset:2px;
@@ -396,12 +496,12 @@ button{
 
     animation:
         ringRotate 18s linear infinite;
+
 }
 
 
-/* حلقه دوم بسیار ظریف */
-
 .active-orb-ring::before{
+
     content:"";
 
     position:absolute;
@@ -415,12 +515,12 @@ button{
 
     animation:
         ringRotateReverse 24s linear infinite;
+
 }
 
 
-/* خود گوی */
-
 .active-orb{
+
     position:relative;
 
     width:154px;
@@ -429,18 +529,21 @@ button{
     border-radius:50%;
 
     display:flex;
+
     align-items:center;
     justify-content:center;
 
     overflow:hidden;
 
     background:
+
         radial-gradient(
             circle at 30% 21%,
             rgba(255,255,255,.72) 0%,
             rgba(255,255,255,.18) 7%,
             transparent 22%
         ),
+
         radial-gradient(
             circle at 53% 53%,
             #42b7ff 0%,
@@ -453,11 +556,15 @@ button{
         1px solid rgba(180,228,255,.46);
 
     box-shadow:
+
         inset -20px -24px 37px rgba(0,0,0,.38),
+
         inset 12px 10px 28px rgba(255,255,255,.17),
 
         0 0 28px rgba(40,151,255,.34),
+
         0 0 55px rgba(40,151,255,.20),
+
         0 0 90px rgba(40,151,255,.11);
 
     animation:
@@ -469,12 +576,12 @@ button{
         box-shadow .45s ease;
 
     z-index:3;
+
 }
 
 
-/* لایه چرخان روی گوی */
-
 .active-orb::before{
+
     content:"";
 
     position:absolute;
@@ -488,6 +595,7 @@ button{
     border-radius:50%;
 
     background:
+
         conic-gradient(
             from 0deg,
 
@@ -510,12 +618,12 @@ button{
         orbSurface 16s linear infinite;
 
     pointer-events:none;
+
 }
 
 
-/* نور داخلی */
-
 .active-orb::after{
+
     content:"";
 
     position:absolute;
@@ -525,6 +633,7 @@ button{
     border-radius:50%;
 
     background:
+
         radial-gradient(
             circle at 38% 31%,
             rgba(255,255,255,.13),
@@ -532,12 +641,12 @@ button{
         );
 
     pointer-events:none;
+
 }
 
 
-/* انعکاس شیشه‌ای */
-
 .orb-highlight{
+
     position:absolute;
 
     width:49px;
@@ -558,27 +667,32 @@ button{
     opacity:.80;
 
     z-index:5;
+
 }
 
 
-/* محتوای داخل */
-
 .orb-content{
+
     position:relative;
 
     z-index:10;
 
     display:flex;
+
     flex-direction:column;
+
     align-items:center;
 
     text-align:center;
 
     text-shadow:
         0 2px 12px rgba(0,0,0,.50);
+
 }
 
+
 .orb-number{
+
     font-family:
         Arial,
         Tahoma,
@@ -593,9 +707,12 @@ button{
     color:#fff;
 
     letter-spacing:-1px;
+
 }
 
+
 .orb-label{
+
     margin-top:9px;
 
     color:
@@ -604,12 +721,12 @@ button{
     font-size:11px;
 
     font-weight:500;
+
 }
 
 
-/* نقاط نور اطراف Orb */
-
 .orb-particle{
+
     position:absolute;
 
     width:5px;
@@ -620,28 +737,34 @@ button{
     background:#8bd8ff;
 
     box-shadow:
+
         0 0 10px #38bdf8,
+
         0 0 20px rgba(56,189,248,.6);
 
     z-index:4;
 
     animation:
         particlePulse 3s ease-in-out infinite;
+
 }
+
 
 .p1{
     top:17px;
     right:45px;
 }
 
+
 .p2{
     bottom:27px;
     left:34px;
-
     animation-delay:1.2s;
 }
 
+
 .p3{
+
     top:84px;
     right:4px;
 
@@ -649,12 +772,13 @@ button{
     height:4px;
 
     animation-delay:2s;
+
 }
 
 
 /* =========================================================
-   ORB ANIMATIONS
-   ========================================================= */
+   ANIMATIONS
+========================================================= */
 
 @keyframes orbFloat{
 
@@ -665,7 +789,9 @@ button{
     50%{
         transform:translateY(-6px);
     }
+
 }
+
 
 @keyframes orbSurface{
 
@@ -676,7 +802,9 @@ button{
     to{
         transform:rotate(360deg);
     }
+
 }
+
 
 @keyframes ringRotate{
 
@@ -687,7 +815,9 @@ button{
     to{
         transform:rotate(360deg);
     }
+
 }
+
 
 @keyframes ringRotateReverse{
 
@@ -698,7 +828,9 @@ button{
     to{
         transform:rotate(-360deg);
     }
+
 }
+
 
 @keyframes auraPulse{
 
@@ -711,85 +843,63 @@ button{
         transform:scale(1.10);
         opacity:.86;
     }
+
 }
 
-
-/*
-   تغییر رنگ بسیار آهسته و ظریف:
-   آبی → فیروزه‌ای → آبی-بنفش → آبی
-*/
 
 @keyframes orbColor{
 
     0%{
-        filter:
-            hue-rotate(0deg)
-            saturate(1);
+        filter:hue-rotate(0deg) saturate(1);
     }
 
     20%{
-        filter:
-            hue-rotate(9deg)
-            saturate(1.03);
+        filter:hue-rotate(9deg) saturate(1.03);
     }
 
     40%{
-        filter:
-            hue-rotate(19deg)
-            saturate(1.05);
+        filter:hue-rotate(19deg) saturate(1.05);
     }
 
     60%{
-        filter:
-            hue-rotate(-7deg)
-            saturate(1.02);
+        filter:hue-rotate(-7deg) saturate(1.02);
     }
 
     80%{
-        filter:
-            hue-rotate(-15deg)
-            saturate(1.04);
+        filter:hue-rotate(-15deg) saturate(1.04);
     }
 
     100%{
-        filter:
-            hue-rotate(0deg)
-            saturate(1);
+        filter:hue-rotate(0deg) saturate(1);
     }
+
 }
+
 
 @keyframes auraColor{
 
     0%{
-        filter:
-            hue-rotate(0deg)
-            blur(19px);
+        filter:hue-rotate(0deg) blur(19px);
     }
 
     25%{
-        filter:
-            hue-rotate(12deg)
-            blur(20px);
+        filter:hue-rotate(12deg) blur(20px);
     }
 
     50%{
-        filter:
-            hue-rotate(20deg)
-            blur(19px);
+        filter:hue-rotate(20deg) blur(19px);
     }
 
     75%{
-        filter:
-            hue-rotate(-10deg)
-            blur(20px);
+        filter:hue-rotate(-10deg) blur(20px);
     }
 
     100%{
-        filter:
-            hue-rotate(0deg)
-            blur(19px);
+        filter:hue-rotate(0deg) blur(19px);
     }
+
 }
+
 
 @keyframes particlePulse{
 
@@ -802,7 +912,9 @@ button{
         opacity:1;
         transform:scale(1.3);
     }
+
 }
+
 
 .active-orb-wrap:hover .active-orb{
 
@@ -810,21 +922,15 @@ button{
         translateY(-5px)
         scale(1.045);
 
-    box-shadow:
-        inset -20px -24px 37px rgba(0,0,0,.38),
-        inset 12px 10px 28px rgba(255,255,255,.19),
-
-        0 0 40px rgba(40,151,255,.48),
-        0 0 75px rgba(40,151,255,.28),
-        0 0 110px rgba(40,151,255,.15);
 }
 
 
 /* =========================================================
    STATS
-   ========================================================= */
+========================================================= */
 
 .stats{
+
     display:grid;
 
     grid-template-columns:
@@ -833,15 +939,20 @@ button{
     gap:14px;
 
     margin-bottom:20px;
+
 }
 
+
 .stat{
+
     position:relative;
+
     overflow:hidden;
 
     padding:20px;
 
     background:
+
         linear-gradient(
             145deg,
             rgba(27,78,126,.29),
@@ -853,6 +964,7 @@ button{
     border-radius:20px;
 
     backdrop-filter:blur(16px);
+
     -webkit-backdrop-filter:blur(16px);
 
     box-shadow:
@@ -862,25 +974,31 @@ button{
         transform .25s ease,
         border-color .25s ease,
         box-shadow .25s ease;
+
 }
 
+
 .stat:hover{
+
     transform:translateY(-3px);
 
     border-color:
         rgba(59,130,246,.35);
 
-    box-shadow:
-        0 15px 35px rgba(0,0,0,.17),
-        0 0 25px rgba(37,99,235,.07);
 }
+
 
 .stat-label{
+
     color:#9eb1c5;
+
     font-size:11px;
+
 }
 
+
 .stat-value{
+
     margin-top:9px;
 
     font-size:25px;
@@ -888,30 +1006,38 @@ button{
     font-weight:900;
 
     color:#f2f7fc;
+
 }
 
+
 .stat-note{
+
     margin-top:5px;
 
     color:#70869d;
 
     font-size:10px;
+
 }
 
 
 /* =========================================================
    TOOLBAR
-   ========================================================= */
+========================================================= */
 
 .toolbar{
+
     display:flex;
 
     gap:12px;
 
     margin-bottom:18px;
+
 }
 
+
 .search{
+
     flex:1;
 
     height:48px;
@@ -921,6 +1047,7 @@ button{
     color:#f3f8ff;
 
     background:
+
         linear-gradient(
             135deg,
             rgba(31,84,135,.27),
@@ -934,26 +1061,34 @@ button{
     outline:none;
 
     backdrop-filter:blur(14px);
+
 }
+
 
 .search::placeholder{
+
     color:#6f8499;
+
 }
 
+
 .search:focus{
+
     border-color:
         rgba(59,130,246,.45);
 
     box-shadow:
         0 0 25px rgba(37,99,235,.10);
+
 }
 
 
 /* =========================================================
    TABS
-   ========================================================= */
+========================================================= */
 
 .tabs{
+
     display:flex;
 
     gap:8px;
@@ -961,9 +1096,12 @@ button{
     overflow-x:auto;
 
     padding-bottom:3px;
+
 }
 
+
 .tab{
+
     flex:0 0 auto;
 
     padding:11px 17px;
@@ -978,83 +1116,89 @@ button{
     color:#8fa5ba;
 
     transition:.22s;
+
 }
 
-.tab:hover{
-    color:#dcecff;
-
-    border-color:
-        rgba(59,130,246,.28);
-}
 
 .tab.active{
+
     color:white;
 
     border-color:
         rgba(59,130,246,.42);
 
     background:
+
         linear-gradient(
             135deg,
             rgba(37,99,235,.29),
             rgba(56,189,248,.11)
         );
 
-    box-shadow:
-        0 0 25px rgba(37,99,235,.11),
-        inset 0 1px rgba(255,255,255,.07);
 }
 
 
 /* =========================================================
-   SECTION
-   ========================================================= */
+   SECTIONS / CARDS
+========================================================= */
 
 .section{
+
     margin-bottom:20px;
+
 }
 
+
 .section-title{
+
     display:flex;
 
     align-items:center;
+
     justify-content:space-between;
 
     margin-bottom:13px;
 
     font-size:17px;
+
     font-weight:800;
+
 }
 
+
 .section-title span{
+
     color:#8298ad;
 
     font-size:11px;
 
     font-weight:normal;
+
 }
 
 
-/* =========================================================
-   CARDS
-   ========================================================= */
-
 .items{
+
     display:grid;
 
     grid-template-columns:
         repeat(2,1fr);
 
     gap:13px;
+
 }
 
+
 .card{
+
     position:relative;
+
     overflow:hidden;
 
     padding:18px;
 
     background:
+
         linear-gradient(
             145deg,
             rgba(31,84,135,.28),
@@ -1067,52 +1211,52 @@ button{
     border-radius:19px;
 
     backdrop-filter:blur(16px);
+
     -webkit-backdrop-filter:blur(16px);
 
     box-shadow:
         inset 0 1px rgba(255,255,255,.04);
 
-    transition:
-        transform .22s ease,
-        border-color .22s ease,
-        box-shadow .22s ease;
 }
 
-.card:hover{
-    transform:translateY(-2px);
-
-    border-color:
-        rgba(59,130,246,.30);
-
-    box-shadow:
-        0 15px 35px rgba(0,0,0,.16);
-}
 
 .card-head{
+
     display:flex;
 
     align-items:flex-start;
+
     justify-content:space-between;
 
     gap:12px;
 
     margin-bottom:12px;
+
 }
+
 
 .card-title{
+
     font-weight:800;
+
     font-size:14px;
+
 }
 
+
 .card-subtitle{
+
     color:#8298ad;
 
     font-size:11px;
 
     margin-top:5px;
+
 }
 
+
 .card-row{
+
     display:flex;
 
     justify-content:space-between;
@@ -1125,31 +1269,43 @@ button{
         1px solid rgba(255,255,255,.045);
 
     font-size:11px;
+
 }
+
 
 .card-row:last-child{
+
     border-bottom:0;
+
 }
+
 
 .card-row span:first-child{
+
     color:#71879d;
+
 }
 
+
 .card-row span:last-child{
+
     color:#d9e7f4;
 
     text-align:left;
+
 }
 
 
 /* =========================================================
    BADGES
-   ========================================================= */
+========================================================= */
 
 .badge{
+
     display:inline-flex;
 
     align-items:center;
+
     justify-content:center;
 
     padding:5px 9px;
@@ -1160,10 +1316,14 @@ button{
 
     white-space:nowrap;
 
-    border:1px solid rgba(255,255,255,.08);
+    border:
+        1px solid rgba(255,255,255,.08);
+
 }
 
+
 .badge-urgent{
+
     color:#ffd3da;
 
     background:
@@ -1171,9 +1331,12 @@ button{
 
     border-color:
         rgba(251,113,133,.24);
+
 }
 
+
 .badge-high{
+
     color:#ffe0bd;
 
     background:
@@ -1181,16 +1344,22 @@ button{
 
     border-color:
         rgba(251,146,60,.22);
+
 }
 
+
 .badge-normal{
+
     color:#c9d7e5;
 
     background:
         rgba(255,255,255,.045);
+
 }
 
+
 .badge-done{
+
     color:#b9f7ce;
 
     background:
@@ -1198,15 +1367,18 @@ button{
 
     border-color:
         rgba(74,222,128,.20);
+
 }
 
 
 /* =========================================================
-   URGENT
-   ========================================================= */
+   IMPORTANT
+========================================================= */
 
 .urgent-section{
+
     position:relative;
+
     overflow:hidden;
 
     margin-bottom:22px;
@@ -1216,6 +1388,7 @@ button{
     border-radius:24px;
 
     background:
+
         linear-gradient(
             135deg,
             rgba(37,99,235,.11),
@@ -1223,54 +1396,42 @@ button{
             rgba(214,184,108,.035)
         );
 
-    border:1px solid rgba(103,156,220,.20);
+    border:
+        1px solid rgba(103,156,220,.20);
 
-    box-shadow:
-        0 20px 55px rgba(0,0,0,.19);
 }
 
-.urgent-section::before{
-    content:"";
-
-    position:absolute;
-
-    width:260px;
-    height:260px;
-
-    top:-170px;
-    right:-80px;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(59,130,246,.17),
-            transparent 70%
-        );
-
-    pointer-events:none;
-}
 
 .urgent-header{
+
     position:relative;
+
     z-index:1;
 
     display:flex;
 
     align-items:center;
+
     justify-content:space-between;
 
     margin-bottom:15px;
+
 }
 
+
 .urgent-title-wrap{
+
     display:flex;
 
     align-items:center;
 
     gap:11px;
+
 }
 
+
 .urgent-icon{
+
     width:42px;
     height:42px;
 
@@ -1282,34 +1443,43 @@ button{
     border-radius:13px;
 
     background:
+
         linear-gradient(
             135deg,
             rgba(37,99,235,.18),
             rgba(251,113,133,.10)
         );
 
-    border:1px solid rgba(103,156,220,.20);
+    border:
+        1px solid rgba(103,156,220,.20);
 
     font-size:18px;
 
-    box-shadow:
-        0 0 22px rgba(37,99,235,.09);
 }
+
 
 .urgent-title{
+
     font-size:16px;
+
     font-weight:900;
+
 }
 
+
 .urgent-subtitle{
+
     margin-top:4px;
 
     color:#8499ad;
 
     font-size:10px;
+
 }
 
+
 .urgent-count{
+
     min-width:35px;
     height:35px;
 
@@ -1327,13 +1497,18 @@ button{
     background:
         rgba(37,99,235,.14);
 
-    border:1px solid rgba(59,130,246,.25);
+    border:
+        1px solid rgba(59,130,246,.25);
 
     font-weight:900;
+
 }
 
+
 .urgent-grid{
+
     position:relative;
+
     z-index:1;
 
     display:grid;
@@ -1342,10 +1517,14 @@ button{
         repeat(2,1fr);
 
     gap:12px;
+
 }
 
+
 .urgent-card{
+
     position:relative;
+
     overflow:hidden;
 
     padding:16px;
@@ -1355,22 +1534,14 @@ button{
     background:
         rgba(3,18,31,.32);
 
-    border:1px solid rgba(115,166,218,.12);
+    border:
+        1px solid rgba(115,166,218,.12);
 
-    transition:.2s;
 }
 
-.urgent-card:hover{
-    border-color:
-        rgba(59,130,246,.34);
-
-    transform:translateY(-2px);
-
-    box-shadow:
-        0 10px 30px rgba(0,0,0,.15);
-}
 
 .urgent-card-top{
+
     display:flex;
 
     justify-content:space-between;
@@ -1378,14 +1549,21 @@ button{
     gap:10px;
 
     margin-bottom:10px;
+
 }
+
 
 .urgent-client{
+
     font-size:13px;
+
     font-weight:800;
+
 }
 
+
 .urgent-task{
+
     color:#d7e5f2;
 
     font-size:12px;
@@ -1393,42 +1571,54 @@ button{
     line-height:1.8;
 
     margin-bottom:12px;
+
 }
 
+
 .urgent-meta{
+
     display:flex;
 
     flex-wrap:wrap;
 
     gap:7px;
+
 }
 
+
 .urgent-empty{
+
     color:#91a4b7;
 
     font-size:12px;
 
     padding:12px 0;
+
 }
 
 
 /* =========================================================
    FINANCIAL
-   ========================================================= */
+========================================================= */
 
 .financial-grid{
+
     display:grid;
 
     grid-template-columns:
         repeat(3,1fr);
 
     gap:13px;
+
 }
 
+
 .money-card{
+
     padding:20px;
 
     background:
+
         linear-gradient(
             145deg,
             rgba(31,84,135,.28),
@@ -1439,16 +1629,20 @@ button{
 
     border-radius:20px;
 
-    box-shadow:
-        inset 0 1px rgba(255,255,255,.04);
 }
+
 
 .money-label{
+
     color:#91a7bb;
+
     font-size:11px;
+
 }
 
+
 .money-value{
+
     margin-top:9px;
 
     font-size:20px;
@@ -1456,34 +1650,22 @@ button{
     font-weight:900;
 
     color:#f0f7ff;
-}
 
-.money-card.blue{
-    box-shadow:
-        inset 0 1px rgba(59,130,246,.24);
-}
-
-.money-card.gold{
-    box-shadow:
-        inset 0 1px rgba(214,184,108,.24);
-}
-
-.money-card.olive{
-    box-shadow:
-        inset 0 1px rgba(143,159,77,.24);
 }
 
 
 /* =========================================================
-   LOADING
-   ========================================================= */
+   LOADING / ERROR
+========================================================= */
 
 .loading{
+
     min-height:350px;
 
     display:flex;
 
     align-items:center;
+
     justify-content:center;
 
     flex-direction:column;
@@ -1491,9 +1673,12 @@ button{
     gap:15px;
 
     color:#8ea4b9;
+
 }
 
+
 .spinner{
+
     width:38px;
     height:38px;
 
@@ -1510,20 +1695,21 @@ button{
 
     animation:
         spin .8s linear infinite;
+
 }
 
+
 @keyframes spin{
+
     to{
         transform:rotate(360deg);
     }
+
 }
 
 
-/* =========================================================
-   ERROR
-   ========================================================= */
-
 .error{
+
     margin:20px 0;
 
     padding:20px;
@@ -1533,21 +1719,26 @@ button{
     background:
         rgba(251,113,133,.07);
 
-    border:1px solid rgba(251,113,133,.20);
+    border:
+        1px solid rgba(251,113,133,.20);
 
     color:#ffd5dc;
 
     line-height:1.9;
 
     font-size:13px;
+
 }
 
+
 .retry{
+
     margin-top:12px;
 
     padding:10px 15px;
 
-    border:1px solid rgba(255,255,255,.12);
+    border:
+        1px solid rgba(255,255,255,.12);
 
     border-radius:12px;
 
@@ -1555,14 +1746,16 @@ button{
 
     background:
         rgba(255,255,255,.06);
+
 }
 
 
 /* =========================================================
    FOOTER
-   ========================================================= */
+========================================================= */
 
 .footer{
+
     padding:20px 0 10px;
 
     text-align:center;
@@ -1570,14 +1763,16 @@ button{
     color:#526d86;
 
     font-size:10px;
+
 }
 
 
 /* =========================================================
    TOUCH LIGHT
-   ========================================================= */
+========================================================= */
 
 .touch-light{
+
     position:fixed;
 
     width:105px;
@@ -1595,6 +1790,7 @@ button{
     opacity:1;
 
     background:
+
         radial-gradient(
             circle,
             var(--touch-main) 0%,
@@ -1604,8 +1800,11 @@ button{
         );
 
     box-shadow:
+
         0 0 25px var(--touch-glow),
+
         0 0 48px var(--touch-glow2),
+
         0 0 80px var(--touch-glow3);
 
     animation:
@@ -1614,181 +1813,165 @@ button{
         cubic-bezier(.2,.8,.2,1)
         forwards;
 
-    will-change:
-        transform,
-        opacity;
 }
 
-.touch-light::before{
-    content:"";
-
-    position:absolute;
-
-    inset:13px;
-
-    border-radius:50%;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(255,255,255,.22),
-            transparent 67%
-        );
-}
-
-.touch-light::after{
-    content:"";
-
-    position:absolute;
-
-    inset:-9px;
-
-    border-radius:50%;
-
-    border:1px solid var(--touch-border);
-
-    box-shadow:
-        0 0 20px var(--touch-glow2),
-        0 0 38px var(--touch-glow3),
-        inset 0 0 14px var(--touch-second);
-
-    animation:
-        touchRing
-        760ms
-        ease-out
-        forwards;
-}
 
 @keyframes touchFade{
 
     from{
+
         opacity:1;
 
         transform:
             translate(-50%,-50%)
             scale(.25);
+
     }
 
     to{
+
         opacity:0;
 
         transform:
             translate(-50%,-50%)
             scale(1.75);
-    }
-}
 
-@keyframes touchRing{
-
-    from{
-        opacity:1;
-
-        transform:scale(.35);
     }
 
-    to{
-        opacity:0;
-
-        transform:scale(1.9);
-    }
 }
 
 
 /* =========================================================
    RESPONSIVE
-   ========================================================= */
+========================================================= */
 
 @media(max-width:900px){
 
     .stats{
+
         grid-template-columns:
             repeat(2,1fr);
+
     }
 
     .financial-grid{
+
         grid-template-columns:1fr;
+
     }
+
 }
+
 
 @media(max-width:700px){
 
     .app{
+
         padding:12px;
+
     }
 
     .header{
+
         padding:16px 17px;
+
         border-radius:22px;
+
     }
 
     .brand h1{
+
         font-size:23px;
+
     }
 
     .logo{
+
         width:46px;
         height:46px;
+
         border-radius:14px;
+
     }
 
     .hero{
+
         min-height:225px;
+
     }
 
     .stats{
+
         grid-template-columns:
             repeat(2,1fr);
 
         gap:9px;
+
     }
 
     .stat{
+
         padding:15px;
+
     }
 
     .stat-value{
+
         font-size:20px;
+
     }
 
     .items{
+
         grid-template-columns:1fr;
+
     }
 
     .urgent-grid{
+
         grid-template-columns:1fr;
+
     }
 
     .toolbar{
+
         flex-direction:column;
+
     }
 
     .active-orb-wrap{
+
         transform:scale(.90);
+
     }
+
 }
+
 
 @media(max-width:420px){
 
-    .stats{
-        grid-template-columns:
-            1fr 1fr;
-    }
-
     .header-status{
+
         display:none;
+
     }
 
     .hero{
+
         min-height:205px;
+
     }
 
     .brand h1{
+
         font-size:21px;
+
     }
 
 }
 
 </style>
+
 </head>
 
 
@@ -1796,10 +1979,6 @@ button{
 
 <div class="app">
 
-
-<!-- =====================================================
-     HEADER
-     ===================================================== -->
 
 <header class="header">
 
@@ -1810,9 +1989,11 @@ button{
         </div>
 
         <div>
+
             <h1>
                 حسابگران آرمان
             </h1>
+
         </div>
 
     </div>
@@ -1828,10 +2009,6 @@ button{
 
 </header>
 
-
-<!-- =====================================================
-     APP CONTENT
-     ===================================================== -->
 
 <main id="appContent">
 
@@ -1859,20 +2036,33 @@ button{
 <script>
 
 /* =========================================================
-   API CONFIG
-   این بخش همان نسخه سالم قبلی است
-   ========================================================= */
+   API
+========================================================= */
 
-const API_URL = 'https://script.google.com/macros/s/AKfycbzK62xIUIm8VyTektiy9EKOZBnMeXb1bxIKtcCxKfABIYFezMNEH6yfcrWAeL34zmI/exec';
+const API_URL =
+    'https://script.google.com/macros/s/AKfycbzK62xIUIm8VyTektiy9EKOZBnMeXb1bxIKtcCxKfABIYFezMNEH6yfcrWAeL34zmI/exec';
 
-const API_KEY = 'HesabgaranArman_2026_Bot_7xK9pQ2';
+
+/*
+ * این مقدار فقط برای تشخیص درخواست API است.
+ *
+ * امنیت واقعی توسط Telegram initData
+ * در سمت Google Apps Script انجام می‌شود.
+ */
+const API_KEY =
+    'HesabgaranArman_2026_Bot_7xK9pQ2';
 
 
 /* =========================================================
    TELEGRAM
-   ========================================================= */
+========================================================= */
 
-const tg = window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp : null;
+const tg =
+    window.Telegram &&
+    window.Telegram.WebApp
+        ? window.Telegram.WebApp
+        : null;
+
 
 if(tg){
 
@@ -1884,8 +2074,13 @@ if(tg){
 
     try{
 
-        tg.setHeaderColor('#071522');
-        tg.setBackgroundColor('#071522');
+        tg.setHeaderColor(
+            '#071522'
+        );
+
+        tg.setBackgroundColor(
+            '#071522'
+        );
 
     }catch(e){}
 
@@ -1894,16 +2089,19 @@ if(tg){
 
 /* =========================================================
    HELPERS
-   ========================================================= */
+========================================================= */
 
 function escapeHtml(value){
 
-    return String(value ?? '')
-        .replace(/&/g,'&amp;')
-        .replace(/</g,'&lt;')
-        .replace(/>/g,'&gt;')
-        .replace(/"/g,'&quot;')
-        .replace(/'/g,'&#039;');
+    return String(
+        value ?? ''
+    )
+
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#039;');
 
 }
 
@@ -1918,21 +2116,27 @@ function toNumber(value){
         return 0;
     }
 
+
     if(
         typeof value === 'number'
     ){
+
         return isFinite(value)
             ? value
             : 0;
+
     }
+
 
     const text =
         String(value)
             .replace(/[٬,]/g,'')
             .replace(/[^\d.-]/g,'');
 
+
     const number =
         Number(text);
+
 
     return isFinite(number)
         ? number
@@ -1975,39 +2179,50 @@ function formatToman(value){
 
 function formatDate(value){
 
-    if(!value){
-        return '—';
-    }
-
-    return String(value);
+    return value
+        ? String(value)
+        : '—';
 
 }
 
 
 function normalizeText(value){
 
-    return String(value || '')
-        .replace(/ي/g,'ی')
-        .replace(/ك/g,'ک')
-        .replace(/\u200c/g,' ')
-        .trim()
-        .toLowerCase();
+    return String(
+        value || ''
+    )
+
+    .replace(/ي/g,'ی')
+    .replace(/ك/g,'ک')
+    .replace(/\u200c/g,' ')
+    .trim()
+    .toLowerCase();
 
 }
 
 
 function matchesSearch(item){
 
-    const query =
-        normalizeText(
-            document
-                .getElementById('search')
-                ?.value || ''
+    const search =
+        document.getElementById(
+            'search'
         );
 
+
+    const query =
+        normalizeText(
+            search
+                ? search.value
+                : ''
+        );
+
+
     if(!query){
+
         return true;
+
     }
+
 
     return Object
         .values(item || {})
@@ -2020,7 +2235,7 @@ function matchesSearch(item){
 
 /* =========================================================
    STATUS
-   ========================================================= */
+========================================================= */
 
 function isCompleted(item){
 
@@ -2029,17 +2244,20 @@ function isCompleted(item){
             item?.['وضعیت']
         );
 
+
     return (
-        status.includes('انجام شده') &&
-        !status.includes('انجام نشده')
+
+        status.includes(
+            'انجام شده'
+        )
+
+        &&
+
+        !status.includes(
+            'انجام نشده'
+        )
+
     );
-
-}
-
-
-function isUnfinished(item){
-
-    return !isCompleted(item);
 
 }
 
@@ -2051,11 +2269,13 @@ function priorityLevel(item){
             item?.['الویت']
         );
 
+
     if(
         priority.includes('فوری')
     ){
         return 3;
     }
+
 
     if(
         priority.includes('بالا')
@@ -2063,27 +2283,15 @@ function priorityLevel(item){
         return 2;
     }
 
+
     if(
         priority.includes('عادی')
     ){
         return 1;
     }
 
+
     return 0;
-
-}
-
-
-function servicePriorityScore(item){
-
-    if(
-        isCompleted(item)
-    ){
-        return 0;
-    }
-
-    return 10 +
-        priorityLevel(item);
 
 }
 
@@ -2093,27 +2301,47 @@ function sortServices(items){
     return [...items].sort(
         (a,b)=>{
 
-            const scoreA =
-                servicePriorityScore(a);
+            const doneA =
+                isCompleted(a);
 
-            const scoreB =
-                servicePriorityScore(b);
+            const doneB =
+                isCompleted(b);
+
 
             if(
-                scoreA !== scoreB
+                doneA !== doneB
             ){
-                return scoreB - scoreA;
+
+                return doneA ? 1 : -1;
+
             }
+
+
+            const priorityDiff =
+                priorityLevel(b) -
+                priorityLevel(a);
+
+
+            if(
+                priorityDiff !== 0
+            ){
+
+                return priorityDiff;
+
+            }
+
 
             const daysA =
                 toNumber(
                     a?.['روزهای باقی مانده']
                 );
 
+
             const daysB =
                 toNumber(
                     b?.['روزهای باقی مانده']
                 );
+
 
             return daysA - daysB;
 
@@ -2125,9 +2353,11 @@ function sortServices(items){
 
 /* =========================================================
    IMPORTANT TASKS
-   ========================================================= */
+========================================================= */
 
-function getImportantUnfinishedTasks(dashboard){
+function getImportantUnfinishedTasks(
+    dashboard
+){
 
     const accounting =
         Array.isArray(
@@ -2136,6 +2366,7 @@ function getImportantUnfinishedTasks(dashboard){
             ? dashboard.Accounting
             : [];
 
+
     const tax =
         Array.isArray(
             dashboard?.Tax
@@ -2143,61 +2374,50 @@ function getImportantUnfinishedTasks(dashboard){
             ? dashboard.Tax
             : [];
 
+
     return [
 
         ...accounting.map(
             item=>({
+
                 ...item,
+
                 __type:'حسابداری'
+
             })
         ),
 
+
         ...tax.map(
             item=>({
+
                 ...item,
+
                 __type:'مالیاتی'
+
             })
         )
 
     ]
 
     .filter(
-        item=>{
-
-            return (
-                priorityLevel(item) >= 2 &&
-                isUnfinished(item)
-            );
-
-        }
+        item=>
+            priorityLevel(item) >= 2 &&
+            !isCompleted(item)
     )
 
     .sort(
-        (a,b)=>{
+        (a,b)=>
+            priorityLevel(b) -
+            priorityLevel(a)
+            ||
 
-            const priorityDiff =
-                priorityLevel(b) -
-                priorityLevel(a);
-
-            if(
-                priorityDiff !== 0
-            ){
-                return priorityDiff;
-            }
-
-            const daysA =
-                toNumber(
-                    a?.['روزهای باقی مانده']
-                );
-
-            const daysB =
-                toNumber(
-                    b?.['روزهای باقی مانده']
-                );
-
-            return daysA - daysB;
-
-        }
+            toNumber(
+                a?.['روزهای باقی مانده']
+            ) -
+            toNumber(
+                b?.['روزهای باقی مانده']
+            )
     );
 
 }
@@ -2205,7 +2425,7 @@ function getImportantUnfinishedTasks(dashboard){
 
 /* =========================================================
    BADGES
-   ========================================================= */
+========================================================= */
 
 function priorityBadge(item){
 
@@ -2213,6 +2433,7 @@ function priorityBadge(item){
         normalizeText(
             item?.['الویت']
         );
+
 
     if(
         priority.includes('فوری')
@@ -2226,6 +2447,7 @@ function priorityBadge(item){
 
     }
 
+
     if(
         priority.includes('بالا')
     ){
@@ -2237,6 +2459,7 @@ function priorityBadge(item){
         `;
 
     }
+
 
     return `
         <span class="badge badge-normal">
@@ -2263,6 +2486,7 @@ function statusBadge(item){
 
     }
 
+
     return `
         <span class="badge badge-normal">
             ${escapeHtml(
@@ -2277,20 +2501,26 @@ function statusBadge(item){
 
 /* =========================================================
    IMPORTANT SECTION
-   ========================================================= */
+========================================================= */
 
-function renderImportantTasks(dashboard){
+function renderImportantTasks(
+    dashboard
+){
 
     const tasks =
         getImportantUnfinishedTasks(
             dashboard
         );
 
+
     if(
         !tasks.length
     ){
+
         return '';
+
     }
+
 
     return `
 
@@ -2320,7 +2550,9 @@ function renderImportantTasks(dashboard){
 
 
                 <div class="urgent-count">
-                    ${formatNumber(tasks.length)}
+                    ${formatNumber(
+                        tasks.length
+                    )}
                 </div>
 
             </div>
@@ -2367,17 +2599,12 @@ function renderImportantTasks(dashboard){
                                 <div class="urgent-meta">
 
                                     <span class="badge">
-
                                         ${escapeHtml(
-                                            item.__type ||
-                                            'کار'
+                                            item.__type
                                         )}
-
                                     </span>
 
-
                                     ${statusBadge(item)}
-
 
                                     ${
                                         item?.[
@@ -2416,18 +2643,22 @@ function renderImportantTasks(dashboard){
 
 
 /* =========================================================
-   HERO — فقط ORB
-   ========================================================= */
+   HERO
+========================================================= */
 
-function renderHero(dashboard){
+function renderHero(
+    dashboard
+){
 
     const summary =
         dashboard?.Summary || {};
+
 
     const active =
         toNumber(
             summary.ActiveClients
         );
+
 
     return `
 
@@ -2440,7 +2671,9 @@ function renderHero(dashboard){
                 <div class="active-orb-ring"></div>
 
                 <div class="orb-particle p1"></div>
+
                 <div class="orb-particle p2"></div>
+
                 <div class="orb-particle p3"></div>
 
                 <div class="active-orb">
@@ -2472,17 +2705,19 @@ function renderHero(dashboard){
 
 /* =========================================================
    STATS
-   ========================================================= */
+========================================================= */
 
-function renderStats(dashboard){
+function renderStats(
+    dashboard
+){
 
     const s =
         dashboard?.Summary || {};
 
+
     return `
 
         <section class="stats">
-
 
             <div class="stat">
 
@@ -2568,7 +2803,6 @@ function renderStats(dashboard){
 
             </div>
 
-
         </section>
 
     `;
@@ -2578,12 +2812,15 @@ function renderStats(dashboard){
 
 /* =========================================================
    FINANCIAL
-   ========================================================= */
+========================================================= */
 
-function renderFinancial(dashboard){
+function renderFinancial(
+    dashboard
+){
 
     const s =
         dashboard?.Summary || {};
+
 
     return `
 
@@ -2602,8 +2839,7 @@ function renderFinancial(dashboard){
 
             <div class="financial-grid">
 
-
-                <div class="money-card blue">
+                <div class="money-card">
 
                     <div class="money-label">
                         کل دریافتنی
@@ -2618,7 +2854,7 @@ function renderFinancial(dashboard){
                 </div>
 
 
-                <div class="money-card olive">
+                <div class="money-card">
 
                     <div class="money-label">
                         دریافت شده
@@ -2633,7 +2869,7 @@ function renderFinancial(dashboard){
                 </div>
 
 
-                <div class="money-card gold">
+                <div class="money-card">
 
                     <div class="money-label">
                         مانده دریافتنی
@@ -2647,7 +2883,6 @@ function renderFinancial(dashboard){
 
                 </div>
 
-
             </div>
 
         </section>
@@ -2659,9 +2894,11 @@ function renderFinancial(dashboard){
 
 /* =========================================================
    SERVICE CARD
-   ========================================================= */
+========================================================= */
 
-function renderServiceCard(item){
+function renderServiceCard(
+    item
+){
 
     return `
 
@@ -2762,8 +2999,8 @@ function renderServiceCard(item){
 
 
 /* =========================================================
-   SERVICES
-   ========================================================= */
+   SERVICE SECTION
+========================================================= */
 
 function renderServicesSection(
     title,
@@ -2796,6 +3033,7 @@ function renderServicesSection(
 
     }
 
+
     return `
 
         <section class="section">
@@ -2818,7 +3056,9 @@ function renderServicesSection(
 
                 ${
                     items
-                        .map(renderServiceCard)
+                        .map(
+                            renderServiceCard
+                        )
                         .join('')
                 }
 
@@ -2833,9 +3073,11 @@ function renderServicesSection(
 
 /* =========================================================
    CLIENTS
-   ========================================================= */
+========================================================= */
 
-function renderClients(items){
+function renderClients(
+    items
+){
 
     if(
         !items.length
@@ -2858,6 +3100,7 @@ function renderClients(items){
         `;
 
     }
+
 
     return `
 
@@ -3012,15 +3255,34 @@ function renderClients(items){
 
 /* =========================================================
    RECEIVABLES
-   ========================================================= */
+========================================================= */
 
-function renderReceivables(items){
+function renderReceivables(
+    items
+){
 
     if(
         !items.length
     ){
-        return '';
+
+        return `
+
+            <section class="section">
+
+                <div class="section-title">
+                    دریافتنی‌ها
+                </div>
+
+                <div class="card">
+                    موردی یافت نشد.
+                </div>
+
+            </section>
+
+        `;
+
     }
+
 
     return `
 
@@ -3079,22 +3341,30 @@ function renderReceivables(items){
 
 
                                     ${
-                                        item?.[
-                                            'وضعیت دریافت'
-                                        ] ===
-                                        'دریافت شده'
+                                        normalizeText(
+                                            item?.[
+                                                'وضعیت دریافت'
+                                            ]
+                                        ) ===
+                                        normalizeText(
+                                            'دریافت شده'
+                                        )
 
-                                            ? `
-                                                <span class="badge badge-done">
-                                                    دریافت شده
-                                                </span>
-                                            `
+                                        ? `
 
-                                            : `
-                                                <span class="badge badge-high">
-                                                    دریافت نشده
-                                                </span>
-                                            `
+                                            <span class="badge badge-done">
+                                                دریافت شده
+                                            </span>
+
+                                        `
+
+                                        : `
+
+                                            <span class="badge badge-high">
+                                                دریافت نشده
+                                            </span>
+
+                                        `
                                     }
 
                                 </div>
@@ -3139,27 +3409,36 @@ function renderReceivables(items){
                                 ${
                                     item?.[
                                         'مبلغ دریافتی'
-                                    ]
+                                    ] !== null &&
+                                    item?.[
+                                        'مبلغ دریافتی'
+                                    ] !== undefined &&
+                                    item?.[
+                                        'مبلغ دریافتی'
+                                    ] !== ''
 
-                                        ? `
-                                            <div class="card-row">
+                                    ? `
 
-                                                <span>
-                                                    مبلغ دریافتی
-                                                </span>
+                                        <div class="card-row">
 
-                                                <span>
-                                                    ${formatToman(
-                                                        item[
-                                                            'مبلغ دریافتی'
-                                                        ]
-                                                    )}
-                                                </span>
+                                            <span>
+                                                مبلغ دریافتی
+                                            </span>
 
-                                            </div>
-                                        `
+                                            <span>
+                                                ${formatToman(
+                                                    item[
+                                                        'مبلغ دریافتی'
+                                                    ]
+                                                )}
+                                            </span>
 
-                                        : ''
+                                        </div>
+
+                                    `
+
+                                    : ''
+
                                 }
 
                             </div>
@@ -3178,16 +3457,19 @@ function renderReceivables(items){
 
 
 /* =========================================================
-   MAIN RENDER
-   ========================================================= */
+   DASHBOARD
+========================================================= */
 
 let dashboardData = null;
 
 
-function renderDashboard(dashboard){
+function renderDashboard(
+    dashboard
+){
 
     dashboardData =
         dashboard;
+
 
     const content =
         document.getElementById(
@@ -3267,27 +3549,23 @@ function renderDashboard(dashboard){
     `;
 
 
-    const search =
-        document.getElementById(
-            'search'
+    document
+        .getElementById('search')
+        .addEventListener(
+            'input',
+            ()=>{
+
+                renderCurrentTab(
+                    document
+                        .querySelector(
+                            '.tab.active'
+                        )
+                        ?.dataset.tab ||
+                    'overview'
+                );
+
+            }
         );
-
-
-    search.addEventListener(
-        'input',
-        ()=>{
-
-            renderCurrentTab(
-                document
-                    .querySelector(
-                        '.tab.active'
-                    )
-                    ?.dataset.tab ||
-                'overview'
-            );
-
-        }
-    );
 
 
     document
@@ -3300,10 +3578,11 @@ function renderDashboard(dashboard){
 
                     document
                         .querySelectorAll('.tab')
-                        .forEach(x=>
-                            x.classList.remove(
-                                'active'
-                            )
+                        .forEach(
+                            x=>
+                                x.classList.remove(
+                                    'active'
+                                )
                         );
 
 
@@ -3330,21 +3609,26 @@ function renderDashboard(dashboard){
 
 
 /* =========================================================
-   TAB RENDER
-   ========================================================= */
+   TAB
+========================================================= */
 
-function renderCurrentTab(tab){
+function renderCurrentTab(
+    tab
+){
 
     const container =
         document.getElementById(
             'dashboardItems'
         );
 
+
     if(
         !container ||
         !dashboardData
     ){
+
         return;
+
     }
 
 
@@ -3390,7 +3674,9 @@ function renderCurrentTab(tab){
 
         `;
 
+
         return;
+
     }
 
 
@@ -3416,7 +3702,9 @@ function renderCurrentTab(tab){
                 items
             );
 
+
         return;
+
     }
 
 
@@ -3442,7 +3730,9 @@ function renderCurrentTab(tab){
                 items
             );
 
+
         return;
+
     }
 
 
@@ -3465,7 +3755,9 @@ function renderCurrentTab(tab){
                 items
             );
 
+
         return;
+
     }
 
 
@@ -3488,16 +3780,14 @@ function renderCurrentTab(tab){
                 items
             );
 
-        return;
     }
 
 }
 
 
 /* =========================================================
-   API
-   همان منطق نسخه سالم قبلی
-   ========================================================= */
+   API REQUEST
+========================================================= */
 
 async function loadDashboard(){
 
@@ -3505,6 +3795,7 @@ async function loadDashboard(){
         document.getElementById(
             'appContent'
         );
+
 
     try{
 
@@ -3516,36 +3807,86 @@ async function loadDashboard(){
 
         }
 
+
+        /*
+         * بسیار مهم:
+         *
+         * initData باید خود Telegram WebApp
+         * آن را در اختیار صفحه قرار داده باشد.
+         */
         const initData =
             tg.initData || '';
+
 
         if(!initData){
 
             throw new Error(
-                'Telegram initData دریافت نشد. داشبورد را از داخل ربات باز کنید.'
+                'Telegram initData دریافت نشد. داشبورد را مستقیماً از داخل ربات باز کنید.'
             );
 
         }
 
-        const url =
-            API_URL +
-            '?action=getDashboard' +
-            '&key=' +
-            encodeURIComponent(API_KEY) +
-            '&initData=' +
-            encodeURIComponent(initData);
+
+        /*
+         * GET
+         *
+         * این روش را حفظ کرده‌ایم تا preflight
+         * و مشکل CORS ناشی از POST ایجاد نشود.
+         */
+        const params =
+            new URLSearchParams();
+
+
+        params.set(
+            'action',
+            'getDashboard'
+        );
+
+
+        params.set(
+            'key',
+            API_KEY
+        );
+
+
+        params.set(
+            'initData',
+            initData
+        );
+
 
         const response =
             await fetch(
-                url,
+
+                API_URL +
+                '?' +
+                params.toString(),
+
                 {
+
                     method:'GET',
+
                     cache:'no-store'
+
                 }
+
             );
+
+
+        if(
+            !response.ok
+        ){
+
+            throw new Error(
+                'ارتباط با سرور داشبورد برقرار نشد.'
+            );
+
+        }
+
 
         const result =
             await response.json();
+
 
         if(
             !result ||
@@ -3553,12 +3894,17 @@ async function loadDashboard(){
         ){
 
             throw new Error(
+
                 result?.error ||
+
                 result?.message ||
+
                 'دریافت اطلاعات داشبورد ناموفق بود.'
+
             );
 
         }
+
 
         if(
             !result.data
@@ -3570,13 +3916,19 @@ async function loadDashboard(){
 
         }
 
+
         renderDashboard(
             result.data
         );
 
+
     }catch(error){
 
-        console.error(error);
+        console.error(
+            'Dashboard error:',
+            error
+        );
+
 
         content.innerHTML = `
 
@@ -3586,6 +3938,7 @@ async function loadDashboard(){
                     خطا در دریافت اطلاعات داشبورد
                 </strong>
 
+
                 <div style="margin-top:8px;">
 
                     ${escapeHtml(
@@ -3594,6 +3947,7 @@ async function loadDashboard(){
                     )}
 
                 </div>
+
 
                 <button
                     class="retry"
@@ -3612,69 +3966,98 @@ async function loadDashboard(){
 
 
 /* =========================================================
-   TOUCH LIGHT PALETTES
-   ========================================================= */
+   TOUCH LIGHT
+========================================================= */
 
 const touchPalettes = [
 
     {
+
         main:'rgba(56,189,248,.38)',
         second:'rgba(37,99,235,.20)',
         third:'rgba(96,165,250,.12)',
+
         glow:'rgba(56,189,248,.28)',
         glow2:'rgba(37,99,235,.20)',
         glow3:'rgba(96,165,250,.12)',
+
         border:'rgba(125,211,252,.48)'
+
     },
 
+
     {
+
         main:'rgba(59,130,246,.40)',
         second:'rgba(29,78,216,.22)',
         third:'rgba(96,165,250,.12)',
+
         glow:'rgba(59,130,246,.30)',
         glow2:'rgba(29,78,216,.20)',
         glow3:'rgba(96,165,250,.12)',
+
         border:'rgba(96,165,250,.52)'
+
     },
 
+
     {
+
         main:'rgba(214,184,108,.40)',
         second:'rgba(245,196,91,.22)',
         third:'rgba(59,130,246,.10)',
+
         glow:'rgba(214,184,108,.28)',
         glow2:'rgba(245,196,91,.18)',
         glow3:'rgba(59,130,246,.10)',
+
         border:'rgba(245,214,145,.50)'
+
     },
 
+
     {
+
         main:'rgba(143,159,77,.40)',
         second:'rgba(59,130,246,.18)',
         third:'rgba(190,210,90,.10)',
+
         glow:'rgba(143,159,77,.27)',
         glow2:'rgba(59,130,246,.18)',
         glow3:'rgba(190,210,90,.10)',
+
         border:'rgba(180,195,105,.48)'
+
     },
 
+
     {
+
         main:'rgba(45,212,191,.40)',
         second:'rgba(56,189,248,.22)',
         third:'rgba(37,99,235,.10)',
+
         glow:'rgba(45,212,191,.28)',
         glow2:'rgba(56,189,248,.20)',
         glow3:'rgba(37,99,235,.10)',
+
         border:'rgba(94,234,212,.50)'
+
     },
 
+
     {
+
         main:'rgba(129,140,248,.40)',
         second:'rgba(99,102,241,.22)',
         third:'rgba(192,132,252,.10)',
+
         glow:'rgba(129,140,248,.29)',
         glow2:'rgba(99,102,241,.20)',
         glow3:'rgba(192,132,252,.12)',
+
         border:'rgba(165,180,252,.50)'
+
     }
 
 ];
@@ -3687,6 +4070,7 @@ function getRandomTouchPalette(){
 
     let index;
 
+
     do{
 
         index =
@@ -3696,73 +4080,96 @@ function getRandomTouchPalette(){
             );
 
     }while(
+
         touchPalettes.length > 1 &&
+
         index === lastTouchPalette
+
     );
+
 
     lastTouchPalette =
         index;
+
 
     return touchPalettes[index];
 
 }
 
 
-function createTouchLight(x,y){
+function createTouchLight(
+    x,
+    y
+){
 
     const palette =
         getRandomTouchPalette();
 
+
     const light =
-        document.createElement('div');
+        document.createElement(
+            'div'
+        );
+
 
     light.className =
         'touch-light';
 
+
     light.style.left =
         `${x}px`;
 
+
     light.style.top =
         `${y}px`;
+
 
     light.style.setProperty(
         '--touch-main',
         palette.main
     );
 
+
     light.style.setProperty(
         '--touch-second',
         palette.second
     );
+
 
     light.style.setProperty(
         '--touch-third',
         palette.third
     );
 
+
     light.style.setProperty(
         '--touch-glow',
         palette.glow
     );
+
 
     light.style.setProperty(
         '--touch-glow2',
         palette.glow2
     );
 
+
     light.style.setProperty(
         '--touch-glow3',
         palette.glow3
     );
+
 
     light.style.setProperty(
         '--touch-border',
         palette.border
     );
 
+
     document.body.appendChild(
         light
     );
+
 
     setTimeout(
         ()=>{
@@ -3779,11 +4186,17 @@ document.addEventListener(
     event=>{
 
         if(
+
             event.pointerType === 'mouse' &&
+
             event.button !== 0
+
         ){
+
             return;
+
         }
+
 
         createTouchLight(
             event.clientX,
@@ -3791,19 +4204,22 @@ document.addEventListener(
         );
 
     },
+
     {
         passive:true
     }
+
 );
 
 
 /* =========================================================
    START
-   ========================================================= */
+========================================================= */
 
 loadDashboard();
 
 </script>
 
 </body>
+
 </html>
