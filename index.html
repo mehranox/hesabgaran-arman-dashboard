@@ -2,8 +2,8 @@
 <html lang="fa" dir="rtl">
 
 <head>
-<meta charset="UTF-8">
 
+<meta charset="UTF-8">
 <meta
   name="viewport"
   content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
@@ -13,57 +13,58 @@
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <style>
 
-*{
-  box-sizing:border-box;
-  -webkit-tap-highlight-color:transparent;
-}
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap');
 
-:root{
-  --bg:#07131b;
-  --bg2:#0b1d25;
+:root {
+  --bg:#07131B;
+  --bg2:#0B1D25;
 
-  --blue:#38bdf8;
-  --blue2:#2563eb;
+  --blue:#38BDF8;
+  --blue2:#2563EB;
 
-  --gold:#d6b56d;
-  --gold2:#f0d28a;
+  --gold:#D6B56D;
+  --gold2:#F0D28A;
 
-  --olive:#89964a;
-  --olive2:#a8b85d;
+  --olive:#89964A;
+  --olive2:#A8B85D;
 
-  --text:#f5f7f4;
-  --muted:#9caeb4;
+  --text:#F5F7F4;
+  --muted:#9CAEB4;
 
   --glass:rgba(255,255,255,.065);
   --glass2:rgba(255,255,255,.095);
 
   --border:rgba(255,255,255,.10);
 
-  --success:#65d6a0;
-  --danger:#ff6675;
-  --warning:#f4c96b;
+  --success:#65D6A0;
+  --warning:#F4C96B;
+  --danger:#FF6675;
 }
 
-html{
-  background:var(--bg);
+* {
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
 }
 
-body{
+body {
+
   margin:0;
-  padding:0;
+
   min-height:100vh;
 
   background:
     radial-gradient(
-      circle at 15% 10%,
+      circle at 0% 0%,
       rgba(56,189,248,.10),
       transparent 30%
     ),
     radial-gradient(
-      circle at 85% 15%,
-      rgba(214,181,109,.09),
+      circle at 100% 0%,
+      rgba(214,181,109,.10),
       transparent 28%
     ),
     radial-gradient(
@@ -71,1080 +72,688 @@ body{
       rgba(137,150,74,.08),
       transparent 35%
     ),
-    linear-gradient(
-      145deg,
-      var(--bg),
-      var(--bg2)
-    );
+    var(--bg);
 
   color:var(--text);
 
   font-family:
+    Vazirmatn,
     Tahoma,
     Arial,
     sans-serif;
 
-  overflow-x:hidden;
+  padding:16px;
+
 }
 
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
+.app {
 
-  background:
-    linear-gradient(
-      120deg,
-      transparent 0%,
-      rgba(255,255,255,.015) 50%,
-      transparent 100%
-    );
-
-  z-index:0;
-}
-
-#root{
-  position:relative;
-  z-index:1;
-  min-height:100vh;
-}
-
-.app{
   width:100%;
   max-width:1100px;
 
-  margin:0 auto;
+  margin:auto;
 
-  padding:
-    14px
-    14px
-    30px;
 }
 
+.glass {
 
-/* =========================================================
-   HERO
-========================================================= */
-
-.hero{
-  position:relative;
-  overflow:hidden;
-
-  padding:20px;
-  margin-bottom:14px;
-
-  border-radius:24px;
-
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255,255,255,.095),
-      rgba(255,255,255,.035)
-    );
+  background:var(--glass);
 
   border:1px solid var(--border);
 
-  box-shadow:
-    0 20px 60px rgba(0,0,0,.28),
-    inset 0 1px 0 rgba(255,255,255,.07);
-
   backdrop-filter:blur(18px);
   -webkit-backdrop-filter:blur(18px);
+
+  box-shadow:
+    0 15px 45px rgba(0,0,0,.25),
+    inset 0 1px 0 rgba(255,255,255,.05);
+
+  border-radius:22px;
+
 }
 
-.hero::after{
+.hero {
+
+  padding:22px;
+
+  margin-bottom:14px;
+
+  position:relative;
+
+  overflow:hidden;
+
+}
+
+.hero::after {
+
   content:"";
 
   position:absolute;
 
-  width:220px;
-  height:220px;
+  width:180px;
+  height:180px;
 
-  left:-100px;
-  top:-120px;
+  left:-80px;
+  top:-90px;
+
+  background:rgba(56,189,248,.08);
+
+  filter:blur(45px);
 
   border-radius:50%;
 
-  background:
-    radial-gradient(
-      circle,
-      rgba(56,189,248,.16),
-      transparent 68%
-    );
-
-  pointer-events:none;
 }
 
-.hero-top{
-  position:relative;
-  z-index:2;
+.hero-top {
 
   display:flex;
 
   justify-content:space-between;
-  align-items:center;
 
-  gap:12px;
+  align-items:flex-start;
+
+  gap:15px;
+
 }
 
-.brand{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-
-.brand-icon{
-  width:52px;
-  height:52px;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  border-radius:16px;
-
-  font-size:27px;
-
-  color:var(--gold2);
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(214,181,109,.20),
-      rgba(56,189,248,.08)
-    );
-
-  border:1px solid rgba(214,181,109,.25);
-
-  box-shadow:
-    0 8px 30px rgba(214,181,109,.08),
-    inset 0 1px 0 rgba(255,255,255,.08);
-}
-
-.brand h1{
-  margin:0;
+.brand {
 
   font-size:21px;
   font-weight:800;
 
-  letter-spacing:-.5px;
 }
 
-.brand p{
-  margin:5px 0 0;
+.subtitle {
 
   color:var(--muted);
 
   font-size:11px;
+
+  margin-top:5px;
+
 }
 
-.connection{
-  display:flex;
-  align-items:center;
-  gap:7px;
+.connection {
 
-  white-space:nowrap;
+  font-size:9px;
 
   color:var(--success);
 
-  font-size:10px;
+  background:rgba(101,214,160,.08);
 
-  background:
-    rgba(101,214,160,.07);
+  border:1px solid rgba(101,214,160,.15);
 
-  border:
-    1px solid
-    rgba(101,214,160,.14);
+  padding:6px 9px;
 
-  border-radius:30px;
+  border-radius:999px;
 
-  padding:7px 10px;
+  white-space:nowrap;
+
 }
 
-.pulse{
-  width:7px;
-  height:7px;
+.pulse {
+
+  display:inline-block;
+
+  width:6px;
+  height:6px;
 
   border-radius:50%;
 
   background:var(--success);
 
-  box-shadow:
-    0 0 0 4px rgba(101,214,160,.08),
-    0 0 15px rgba(101,214,160,.6);
+  margin-left:4px;
+
+  box-shadow:0 0 0 0 rgba(101,214,160,.4);
+
+  animation:pulse 2s infinite;
+
 }
 
-.user-line{
-  position:relative;
-  z-index:2;
+@keyframes pulse {
 
-  display:flex;
-  justify-content:space-between;
+  70% {
+    box-shadow:0 0 0 7px rgba(101,214,160,0);
+  }
 
-  gap:10px;
+  100% {
+    box-shadow:0 0 0 0 rgba(101,214,160,0);
+  }
 
-  margin-top:17px;
-  padding-top:14px;
+}
 
-  border-top:
-    1px solid
-    rgba(255,255,255,.07);
+.user {
+
+  margin-top:20px;
 
   color:var(--muted);
 
   font-size:10px;
+
 }
 
-.user-name{
-  color:var(--gold2);
-  font-weight:700;
-}
+.stats {
 
-
-/* =========================================================
-   STATS
-========================================================= */
-
-.stats{
   display:grid;
 
   grid-template-columns:
-    repeat(4,minmax(0,1fr));
+    repeat(2,1fr);
 
   gap:10px;
 
   margin-bottom:14px;
+
 }
 
-.stat{
-  min-width:0;
+.stat {
 
-  padding:15px 12px;
-
-  text-align:center;
-
-  border-radius:18px;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255,255,255,.075),
-      rgba(255,255,255,.035)
-    );
-
-  border:
-    1px solid
-    rgba(255,255,255,.08);
-
-  box-shadow:
-    0 10px 35px rgba(0,0,0,.18),
-    inset 0 1px 0 rgba(255,255,255,.05);
-
-  backdrop-filter:blur(14px);
-  -webkit-backdrop-filter:blur(14px);
-}
-
-.stat-icon{
-  margin-bottom:8px;
-  font-size:19px;
-  color:var(--blue);
-}
-
-.stat-number{
-  overflow:hidden;
-
-  font-size:18px;
-  font-weight:800;
-
-  color:var(--text);
-
-  white-space:nowrap;
-  text-overflow:ellipsis;
-}
-
-.stat-label{
-  margin-top:5px;
-
-  color:var(--muted);
-
-  font-size:9px;
-}
-
-
-/* =========================================================
-   SECTION
-========================================================= */
-
-.section{
-  margin-bottom:14px;
-
-  padding:16px;
-
-  border-radius:22px;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255,255,255,.065),
-      rgba(255,255,255,.025)
-    );
-
-  border:
-    1px solid
-    rgba(255,255,255,.08);
-
-  box-shadow:
-    0 15px 45px rgba(0,0,0,.20),
-    inset 0 1px 0 rgba(255,255,255,.045);
-
-  backdrop-filter:blur(16px);
-  -webkit-backdrop-filter:blur(16px);
-}
-
-.section-title{
-  display:flex;
-
-  justify-content:space-between;
-  align-items:baseline;
-
-  gap:10px;
-
-  margin-bottom:14px;
-}
-
-.section-title h2{
-  margin:0;
-
-  font-size:15px;
-  font-weight:800;
-}
-
-.section-title span{
-  color:var(--muted);
-  font-size:9px;
-}
-
-
-/* =========================================================
-   OVERVIEW
-========================================================= */
-
-.overview{
-  display:grid;
-
-  grid-template-columns:
-    repeat(2,minmax(0,1fr));
-
-  gap:12px;
-}
-
-.circle-card{
   padding:15px;
 
-  text-align:center;
-
-  border-radius:18px;
-
-  background:
-    rgba(0,0,0,.13);
-
-  border:
-    1px solid
-    rgba(255,255,255,.055);
 }
 
-.donut{
-  position:relative;
+.stat-title {
 
-  width:135px;
-  height:135px;
+  font-size:10px;
 
-  margin:0 auto 12px;
+  color:var(--muted);
 
-  border-radius:50%;
-
-  display:flex;
-
-  align-items:center;
-  justify-content:center;
-
-  box-shadow:
-    0 12px 35px rgba(0,0,0,.25);
 }
 
-.donut::after{
-  content:"";
+.stat-value {
 
-  position:absolute;
+  margin-top:6px;
 
-  width:101px;
-  height:101px;
+  font-size:23px;
 
-  border-radius:50%;
-
-  background:
-    linear-gradient(
-      145deg,
-      #0b1d25,
-      #07131b
-    );
-
-  box-shadow:
-    inset 0 0 25px rgba(0,0,0,.3);
-}
-
-.donut-center{
-  position:relative;
-
-  z-index:2;
-
-  text-align:center;
-}
-
-.donut-number{
-  font-size:22px;
   font-weight:800;
+
 }
 
-.donut-label{
-  margin-top:3px;
+.stat-icon {
 
-  color:var(--muted);
+  font-size:17px;
 
-  font-size:8px;
+  margin-bottom:5px;
+
 }
 
-.legend{
-  display:flex;
+.section {
 
-  justify-content:center;
+  margin-bottom:14px;
 
-  gap:15px;
-
-  color:var(--muted);
-
-  font-size:8px;
 }
 
-.legend-item{
-  display:flex;
+.section-title {
 
-  align-items:center;
+  font-size:15px;
 
-  gap:5px;
-}
-
-.legend-dot{
-  width:7px;
-  height:7px;
-
-  border-radius:50%;
-}
-
-.legend-dot.blue{
-  background:var(--blue);
-
-  box-shadow:
-    0 0 9px
-    rgba(56,189,248,.5);
-}
-
-.legend-dot.olive{
-  background:var(--olive);
-
-  box-shadow:
-    0 0 9px
-    rgba(137,150,74,.5);
-}
-
-.legend-dot.gold{
-  background:var(--gold);
-
-  box-shadow:
-    0 0 9px
-    rgba(214,181,109,.5);
-}
-
-
-/* =========================================================
-   SEARCH
-========================================================= */
-
-.search{
-  display:block;
-
-  width:100%;
-  height:43px;
+  font-weight:700;
 
   margin-bottom:10px;
 
-  padding:0 14px;
+}
 
-  border-radius:14px;
+.charts {
 
-  border:
-    1px solid
-    rgba(255,255,255,.09);
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,1fr);
+
+  gap:10px;
+
+}
+
+.chart-card {
+
+  padding:14px;
+
+  text-align:center;
+
+}
+
+.chart-title {
+
+  font-size:10px;
+
+  color:var(--muted);
+
+  margin-bottom:8px;
+
+}
+
+.chart-wrap {
+
+  height:125px;
+
+}
+
+.finance {
+
+  padding:17px;
+
+}
+
+.finance-grid {
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,1fr);
+
+  gap:10px;
+
+}
+
+.finance-item {
+
+  background:rgba(255,255,255,.035);
+
+  border-radius:15px;
+
+  padding:12px;
+
+}
+
+.finance-label {
+
+  color:var(--muted);
+
+  font-size:9px;
+
+}
+
+.finance-value {
+
+  margin-top:5px;
+
+  font-size:14px;
+
+  font-weight:700;
+
+}
+
+.search {
+
+  width:100%;
+
+  border:none;
 
   outline:none;
 
+  background:var(--glass);
+
   color:var(--text);
 
-  background:
-    rgba(0,0,0,.18);
+  border:1px solid var(--border);
+
+  border-radius:16px;
+
+  padding:13px;
 
   font-family:inherit;
+
   font-size:11px;
 
-  direction:rtl;
+  margin-bottom:10px;
+
 }
 
-.search::placeholder{
-  color:#72868c;
+.search::placeholder {
+
+  color:#72848A;
+
 }
 
-.search:focus{
-  border-color:
-    rgba(56,189,248,.38);
+.tabs {
 
-  box-shadow:
-    0 0 0 3px
-    rgba(56,189,248,.06);
-}
-
-
-/* =========================================================
-   TABS
-========================================================= */
-
-.tabs{
   display:flex;
 
   gap:7px;
 
   overflow-x:auto;
 
-  padding-bottom:3px;
+  padding-bottom:5px;
 
   scrollbar-width:none;
+
 }
 
-.tabs::-webkit-scrollbar{
+.tabs::-webkit-scrollbar {
+
   display:none;
+
 }
 
-.tab{
-  flex:0 0 auto;
+.tab {
 
-  border:
-    1px solid
-    rgba(255,255,255,.08);
+  border:1px solid var(--border);
 
-  background:
-    rgba(255,255,255,.035);
+  background:var(--glass);
 
   color:var(--muted);
 
-  border-radius:12px;
+  padding:8px 13px;
 
-  padding:9px 13px;
+  border-radius:999px;
+
+  white-space:nowrap;
 
   font-family:inherit;
-  font-size:9px;
 
-  cursor:pointer;
+  font-size:10px;
+
 }
 
-.tab.active{
-  color:#fff;
+.tab.active {
 
-  background:
-    linear-gradient(
-      135deg,
-      rgba(56,189,248,.20),
-      rgba(37,99,235,.12)
-    );
+  color:var(--blue);
 
-  border-color:
-    rgba(56,189,248,.30);
+  background:rgba(56,189,248,.10);
 
-  box-shadow:
-    0 6px 20px
-    rgba(56,189,248,.08);
+  border-color:rgba(56,189,248,.25);
+
 }
 
+.item {
 
-/* =========================================================
-   ITEMS
-========================================================= */
+  padding:16px;
 
-.items{
-  display:grid;
-  gap:9px;
-}
+  margin-bottom:9px;
 
-.item{
   position:relative;
 
-  padding:14px;
-
-  border-radius:17px;
-
-  background:
-    rgba(0,0,0,.14);
-
-  border:
-    1px solid
-    rgba(255,255,255,.065);
-
   overflow:hidden;
+
 }
 
-.item::before{
+.item::before {
+
   content:"";
 
   position:absolute;
 
   right:0;
-  top:0;
-  bottom:0;
+  top:10px;
+  bottom:10px;
 
   width:3px;
 
+  border-radius:5px;
+
   background:var(--blue);
 
-  opacity:.7;
 }
 
-.item.priority-high::before{
+.item.priority-فوری::before {
   background:var(--danger);
 }
 
-.item.priority-medium::before{
-  background:var(--warning);
+.item.priority-بالا::before {
+  background:var(--danger);
 }
 
-.item.priority-low::before{
+.item.priority-عادی::before {
+  background:var(--gold);
+}
+
+.item.priority-پایین::before {
   background:var(--olive);
 }
 
-.item-head{
-  display:flex;
+.item-head {
 
-  align-items:flex-start;
+  display:flex;
 
   justify-content:space-between;
 
   gap:10px;
+
+  align-items:flex-start;
+
 }
 
-.item-title{
-  min-width:0;
+.item-name {
 
   font-size:12px;
 
-  font-weight:800;
+  font-weight:700;
 
-  line-height:1.8;
 }
 
-.item-code{
-  color:var(--gold);
-
-  font-size:9px;
-
-  margin-left:5px;
-}
-
-.item-description{
-  margin-top:6px;
+.item-code {
 
   color:var(--muted);
 
   font-size:9px;
 
-  line-height:1.9;
+  margin-top:3px;
+
 }
 
-.badge{
-  flex:0 0 auto;
+.badge {
+
+  font-size:8px;
 
   padding:5px 8px;
 
-  border-radius:9px;
-
-  font-size:8px;
+  border-radius:999px;
 
   white-space:nowrap;
+
 }
 
-.badge-done{
+.badge-success {
+
   color:var(--success);
 
-  background:
-    rgba(101,214,160,.08);
+  background:rgba(101,214,160,.09);
 
-  border:
-    1px solid
-    rgba(101,214,160,.12);
 }
 
-.badge-progress{
-  color:var(--blue);
+.badge-warning {
 
-  background:
-    rgba(56,189,248,.08);
-
-  border:
-    1px solid
-    rgba(56,189,248,.12);
-}
-
-.badge-pending{
   color:var(--warning);
 
-  background:
-    rgba(244,201,107,.07);
+  background:rgba(244,201,107,.09);
 
-  border:
-    1px solid
-    rgba(244,201,107,.11);
 }
 
-.item-meta{
+.badge-danger {
+
+  color:var(--danger);
+
+  background:rgba(255,102,117,.09);
+
+}
+
+.badge-info {
+
+  color:var(--blue);
+
+  background:rgba(56,189,248,.09);
+
+}
+
+.details {
+
   display:grid;
 
   grid-template-columns:
-    repeat(2,minmax(0,1fr));
+    repeat(2,1fr);
 
   gap:7px;
 
-  margin-top:12px;
+  margin-top:13px;
+
 }
 
-.meta{
-  min-width:0;
+.detail {
 
-  padding:8px;
+  background:rgba(255,255,255,.025);
 
   border-radius:10px;
 
-  background:
-    rgba(255,255,255,.025);
+  padding:8px;
+
 }
 
-.meta-label{
-  color:#70838a;
+.detail-label {
 
-  font-size:7px;
-
-  margin-bottom:3px;
-}
-
-.meta-value{
-  overflow:hidden;
-
-  color:#d8e0e2;
+  color:#72848A;
 
   font-size:8px;
 
-  line-height:1.6;
-
-  white-space:nowrap;
-
-  text-overflow:ellipsis;
 }
 
+.detail-value {
 
-/* =========================================================
-   CLIENTS
-========================================================= */
-
-.client{
-  display:grid;
-
-  grid-template-columns:
-    44px
-    minmax(0,1fr)
-    auto;
-
-  align-items:center;
-
-  gap:10px;
-
-  padding:12px;
-
-  border-radius:16px;
-
-  background:
-    rgba(0,0,0,.14);
-
-  border:
-    1px solid
-    rgba(255,255,255,.065);
-}
-
-.avatar{
-  width:44px;
-  height:44px;
-
-  display:flex;
-
-  align-items:center;
-  justify-content:center;
-
-  border-radius:14px;
-
-  color:var(--gold2);
-
-  font-size:18px;
-  font-weight:800;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(214,181,109,.16),
-      rgba(56,189,248,.08)
-    );
-
-  border:
-    1px solid
-    rgba(214,181,109,.16);
-}
-
-.client-info{
-  min-width:0;
-}
-
-.client-name{
-  overflow:hidden;
-
-  font-size:11px;
-  font-weight:800;
-
-  white-space:nowrap;
-  text-overflow:ellipsis;
-}
-
-.client-type{
-  margin-top:4px;
-
-  color:var(--muted);
-
-  font-size:8px;
-
-  white-space:nowrap;
-
-  overflow:hidden;
-
-  text-overflow:ellipsis;
-}
-
-.client-fee{
-  min-width:70px;
-
-  text-align:left;
-}
-
-.fee-number{
-  color:var(--gold2);
-
-  font-size:10px;
-  font-weight:800;
-}
-
-.fee-label{
   margin-top:3px;
-
-  color:#71858b;
-
-  font-size:7px;
-}
-
-
-/* =========================================================
-   LOADING / ERROR
-========================================================= */
-
-.loading{
-  min-height:100vh;
-
-  display:flex;
-
-  flex-direction:column;
-
-  align-items:center;
-  justify-content:center;
-
-  gap:15px;
-
-  padding:30px;
-
-  text-align:center;
-}
-
-.loading-spinner{
-  width:42px;
-  height:42px;
-
-  border-radius:50%;
-
-  border:
-    3px solid
-    rgba(255,255,255,.08);
-
-  border-top-color:
-    var(--blue);
-
-  animation:
-    spin .8s linear infinite;
-}
-
-@keyframes spin{
-  to{
-    transform:rotate(360deg);
-  }
-}
-
-.loading-text{
-  color:var(--muted);
-
-  font-size:11px;
-
-  line-height:2;
-}
-
-.debug-box{
-  width:100%;
-  max-width:700px;
-
-  max-height:300px;
-
-  overflow:auto;
-
-  direction:ltr;
-  text-align:left;
-
-  padding:12px;
-
-  border-radius:12px;
-
-  background:
-    rgba(0,0,0,.30);
-
-  border:
-    1px solid
-    rgba(255,255,255,.08);
-
-  color:#a9c6d0;
-
-  font-family:
-    Consolas,
-    monospace;
 
   font-size:9px;
 
-  white-space:pre-wrap;
-
-  word-break:break-word;
-}
-
-
-/* =========================================================
-   TOUCH
-========================================================= */
-
-.touch-light{
-  position:fixed;
-
-  width:12px;
-  height:12px;
-
-  margin-left:-6px;
-  margin-top:-6px;
-
-  border-radius:50%;
-
-  pointer-events:none;
-
-  z-index:9999;
-
-  animation:
-    touchLight .85s ease-out forwards;
-}
-
-@keyframes touchLight{
-
-  0%{
-    opacity:.9;
-    transform:scale(.7);
-  }
-
-  100%{
-    opacity:0;
-    transform:scale(5);
-  }
+  line-height:1.6;
 
 }
 
+.client {
 
-/* =========================================================
-   FOOTER
-========================================================= */
+  padding:15px;
 
-footer{
-  padding:20px 10px 8px;
+  margin-bottom:9px;
+
+  display:flex;
+
+  gap:12px;
+
+  align-items:flex-start;
+
+}
+
+.avatar {
+
+  width:40px;
+  height:40px;
+
+  flex-shrink:0;
+
+  border-radius:13px;
+
+  display:flex;
+
+  justify-content:center;
+  align-items:center;
+
+  font-weight:800;
+
+  color:var(--gold2);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(214,181,109,.18),
+      rgba(137,150,74,.12)
+    );
+
+  border:1px solid rgba(214,181,109,.16);
+
+}
+
+.client-main {
+
+  flex:1;
+
+  min-width:0;
+
+}
+
+.client-name {
+
+  font-size:11px;
+
+  font-weight:700;
+
+}
+
+.client-meta {
+
+  color:var(--muted);
+
+  font-size:8px;
+
+  margin-top:3px;
+
+}
+
+.client-grid {
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,1fr);
+
+  gap:5px;
+
+  margin-top:9px;
+
+}
+
+.loading,
+.error {
 
   text-align:center;
 
-  color:#61757c;
+  padding:40px 15px;
 
-  font-size:8px;
+  color:var(--muted);
+
+  font-size:11px;
+
 }
 
-footer strong{
-  margin-right:6px;
+.error {
 
-  color:var(--gold);
+  color:var(--danger);
+
 }
 
+.empty {
 
-/* =========================================================
-   RESPONSIVE
-========================================================= */
+  text-align:center;
 
-@media(max-width:600px){
+  color:var(--muted);
 
-  .stats{
+  font-size:10px;
+
+  padding:25px;
+
+}
+
+@media(min-width:700px) {
+
+  body {
+    padding:30px;
+  }
+
+  .stats {
     grid-template-columns:
-      repeat(2,minmax(0,1fr));
+      repeat(4,1fr);
   }
 
-  .hero{
-    padding:17px;
-  }
-
-  .brand h1{
-    font-size:18px;
-  }
-
-  .brand-icon{
-    width:46px;
-    height:46px;
-  }
-
-}
-
-@media(min-width:700px){
-
-  .item-meta{
+  .finance-grid {
     grid-template-columns:
-      repeat(4,minmax(0,1fr));
+      repeat(4,1fr);
   }
 
-  .client{
-    padding:15px;
+  .details,
+  .client-grid {
+    grid-template-columns:
+      repeat(4,1fr);
+  }
+
+  .charts {
+    grid-template-columns:
+      repeat(2,1fr);
   }
 
 }
@@ -1153,2512 +762,702 @@ footer strong{
 
 </head>
 
-
 <body>
 
-<div id="root">
+<div class="app" id="app">
 
   <div class="loading">
-
-    <div class="loading-spinner"></div>
-
-    <div class="loading-text">
-      در حال اتصال به داشبورد...
-    </div>
-
+    در حال اتصال به حسابگران آرمان...
   </div>
 
 </div>
 
-
 <script>
 
-
-/* ============================================================
-   CONFIG
-============================================================ */
-
-const GAS_API =
-"https://script.google.com/macros/s/AKfycbzK62xIUIm8VyTektiy9EKOZBnMeXb1bxIKtcCxKfABIYFezMNEH6yfcrWAeL34zmI/exec";
+const API_URL =
+  "PASTE_GOOGLE_APPS_SCRIPT_EXEC_URL_HERE";
 
 
-/* ============================================================
-   TELEGRAM
-============================================================ */
+const tg = window.Telegram?.WebApp;
 
-const tg =
-window.Telegram?.WebApp || null;
-
-
-if(tg){
+if (tg) {
 
   tg.ready();
 
   tg.expand();
 
-  try{
+  tg.setHeaderColor("#07131B");
 
-    tg.setHeaderColor(
-      "#07131b"
-    );
-
-    tg.setBackgroundColor(
-      "#07131b"
-    );
-
-  }catch(e){}
+  tg.setBackgroundColor("#07131B");
 
 }
 
-
-/* ============================================================
-   STATE
-============================================================ */
 
 let dashboard = null;
 
-let activeTab = "all";
 
-let searchText = "";
+async function loadDashboard() {
 
+  try {
 
-/* ============================================================
-   HELPERS
-============================================================ */
+    const initData =
+      tg?.initData || "";
 
-function esc(value){
+    const url =
+      API_URL +
+      "?initData=" +
+      encodeURIComponent(initData);
 
-  if(
-    value === null ||
-    value === undefined
-  ){
+    const response =
+      await fetch(url);
 
-    return "";
+    const result =
+      await response.json();
 
-  }
+    if (!result.ok) {
 
-  return String(value)
-
-    .replaceAll(
-      "&",
-      "&amp;"
-    )
-
-    .replaceAll(
-      "<",
-      "&lt;"
-    )
-
-    .replaceAll(
-      ">",
-      "&gt;"
-    )
-
-    .replaceAll(
-      '"',
-      "&quot;"
-    )
-
-    .replaceAll(
-      "'",
-      "&#039;"
-    );
-
-}
-
-
-function arr(value){
-
-  return Array.isArray(value)
-    ? value
-    : [];
-
-}
-
-
-function normalizeKey(value){
-
-  return String(
-    value ?? ""
-  )
-
-  .replace(
-    /[\u200c\u200d\u200e\u200f\ufeff]/g,
-    ""
-  )
-
-  .replace(
-    /\s+/g,
-    ""
-  )
-
-  .replace(
-    /[_\-]/g,
-    ""
-  )
-
-  .trim()
-
-  .toLowerCase();
-
-}
-
-
-function get(
-  obj,
-  ...keys
-){
-
-  if(
-    !obj ||
-    typeof obj !== "object"
-  ){
-
-    return "";
-
-  }
-
-
-  const objectKeys =
-    Object.keys(obj);
-
-
-  for(
-    const wantedKey of keys
-  ){
-
-    const wanted =
-      normalizeKey(
-        wantedKey
+      throw new Error(
+        result.error || "خطا در دریافت اطلاعات"
       );
 
-
-    for(
-      const realKey of objectKeys
-    ){
-
-      if(
-        normalizeKey(
-          realKey
-        ) === wanted
-      ){
-
-        const value =
-          obj[realKey];
-
-
-        if(
-          value !== undefined &&
-          value !== null &&
-          value !== ""
-        ){
-
-          return value;
-
-        }
-
-      }
-
     }
 
-  }
+    dashboard = result.data;
 
-
-  return "";
-
-}
-
-
-/* ============================================================
-   MONEY
-============================================================ */
-
-function formatMoney(value){
-
-  if(
-    value === null ||
-    value === undefined ||
-    value === ""
-  ){
-
-    return "—";
+    renderDashboard(result);
 
   }
 
-
-  const n =
-    Number(
-      String(value)
-      .replaceAll(",","")
-      .replace(/[^\d.-]/g,"")
-    );
-
-
-  if(
-    !Number.isFinite(n)
-  ){
-
-    return "—";
-
-  }
-
-
-  if(n === 0){
-
-    return "۰";
-
-  }
-
-
-  return new Intl.NumberFormat(
-    "fa-IR"
-  ).format(n);
-
-}
-
-
-function formatMoneyShort(value){
-
-  if(
-    value === null ||
-    value === undefined ||
-    value === ""
-  ){
-
-    return "—";
-
-  }
-
-
-  const n =
-    Number(
-      String(value)
-      .replaceAll(",","")
-      .replace(/[^\d.-]/g,"")
-    );
-
-
-  if(
-    !Number.isFinite(n)
-  ){
-
-    return "—";
-
-  }
-
-
-  if(
-    n >= 1000000000
-  ){
-
-    return (
-      new Intl.NumberFormat(
-        "fa-IR",
-        {
-          maximumFractionDigits:1
-        }
-      ).format(
-        n / 1000000000
-      )
-      +
-      " میلیارد"
-    );
-
-  }
-
-
-  if(
-    n >= 1000000
-  ){
-
-    return (
-      new Intl.NumberFormat(
-        "fa-IR",
-        {
-          maximumFractionDigits:1
-        }
-      ).format(
-        n / 1000000
-      )
-      +
-      " میلیون"
-    );
-
-  }
-
-
-  return formatMoney(n);
-
-}
-
-
-/* ============================================================
-   STATUS
-============================================================ */
-
-function statusClass(status){
-
-  const s =
-    String(
-      status || ""
-    );
-
-
-  if(
-    s.includes("انجام شده")
-  ){
-
-    return "badge-done";
-
-  }
-
-
-  if(
-    s.includes("در حال انجام")
-  ){
-
-    return "badge-progress";
-
-  }
-
-
-  return "badge-pending";
-
-}
-
-
-function priorityClass(priority){
-
-  const p =
-    String(
-      priority || ""
-    );
-
-
-  if(
-    p.includes("بالا") ||
-    p.includes("فوری")
-  ){
-
-    return "priority-high";
-
-  }
-
-
-  if(
-    p.includes("متوسط")
-  ){
-
-    return "priority-medium";
-
-  }
-
-
-  return "priority-low";
-
-}
-
-
-function statusIcon(status){
-
-  const s =
-    String(
-      status || ""
-    );
-
-
-  if(
-    s.includes("انجام شده")
-  ){
-
-    return "✓";
-
-  }
-
-
-  if(
-    s.includes("در حال انجام")
-  ){
-
-    return "◐";
-
-  }
-
-
-  return "○";
-
-}
-
-
-/* ============================================================
-   DATA
-============================================================ */
-
-function summaryData(){
-
-  return (
-    dashboard?.Summary ||
-    {}
-  );
-
-}
-
-
-function accountingData(){
-
-  return arr(
-    dashboard?.Accounting
-  );
-
-}
-
-
-function taxData(){
-
-  return arr(
-    dashboard?.Tax
-  );
-
-}
-
-
-function clientsData(){
-
-  return arr(
-    dashboard?.Clients
-  );
-
-}
-
-
-function receivablesData(){
-
-  return arr(
-    dashboard?.Receivables
-  );
-
-}
-
-
-function summaryValue(
-  ...keys
-){
-
-  const summary =
-    summaryData();
-
-
-  for(
-    const key of keys
-  ){
-
-    if(
-      summary[key] !== undefined &&
-      summary[key] !== null
-    ){
-
-      return summary[key];
-
-    }
-
-  }
-
-
-  return 0;
-
-}
-
-
-/* ============================================================
-   DEEP DASHBOARD FINDER
-============================================================ */
-
-function parseDashboardData(
-  result
-){
-
-  console.log(
-    "========== RAW SERVER RESPONSE =========="
-  );
-
-  console.log(
-    result
-  );
-
-
-  function isDashboardObject(
-    obj
-  ){
-
-    return (
-      obj &&
-      typeof obj === "object" &&
-      (
-        obj.Summary ||
-        obj.Clients ||
-        obj.Accounting ||
-        obj.Tax ||
-        obj.Receivables
-      )
-    );
-
-  }
-
-
-  function parseString(
-    value
-  ){
-
-    if(
-      typeof value !== "string"
-    ){
-
-      return value;
-
-    }
-
-
-    const text =
-      value.trim();
-
-
-    if(!text){
-
-      return null;
-
-    }
-
-
-    try{
-
-      return JSON.parse(
-        text
-      );
-
-    }catch(e){
-
-      return null;
-
-    }
-
-  }
-
-
-  function search(
-    value,
-    depth = 0
-  ){
-
-    if(
-      depth > 12 ||
-      value === null ||
-      value === undefined
-    ){
-
-      return null;
-
-    }
-
-
-    if(
-      typeof value === "string"
-    ){
-
-      const parsed =
-        parseString(value);
-
-
-      if(
-        parsed !== null &&
-        parsed !== value
-      ){
-
-        return search(
-          parsed,
-          depth + 1
-        );
-
-      }
-
-
-      return null;
-
-    }
-
-
-    if(
-      isDashboardObject(value)
-    ){
-
-      return value;
-
-    }
-
-
-    if(
-      Array.isArray(value)
-    ){
-
-      for(
-        const item of value
-      ){
-
-        const found =
-          search(
-            item,
-            depth + 1
-          );
-
-
-        if(found){
-
-          return found;
-
-        }
-
-      }
-
-
-      return null;
-
-    }
-
-
-    if(
-      typeof value === "object"
-    ){
-
-      for(
-        const key of Object.keys(value)
-      ){
-
-        const found =
-          search(
-            value[key],
-            depth + 1
-          );
-
-
-        if(found){
-
-          return found;
-
-        }
-
-      }
-
-    }
-
-
-    return null;
-
-  }
-
-
-  console.log(
-    "Response type:",
-    typeof result
-  );
-
-
-  if(
-    result &&
-    typeof result === "object"
-  ){
-
-    console.log(
-      "Response keys:",
-      Object.keys(result)
-    );
-
-  }
-
-
-  const found =
-    search(result);
-
-
-  console.log(
-    "========== DETECTED DASHBOARD =========="
-  );
-
-  console.log(
-    found
-  );
-
-
-  if(!found){
-
-    let raw = "";
-
-    try{
-
-      raw =
-        JSON.stringify(
-          result,
-          null,
-          2
-        );
-
-    }catch(e){
-
-      raw =
-        String(result);
-
-    }
-
-
-    console.error(
-      "Dashboard structure NOT FOUND"
-    );
-
-    console.error(
-      raw
-    );
-
-
-    throw new Error(
-      "پاسخ سرور دریافت شد، اما Summary / Clients / Accounting / Tax / Receivables در پاسخ پیدا نشد."
-    );
-
-  }
-
-
-  return found;
-
-}
-
-
-/* ============================================================
-   TOUCH EFFECT
-============================================================ */
-
-document.addEventListener(
-  "pointerdown",
-  function(e){
-
-    const light =
-      document.createElement(
-        "div"
-      );
-
-
-    light.className =
-      "touch-light";
-
-
-    const colors = [
-
-      "#38bdf8",
-      "#d6b56d",
-      "#9aa94f",
-      "#67e8f9"
-
-    ];
-
-
-    const color =
-      colors[
-        Math.floor(
-          Math.random() *
-          colors.length
-        )
-      ];
-
-
-    light.style.left =
-      e.clientX + "px";
-
-
-    light.style.top =
-      e.clientY + "px";
-
-
-    light.style.background =
-      color;
-
-
-    light.style.boxShadow =
-      `
-      0 0 12px ${color},
-      0 0 35px ${color},
-      0 0 70px ${color}
-      `;
-
-
-    document.body.appendChild(
-      light
-    );
-
-
-    setTimeout(
-      () => light.remove(),
-      850
-    );
-
-  }
-);
-
-
-/* ============================================================
-   ERROR SCREEN
-============================================================ */
-
-function showError(
-  message,
-  debug = ""
-){
-
-  const root =
-    document.getElementById(
-      "root"
-    );
-
-
-  if(!root){
-
-    return;
-
-  }
-
-
-  root.innerHTML = `
-
-    <div class="loading">
-
-      <div
-        style="
-          font-size:42px;
-        "
-      >
-        ⚠️
+  catch(error) {
+
+    document.getElementById("app").innerHTML = `
+      <div class="glass error">
+        خطا در دریافت اطلاعات داشبورد
+        <br><br>
+        ${escapeHtml(error.message)}
       </div>
-
-
-      <div
-        style="
-          font-size:15px;
-          font-weight:800;
-        "
-      >
-        خطا در دریافت اطلاعات
-      </div>
-
-
-      <div class="loading-text">
-
-        ${esc(message)}
-
-      </div>
-
-
-      ${
-        debug
-        ?
-        `
-          <div class="debug-box">
-            ${esc(debug)}
-          </div>
-        `
-        :
-        ""
-      }
-
-
-      <button
-        class="tab active"
-        onclick="location.reload()"
-      >
-        تلاش مجدد
-      </button>
-
-    </div>
-
-  `;
-
-}
-
-
-/* ============================================================
-   LOAD DASHBOARD
-============================================================ */
-
-function loadDashboard(){
-
-  const root =
-    document.getElementById(
-      "root"
-    );
-
-
-  if(
-    !tg ||
-    !tg.initData
-  ){
-
-    showError(
-      "داشبورد باید از داخل ربات تلگرام باز شود."
-    );
-
-    return;
-
-  }
-
-
-  root.innerHTML = `
-
-    <div class="loading">
-
-      <div class="loading-spinner"></div>
-
-      <div class="loading-text">
-
-        در حال دریافت اطلاعات داشبورد...
-
-      </div>
-
-    </div>
-
-  `;
-
-
-  const callbackName =
-    "dashboardCallback_" +
-    Date.now() +
-    "_" +
-    Math.floor(
-      Math.random() * 100000
-    );
-
-
-  let finished = false;
-
-
-  const timeout =
-    setTimeout(
-      function(){
-
-        if(finished){
-
-          return;
-
-        }
-
-
-        finished = true;
-
-
-        delete window[
-          callbackName
-        ];
-
-
-        showError(
-          "زمان پاسخ‌گویی سرور تمام شد. اتصال Apps Script را بررسی کنید."
-        );
-
-      },
-      20000
-    );
-
-
-  window[callbackName] =
-    function(result){
-
-      if(finished){
-
-        return;
-
-      }
-
-
-      finished = true;
-
-
-      clearTimeout(
-        timeout
-      );
-
-
-      try{
-
-        console.log(
-          "========== CALLBACK RECEIVED =========="
-        );
-
-        console.log(
-          result
-        );
-
-
-        /*
-         * فقط زمانی که صراحتاً
-         * ok:false باشد خطا است.
-         */
-
-        if(
-          result &&
-          result.ok === false
-        ){
-
-          throw new Error(
-            result.error ||
-            "Apps Script خطا برگرداند."
-          );
-
-        }
-
-
-        if(
-          !result
-        ){
-
-          throw new Error(
-            "پاسخ خالی از سرور دریافت شد."
-          );
-
-        }
-
-
-        dashboard =
-          parseDashboardData(
-            result
-          );
-
-
-        console.log(
-          "========== FINAL DASHBOARD =========="
-        );
-
-        console.log(
-          dashboard
-        );
-
-
-        console.log(
-          "Summary:",
-          dashboard.Summary
-        );
-
-        console.log(
-          "Clients:",
-          dashboard.Clients
-        );
-
-        console.log(
-          "Accounting:",
-          dashboard.Accounting
-        );
-
-        console.log(
-          "Tax:",
-          dashboard.Tax
-        );
-
-        console.log(
-          "Receivables:",
-          dashboard.Receivables
-        );
-
-
-        render();
-
-
-      }catch(error){
-
-        console.error(
-          "Dashboard error:",
-          error
-        );
-
-
-        let debug = "";
-
-        try{
-
-          debug =
-            JSON.stringify(
-              result,
-              null,
-              2
-            );
-
-        }catch(e){
-
-          debug =
-            String(result);
-
-        }
-
-
-        showError(
-          error.message ||
-          "خطای ناشناخته",
-          debug
-        );
-
-
-      }finally{
-
-        delete window[
-          callbackName
-        ];
-
-      }
-
-    };
-
-
-  const url =
-    GAS_API +
-    "?action=getDashboard" +
-    "&initData=" +
-    encodeURIComponent(
-      tg.initData
-    ) +
-    "&callback=" +
-    encodeURIComponent(
-      callbackName
-    ) +
-    "&t=" +
-    Date.now();
-
-
-  console.log(
-    "Requesting dashboard..."
-  );
-
-
-  const script =
-    document.createElement(
-      "script"
-    );
-
-
-  script.src =
-    url;
-
-
-  script.onerror =
-    function(){
-
-      if(finished){
-
-        return;
-
-      }
-
-
-      finished = true;
-
-
-      clearTimeout(
-        timeout
-      );
-
-
-      delete window[
-        callbackName
-      ];
-
-
-      showError(
-        "ارتباط با Apps Script برقرار نشد."
-      );
-
-    };
-
-
-  document.body.appendChild(
-    script
-  );
-
-}
-
-
-/* ============================================================
-   RENDER
-============================================================ */
-
-function render(){
-
-  const accounting =
-    accountingData();
-
-
-  const tax =
-    taxData();
-
-
-  const clients =
-    clientsData();
-
-
-  const allServices = [
-
-    ...accounting,
-    ...tax
-
-  ];
-
-
-  const clientsCount =
-    Number(
-      summaryValue(
-        "ClientsCount"
-      )
-    ) || 0;
-
-
-  const accountingCount =
-    Number(
-      summaryValue(
-        "AccountingCount"
-      )
-    ) || 0;
-
-
-  const taxCount =
-    Number(
-      summaryValue(
-        "TaxCount"
-      )
-    ) || 0;
-
-
-  const completed =
-    (
-      Number(
-        summaryValue(
-          "TaxCompleted"
-        )
-      ) || 0
-    )
-    +
-    (
-      Number(
-        summaryValue(
-          "AccountingCompleted"
-        )
-      ) || 0
-    );
-
-
-  const totalServices =
-    accountingCount +
-    taxCount;
-
-
-  const completion =
-    totalServices > 0
-    ?
-    Math.round(
-      completed /
-      totalServices *
-      100
-    )
-    :
-    0;
-
-
-  const progress =
-    allServices.filter(
-      item =>
-        String(
-          get(
-            item,
-            "وضعیت"
-          )
-        ).includes(
-          "در حال انجام"
-        )
-    ).length;
-
-
-  const progressAngle =
-    allServices.length
-    ?
-    Math.max(
-      1,
-      Math.round(
-        progress /
-        allServices.length *
-        360
-      )
-    )
-    :
-    1;
-
-
-  const completionAngle =
-    Math.max(
-      1,
-      completion
-    ) * 3.6;
-
-
-  const root =
-    document.getElementById(
-      "root"
-    );
-
-
-  if(!root){
-
-    throw new Error(
-      "عنصر root در HTML پیدا نشد."
-    );
-
-  }
-
-
-  root.innerHTML = `
-
-    <main class="app">
-
-
-      <!-- HERO -->
-
-      <section class="hero">
-
-        <div class="hero-top">
-
-          <div class="brand">
-
-            <div class="brand-icon">
-              ◈
-            </div>
-
-
-            <div>
-
-              <h1>
-                حسابگران آرمان
-              </h1>
-
-              <p>
-                سامانه مدیریت اطلاعات مؤسسه
-              </p>
-
-            </div>
-
-          </div>
-
-
-          <div class="connection">
-
-            <span class="pulse"></span>
-
-            اتصال امن
-
-          </div>
-
-        </div>
-
-
-        <div class="user-line">
-
-          <div>
-
-            کاربر:
-
-            <span class="user-name">
-              کاربر تلگرام
-            </span>
-
-          </div>
-
-
-          <div>
-            ✓ Telegram تأیید شد
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <!-- STATS -->
-
-      <section class="stats">
-
-        ${statCard(
-          "👥",
-          clientsCount,
-          "مشتری"
-        )}
-
-        ${statCard(
-          "▣",
-          accountingCount,
-          "خدمات حسابداری"
-        )}
-
-        ${statCard(
-          "◉",
-          taxCount,
-          "خدمات مالیاتی"
-        )}
-
-        ${statCard(
-          "✓",
-          completed,
-          "تکمیل شده"
-        )}
-
-      </section>
-
-
-      <!-- OVERVIEW -->
-
-      <section class="section">
-
-        <div class="section-title">
-
-          <h2>
-            نمای کلی
-          </h2>
-
-          <span>
-            وضعیت جاری خدمات
-          </span>
-
-        </div>
-
-
-        <div class="overview">
-
-
-          <div class="circle-card">
-
-            <div
-              class="donut"
-              style="
-                background:
-                  conic-gradient(
-                    var(--blue)
-                    0deg
-                    ${completionAngle}deg,
-
-                    var(--olive)
-                    ${completionAngle}deg
-                    360deg
-                  );
-              "
-            >
-
-              <div class="donut-center">
-
-                <div class="donut-number">
-                  ${completion}%
-                </div>
-
-                <div class="donut-label">
-                  تکمیل خدمات
-                </div>
-
-              </div>
-
-            </div>
-
-
-            <div class="legend">
-
-              <div class="legend-item">
-
-                <span
-                  class="legend-dot blue"
-                ></span>
-
-                تکمیل
-
-              </div>
-
-
-              <div class="legend-item">
-
-                <span
-                  class="legend-dot olive"
-                ></span>
-
-                باقی‌مانده
-
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <div class="circle-card">
-
-            <div
-              class="donut"
-              style="
-                background:
-                  conic-gradient(
-                    var(--gold)
-                    0deg
-                    ${progressAngle}deg,
-
-                    var(--blue)
-                    ${progressAngle}deg
-                    360deg
-                  );
-              "
-            >
-
-              <div class="donut-center">
-
-                <div class="donut-number">
-                  ${progress}
-                </div>
-
-                <div class="donut-label">
-                  در حال انجام
-                </div>
-
-              </div>
-
-            </div>
-
-
-            <div class="legend">
-
-              <div class="legend-item">
-
-                <span
-                  class="legend-dot gold"
-                ></span>
-
-                فعال
-
-              </div>
-
-
-              <div class="legend-item">
-
-                <span
-                  class="legend-dot blue"
-                ></span>
-
-                خدمات
-
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <!-- FINANCIAL -->
-
-      <section class="section">
-
-        <div class="section-title">
-
-          <h2>
-            وضعیت مالی
-          </h2>
-
-          <span>
-            دریافتنی‌ها
-          </span>
-
-        </div>
-
-
-        <div class="stats">
-
-          ${statCard(
-            "💰",
-            formatMoneyShort(
-              summaryValue(
-                "TotalReceivables"
-              )
-            ),
-            "کل دریافتنی"
-          )}
-
-
-          ${statCard(
-            "✓",
-            formatMoneyShort(
-              summaryValue(
-                "TotalCollected"
-              )
-            ),
-            "دریافت شده"
-          )}
-
-
-          ${statCard(
-            "◷",
-            formatMoneyShort(
-              summaryValue(
-                "RemainingReceivables"
-              )
-            ),
-            "مانده دریافتنی"
-          )}
-
-
-          ${statCard(
-            "!",
-            summaryValue(
-              "ReceivablesCount"
-            ),
-            "صورتحساب"
-          )}
-
-        </div>
-
-      </section>
-
-
-      <!-- SERVICES -->
-
-      <section class="section">
-
-        <div class="section-title">
-
-          <h2>
-            خدمات
-          </h2>
-
-          <span>
-            ${allServices.length} مورد
-          </span>
-
-        </div>
-
-
-        <input
-          class="search"
-          id="search"
-          placeholder="جستجو در خدمات و مشتریان..."
-          value="${esc(searchText)}"
-          oninput="setSearch(this.value)"
-        >
-
-
-        <div class="tabs">
-
-          <button
-            class="tab ${
-              activeTab === "all"
-              ? "active"
-              : ""
-            }"
-            onclick="setTab('all')"
-          >
-            همه
-          </button>
-
-
-          <button
-            class="tab ${
-              activeTab === "accounting"
-              ? "active"
-              : ""
-            }"
-            onclick="setTab('accounting')"
-          >
-            حسابداری
-          </button>
-
-
-          <button
-            class="tab ${
-              activeTab === "tax"
-              ? "active"
-              : ""
-            }"
-            onclick="setTab('tax')"
-          >
-            مالیاتی
-          </button>
-
-
-          <button
-            class="tab ${
-              activeTab === "clients"
-              ? "active"
-              : ""
-            }"
-            onclick="setTab('clients')"
-          >
-            مشتریان
-          </button>
-
-        </div>
-
-
-        <div
-          class="items"
-          id="items"
-        ></div>
-
-      </section>
-
-
-      <footer>
-
-        حسابگران آرمان
-
-        <strong>
-          © ۱۴۰۵
-        </strong>
-
-      </footer>
-
-
-    </main>
-
-  `;
-
-
-  renderItems();
-
-}
-
-
-/* ============================================================
-   STAT CARD
-============================================================ */
-
-function statCard(
-  icon,
-  number,
-  label
-){
-
-  return `
-
-    <div class="stat">
-
-      <div class="stat-icon">
-        ${icon}
-      </div>
-
-      <div class="stat-number">
-        ${esc(number)}
-      </div>
-
-      <div class="stat-label">
-        ${esc(label)}
-      </div>
-
-    </div>
-
-  `;
-
-}
-
-
-/* ============================================================
-   TABS
-============================================================ */
-
-function setTab(tab){
-
-  activeTab =
-    tab;
-
-  render();
-
-}
-
-
-function setSearch(value){
-
-  searchText =
-    String(
-      value || ""
-    )
-    .trim()
-    .toLowerCase();
-
-
-  renderItems();
-
-}
-
-
-/* ============================================================
-   RENDER ITEMS
-============================================================ */
-
-function renderItems(){
-
-  const container =
-    document.getElementById(
-      "items"
-    );
-
-
-  if(!container){
-
-    return;
-
-  }
-
-
-  let data = [];
-
-
-  if(
-    activeTab === "accounting"
-  ){
-
-    data =
-      accountingData();
-
-  }
-
-
-  else if(
-    activeTab === "tax"
-  ){
-
-    data =
-      taxData();
-
-  }
-
-
-  else if(
-    activeTab === "clients"
-  ){
-
-    renderClients(
-      container
-    );
-
-    return;
-
-  }
-
-
-  else{
-
-    data = [
-
-      ...accountingData(),
-      ...taxData()
-
-    ];
-
-  }
-
-
-  if(searchText){
-
-    data =
-      data.filter(
-        item => {
-
-          return JSON.stringify(
-            item
-          )
-          .toLowerCase()
-          .includes(
-            searchText
-          );
-
-        }
-      );
-
-  }
-
-
-  if(!data.length){
-
-    container.innerHTML = `
-
-      <div class="item">
-
-        <div class="item-title">
-          موردی پیدا نشد
-        </div>
-
-        <div class="item-description">
-          برای این جستجو اطلاعاتی وجود ندارد.
-        </div>
-
-      </div>
-
     `;
 
-    return;
-
   }
-
-
-  container.innerHTML =
-    data
-    .map(
-      serviceCard
-    )
-    .join("");
 
 }
 
 
-/* ============================================================
-   SERVICE CARD
-============================================================ */
+function renderDashboard(result) {
 
-function serviceCard(item){
+  const s = dashboard.Summary;
 
-  const title =
-    get(
-      item,
-      "نام مراجعه کننده",
-      "نام مشتری",
-      "مشتری"
-    )
-    ||
-    "بدون نام";
+  const user =
+    result.user || {};
 
+  document.getElementById("app").innerHTML = `
 
-  const code =
-    get(
-      item,
-      "کد مراجعه کننده",
-      "کد"
-    );
+    ${hero(user)}
 
+    ${stats(s)}
 
-  const service =
-    get(
-      item,
-      "نوع کار",
-      "نوع پرونده",
-      "نوع خدمت",
-      "نوع"
-    );
+    ${overview(s)}
 
+    ${finance(s)}
 
-  const description =
-    get(
-      item,
-      "شرح کار",
-      "شرح"
-    );
+    <section class="section">
 
+      <div class="section-title">
+        خدمات
+      </div>
 
-  const status =
-    get(
-      item,
-      "وضعیت"
-    );
+      <input
+        id="search"
+        class="search"
+        placeholder="جستجو در خدمات و مشتریان..."
+      >
 
+      <div class="tabs">
 
-  const priority =
-    get(
-      item,
-      "الویت",
-      "اولویت"
-    );
+        <button class="tab active" data-tab="all">
+          همه
+        </button>
 
+        <button class="tab" data-tab="accounting">
+          حسابداری
+        </button>
 
-  const due =
-    get(
-      item,
-      "تاریخ سررسید",
-      "سررسید"
-    );
+        <button class="tab" data-tab="tax">
+          مالیاتی
+        </button>
 
+        <button class="tab" data-tab="clients">
+          مشتریان
+        </button>
 
-  const waiting =
-    get(
-      item,
-      "منتظر چه کسی",
-      "در انتظار"
-    );
+      </div>
 
+      <div
+        id="content"
+        style="margin-top:10px"
+      ></div>
 
-  const remainingDays =
-    get(
-      item,
-      "روزهای باقی مانده"
-    );
+    </section>
+
+  `;
+
+  setupTabs();
+
+  renderItems("all");
+
+  document
+    .getElementById("search")
+    .addEventListener("input", function() {
+
+      renderItems(
+        document.querySelector(".tab.active").dataset.tab
+      );
+
+    });
+
+}
 
 
-  const period =
-    get(
-      item,
-      "دوره مالی"
-    );
+function hero(user) {
 
-
-  const deadlineStatus =
-    get(
-      item,
-      "وضعیت سررسید"
-    );
-
-
-  const startDate =
-    get(
-      item,
-      "تاریخ شروع"
-    );
-
+  const name =
+    user.first_name ||
+    "کاربر تلگرام";
 
   return `
 
-    <article
+    <section class="hero glass">
+
+      <div class="hero-top">
+
+        <div>
+
+          <div class="brand">
+            حسابگران آرمان
+          </div>
+
+          <div class="subtitle">
+            سامانه مدیریت اطلاعات مؤسسه
+          </div>
+
+        </div>
+
+        <div class="connection">
+          <span class="pulse"></span>
+          اتصال امن
+        </div>
+
+      </div>
+
+      <div class="user">
+
+        کاربر:
+        ${escapeHtml(name)}
+
+        <br>
+
+        <span style="color:var(--success)">
+          ✓ Telegram تأیید شد
+        </span>
+
+      </div>
+
+    </section>
+
+  `;
+
+}
+
+
+function stats(s) {
+
+  return `
+
+    <section class="stats">
+
+      <div class="stat glass">
+        <div class="stat-icon">👥</div>
+        <div class="stat-title">
+          تعداد مشتریان
+        </div>
+        <div class="stat-value">
+          ${num(s.ClientsCount)}
+        </div>
+      </div>
+
+      <div class="stat glass">
+        <div class="stat-icon">▣</div>
+        <div class="stat-title">
+          خدمات حسابداری
+        </div>
+        <div class="stat-value">
+          ${num(s.AccountingCount)}
+        </div>
+      </div>
+
+      <div class="stat glass">
+        <div class="stat-icon">◉</div>
+        <div class="stat-title">
+          خدمات مالیاتی
+        </div>
+        <div class="stat-value">
+          ${num(s.TaxCount)}
+        </div>
+      </div>
+
+      <div class="stat glass">
+        <div class="stat-icon">✓</div>
+        <div class="stat-title">
+          تکمیل شده
+        </div>
+        <div class="stat-value">
+          ${num(s.TaxCompleted)}
+        </div>
+      </div>
+
+    </section>
+
+  `;
+
+}
+
+
+function overview(s) {
+
+  const total =
+    s.AccountingCount +
+    s.TaxCount;
+
+  const completed =
+    s.TaxCompleted +
+    s.AccountingCompleted;
+
+  const percentage =
+    total ?
+    Math.round(
+      completed / total * 100
+    ) : 0;
+
+  return `
+
+    <section class="section">
+
+      <div class="section-title">
+        نمای کلی
+      </div>
+
+      <div class="charts">
+
+        <div class="chart-card glass">
+
+          <div class="chart-title">
+            تکمیل خدمات
+          </div>
+
+          <div class="chart-wrap">
+            <canvas id="completionChart"></canvas>
+          </div>
+
+        </div>
+
+        <div class="chart-card glass">
+
+          <div class="chart-title">
+            در حال انجام
+          </div>
+
+          <div class="chart-wrap">
+            <canvas id="activeChart"></canvas>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  `;
+
+}
+
+
+function finance(s) {
+
+  return `
+
+    <section class="section">
+
+      <div class="finance glass">
+
+        <div class="section-title">
+          وضعیت مالی
+        </div>
+
+        <div
+          style="
+            color:var(--muted);
+            font-size:9px;
+            margin-bottom:12px;
+          "
+        >
+          دریافتنی‌ها
+        </div>
+
+        <div class="finance-grid">
+
+          <div class="finance-item">
+
+            <div class="finance-label">
+              💰 کل دریافتنی
+            </div>
+
+            <div class="finance-value">
+              ${money(s.TotalReceivables)}
+            </div>
+
+          </div>
+
+          <div class="finance-item">
+
+            <div class="finance-label">
+              ✓ دریافت شده
+            </div>
+
+            <div class="finance-value">
+              ${money(s.TotalCollected)}
+            </div>
+
+          </div>
+
+          <div class="finance-item">
+
+            <div class="finance-label">
+              ◷ مانده دریافتنی
+            </div>
+
+            <div class="finance-value">
+              ${money(s.RemainingReceivables)}
+            </div>
+
+          </div>
+
+          <div class="finance-item">
+
+            <div class="finance-label">
+              ! تعداد صورتحساب
+            </div>
+
+            <div class="finance-value">
+              ${num(s.ReceivablesCount)}
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  `;
+
+}
+
+
+function setupTabs() {
+
+  document
+    .querySelectorAll(".tab")
+    .forEach(tab => {
+
+      tab.addEventListener("click", () => {
+
+        document
+          .querySelectorAll(".tab")
+          .forEach(x =>
+            x.classList.remove("active")
+          );
+
+        tab.classList.add("active");
+
+        renderItems(tab.dataset.tab);
+
+      });
+
+    });
+
+}
+
+
+function renderItems(type) {
+
+  const container =
+    document.getElementById("content");
+
+  const query =
+    document.getElementById("search")
+      ?.value
+      .trim()
+      .toLowerCase() || "";
+
+  let html = "";
+
+  if (type === "clients") {
+
+    let clients =
+      dashboard.Clients || [];
+
+    clients =
+      clients.filter(x =>
+        matchesClient(x, query)
+      );
+
+    html =
+      clients.length
+        ? clients.map(clientCard).join("")
+        : empty();
+
+  }
+
+  else {
+
+    let items = [];
+
+    if (type === "all" || type === "accounting") {
+
+      items = items.concat(
+        (dashboard.Accounting || []).map(x => ({
+          ...x,
+          category:"حسابداری"
+        }))
+      );
+
+    }
+
+    if (type === "all" || type === "tax") {
+
+      items = items.concat(
+        (dashboard.Tax || []).map(x => ({
+          ...x,
+          category:"مالیاتی"
+        }))
+      );
+
+    }
+
+    items =
+      items.filter(x =>
+        matchesService(x, query)
+      );
+
+    html =
+      items.length
+        ? items.map(serviceCard).join("")
+        : empty();
+
+  }
+
+  container.innerHTML = html;
+
+}
+
+
+function matchesService(x, query) {
+
+  if (!query) return true;
+
+  return JSON.stringify(x)
+    .toLowerCase()
+    .includes(query);
+
+}
+
+
+function matchesClient(x, query) {
+
+  if (!query) return true;
+
+  return JSON.stringify(x)
+    .toLowerCase()
+    .includes(query);
+
+}
+
+
+function serviceCard(x) {
+
+  const statusClass =
+    x["وضعیت"] === "انجام شده"
+      ? "badge-success"
+      : x["وضعیت"] === "در حال انجام"
+      ? "badge-info"
+      : "badge-warning";
+
+  const priority =
+    x["الویت"] || "عادی";
+
+  return `
+
+    <div
       class="
         item
-        ${priorityClass(priority)}
+        glass
+        priority-${escapeHtml(priority)}
       "
     >
 
       <div class="item-head">
 
-        <div class="item-title">
+        <div>
 
-          <span class="item-code">
-            #${esc(code)}
-          </span>
+          <div class="item-name">
+            ${escapeHtml(
+              x["نام مراجعه کننده"] ||
+              x["نام شخص/شرکت"] ||
+              "-"
+            )}
+          </div>
 
-          ${esc(title)}
+          <div class="item-code">
+            کد:
+            ${escapeHtml(
+              x["کد مراجعه کننده"] || "-"
+            )}
+          </div>
 
         </div>
 
-
-        <div
-          class="
-            badge
-            ${statusClass(status)}
-          "
-        >
-
-          ${statusIcon(status)}
-
-          ${esc(
-            status ||
-            "در انتظار"
+        <span class="badge ${statusClass}">
+          ${escapeHtml(
+            x["وضعیت"] || "-"
           )}
-
-        </div>
+        </span>
 
       </div>
 
+      <div class="details">
 
-      <div class="item-description">
+        ${detail(
+          "نوع",
+          x.category ||
+          x["نوع پرونده"] ||
+          x["نوع کار"]
+        )}
 
-        ${esc(
-          description ||
-          "خدمت ثبت شده در سامانه"
+        ${detail(
+          "شرح",
+          x["شرح کار"]
+        )}
+
+        ${detail(
+          "اولویت",
+          x["الویت"]
+        )}
+
+        ${detail(
+          "سررسید",
+          x["تاریخ سررسید"]
+        )}
+
+        ${detail(
+          "وضعیت سررسید",
+          x["وضعیت سررسید"]
+        )}
+
+        ${detail(
+          "روز باقی‌مانده",
+          x["روزهای باقی مانده"]
+        )}
+
+        ${detail(
+          "منتظر",
+          x["منتظر چه کسی"]
+        )}
+
+        ${detail(
+          "دوره مالی",
+          x["دوره مالی"]
+        )}
+
+        ${detail(
+          "تاریخ شروع",
+          x["تاریخ شروع"]
+        )}
+
+        ${detail(
+          "تاریخ انجام",
+          x["تاریخ انجام"]
         )}
 
       </div>
 
-
-      <div class="item-meta">
-
-
-        <div class="meta">
-
-          <div class="meta-label">
-            نوع کار
-          </div>
-
-          <div class="meta-value">
-            ${esc(
-              service || "—"
-            )}
-          </div>
-
-        </div>
-
-
-        <div class="meta">
-
-          <div class="meta-label">
-            سررسید
-          </div>
-
-          <div class="meta-value">
-            ${esc(
-              due || "—"
-            )}
-          </div>
-
-        </div>
-
-
-        <div class="meta">
-
-          <div class="meta-label">
-            اولویت
-          </div>
-
-          <div class="meta-value">
-            ${esc(
-              priority || "—"
-            )}
-          </div>
-
-        </div>
-
-
-        <div class="meta">
-
-          <div class="meta-label">
-            در انتظار
-          </div>
-
-          <div class="meta-value">
-            ${esc(
-              waiting || "—"
-            )}
-          </div>
-
-        </div>
-
-
-        ${
-          period !== ""
-          ?
-          `
-            <div class="meta">
-
-              <div class="meta-label">
-                دوره مالی
-              </div>
-
-              <div class="meta-value">
-                ${esc(period)}
-              </div>
-
-            </div>
-          `
-          :
-          ""
-        }
-
-
-        ${
-          remainingDays !== ""
-          ?
-          `
-            <div class="meta">
-
-              <div class="meta-label">
-                روز باقی‌مانده
-              </div>
-
-              <div class="meta-value">
-                ${esc(
-                  remainingDays
-                )}
-              </div>
-
-            </div>
-          `
-          :
-          ""
-        }
-
-
-        ${
-          deadlineStatus
-          ?
-          `
-            <div class="meta">
-
-              <div class="meta-label">
-                وضعیت سررسید
-              </div>
-
-              <div class="meta-value">
-                ${esc(
-                  deadlineStatus
-                )}
-              </div>
-
-            </div>
-          `
-          :
-          ""
-        }
-
-
-        ${
-          startDate
-          ?
-          `
-            <div class="meta">
-
-              <div class="meta-label">
-                شروع
-              </div>
-
-              <div class="meta-value">
-                ${esc(
-                  startDate
-                )}
-              </div>
-
-            </div>
-          `
-          :
-          ""
-        }
-
-      </div>
-
-    </article>
+    </div>
 
   `;
 
 }
 
 
-/* ============================================================
-   CLIENTS
-============================================================ */
-
-function renderClients(
-  container
-){
-
-  let clients =
-    clientsData();
-
-
-  if(searchText){
-
-    clients =
-      clients.filter(
-        client =>
-          JSON.stringify(
-            client
-          )
-          .toLowerCase()
-          .includes(
-            searchText
-          )
-      );
-
-  }
-
-
-  if(!clients.length){
-
-    container.innerHTML = `
-
-      <div class="item">
-
-        <div class="item-title">
-          مشتری پیدا نشد
-        </div>
-
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-
-  container.innerHTML =
-    clients
-    .map(
-      clientCard
-    )
-    .join("");
-
-}
-
-
-function clientCard(
-  client
-){
+function clientCard(x) {
 
   const name =
-    get(
-      client,
-      "نام شخص/شرکت"
-    )
-    ||
-    "بدون نام";
+    x["نام شخص/شرکت"] || "-";
 
-
-  const type =
-    get(
-      client,
-      "نوع شخصیت"
-    )
-    ||
-    "—";
-
-
-  const activity =
-    get(
-      client,
-      "نوع فعالیت"
-    )
-    ||
-    "—";
-
-
-  const fee =
-    get(
-      client,
-      "حق الزحمه ماهانه"
-    );
-
-
-  const status =
-    get(
-      client,
-      "وضعیت همکاری"
-    );
-
-
-  const serviceType =
-    get(
-      client,
-      "نوع خدمات"
-    );
-
-
-  const city =
-    get(
-      client,
-      "شهر"
-    );
-
-
-  const firstLetter =
-    String(name)
-    .trim()
-    .charAt(0)
-    ||
-    "م";
-
+  const avatar =
+    name.trim().charAt(0);
 
   return `
 
-    <div class="client">
+    <div class="client glass">
 
       <div class="avatar">
-        ${esc(firstLetter)}
+        ${escapeHtml(avatar)}
       </div>
 
-
-      <div class="client-info">
+      <div class="client-main">
 
         <div class="client-name">
-          ${esc(name)}
+          ${escapeHtml(name)}
         </div>
 
+        <div class="client-meta">
 
-        <div class="client-type">
-          ${esc(type)}
-          ·
-          ${esc(activity)}
-        </div>
-
-
-        ${
-          serviceType
-          ?
-          `
-            <div
-              style="
-                margin-top:4px;
-                color:#71858b;
-                font-size:8px;
-              "
-            >
-              ${esc(serviceType)}
-            </div>
-          `
-          :
-          ""
-        }
-
-
-        ${
-          city
-          ?
-          `
-            <div
-              style="
-                margin-top:3px;
-                color:#657a80;
-                font-size:8px;
-              "
-            >
-              📍 ${esc(city)}
-            </div>
-          `
-          :
-          ""
-        }
-
-      </div>
-
-
-      <div class="client-fee">
-
-        <div class="fee-number">
-
-          ${
-            fee !== null &&
-            fee !== undefined &&
-            fee !== ""
-            ?
-            formatMoney(fee)
-            :
-            "موردی"
-          }
-
-        </div>
-
-
-        <div class="fee-label">
-
-          ${
-            fee !== null &&
-            fee !== undefined &&
-            fee !== ""
-            ?
-            "حق‌الزحمه"
-            :
-            "نوع همکاری"
-          }
-
-        </div>
-
-
-        <div
-          style="
-            margin-top:5px;
-            color:${
-              status === "فعال"
-              ?
-              "#65d6a0"
-              :
-              "#ff6675"
-            };
-            font-size:8px;
-          "
-        >
-          ${esc(
-            status || "—"
+          ${escapeHtml(
+            x["نوع شخصیت"] || ""
           )}
+
+          ·
+
+          ${escapeHtml(
+            x["نوع فعالیت"] || ""
+          )}
+
+        </div>
+
+        <div class="client-grid">
+
+          ${detail(
+            "خدمات",
+            x["نوع خدمات"]
+          )}
+
+          ${detail(
+            "شهر",
+            x["شهر"]
+          )}
+
+          ${detail(
+            "وضعیت",
+            x["وضعیت همکاری"]
+          )}
+
+          ${detail(
+            "حق‌الزحمه",
+            x["حق الزحمه ماهانه"]
+              ? money(x["حق الزحمه ماهانه"])
+              : "-"
+          )}
+
         </div>
 
       </div>
@@ -3670,9 +1469,196 @@ function clientCard(
 }
 
 
-/* ============================================================
-   START
-============================================================ */
+function detail(label, value) {
+
+  if (
+    value === null ||
+    value === undefined ||
+    value === ""
+  ) {
+    value = "-";
+  }
+
+  return `
+
+    <div class="detail">
+
+      <div class="detail-label">
+        ${escapeHtml(label)}
+      </div>
+
+      <div class="detail-value">
+        ${escapeHtml(String(value))}
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+function empty() {
+
+  return `
+    <div class="glass empty">
+      موردی پیدا نشد
+    </div>
+  `;
+
+}
+
+
+function num(value) {
+
+  return Number(value || 0)
+    .toLocaleString("fa-IR");
+
+}
+
+
+function money(value) {
+
+  return Number(value || 0)
+    .toLocaleString("fa-IR") +
+    " ریال";
+
+}
+
+
+function escapeHtml(value) {
+
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+function initCharts() {
+
+  if (!dashboard) return;
+
+  const s = dashboard.Summary;
+
+  const total =
+    s.AccountingCount +
+    s.TaxCount;
+
+  const completed =
+    s.AccountingCompleted +
+    s.TaxCompleted;
+
+  const active =
+    total - completed;
+
+  new Chart(
+    document.getElementById(
+      "completionChart"
+    ),
+    {
+      type:"doughnut",
+
+      data:{
+        labels:[
+          "تکمیل شده",
+          "باقی مانده"
+        ],
+
+        datasets:[{
+          data:[
+            completed,
+            Math.max(total - completed,0)
+          ],
+
+          backgroundColor:[
+            "#65D6A0",
+            "rgba(255,255,255,.08)"
+          ],
+
+          borderWidth:0
+        }]
+      },
+
+      options:{
+        responsive:true,
+        maintainAspectRatio:false,
+
+        cutout:"72%",
+
+        plugins:{
+          legend:{
+            display:false
+          }
+        }
+      }
+    }
+  );
+
+
+  new Chart(
+    document.getElementById(
+      "activeChart"
+    ),
+    {
+      type:"doughnut",
+
+      data:{
+        labels:[
+          "فعال",
+          "تکمیل شده"
+        ],
+
+        datasets:[{
+          data:[
+            active,
+            completed
+          ],
+
+          backgroundColor:[
+            "#38BDF8",
+            "#89964A"
+          ],
+
+          borderWidth:0
+        }]
+      },
+
+      options:{
+        responsive:true,
+        maintainAspectRatio:false,
+
+        cutout:"72%",
+
+        plugins:{
+          legend:{
+            display:false
+          }
+        }
+      }
+    }
+  );
+
+}
+
+
+const originalRenderDashboard =
+  renderDashboard;
+
+renderDashboard = function(result) {
+
+  originalRenderDashboard(result);
+
+  setTimeout(
+    initCharts,
+    50
+  );
+
+};
+
 
 loadDashboard();
 
