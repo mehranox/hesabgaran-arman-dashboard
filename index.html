@@ -3501,114 +3501,75 @@ function renderCurrentTab(tab){
 
 async function loadDashboard(){
 
-    const content =
-        document.getElementById(
-            'appContent'
-        );
+    const content = document.getElementById('appContent');
 
     try{
 
         if(!tg){
-
-            throw new Error(
-                'این داشبورد باید از داخل Telegram باز شود.'
-            );
-
+            throw new Error('این داشبورد باید از داخل Telegram باز شود.');
         }
 
-        const initData =
-            tg.initData || '';
+        const initData = tg.initData || '';
 
         if(!initData){
-
-            throw new Error(
-                'Telegram initData دریافت نشد. داشبورد را از داخل ربات باز کنید.'
-            );
-
+            throw new Error('Telegram initData دریافت نشد. داشبورد را از داخل ربات باز کنید.');
         }
 
-        const url =
-            API_URL +
-            '?action=getDashboard' +
-            '&key=' +
-            encodeURIComponent(API_KEY) +
-            '&initData=' +
-            encodeURIComponent(initData);
+        /*
+         * Send initData through JSON POST instead of putting it
+         * inside the URL query string. This avoids accidental
+         * decoding/encoding changes in Apps Script parameters.
+         */
+        const response = await fetch(API_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'text/plain;charset=utf-8'
+            },
+            cache: 'no-store',
+            body: JSON.stringify({
+                action: 'getDashboard',
+                key: API_KEY,
+                initData: initData
+            })
+        });
 
-        const response =
-            await fetch(
-                url,
-                {
-                    method:'GET',
-                    cache:'no-store'
-                }
-            );
+        const result = await response.json();
 
-        const result =
-            await response.json();
-
-        if(
-            !result ||
-            result.ok !== true
-        ){
-
+        if(!result || result.ok !== true){
             throw new Error(
                 result?.error ||
                 result?.message ||
                 'دریافت اطلاعات داشبورد ناموفق بود.'
             );
-
         }
 
-        if(
-            !result.data
-        ){
-
-            throw new Error(
-                'اطلاعات داشبورد خالی است.'
-            );
-
+        if(!result.data){
+            throw new Error('اطلاعات داشبورد خالی است.');
         }
 
-        renderDashboard(
-            result.data
-        );
+        renderDashboard(result.data);
 
     }catch(error){
 
         console.error(error);
 
         content.innerHTML = `
-
             <div class="error">
-
-                <strong>
-                    خطا در دریافت اطلاعات داشبورد
-                </strong>
-
+                <strong>خطا در دریافت اطلاعات داشبورد</strong>
                 <div style="margin-top:8px;">
-
-                    ${escapeHtml(
-                        error?.message ||
-                        String(error)
-                    )}
-
+                    ${escapeHtml(error?.message || String(error))}
                 </div>
-
-                <button
-                    class="retry"
-                    onclick="loadDashboard()"
-                >
+                <button class="retry" onclick="loadDashboard()">
                     تلاش مجدد
                 </button>
-
             </div>
-
         `;
 
     }
 
 }
+
+loadDashboard();
 
 
 /* =========================================================
