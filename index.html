@@ -1,570 +1,2406 @@
-<script>
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
 
-  /* ==========================================================
-     CONFIG
-  ========================================================== */
+<head>
 
-  const GAS_API =
-    "https://script.google.com/macros/s/AKfycbzK62xIUIm8VyTektiy9EKOZBnMeXb1bxIKtcCxKfABIYFezMNEH6yfcrWAeL34zmI/exec";
+  <meta charset="UTF-8">
 
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+  >
 
-  /* ==========================================================
-     TELEGRAM
-  ========================================================== */
+  <title>حسابگران آرمان</title>
 
-  const tg = window.Telegram?.WebApp;
+  <!-- Telegram Mini App -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-  if (tg) {
-    tg.ready();
-    tg.expand();
+  <style>
 
-    try {
-      tg.setHeaderColor("#07131b");
-      tg.setBackgroundColor("#07131b");
-    } catch (e) {}
-  }
+    /* ==========================================================
+       ROOT
+    ========================================================== */
 
+    :root {
 
-  /* ==========================================================
-     STATE
-  ========================================================== */
+      --bg: #07131b;
+      --bg2: #0b1d25;
 
-  let dashboard = null;
-  let activeTab = "all";
-  let searchText = "";
+      --blue: #38bdf8;
+      --blue2: #2563eb;
 
+      --gold: #d6b56d;
+      --gold2: #f0d28a;
 
-  /* ==========================================================
-     HELPERS
-  ========================================================== */
+      --olive: #89964a;
+      --olive2: #a8b85d;
 
-  function esc(value) {
+      --text: #f5f7f4;
+      --muted: #9caeb4;
 
-    if (value === null || value === undefined) {
-      return "";
-    }
+      --glass: rgba(255,255,255,.065);
+      --glass2: rgba(255,255,255,.09);
 
-    return String(value)
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
-  }
+      --border: rgba(255,255,255,.09);
 
+      --green: #65d6a0;
+      --red: #ff6675;
 
-  function arr(value) {
-    return Array.isArray(value) ? value : [];
-  }
+      --shadow:
+        0 20px 60px rgba(0,0,0,.35);
 
-
-  /* ==========================================================
-     NORMALIZE JSON KEY
-  ========================================================== */
-
-  function normalizeKey(value) {
-
-    return String(value ?? "")
-      .replace(/[\u200c\u200d\u200e\u200f\ufeff]/g, "")
-      .replace(/\s+/g, "")
-      .replace(/[_\-]/g, "")
-      .trim()
-      .toLowerCase();
-
-  }
-
-
-  /* ==========================================================
-     GET VALUE FROM OBJECT
-     Supports Persian keys with spaces/newlines
-  ========================================================== */
-
-  function get(obj, ...keys) {
-
-    if (!obj || typeof obj !== "object") {
-      return "";
-    }
-
-    const objectKeys = Object.keys(obj);
-
-    for (const wantedKey of keys) {
-
-      const wanted =
-        normalizeKey(wantedKey);
-
-      for (const realKey of objectKeys) {
-
-        if (
-          normalizeKey(realKey) === wanted
-        ) {
-
-          const value =
-            obj[realKey];
-
-          if (
-            value !== undefined &&
-            value !== null &&
-            value !== ""
-          ) {
-
-            return value;
-
-          }
-
-        }
-
-      }
-
-    }
-
-    return "";
-  }
-
-
-  /* ==========================================================
-     PARSE DASHBOARD DATA
-     
-     مهم:
-     result.data ممکن است Object یا String باشد.
-  ========================================================== */
-
-  function parseDashboardData(result) {
-
-    let data = result?.data;
-
-    /*
-      حالت اول:
-      data خودش JSON string است.
-    */
-
-    if (typeof data === "string") {
-
-      const text =
-        data.trim();
-
-      if (text) {
-
-        try {
-
-          data =
-            JSON.parse(text);
-
-        } catch (e) {
-
-          /*
-            اگر String معمولی بود، ادامه می‌دهیم
-            تا خطای واضح‌تری نشان دهیم.
-          */
-
-        }
-
-      }
+      --radius: 22px;
 
     }
 
 
-    /*
-      حالت دوم:
-      ممکن است data دوباره داخل data باشد.
-    */
+    /* ==========================================================
+       RESET
+    ========================================================== */
 
-    if (
-      data &&
-      typeof data === "object" &&
-      !data.Summary &&
-      data.data
-    ) {
-
-      let nested =
-        data.data;
-
-      if (
-        typeof nested === "string"
-      ) {
-
-        try {
-
-          nested =
-            JSON.parse(
-              nested
-            );
-
-        } catch (e) {}
-
-      }
-
-      if (
-        nested &&
-        typeof nested === "object"
-      ) {
-
-        data = nested;
-
-      }
-
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
     }
 
-
-    /*
-      بررسی ساختار واقعی داشبورد
-    */
-
-    if (
-      !data ||
-      typeof data !== "object"
-    ) {
-
-      throw new Error(
-        "ساختار اطلاعات داشبورد نامعتبر است."
-      );
-
+    html {
+      background: var(--bg);
+      min-height: 100%;
     }
 
-
-    if (
-      !data.Summary &&
-      !data.Clients &&
-      !data.Accounting &&
-      !data.Tax &&
-      !data.Receivables
-    ) {
-
-      throw new Error(
-        "اطلاعات داشبورد دریافت شد، اما ساختار Summary / Clients / Accounting / Tax پیدا نشد."
-      );
-
-    }
-
-
-    return data;
-
-  }
-
-
-  /* ==========================================================
-     MONEY
-  ========================================================== */
-
-  function formatMoney(value) {
-
-    if (
-      value === null ||
-      value === undefined ||
-      value === ""
-    ) {
-
-      return "—";
-
-    }
-
-    const n =
-      Number(
-        String(value)
-          .replaceAll(",", "")
-          .replace(/[^\d.-]/g, "")
-      );
-
-    if (!Number.isFinite(n)) {
-      return "—";
-    }
-
-    if (n === 0) {
-      return "۰";
-    }
-
-    return new Intl.NumberFormat(
-      "fa-IR"
-    ).format(n);
-
-  }
-
-
-  function formatMoneyShort(value) {
-
-    if (
-      value === null ||
-      value === undefined ||
-      value === ""
-    ) {
-
-      return "—";
-
-    }
-
-    const n =
-      Number(
-        String(value)
-          .replaceAll(",", "")
-          .replace(/[^\d.-]/g, "")
-      );
-
-    if (!Number.isFinite(n)) {
-      return "—";
-    }
-
-    if (n >= 1000000000) {
-
-      return (
-        new Intl.NumberFormat(
-          "fa-IR",
-          {
-            maximumFractionDigits: 1
-          }
-        ).format(
-          n / 1000000000
-        ) +
-        " میلیارد"
-      );
-
-    }
-
-    if (n >= 1000000) {
-
-      return (
-        new Intl.NumberFormat(
-          "fa-IR",
-          {
-            maximumFractionDigits: 1
-          }
-        ).format(
-          n / 1000000
-        ) +
-        " میلیون"
-      );
-
-    }
-
-    return formatMoney(n);
-
-  }
-
-
-  /* ==========================================================
-     STATUS
-  ========================================================== */
-
-  function statusClass(status) {
-
-    const s =
-      String(status || "");
-
-    if (
-      s.includes("انجام شده")
-    ) {
-
-      return "badge-done";
-
-    }
-
-    if (
-      s.includes("در حال انجام")
-    ) {
-
-      return "badge-progress";
-
-    }
-
-    return "badge-pending";
-
-  }
-
-
-  function priorityClass(priority) {
-
-    const p =
-      String(priority || "");
-
-    if (
-      p.includes("بالا") ||
-      p.includes("فوری")
-    ) {
-
-      return "priority-high";
-
-    }
-
-    if (
-      p.includes("متوسط")
-    ) {
-
-      return "priority-medium";
-
-    }
-
-    return "priority-low";
-
-  }
-
-
-  function statusIcon(status) {
-
-    const s =
-      String(status || "");
-
-    if (
-      s.includes("انجام شده")
-    ) {
-
-      return "✓";
-
-    }
-
-    if (
-      s.includes("در حال انجام")
-    ) {
-
-      return "◐";
-
-    }
-
-    return "○";
-
-  }
-
-
-  /* ==========================================================
-     DATA
-  ========================================================== */
-
-  function summaryData() {
-
-    return (
-      dashboard?.Summary || {}
-    );
-
-  }
-
-
-  function accountingData() {
-
-    return arr(
-      dashboard?.Accounting
-    );
-
-  }
-
-
-  function taxData() {
-
-    return arr(
-      dashboard?.Tax
-    );
-
-  }
-
-
-  function clientsData() {
-
-    return arr(
-      dashboard?.Clients
-    );
-
-  }
-
-
-  function receivablesData() {
-
-    return arr(
-      dashboard?.Receivables
-    );
-
-  }
-
-
-  function summaryValue(...keys) {
-
-    const summary =
-      summaryData();
-
-    for (
-      const key of keys
-    ) {
-
-      if (
-        summary[key] !== undefined &&
-        summary[key] !== null
-      ) {
-
-        return summary[key];
-
-      }
-
-    }
-
-    return 0;
-
-  }
-
-
-  /* ==========================================================
-     TOUCH LIGHT
-  ========================================================== */
-
-  document.addEventListener(
-    "pointerdown",
-    function(e) {
-
-      const light =
-        document.createElement(
-          "div"
+    body {
+
+      margin: 0;
+
+      min-height: 100vh;
+
+      background:
+        radial-gradient(
+          circle at 85% 5%,
+          rgba(56,189,248,.10),
+          transparent 28%
+        ),
+        radial-gradient(
+          circle at 10% 20%,
+          rgba(137,150,74,.09),
+          transparent 25%
+        ),
+        radial-gradient(
+          circle at 80% 85%,
+          rgba(214,181,109,.07),
+          transparent 30%
+        ),
+        linear-gradient(
+          145deg,
+          var(--bg),
+          var(--bg2)
         );
 
-      light.className =
-        "touch-light";
+      color: var(--text);
 
-      const colors = [
-        "#38bdf8",
-        "#d6b56d",
-        "#9aa94f",
-        "#67e8f9"
-      ];
+      font-family:
+        Tahoma,
+        Arial,
+        sans-serif;
 
-      const color =
-        colors[
-          Math.floor(
-            Math.random() *
-            colors.length
+      overflow-x: hidden;
+
+    }
+
+
+    button,
+    input {
+      font-family: inherit;
+    }
+
+
+    /* ==========================================================
+       ROOT
+    ========================================================== */
+
+    #root {
+
+      width: 100%;
+      min-height: 100vh;
+
+    }
+
+
+    /* ==========================================================
+       APP
+    ========================================================== */
+
+    .app {
+
+      width: 100%;
+      max-width: 920px;
+
+      margin: 0 auto;
+
+      padding:
+        14px
+        14px
+        30px;
+
+    }
+
+
+    /* ==========================================================
+       GLASS
+    ========================================================== */
+
+    .hero,
+    .section,
+    .stat,
+    .circle-card,
+    .item,
+    .client {
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.075),
+          rgba(255,255,255,.025)
+        );
+
+      border:
+        1px solid
+        var(--border);
+
+      box-shadow:
+        var(--shadow);
+
+      backdrop-filter:
+        blur(18px);
+
+      -webkit-backdrop-filter:
+        blur(18px);
+
+    }
+
+
+    /* ==========================================================
+       HERO
+    ========================================================== */
+
+    .hero {
+
+      position: relative;
+
+      overflow: hidden;
+
+      padding: 20px;
+
+      border-radius:
+        28px;
+
+      margin-bottom: 14px;
+
+    }
+
+
+    .hero::before {
+
+      content: "";
+
+      position: absolute;
+
+      width: 220px;
+      height: 220px;
+
+      top: -120px;
+      left: -80px;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(56,189,248,.20),
+          transparent 68%
+        );
+
+      pointer-events: none;
+
+    }
+
+
+    .hero::after {
+
+      content: "";
+
+      position: absolute;
+
+      width: 190px;
+      height: 190px;
+
+      bottom: -120px;
+      right: -60px;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(214,181,109,.13),
+          transparent 68%
+        );
+
+      pointer-events: none;
+
+    }
+
+
+    .hero-top {
+
+      position: relative;
+      z-index: 2;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      gap: 12px;
+
+    }
+
+
+    .brand {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 12px;
+
+      min-width: 0;
+
+    }
+
+
+    .brand-icon {
+
+      flex: 0 0 auto;
+
+      width: 52px;
+      height: 52px;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 17px;
+
+      color: var(--gold2);
+
+      font-size: 28px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(214,181,109,.18),
+          rgba(56,189,248,.08)
+        );
+
+      border:
+        1px solid
+        rgba(214,181,109,.25);
+
+      box-shadow:
+        inset 0 0 25px rgba(255,255,255,.025),
+        0 0 30px rgba(214,181,109,.05);
+
+    }
+
+
+    .brand h1 {
+
+      margin: 0;
+
+      font-size: 19px;
+
+      font-weight: 800;
+
+      letter-spacing: -.5px;
+
+    }
+
+
+    .brand p {
+
+      margin: 5px 0 0;
+
+      color: var(--muted);
+
+      font-size: 10px;
+
+    }
+
+
+    .connection {
+
+      flex: 0 0 auto;
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 6px;
+
+      padding: 7px 10px;
+
+      border-radius: 999px;
+
+      color: #bdeed8;
+
+      background:
+        rgba(101,214,160,.08);
+
+      border:
+        1px solid
+        rgba(101,214,160,.16);
+
+      font-size: 9px;
+
+      white-space: nowrap;
+
+    }
+
+
+    .pulse {
+
+      width: 7px;
+      height: 7px;
+
+      border-radius: 50%;
+
+      background: var(--green);
+
+      box-shadow:
+        0 0 0 0 rgba(101,214,160,.5);
+
+      animation:
+        pulse 1.8s infinite;
+
+    }
+
+
+    @keyframes pulse {
+
+      0% {
+        box-shadow:
+          0 0 0 0 rgba(101,214,160,.5);
+      }
+
+      70% {
+        box-shadow:
+          0 0 0 7px rgba(101,214,160,0);
+      }
+
+      100% {
+        box-shadow:
+          0 0 0 0 rgba(101,214,160,0);
+      }
+
+    }
+
+
+    .user-line {
+
+      position: relative;
+      z-index: 2;
+
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: center;
+
+      gap: 10px;
+
+      margin-top: 18px;
+
+      padding-top: 14px;
+
+      border-top:
+        1px solid
+        rgba(255,255,255,.065);
+
+      color: var(--muted);
+
+      font-size: 9px;
+
+    }
+
+
+    .user-name {
+
+      color: var(--gold2);
+
+      font-weight: 700;
+
+    }
+
+
+    /* ==========================================================
+       STATS
+    ========================================================== */
+
+    .stats {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(4, minmax(0,1fr));
+
+      gap: 10px;
+
+      margin-bottom: 14px;
+
+    }
+
+
+    .stat {
+
+      position: relative;
+
+      overflow: hidden;
+
+      min-width: 0;
+
+      padding: 15px 11px;
+
+      border-radius: 19px;
+
+      text-align: center;
+
+    }
+
+
+    .stat::after {
+
+      content: "";
+
+      position: absolute;
+
+      width: 80px;
+      height: 80px;
+
+      top: -45px;
+      right: -35px;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(56,189,248,.12),
+          transparent 70%
+        );
+
+    }
+
+
+    .stat-icon {
+
+      position: relative;
+      z-index: 1;
+
+      margin-bottom: 7px;
+
+      font-size: 16px;
+
+      color: var(--blue);
+
+    }
+
+
+    .stat-number {
+
+      position: relative;
+      z-index: 1;
+
+      color: var(--text);
+
+      font-size: 17px;
+
+      font-weight: 800;
+
+      line-height: 1.25;
+
+      direction: rtl;
+
+      word-break: break-word;
+
+    }
+
+
+    .stat-label {
+
+      position: relative;
+      z-index: 1;
+
+      margin-top: 5px;
+
+      color: var(--muted);
+
+      font-size: 8px;
+
+    }
+
+
+    /* ==========================================================
+       SECTION
+    ========================================================== */
+
+    .section {
+
+      padding: 16px;
+
+      margin-bottom: 14px;
+
+      border-radius: var(--radius);
+
+    }
+
+
+    .section-title {
+
+      display: flex;
+
+      align-items: baseline;
+
+      justify-content: space-between;
+
+      gap: 10px;
+
+      margin-bottom: 14px;
+
+    }
+
+
+    .section-title h2 {
+
+      margin: 0;
+
+      font-size: 14px;
+
+      font-weight: 800;
+
+    }
+
+
+    .section-title span {
+
+      color: var(--muted);
+
+      font-size: 8px;
+
+    }
+
+
+    /* ==========================================================
+       OVERVIEW
+    ========================================================== */
+
+    .overview {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(2,minmax(0,1fr));
+
+      gap: 12px;
+
+    }
+
+
+    .circle-card {
+
+      padding: 18px 12px;
+
+      border-radius: 20px;
+
+      text-align: center;
+
+    }
+
+
+    .donut {
+
+      width: 120px;
+      height: 120px;
+
+      margin: 0 auto 13px;
+
+      border-radius: 50%;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      position: relative;
+
+      box-shadow:
+        0 0 35px rgba(56,189,248,.07);
+
+    }
+
+
+    .donut::before {
+
+      content: "";
+
+      position: absolute;
+
+      inset: 9px;
+
+      border-radius: 50%;
+
+      background:
+        linear-gradient(
+          145deg,
+          #0a1c25,
+          #07131b
+        );
+
+      box-shadow:
+        inset 0 0 20px rgba(0,0,0,.5);
+
+    }
+
+
+    .donut-center {
+
+      position: relative;
+      z-index: 2;
+
+    }
+
+
+    .donut-number {
+
+      font-size: 22px;
+
+      font-weight: 900;
+
+      color: var(--text);
+
+    }
+
+
+    .donut-label {
+
+      margin-top: 2px;
+
+      color: var(--muted);
+
+      font-size: 8px;
+
+    }
+
+
+    .legend {
+
+      display: flex;
+
+      justify-content: center;
+
+      gap: 14px;
+
+      flex-wrap: wrap;
+
+    }
+
+
+    .legend-item {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 5px;
+
+      color: var(--muted);
+
+      font-size: 8px;
+
+    }
+
+
+    .legend-dot {
+
+      width: 7px;
+      height: 7px;
+
+      border-radius: 50%;
+
+      display: inline-block;
+
+    }
+
+
+    .legend-dot.blue {
+      background: var(--blue);
+    }
+
+
+    .legend-dot.olive {
+      background: var(--olive2);
+    }
+
+
+    .legend-dot.gold {
+      background: var(--gold2);
+    }
+
+
+    /* ==========================================================
+       SEARCH
+    ========================================================== */
+
+    .search {
+
+      display: block;
+
+      width: 100%;
+
+      border: 1px solid
+        rgba(255,255,255,.08);
+
+      outline: none;
+
+      border-radius: 15px;
+
+      background:
+        rgba(255,255,255,.045);
+
+      color: var(--text);
+
+      padding:
+        12px
+        14px;
+
+      font-size: 10px;
+
+      direction: rtl;
+
+      transition:
+        .2s ease;
+
+      margin-bottom: 10px;
+
+    }
+
+
+    .search::placeholder {
+
+      color:
+        #71858b;
+
+    }
+
+
+    .search:focus {
+
+      border-color:
+        rgba(56,189,248,.35);
+
+      background:
+        rgba(255,255,255,.065);
+
+      box-shadow:
+        0 0 0 3px
+        rgba(56,189,248,.05);
+
+    }
+
+
+    /* ==========================================================
+       TABS
+    ========================================================== */
+
+    .tabs {
+
+      display: flex;
+
+      gap: 6px;
+
+      overflow-x: auto;
+
+      scrollbar-width: none;
+
+      padding-bottom: 2px;
+
+      margin-bottom: 10px;
+
+    }
+
+
+    .tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+
+    .tab {
+
+      flex: 0 0 auto;
+
+      border: 1px solid
+        rgba(255,255,255,.07);
+
+      background:
+        rgba(255,255,255,.035);
+
+      color: var(--muted);
+
+      padding:
+        8px
+        12px;
+
+      border-radius: 12px;
+
+      cursor: pointer;
+
+      font-size: 9px;
+
+      transition:
+        .2s ease;
+
+    }
+
+
+    .tab:hover {
+
+      border-color:
+        rgba(56,189,248,.2);
+
+    }
+
+
+    .tab.active {
+
+      color: #07131b;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--blue),
+          #74d9ff
+        );
+
+      border-color:
+        transparent;
+
+      font-weight: 800;
+
+      box-shadow:
+        0 7px 20px
+        rgba(56,189,248,.12);
+
+    }
+
+
+    /* ==========================================================
+       ITEMS
+    ========================================================== */
+
+    .items {
+
+      display: grid;
+
+      gap: 9px;
+
+    }
+
+
+    .item {
+
+      position: relative;
+
+      overflow: hidden;
+
+      padding: 14px;
+
+      border-radius: 18px;
+
+      border-right:
+        3px solid
+        var(--blue);
+
+    }
+
+
+    .item.priority-high {
+
+      border-right-color:
+        var(--red);
+
+    }
+
+
+    .item.priority-medium {
+
+      border-right-color:
+        var(--gold);
+
+    }
+
+
+    .item.priority-low {
+
+      border-right-color:
+        var(--olive2);
+
+    }
+
+
+    .item-head {
+
+      display: flex;
+
+      align-items: flex-start;
+
+      justify-content: space-between;
+
+      gap: 10px;
+
+    }
+
+
+    .item-title {
+
+      min-width: 0;
+
+      color: var(--text);
+
+      font-size: 11px;
+
+      font-weight: 800;
+
+      line-height: 1.8;
+
+    }
+
+
+    .item-code {
+
+      display: inline-block;
+
+      direction: ltr;
+
+      margin-left: 5px;
+
+      color: var(--blue);
+
+      font-size: 8px;
+
+      font-weight: 700;
+
+      opacity: .8;
+
+    }
+
+
+    .item-description {
+
+      margin-top: 8px;
+
+      color: var(--muted);
+
+      font-size: 9px;
+
+      line-height: 1.9;
+
+    }
+
+
+    .badge {
+
+      flex: 0 0 auto;
+
+      padding:
+        5px
+        8px;
+
+      border-radius: 999px;
+
+      font-size: 7px;
+
+      white-space: nowrap;
+
+      border: 1px solid
+        rgba(255,255,255,.08);
+
+    }
+
+
+    .badge-done {
+
+      color: #9de7c1;
+
+      background:
+        rgba(101,214,160,.08);
+
+      border-color:
+        rgba(101,214,160,.16);
+
+    }
+
+
+    .badge-progress {
+
+      color: #8edfff;
+
+      background:
+        rgba(56,189,248,.08);
+
+      border-color:
+        rgba(56,189,248,.16);
+
+    }
+
+
+    .badge-pending {
+
+      color: #d8c58f;
+
+      background:
+        rgba(214,181,109,.08);
+
+      border-color:
+        rgba(214,181,109,.16);
+
+    }
+
+
+    .item-meta {
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(2,minmax(0,1fr));
+
+      gap: 7px;
+
+      margin-top: 12px;
+
+    }
+
+
+    .meta {
+
+      min-width: 0;
+
+      padding: 8px;
+
+      border-radius: 11px;
+
+      background:
+        rgba(255,255,255,.025);
+
+      border:
+        1px solid
+        rgba(255,255,255,.045);
+
+    }
+
+
+    .meta-label {
+
+      color: #71858b;
+
+      font-size: 7px;
+
+      margin-bottom: 4px;
+
+    }
+
+
+    .meta-value {
+
+      color: #dbe6e8;
+
+      font-size: 8px;
+
+      line-height: 1.7;
+
+      word-break: break-word;
+
+    }
+
+
+    /* ==========================================================
+       CLIENTS
+    ========================================================== */
+
+    .client {
+
+      display: grid;
+
+      grid-template-columns:
+        auto
+        minmax(0,1fr)
+        auto;
+
+      align-items: center;
+
+      gap: 10px;
+
+      padding: 13px;
+
+      border-radius: 18px;
+
+    }
+
+
+    .avatar {
+
+      width: 43px;
+      height: 43px;
+
+      border-radius: 15px;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      color: var(--gold2);
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(214,181,109,.16),
+          rgba(56,189,248,.08)
+        );
+
+      border:
+        1px solid
+        rgba(214,181,109,.16);
+
+      font-size: 16px;
+
+      font-weight: 900;
+
+    }
+
+
+    .client-info {
+
+      min-width: 0;
+
+    }
+
+
+    .client-name {
+
+      color: var(--text);
+
+      font-size: 10px;
+
+      font-weight: 800;
+
+      line-height: 1.7;
+
+      word-break: break-word;
+
+    }
+
+
+    .client-type {
+
+      margin-top: 3px;
+
+      color: var(--muted);
+
+      font-size: 8px;
+
+      line-height: 1.6;
+
+    }
+
+
+    .client-fee {
+
+      text-align: left;
+
+      direction: rtl;
+
+      min-width: 70px;
+
+    }
+
+
+    .fee-number {
+
+      color: var(--gold2);
+
+      font-size: 9px;
+
+      font-weight: 800;
+
+      white-space: nowrap;
+
+    }
+
+
+    .fee-label {
+
+      margin-top: 3px;
+
+      color: #71858b;
+
+      font-size: 7px;
+
+    }
+
+
+    /* ==========================================================
+       LOADING
+    ========================================================== */
+
+    .loading {
+
+      min-height: 100vh;
+
+      display: flex;
+
+      flex-direction: column;
+
+      align-items: center;
+
+      justify-content: center;
+
+      gap: 13px;
+
+      padding: 30px;
+
+      text-align: center;
+
+    }
+
+
+    .loading-text {
+
+      color: var(--muted);
+
+      font-size: 10px;
+
+      line-height: 2;
+
+    }
+
+
+    .loading-spinner {
+
+      width: 42px;
+      height: 42px;
+
+      border-radius: 50%;
+
+      border:
+        3px solid
+        rgba(255,255,255,.07);
+
+      border-top-color:
+        var(--blue);
+
+      border-right-color:
+        var(--gold);
+
+      animation:
+        spin .8s linear infinite;
+
+    }
+
+
+    @keyframes spin {
+
+      to {
+        transform: rotate(360deg);
+      }
+
+    }
+
+
+    /* ==========================================================
+       FOOTER
+    ========================================================== */
+
+    footer {
+
+      padding:
+        8px
+        5px
+        20px;
+
+      text-align: center;
+
+      color: #5f747b;
+
+      font-size: 8px;
+
+    }
+
+
+    footer strong {
+
+      color: var(--gold);
+
+      margin-right: 5px;
+
+    }
+
+
+    /* ==========================================================
+       TOUCH LIGHT
+    ========================================================== */
+
+    .touch-light {
+
+      position: fixed;
+
+      width: 8px;
+      height: 8px;
+
+      border-radius: 50%;
+
+      transform:
+        translate(-50%,-50%);
+
+      pointer-events: none;
+
+      z-index: 99999;
+
+      animation:
+        touchLight .85s ease-out forwards;
+
+    }
+
+
+    @keyframes touchLight {
+
+      0% {
+
+        opacity: .9;
+
+        transform:
+          translate(-50%,-50%)
+          scale(.7);
+
+      }
+
+      100% {
+
+        opacity: 0;
+
+        transform:
+          translate(-50%,-50%)
+          scale(1.8);
+
+      }
+
+    }
+
+
+    /* ==========================================================
+       RESPONSIVE
+    ========================================================== */
+
+    @media (max-width: 600px) {
+
+      .app {
+
+        padding:
+          10px
+          10px
+          24px;
+
+      }
+
+      .hero {
+
+        padding: 17px;
+
+      }
+
+      .brand h1 {
+
+        font-size: 17px;
+
+      }
+
+      .brand p {
+
+        font-size: 8px;
+
+      }
+
+      .connection {
+
+        font-size: 8px;
+
+        padding:
+          6px
+          8px;
+
+      }
+
+      .stats {
+
+        gap: 7px;
+
+      }
+
+      .stat {
+
+        padding:
+          12px
+          7px;
+
+      }
+
+      .stat-number {
+
+        font-size: 15px;
+
+      }
+
+      .stat-label {
+
+        font-size: 7px;
+
+      }
+
+    }
+
+
+    @media (max-width: 380px) {
+
+      .hero-top {
+
+        align-items: flex-start;
+
+      }
+
+      .connection {
+
+        display: none;
+
+      }
+
+      .stats {
+
+        grid-template-columns:
+          repeat(2,minmax(0,1fr));
+
+      }
+
+      .overview {
+
+        grid-template-columns:
+          1fr;
+
+      }
+
+      .item-head {
+
+        flex-direction: column;
+
+      }
+
+      .badge {
+
+        align-self: flex-start;
+
+      }
+
+    }
+
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <!-- ========================================================
+       ROOT
+  ========================================================= -->
+
+  <div id="root">
+
+    <div class="loading">
+
+      <div class="loading-spinner"></div>
+
+      <div class="loading-text">
+        در حال اتصال به داشبورد حسابگران آرمان...
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <script>
+
+    /* ==========================================================
+       CONFIG
+    ========================================================== */
+
+    const GAS_API =
+      "https://script.google.com/macros/s/AKfycbzK62xIUIm8VyTektiy9EKOZBnMeXb1bxIKtcCxKfABIYFezMNEH6yfcrWAeL34zmI/exec";
+
+
+    /* ==========================================================
+       TELEGRAM
+    ========================================================== */
+
+    const tg =
+      window.Telegram?.WebApp || null;
+
+
+    if (tg) {
+
+      tg.ready();
+
+      tg.expand();
+
+      try {
+
+        tg.setHeaderColor("#07131b");
+
+        tg.setBackgroundColor("#07131b");
+
+      } catch (e) {}
+
+    }
+
+
+    /* ==========================================================
+       STATE
+    ========================================================== */
+
+    let dashboard = null;
+
+    let activeTab = "all";
+
+    let searchText = "";
+
+
+    /* ==========================================================
+       HELPERS
+    ========================================================== */
+
+    function esc(value) {
+
+      if (
+        value === null ||
+        value === undefined
+      ) {
+
+        return "";
+
+      }
+
+      return String(value)
+
+        .replaceAll(
+          "&",
+          "&amp;"
+        )
+
+        .replaceAll(
+          "<",
+          "&lt;"
+        )
+
+        .replaceAll(
+          ">",
+          "&gt;"
+        )
+
+        .replaceAll(
+          '"',
+          "&quot;"
+        )
+
+        .replaceAll(
+          "'",
+          "&#039;"
+        );
+
+    }
+
+
+    function arr(value) {
+
+      return Array.isArray(value)
+        ? value
+        : [];
+
+    }
+
+
+    /* ==========================================================
+       NORMALIZE
+    ========================================================== */
+
+    function normalizeKey(value) {
+
+      return String(
+        value ?? ""
+      )
+
+      .replace(
+        /[\u200c\u200d\u200e\u200f\ufeff]/g,
+        ""
+      )
+
+      .replace(
+        /\s+/g,
+        ""
+      )
+
+      .replace(
+        /[_\-]/g,
+        ""
+      )
+
+      .trim()
+
+      .toLowerCase();
+
+    }
+
+
+    /* ==========================================================
+       OBJECT GETTER
+    ========================================================== */
+
+    function get(
+      obj,
+      ...keys
+    ) {
+
+      if (
+        !obj ||
+        typeof obj !== "object"
+      ) {
+
+        return "";
+
+      }
+
+
+      const objectKeys =
+        Object.keys(obj);
+
+
+      for (
+        const wantedKey of keys
+      ) {
+
+        const wanted =
+          normalizeKey(
+            wantedKey
+          );
+
+
+        for (
+          const realKey of objectKeys
+        ) {
+
+          if (
+            normalizeKey(
+              realKey
+            ) === wanted
+          ) {
+
+            const value =
+              obj[realKey];
+
+
+            if (
+              value !== undefined &&
+              value !== null &&
+              value !== ""
+            ) {
+
+              return value;
+
+            }
+
+          }
+
+        }
+
+      }
+
+
+      return "";
+
+    }
+
+
+    /* ==========================================================
+       PARSE RESPONSE
+    ========================================================== */
+
+    function parseDashboardData(
+      result
+    ) {
+
+      let data =
+        result?.data;
+
+
+      if (
+        typeof data === "string"
+      ) {
+
+        const text =
+          data.trim();
+
+
+        if (text) {
+
+          try {
+
+            data =
+              JSON.parse(text);
+
+          } catch (e) {
+
+            throw new Error(
+              "اطلاعات دریافتی از سرور قابل پردازش نیست."
+            );
+
+          }
+
+        }
+
+      }
+
+
+      if (
+        data &&
+        typeof data === "object" &&
+        data.data &&
+        !data.Summary
+      ) {
+
+        let nested =
+          data.data;
+
+
+        if (
+          typeof nested === "string"
+        ) {
+
+          try {
+
+            nested =
+              JSON.parse(
+                nested
+              );
+
+          } catch (e) {
+
+            throw new Error(
+              "ساختار اطلاعات داشبورد نامعتبر است."
+            );
+
+          }
+
+        }
+
+
+        if (
+          nested &&
+          typeof nested === "object"
+        ) {
+
+          data =
+            nested;
+
+        }
+
+      }
+
+
+      if (
+        !data ||
+        typeof data !== "object"
+      ) {
+
+        throw new Error(
+          "اطلاعات داشبورد دریافت نشد."
+        );
+
+      }
+
+
+      if (
+        !data.Summary &&
+        !data.Clients &&
+        !data.Accounting &&
+        !data.Tax &&
+        !data.Receivables
+      ) {
+
+        throw new Error(
+          "ساختار Summary / Clients / Accounting / Tax پیدا نشد."
+        );
+
+      }
+
+
+      return data;
+
+    }
+
+
+    /* ==========================================================
+       MONEY
+    ========================================================== */
+
+    function numericValue(
+      value
+    ) {
+
+      if (
+        value === null ||
+        value === undefined ||
+        value === ""
+      ) {
+
+        return NaN;
+
+      }
+
+
+      const normalized =
+        String(value)
+
+          .replaceAll(
+            ",",
+            ""
           )
-        ];
 
-      light.style.left =
-        e.clientX + "px";
+          .replace(
+            /[^\d.-]/g,
+            ""
+          );
 
-      light.style.top =
-        e.clientY + "px";
 
-      light.style.background =
-        color;
-
-      light.style.boxShadow =
-        `
-        0 0 12px ${color},
-        0 0 35px ${color},
-        0 0 70px ${color}
-        `;
-
-      document.body.appendChild(
-        light
-      );
-
-      setTimeout(
-        () => light.remove(),
-        850
+      return Number(
+        normalized
       );
 
     }
-  );
 
 
-  /* ==========================================================
-     LOAD DASHBOARD
-  ========================================================== */
+    function formatMoney(
+      value
+    ) {
 
-  function loadDashboard() {
+      const n =
+        numericValue(
+          value
+        );
 
-    if (
-      !tg ||
-      !tg.initData
+
+      if (
+        !Number.isFinite(n)
+      ) {
+
+        return "—";
+
+      }
+
+
+      if (n === 0) {
+
+        return "۰";
+
+      }
+
+
+      return new Intl.NumberFormat(
+        "fa-IR"
+      ).format(n);
+
+    }
+
+
+    function formatMoneyShort(
+      value
+    ) {
+
+      const n =
+        numericValue(
+          value
+        );
+
+
+      if (
+        !Number.isFinite(n)
+      ) {
+
+        return "—";
+
+      }
+
+
+      if (
+        n >= 1000000000
+      ) {
+
+        return (
+          new Intl.NumberFormat(
+            "fa-IR",
+            {
+              maximumFractionDigits: 1
+            }
+          ).format(
+            n / 1000000000
+          )
+          +
+          " میلیارد"
+        );
+
+      }
+
+
+      if (
+        n >= 1000000
+      ) {
+
+        return (
+          new Intl.NumberFormat(
+            "fa-IR",
+            {
+              maximumFractionDigits: 1
+            }
+          ).format(
+            n / 1000000
+          )
+          +
+          " میلیون"
+        );
+
+      }
+
+
+      return formatMoney(
+        n
+      );
+
+    }
+
+
+    /* ==========================================================
+       STATUS
+    ========================================================== */
+
+    function statusClass(
+      status
+    ) {
+
+      const s =
+        String(
+          status || ""
+        );
+
+
+      if (
+        s.includes(
+          "انجام شده"
+        )
+      ) {
+
+        return "badge-done";
+
+      }
+
+
+      if (
+        s.includes(
+          "در حال انجام"
+        )
+      ) {
+
+        return "badge-progress";
+
+      }
+
+
+      return "badge-pending";
+
+    }
+
+
+    function priorityClass(
+      priority
+    ) {
+
+      const p =
+        String(
+          priority || ""
+        );
+
+
+      if (
+        p.includes("بالا") ||
+        p.includes("فوری")
+      ) {
+
+        return "priority-high";
+
+      }
+
+
+      if (
+        p.includes("متوسط")
+      ) {
+
+        return "priority-medium";
+
+      }
+
+
+      return "priority-low";
+
+    }
+
+
+    function statusIcon(
+      status
+    ) {
+
+      const s =
+        String(
+          status || ""
+        );
+
+
+      if (
+        s.includes(
+          "انجام شده"
+        )
+      ) {
+
+        return "✓";
+
+      }
+
+
+      if (
+        s.includes(
+          "در حال انجام"
+        )
+      ) {
+
+        return "◐";
+
+      }
+
+
+      return "○";
+
+    }
+
+
+    /* ==========================================================
+       DATA
+    ========================================================== */
+
+    function summaryData() {
+
+      return (
+        dashboard?.Summary || {}
+      );
+
+    }
+
+
+    function accountingData() {
+
+      return arr(
+        dashboard?.Accounting
+      );
+
+    }
+
+
+    function taxData() {
+
+      return arr(
+        dashboard?.Tax
+      );
+
+    }
+
+
+    function clientsData() {
+
+      return arr(
+        dashboard?.Clients
+      );
+
+    }
+
+
+    function receivablesData() {
+
+      return arr(
+        dashboard?.Receivables
+      );
+
+    }
+
+
+    function summaryValue(
+      ...keys
+    ) {
+
+      const summary =
+        summaryData();
+
+
+      for (
+        const key of keys
+      ) {
+
+        if (
+          summary[key] !== undefined &&
+          summary[key] !== null
+        ) {
+
+          return summary[key];
+
+        }
+
+      }
+
+
+      return 0;
+
+    }
+
+
+    /* ==========================================================
+       TOUCH LIGHT
+    ========================================================== */
+
+    document.addEventListener(
+      "pointerdown",
+      function(e) {
+
+        const light =
+          document.createElement(
+            "div"
+          );
+
+
+        light.className =
+          "touch-light";
+
+
+        const colors = [
+
+          "#38bdf8",
+
+          "#d6b56d",
+
+          "#9aa94f",
+
+          "#67e8f9"
+
+        ];
+
+
+        const color =
+          colors[
+            Math.floor(
+              Math.random() *
+              colors.length
+            )
+          ];
+
+
+        light.style.left =
+          e.clientX + "px";
+
+
+        light.style.top =
+          e.clientY + "px";
+
+
+        light.style.background =
+          color;
+
+
+        light.style.boxShadow =
+          `
+          0 0 12px ${color},
+          0 0 35px ${color},
+          0 0 70px ${color}
+          `;
+
+
+        document.body.appendChild(
+          light
+        );
+
+
+        setTimeout(
+          () => light.remove(),
+          850
+        );
+
+      }
+    );
+
+
+    /* ==========================================================
+       LOAD DASHBOARD
+    ========================================================== */
+
+    function loadDashboard() {
+
+      if (
+        !tg ||
+        !tg.initData
+      ) {
+
+        showError(
+          "داشبورد را از داخل ربات تلگرام باز کنید."
+        );
+
+        return;
+
+      }
+
+
+      const callbackName =
+        "dashboardCallback_" +
+        Date.now() +
+        "_" +
+        Math.floor(
+          Math.random() *
+          100000
+        );
+
+
+      window[callbackName] =
+        function(result) {
+
+          try {
+
+            if (
+              !result ||
+              !result.ok
+            ) {
+
+              throw new Error(
+                result?.error ||
+                "خطا در دریافت اطلاعات"
+              );
+
+            }
+
+
+            dashboard =
+              parseDashboardData(
+                result
+              );
+
+
+            console.log(
+              "Dashboard loaded:",
+              dashboard
+            );
+
+
+            render();
+
+
+          } catch (err) {
+
+            console.error(
+              "Dashboard error:",
+              err
+            );
+
+
+            showError(
+              err.message
+            );
+
+
+          } finally {
+
+            delete window[
+              callbackName
+            ];
+
+          }
+
+        };
+
+
+      const script =
+        document.createElement(
+          "script"
+        );
+
+
+      const url =
+        GAS_API +
+        "?action=getDashboard" +
+        "&initData=" +
+        encodeURIComponent(
+          tg.initData
+        ) +
+        "&callback=" +
+        encodeURIComponent(
+          callbackName
+        ) +
+        "&t=" +
+        Date.now();
+
+
+      script.src =
+        url;
+
+
+      script.onerror =
+        function() {
+
+          showError(
+            "ارتباط با سرور داشبورد برقرار نشد."
+          );
+
+        };
+
+
+      document.body.appendChild(
+        script
+      );
+
+    }
+
+
+    /* ==========================================================
+       ERROR
+    ========================================================== */
+
+    function showError(
+      message
     ) {
 
       const root =
@@ -572,1481 +2408,1402 @@
           "root"
         );
 
-      if (root) {
 
-        root.innerHTML = `
+      if (!root) {
 
-          <div class="loading">
+        return;
 
-            <div style="font-size:35px">
-              🔐
+      }
+
+
+      root.innerHTML = `
+
+        <div class="loading">
+
+          <div
+            style="
+              font-size:38px;
+            "
+          >
+            ⚠️
+          </div>
+
+          <div
+            class="loading-text"
+          >
+            ${esc(message)}
+          </div>
+
+          <button
+            class="tab active"
+            onclick="location.reload()"
+          >
+            تلاش مجدد
+          </button>
+
+        </div>
+
+      `;
+
+    }
+
+
+    /* ==========================================================
+       STAT CARD
+    ========================================================== */
+
+    function statCard(
+      icon,
+      number,
+      label
+    ) {
+
+      return `
+
+        <div class="stat">
+
+          <div class="stat-icon">
+            ${icon}
+          </div>
+
+          <div class="stat-number">
+            ${esc(number)}
+          </div>
+
+          <div class="stat-label">
+            ${esc(label)}
+          </div>
+
+        </div>
+
+      `;
+
+    }
+
+
+    /* ==========================================================
+       RENDER
+    ========================================================== */
+
+    function render() {
+
+      const accounting =
+        accountingData();
+
+
+      const tax =
+        taxData();
+
+
+      const clients =
+        clientsData();
+
+
+      const allServices = [
+
+        ...accounting,
+
+        ...tax
+
+      ];
+
+
+      const clientsCount =
+        Number(
+          summaryValue(
+            "ClientsCount"
+          )
+        ) || 0;
+
+
+      const accountingCount =
+        Number(
+          summaryValue(
+            "AccountingCount"
+          )
+        ) || 0;
+
+
+      const taxCount =
+        Number(
+          summaryValue(
+            "TaxCount"
+          )
+        ) || 0;
+
+
+      const completed =
+        (
+          Number(
+            summaryValue(
+              "TaxCompleted"
+            )
+          ) || 0
+        )
+        +
+        (
+          Number(
+            summaryValue(
+              "AccountingCompleted"
+            )
+          ) || 0
+        );
+
+
+      const totalServices =
+        accountingCount +
+        taxCount;
+
+
+      const completion =
+        totalServices > 0
+          ? Math.round(
+              (
+                completed /
+                totalServices
+              ) * 100
+            )
+          : 0;
+
+
+      const progress =
+        allServices.filter(
+          item =>
+            String(
+              get(
+                item,
+                "وضعیت"
+              )
+            ).includes(
+              "در حال انجام"
+            )
+        ).length;
+
+
+      const progressDegree =
+        allServices.length
+          ? Math.max(
+              1,
+              Math.round(
+                progress /
+                allServices.length *
+                360
+              )
+            )
+          : 1;
+
+
+      const completionDegree =
+        Math.max(
+          1,
+          Math.min(
+            360,
+            completion * 3.6
+          )
+        );
+
+
+      const root =
+        document.getElementById(
+          "root"
+        );
+
+
+      if (!root) {
+
+        throw new Error(
+          "عنصر root در HTML پیدا نشد."
+        );
+
+      }
+
+
+      root.innerHTML = `
+
+        <main class="app">
+
+
+          <!-- HERO -->
+
+          <section class="hero">
+
+            <div class="hero-top">
+
+              <div class="brand">
+
+                <div class="brand-icon">
+                  ◈
+                </div>
+
+                <div>
+
+                  <h1>
+                    حسابگران آرمان
+                  </h1>
+
+                  <p>
+                    سامانه مدیریت اطلاعات مؤسسه
+                  </p>
+
+                </div>
+
+              </div>
+
+
+              <div class="connection">
+
+                <span class="pulse"></span>
+
+                اتصال امن
+
+              </div>
+
             </div>
 
-            <div class="loading-text">
-              داشبورد را از داخل ربات تلگرام باز کنید.
+
+            <div class="user-line">
+
+              <div>
+
+                کاربر:
+                <span class="user-name">
+                  کاربر تلگرام
+                </span>
+
+              </div>
+
+
+              <div>
+                ✓ Telegram تأیید شد
+              </div>
+
+            </div>
+
+          </section>
+
+
+          <!-- MAIN STATS -->
+
+          <section class="stats">
+
+            ${statCard(
+              "👥",
+              clientsCount,
+              "مشتری"
+            )}
+
+            ${statCard(
+              "▣",
+              accountingCount,
+              "خدمات حسابداری"
+            )}
+
+            ${statCard(
+              "◉",
+              taxCount,
+              "خدمات مالیاتی"
+            )}
+
+            ${statCard(
+              "✓",
+              completed,
+              "تکمیل شده"
+            )}
+
+          </section>
+
+
+          <!-- OVERVIEW -->
+
+          <section class="section">
+
+            <div class="section-title">
+
+              <h2>
+                نمای کلی
+              </h2>
+
+              <span>
+                وضعیت جاری خدمات
+              </span>
+
+            </div>
+
+
+            <div class="overview">
+
+
+              <div class="circle-card">
+
+                <div
+                  class="donut"
+                  style="
+                    background:
+                      conic-gradient(
+                        var(--blue)
+                        0deg
+                        ${completionDegree}deg,
+
+                        var(--olive)
+                        ${completionDegree}deg
+                        360deg
+                      );
+                  "
+                >
+
+                  <div class="donut-center">
+
+                    <div class="donut-number">
+                      ${completion}%
+                    </div>
+
+                    <div class="donut-label">
+                      تکمیل خدمات
+                    </div>
+
+                  </div>
+
+                </div>
+
+
+                <div class="legend">
+
+                  <div class="legend-item">
+
+                    <span
+                      class="legend-dot blue"
+                    ></span>
+
+                    تکمیل
+
+                  </div>
+
+
+                  <div class="legend-item">
+
+                    <span
+                      class="legend-dot olive"
+                    ></span>
+
+                    باقی‌مانده
+
+                  </div>
+
+                </div>
+
+              </div>
+
+
+              <div class="circle-card">
+
+                <div
+                  class="donut"
+                  style="
+                    background:
+                      conic-gradient(
+                        var(--gold)
+                        0deg
+                        ${progressDegree}deg,
+
+                        var(--blue)
+                        ${progressDegree}deg
+                        360deg
+                      );
+                  "
+                >
+
+                  <div class="donut-center">
+
+                    <div class="donut-number">
+                      ${progress}
+                    </div>
+
+                    <div class="donut-label">
+                      در حال انجام
+                    </div>
+
+                  </div>
+
+                </div>
+
+
+                <div class="legend">
+
+                  <div class="legend-item">
+
+                    <span
+                      class="legend-dot gold"
+                    ></span>
+
+                    فعال
+
+                  </div>
+
+
+                  <div class="legend-item">
+
+                    <span
+                      class="legend-dot blue"
+                    ></span>
+
+                    خدمات
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </section>
+
+
+          <!-- FINANCIAL -->
+
+          <section class="section">
+
+            <div class="section-title">
+
+              <h2>
+                وضعیت مالی
+              </h2>
+
+              <span>
+                دریافتنی‌ها
+              </span>
+
+            </div>
+
+
+            <div class="stats">
+
+              ${statCard(
+                "💰",
+                formatMoneyShort(
+                  summaryValue(
+                    "TotalReceivables"
+                  )
+                ),
+                "کل دریافتنی"
+              )}
+
+
+              ${statCard(
+                "✓",
+                formatMoneyShort(
+                  summaryValue(
+                    "TotalCollected"
+                  )
+                ),
+                "دریافت شده"
+              )}
+
+
+              ${statCard(
+                "◷",
+                formatMoneyShort(
+                  summaryValue(
+                    "RemainingReceivables"
+                  )
+                ),
+                "مانده دریافتنی"
+              )}
+
+
+              ${statCard(
+                "!",
+                summaryValue(
+                  "ReceivablesCount"
+                ),
+                "صورتحساب"
+              )}
+
+            </div>
+
+          </section>
+
+
+          <!-- SERVICES -->
+
+          <section class="section">
+
+            <div class="section-title">
+
+              <h2>
+                خدمات
+              </h2>
+
+              <span>
+                ${allServices.length} مورد
+              </span>
+
+            </div>
+
+
+            <input
+              class="search"
+              id="search"
+              placeholder="جستجو در خدمات و مشتریان..."
+              value="${esc(searchText)}"
+            >
+
+
+            <div class="tabs">
+
+              <button
+                class="tab ${
+                  activeTab === "all"
+                    ? "active"
+                    : ""
+                }"
+                data-tab="all"
+              >
+                همه
+              </button>
+
+
+              <button
+                class="tab ${
+                  activeTab === "accounting"
+                    ? "active"
+                    : ""
+                }"
+                data-tab="accounting"
+              >
+                حسابداری
+              </button>
+
+
+              <button
+                class="tab ${
+                  activeTab === "tax"
+                    ? "active"
+                    : ""
+                }"
+                data-tab="tax"
+              >
+                مالیاتی
+              </button>
+
+
+              <button
+                class="tab ${
+                  activeTab === "clients"
+                    ? "active"
+                    : ""
+                }"
+                data-tab="clients"
+              >
+                مشتریان
+              </button>
+
+            </div>
+
+
+            <div
+              class="items"
+              id="items"
+            ></div>
+
+          </section>
+
+
+          <footer>
+
+            حسابگران آرمان
+
+            <strong>
+              © ۱۴۰۵
+            </strong>
+
+          </footer>
+
+
+        </main>
+
+      `;
+
+
+      /*
+        Event listeners را بعد از ساخت DOM وصل می‌کنیم.
+      */
+
+      const search =
+        document.getElementById(
+          "search"
+        );
+
+
+      if (search) {
+
+        search.addEventListener(
+          "input",
+          function() {
+
+            searchText =
+              String(
+                this.value || ""
+              )
+              .trim()
+              .toLowerCase();
+
+
+            renderItems();
+
+          }
+        );
+
+      }
+
+
+      document
+        .querySelectorAll(
+          "[data-tab]"
+        )
+        .forEach(
+          button => {
+
+            button.addEventListener(
+              "click",
+              function() {
+
+                activeTab =
+                  this.dataset.tab;
+
+                render();
+
+              }
+            );
+
+          }
+        );
+
+
+      renderItems();
+
+    }
+
+
+    /* ==========================================================
+       RENDER ITEMS
+    ========================================================== */
+
+    function renderItems() {
+
+      const container =
+        document.getElementById(
+          "items"
+        );
+
+
+      if (!container) {
+
+        return;
+
+      }
+
+
+      let data = [];
+
+
+      if (
+        activeTab ===
+        "accounting"
+      ) {
+
+        data =
+          accountingData();
+
+      }
+
+
+      else if (
+        activeTab ===
+        "tax"
+      ) {
+
+        data =
+          taxData();
+
+      }
+
+
+      else if (
+        activeTab ===
+        "clients"
+      ) {
+
+        renderClients(
+          container
+        );
+
+        return;
+
+      }
+
+
+      else {
+
+        data = [
+
+          ...accountingData(),
+
+          ...taxData()
+
+        ];
+
+      }
+
+
+      if (searchText) {
+
+        data =
+          data.filter(
+            item => {
+
+              const text =
+                JSON.stringify(
+                  item
+                )
+                .toLowerCase();
+
+
+              return text.includes(
+                searchText
+              );
+
+            }
+          );
+
+      }
+
+
+      if (!data.length) {
+
+        container.innerHTML = `
+
+          <div class="item">
+
+            <div class="item-title">
+              موردی پیدا نشد
+            </div>
+
+            <div class="item-description">
+              برای این جستجو اطلاعاتی وجود ندارد.
             </div>
 
           </div>
 
         `;
 
+        return;
+
       }
 
-      return;
+
+      container.innerHTML =
+        data
+          .map(
+            serviceCard
+          )
+          .join("");
 
     }
 
 
-    const callbackName =
-      "dashboardCallback_" +
-      Date.now() +
-      "_" +
-      Math.floor(
-        Math.random() * 100000
-      );
+    /* ==========================================================
+       SERVICE CARD
+    ========================================================== */
+
+    function serviceCard(
+      item
+    ) {
+
+      const title =
+        get(
+          item,
+          "نام مراجعه کننده",
+          "نام مشتری",
+          "مشتری"
+        ) ||
+        "بدون نام";
 
 
-    window[callbackName] =
-      function(result) {
-
-        try {
-
-          if (
-            !result ||
-            !result.ok
-          ) {
-
-            throw new Error(
-              result?.error ||
-              "خطا در دریافت اطلاعات"
-            );
-
-          }
-
-
-          /*
-            اینجا مشکل اصلی را پوشش می‌دهیم.
-          */
-
-          dashboard =
-            parseDashboardData(
-              result
-            );
-
-
-          /*
-            یک بررسی واقعی قبل از render
-          */
-
-          console.log(
-            "Dashboard loaded:",
-            dashboard
-          );
-
-          console.log(
-            "Summary:",
-            dashboard.Summary
-          );
-
-          console.log(
-            "Clients:",
-            dashboard.Clients
-          );
-
-          console.log(
-            "Accounting:",
-            dashboard.Accounting
-          );
-
-          console.log(
-            "Tax:",
-            dashboard.Tax
-          );
-
-          console.log(
-            "Receivables:",
-            dashboard.Receivables
-          );
-
-
-          render();
-
-
-        } catch (err) {
-
-          console.error(
-            "Dashboard error:",
-            err
-          );
-
-          showError(
-            err.message
-          );
-
-
-        } finally {
-
-          delete window[
-            callbackName
-          ];
-
-        }
-
-      };
-
-
-    const script =
-      document.createElement(
-        "script"
-      );
-
-
-    const url =
-      GAS_API +
-      "?action=getDashboard" +
-      "&initData=" +
-      encodeURIComponent(
-        tg.initData
-      ) +
-      "&callback=" +
-      encodeURIComponent(
-        callbackName
-      ) +
-      "&t=" +
-      Date.now();
-
-
-    script.src =
-      url;
-
-
-    script.onerror =
-      function() {
-
-        showError(
-          "ارتباط با سرور داشبورد برقرار نشد."
+      const code =
+        get(
+          item,
+          "کد مراجعه کننده",
+          "کد"
         );
 
-      };
+
+      const service =
+        get(
+          item,
+          "نوع کار",
+          "نوع پرونده",
+          "نوع خدمت",
+          "نوع"
+        );
 
 
-    document.body.appendChild(
-      script
-    );
+      const description =
+        get(
+          item,
+          "شرح کار",
+          "شرح"
+        );
 
-  }
+
+      const status =
+        get(
+          item,
+          "وضعیت"
+        );
 
 
-  /* ==========================================================
-     ERROR
-  ========================================================== */
+      const priority =
+        get(
+          item,
+          "الویت",
+          "اولویت"
+        );
 
-  function showError(message) {
 
-    const root =
-      document.getElementById(
-        "root"
-      );
+      const due =
+        get(
+          item,
+          "تاریخ سررسید",
+          "سررسید"
+        );
 
-    if (!root) {
-      return;
-    }
 
-    root.innerHTML = `
+      const waiting =
+        get(
+          item,
+          "منتظر چه کسی",
+          "در انتظار"
+        );
 
-      <div class="loading">
 
-        <div style="font-size:38px">
-          ⚠️
-        </div>
+      const remainingDays =
+        get(
+          item,
+          "روزهای باقی مانده"
+        );
 
-        <div class="loading-text">
-          ${esc(message)}
-        </div>
 
-        <button
-          class="tab active"
-          onclick="location.reload()"
+      const period =
+        get(
+          item,
+          "دوره مالی"
+        );
+
+
+      const deadlineStatus =
+        get(
+          item,
+          "وضعیت سررسید"
+        );
+
+
+      const startDate =
+        get(
+          item,
+          "تاریخ شروع"
+        );
+
+
+      return `
+
+        <article
+          class="
+            item
+            ${priorityClass(priority)}
+          "
         >
-          تلاش مجدد
-        </button>
 
-      </div>
+          <div class="item-head">
 
-    `;
+            <div class="item-title">
 
-  }
+              ${
+                code
+                  ? `
+                    <span class="item-code">
+                      #${esc(code)}
+                    </span>
+                  `
+                  : ""
+              }
 
+              ${esc(title)}
 
-  /* ==========================================================
-     RENDER
-  ========================================================== */
-
-  function render() {
-
-    const accounting =
-      accountingData();
-
-    const tax =
-      taxData();
-
-    const clients =
-      clientsData();
-
-    const allServices = [
-      ...accounting,
-      ...tax
-    ];
-
-    const summary =
-      summaryData();
+            </div>
 
 
-    const clientsCount =
-      Number(
-        summaryValue(
-          "ClientsCount"
-        )
-      ) || 0;
+            <div
+              class="
+                badge
+                ${statusClass(status)}
+              "
+            >
+
+              ${statusIcon(status)}
+
+              ${esc(
+                status ||
+                "در انتظار"
+              )}
+
+            </div>
+
+          </div>
 
 
-    const accountingCount =
-      Number(
-        summaryValue(
-          "AccountingCount"
-        )
-      ) || 0;
+          <div class="item-description">
+
+            ${esc(
+              description ||
+              "خدمت ثبت شده در سامانه"
+            )}
+
+          </div>
 
 
-    const taxCount =
-      Number(
-        summaryValue(
-          "TaxCount"
-        )
-      ) || 0;
+          <div class="item-meta">
 
 
-    const completed =
-      (
-        Number(
-          summaryValue(
-            "TaxCompleted"
-          )
-        ) || 0
-      ) +
-      (
-        Number(
-          summaryValue(
-            "AccountingCompleted"
-          )
-        ) || 0
-      );
+            <div class="meta">
+
+              <div class="meta-label">
+                نوع کار
+              </div>
+
+              <div class="meta-value">
+                ${esc(
+                  service || "—"
+                )}
+              </div>
+
+            </div>
 
 
-    const totalServices =
-      accountingCount +
-      taxCount;
+            <div class="meta">
+
+              <div class="meta-label">
+                سررسید
+              </div>
+
+              <div class="meta-value">
+                ${esc(
+                  due || "—"
+                )}
+              </div>
+
+            </div>
 
 
-    const completion =
-      totalServices > 0
-        ? Math.round(
-            (
-              completed /
-              totalServices
-            ) * 100
-          )
-        : 0;
+            <div class="meta">
+
+              <div class="meta-label">
+                اولویت
+              </div>
+
+              <div class="meta-value">
+                ${esc(
+                  priority || "—"
+                )}
+              </div>
+
+            </div>
 
 
-    const progress =
-      allServices.filter(
-        item =>
-          String(
-            get(
-              item,
-              "وضعیت"
-            )
-          ).includes(
-            "در حال انجام"
-          )
-      ).length;
+            <div class="meta">
+
+              <div class="meta-label">
+                در انتظار
+              </div>
+
+              <div class="meta-value">
+                ${esc(
+                  waiting || "—"
+                )}
+              </div>
+
+            </div>
 
 
-    const root =
-      document.getElementById(
-        "root"
-      );
+            ${
+              period !== ""
+                ? `
+                  <div class="meta">
+
+                    <div class="meta-label">
+                      دوره مالی
+                    </div>
+
+                    <div class="meta-value">
+                      ${esc(period)}
+                    </div>
+
+                  </div>
+                `
+                : ""
+            }
 
 
-    if (!root) {
+            ${
+              remainingDays !== ""
+                ? `
+                  <div class="meta">
 
-      throw new Error(
-        "عنصر root در HTML پیدا نشد."
-      );
+                    <div class="meta-label">
+                      روز باقی‌مانده
+                    </div>
+
+                    <div class="meta-value">
+                      ${esc(
+                        remainingDays
+                      )}
+                    </div>
+
+                  </div>
+                `
+                : ""
+            }
+
+
+            ${
+              deadlineStatus
+                ? `
+                  <div class="meta">
+
+                    <div class="meta-label">
+                      وضعیت سررسید
+                    </div>
+
+                    <div class="meta-value">
+                      ${esc(
+                        deadlineStatus
+                      )}
+                    </div>
+
+                  </div>
+                `
+                : ""
+            }
+
+
+            ${
+              startDate
+                ? `
+                  <div class="meta">
+
+                    <div class="meta-label">
+                      شروع
+                    </div>
+
+                    <div class="meta-value">
+                      ${esc(
+                        startDate
+                      )}
+                    </div>
+
+                  </div>
+                `
+                : ""
+            }
+
+          </div>
+
+        </article>
+
+      `;
 
     }
 
 
-    root.innerHTML = `
+    /* ==========================================================
+       CLIENTS
+    ========================================================== */
 
-      <main class="app">
+    function renderClients(
+      container
+    ) {
 
-
-        <!-- HERO -->
-
-        <section class="hero">
-
-          <div class="hero-top">
-
-            <div class="brand">
-
-              <div class="brand-icon">
-                ◈
-              </div>
-
-              <div>
-
-                <h1>
-                  حسابگران آرمان
-                </h1>
-
-                <p>
-                  سامانه مدیریت اطلاعات مؤسسه
-                </p>
-
-              </div>
-
-            </div>
+      let clients =
+        clientsData();
 
 
-            <div class="connection">
+      if (searchText) {
 
-              <span class="pulse"></span>
+        clients =
+          clients.filter(
+            client => {
 
-              اتصال امن
+              return JSON.stringify(
+                client
+              )
+              .toLowerCase()
+              .includes(
+                searchText
+              );
 
-            </div>
+            }
+          );
 
-          </div>
-
-
-          <div class="user-line">
-
-            <div>
-              کاربر:
-              <span class="user-name">
-                کاربر تلگرام
-              </span>
-            </div>
+      }
 
 
-            <div>
-              ✓ Telegram تأیید شد
+      if (!clients.length) {
+
+        container.innerHTML = `
+
+          <div class="item">
+
+            <div class="item-title">
+              مشتری پیدا نشد
             </div>
 
           </div>
 
-        </section>
+        `;
 
+        return;
 
-        <!-- STATS -->
+      }
 
-        <section class="stats">
 
-          ${statCard(
-            "👥",
-            clientsCount,
-            "مشتری"
-          )}
+      container.innerHTML =
+        clients
+          .map(
+            clientCard
+          )
+          .join("");
 
-          ${statCard(
-            "▣",
-            accountingCount,
-            "خدمات حسابداری"
-          )}
-
-          ${statCard(
-            "◉",
-            taxCount,
-            "خدمات مالیاتی"
-          )}
-
-          ${statCard(
-            "✓",
-            completed,
-            "تکمیل شده"
-          )}
-
-        </section>
-
-
-        <!-- OVERVIEW -->
-
-        <section class="section">
-
-          <div class="section-title">
-
-            <h2>
-              نمای کلی
-            </h2>
-
-            <span>
-              وضعیت جاری خدمات
-            </span>
-
-          </div>
-
-
-          <div class="overview">
-
-
-            <div class="circle-card">
-
-              <div
-                class="donut"
-                style="
-                  background:
-                    conic-gradient(
-                      var(--blue)
-                      0deg
-                      ${Math.max(
-                        1,
-                        completion
-                      ) * 3.6}deg,
-
-                      var(--olive)
-                      ${Math.max(
-                        1,
-                        completion
-                      ) * 3.6}deg
-                      360deg
-                    );
-                "
-              >
-
-                <div class="donut-center">
-
-                  <div class="donut-number">
-                    ${completion}%
-                  </div>
-
-                  <div class="donut-label">
-                    تکمیل خدمات
-                  </div>
-
-                </div>
-
-              </div>
-
-
-              <div class="legend">
-
-                <div class="legend-item">
-
-                  <span
-                    class="legend-dot blue"
-                  ></span>
-
-                  تکمیل
-
-                </div>
-
-
-                <div class="legend-item">
-
-                  <span
-                    class="legend-dot olive"
-                  ></span>
-
-                  باقی‌مانده
-
-                </div>
-
-              </div>
-
-            </div>
-
-
-            <div class="circle-card">
-
-              <div
-                class="donut"
-                style="
-                  background:
-                    conic-gradient(
-                      var(--gold)
-                      0deg
-                      ${
-                        allServices.length
-                          ? Math.max(
-                              1,
-                              Math.round(
-                                progress /
-                                allServices.length *
-                                360
-                              )
-                            )
-                          : 1
-                      }deg,
-
-                      var(--blue)
-                      ${
-                        allServices.length
-                          ? Math.max(
-                              1,
-                              Math.round(
-                                progress /
-                                allServices.length *
-                                360
-                              )
-                            )
-                          : 1
-                      }deg
-                      360deg
-                    );
-                "
-              >
-
-                <div class="donut-center">
-
-                  <div class="donut-number">
-                    ${progress}
-                  </div>
-
-                  <div class="donut-label">
-                    در حال انجام
-                  </div>
-
-                </div>
-
-              </div>
-
-
-              <div class="legend">
-
-                <div class="legend-item">
-
-                  <span
-                    class="legend-dot gold"
-                  ></span>
-
-                  فعال
-
-                </div>
-
-
-                <div class="legend-item">
-
-                  <span
-                    class="legend-dot blue"
-                  ></span>
-
-                  خدمات
-
-                </div>
-
-              </div>
-
-            </div>
-
-          </div>
-
-        </section>
-
-
-        <!-- FINANCIAL -->
-
-        <section class="section">
-
-          <div class="section-title">
-
-            <h2>
-              وضعیت مالی
-            </h2>
-
-            <span>
-              دریافتنی‌ها
-            </span>
-
-          </div>
-
-
-          <div class="stats">
-
-            ${statCard(
-              "💰",
-              formatMoneyShort(
-                summaryValue(
-                  "TotalReceivables"
-                )
-              ),
-              "کل دریافتنی"
-            )}
-
-            ${statCard(
-              "✓",
-              formatMoneyShort(
-                summaryValue(
-                  "TotalCollected"
-                )
-              ),
-              "دریافت شده"
-            )}
-
-            ${statCard(
-              "◷",
-              formatMoneyShort(
-                summaryValue(
-                  "RemainingReceivables"
-                )
-              ),
-              "مانده دریافتنی"
-            )}
-
-            ${statCard(
-              "!",
-              summaryValue(
-                "ReceivablesCount"
-              ),
-              "صورتحساب"
-            )}
-
-          </div>
-
-        </section>
-
-
-        <!-- SERVICES -->
-
-        <section class="section">
-
-          <div class="section-title">
-
-            <h2>
-              خدمات
-            </h2>
-
-            <span>
-              ${allServices.length} مورد
-            </span>
-
-          </div>
-
-
-          <input
-            class="search"
-            id="search"
-            placeholder="جستجو در خدمات و مشتریان..."
-            value="${esc(searchText)}"
-            oninput="setSearch(this.value)"
-          >
-
-
-          <div class="tabs">
-
-            <button
-              class="tab ${
-                activeTab === "all"
-                  ? "active"
-                  : ""
-              }"
-              onclick="setTab('all')"
-            >
-              همه
-            </button>
-
-
-            <button
-              class="tab ${
-                activeTab === "accounting"
-                  ? "active"
-                  : ""
-              }"
-              onclick="setTab('accounting')"
-            >
-              حسابداری
-            </button>
-
-
-            <button
-              class="tab ${
-                activeTab === "tax"
-                  ? "active"
-                  : ""
-              }"
-              onclick="setTab('tax')"
-            >
-              مالیاتی
-            </button>
-
-
-            <button
-              class="tab ${
-                activeTab === "clients"
-                  ? "active"
-                  : ""
-              }"
-              onclick="setTab('clients')"
-            >
-              مشتریان
-            </button>
-
-          </div>
-
-
-          <div
-            class="items"
-            id="items"
-            style="margin-top:10px"
-          ></div>
-
-        </section>
-
-
-        <footer>
-
-          حسابگران آرمان
-
-          <strong>
-            © ۱۴۰۵
-          </strong>
-
-        </footer>
-
-
-      </main>
-
-    `;
-
-
-    renderItems();
-
-  }
-
-
-  /* ==========================================================
-     STAT CARD
-  ========================================================== */
-
-  function statCard(
-    icon,
-    number,
-    label
-  ) {
-
-    return `
-
-      <div class="stat">
-
-        <div class="stat-icon">
-          ${icon}
-        </div>
-
-        <div class="stat-number">
-          ${esc(number)}
-        </div>
-
-        <div class="stat-label">
-          ${esc(label)}
-        </div>
-
-      </div>
-
-    `;
-
-  }
-
-
-  /* ==========================================================
-     TABS
-  ========================================================== */
-
-  function setTab(tab) {
-
-    activeTab =
-      tab;
-
-    render();
-
-  }
-
-
-  function setSearch(value) {
-
-    searchText =
-      String(
-        value || ""
-      )
-      .trim()
-      .toLowerCase();
-
-    renderItems();
-
-  }
-
-
-  /* ==========================================================
-     RENDER ITEMS
-  ========================================================== */
-
-  function renderItems() {
-
-    const container =
-      document.getElementById(
-        "items"
-      );
-
-    if (!container) {
-      return;
     }
 
 
-    let data = [];
+    /* ==========================================================
+       CLIENT CARD
+    ========================================================== */
+
+    function clientCard(
+      client
+    ) {
+
+      const name =
+        get(
+          client,
+          "نام شخص/شرکت"
+        ) ||
+        "بدون نام";
+
+
+      const type =
+        get(
+          client,
+          "نوع شخصیت"
+        ) ||
+        "—";
+
+
+      const activity =
+        get(
+          client,
+          "نوع فعالیت"
+        ) ||
+        "—";
+
+
+      const fee =
+        get(
+          client,
+          "حق الزحمه ماهانه"
+        );
+
+
+      const status =
+        get(
+          client,
+          "وضعیت همکاری"
+        );
+
+
+      const serviceType =
+        get(
+          client,
+          "نوع خدمات"
+        );
+
+
+      const city =
+        get(
+          client,
+          "شهر"
+        );
+
+
+      const firstLetter =
+        String(name)
+          .trim()
+          .charAt(0) ||
+        "م";
+
+
+      const hasFee =
+        fee !== null &&
+        fee !== undefined &&
+        fee !== "";
+
+
+      return `
+
+        <div class="client">
+
+
+          <div class="avatar">
+            ${esc(firstLetter)}
+          </div>
+
+
+          <div class="client-info">
+
+            <div class="client-name">
+              ${esc(name)}
+            </div>
+
+
+            <div class="client-type">
+
+              ${esc(type)}
+
+              ·
+
+              ${esc(activity)}
+
+            </div>
+
+
+            ${
+              serviceType
+                ? `
+                  <div
+                    style="
+                      margin-top:4px;
+                      color:#71858b;
+                      font-size:8px;
+                    "
+                  >
+                    ${esc(serviceType)}
+                  </div>
+                `
+                : ""
+            }
+
+
+            ${
+              city
+                ? `
+                  <div
+                    style="
+                      margin-top:3px;
+                      color:#657a80;
+                      font-size:8px;
+                    "
+                  >
+                    📍 ${esc(city)}
+                  </div>
+                `
+                : ""
+            }
+
+          </div>
+
+
+          <div class="client-fee">
+
+            <div class="fee-number">
+
+              ${
+                hasFee
+                  ? formatMoney(fee)
+                  : "موردی"
+              }
+
+            </div>
+
+
+            <div class="fee-label">
+
+              ${
+                hasFee
+                  ? "حق‌الزحمه"
+                  : "نوع همکاری"
+              }
+
+            </div>
+
+
+            <div
+              style="
+                margin-top:5px;
+                color:${
+                  status === "فعال"
+                    ? "#65d6a0"
+                    : "#ff6675"
+                };
+                font-size:8px;
+              "
+            >
+
+              ${esc(
+                status || "—"
+              )}
+
+            </div>
+
+          </div>
+
+
+        </div>
+
+      `;
+
+    }
+
+
+    /* ==========================================================
+       START
+    ========================================================== */
+
+    function startDashboard() {
+
+      loadDashboard();
+
+    }
 
 
     if (
-      activeTab ===
-      "accounting"
+      document.readyState ===
+      "loading"
     ) {
 
-      data =
-        accountingData();
+      document.addEventListener(
+        "DOMContentLoaded",
+        startDashboard
+      );
+
+    } else {
+
+      startDashboard();
 
     }
 
-    else if (
-      activeTab ===
-      "tax"
-    ) {
+  </script>
 
-      data =
-        taxData();
+</body>
 
-    }
-
-    else if (
-      activeTab ===
-      "clients"
-    ) {
-
-      renderClients(
-        container
-      );
-
-      return;
-
-    }
-
-    else {
-
-      data = [
-        ...accountingData(),
-        ...taxData()
-      ];
-
-    }
-
-
-    if (searchText) {
-
-      data =
-        data.filter(
-          item => {
-
-            const text =
-              JSON.stringify(
-                item
-              )
-              .toLowerCase();
-
-            return text.includes(
-              searchText
-            );
-
-          }
-        );
-
-    }
-
-
-    if (!data.length) {
-
-      container.innerHTML = `
-
-        <div class="item">
-
-          <div class="item-title">
-            موردی پیدا نشد
-          </div>
-
-          <div class="item-description">
-            برای این جستجو اطلاعاتی وجود ندارد.
-          </div>
-
-        </div>
-
-      `;
-
-      return;
-
-    }
-
-
-    container.innerHTML =
-      data
-        .map(
-          serviceCard
-        )
-        .join("");
-
-  }
-
-
-  /* ==========================================================
-     SERVICE CARD
-  ========================================================== */
-
-  function serviceCard(item) {
-
-    const title =
-      get(
-        item,
-        "نام مراجعه کننده",
-        "نام مشتری",
-        "مشتری"
-      ) ||
-      "بدون نام";
-
-
-    const code =
-      get(
-        item,
-        "کد مراجعه کننده",
-        "کد"
-      );
-
-
-    const service =
-      get(
-        item,
-        "نوع کار",
-        "نوع پرونده",
-        "نوع خدمت",
-        "نوع"
-      );
-
-
-    const description =
-      get(
-        item,
-        "شرح کار",
-        "شرح"
-      );
-
-
-    const status =
-      get(
-        item,
-        "وضعیت"
-      );
-
-
-    const priority =
-      get(
-        item,
-        "الویت",
-        "اولویت"
-      );
-
-
-    const due =
-      get(
-        item,
-        "تاریخ سررسید",
-        "سررسید"
-      );
-
-
-    const waiting =
-      get(
-        item,
-        "منتظر چه کسی",
-        "در انتظار"
-      );
-
-
-    const remainingDays =
-      get(
-        item,
-        "روزهای باقی مانده"
-      );
-
-
-    const period =
-      get(
-        item,
-        "دوره مالی"
-      );
-
-
-    const deadlineStatus =
-      get(
-        item,
-        "وضعیت سررسید"
-      );
-
-
-    const startDate =
-      get(
-        item,
-        "تاریخ شروع"
-      );
-
-
-    return `
-
-      <article
-        class="
-          item
-          ${priorityClass(priority)}
-        "
-      >
-
-        <div class="item-head">
-
-          <div class="item-title">
-
-            <span class="item-code">
-              #${esc(code)}
-            </span>
-
-            ${esc(title)}
-
-          </div>
-
-
-          <div
-            class="
-              badge
-              ${statusClass(status)}
-            "
-          >
-
-            ${statusIcon(status)}
-
-            ${esc(
-              status ||
-              "در انتظار"
-            )}
-
-          </div>
-
-        </div>
-
-
-        <div class="item-description">
-
-          ${esc(
-            description ||
-            "خدمت ثبت شده در سامانه"
-          )}
-
-        </div>
-
-
-        <div class="item-meta">
-
-          <div class="meta">
-
-            <div class="meta-label">
-              نوع کار
-            </div>
-
-            <div class="meta-value">
-              ${esc(
-                service || "—"
-              )}
-            </div>
-
-          </div>
-
-
-          <div class="meta">
-
-            <div class="meta-label">
-              سررسید
-            </div>
-
-            <div class="meta-value">
-              ${esc(
-                due || "—"
-              )}
-            </div>
-
-          </div>
-
-
-          <div class="meta">
-
-            <div class="meta-label">
-              اولویت
-            </div>
-
-            <div class="meta-value">
-              ${esc(
-                priority || "—"
-              )}
-            </div>
-
-          </div>
-
-
-          <div class="meta">
-
-            <div class="meta-label">
-              در انتظار
-            </div>
-
-            <div class="meta-value">
-              ${esc(
-                waiting || "—"
-              )}
-            </div>
-
-          </div>
-
-
-          ${
-            period !== ""
-              ? `
-                <div class="meta">
-
-                  <div class="meta-label">
-                    دوره مالی
-                  </div>
-
-                  <div class="meta-value">
-                    ${esc(period)}
-                  </div>
-
-                </div>
-              `
-              : ""
-          }
-
-
-          ${
-            remainingDays !== ""
-              ? `
-                <div class="meta">
-
-                  <div class="meta-label">
-                    روز باقی‌مانده
-                  </div>
-
-                  <div class="meta-value">
-                    ${esc(
-                      remainingDays
-                    )}
-                  </div>
-
-                </div>
-              `
-              : ""
-          }
-
-
-          ${
-            deadlineStatus
-              ? `
-                <div class="meta">
-
-                  <div class="meta-label">
-                    وضعیت سررسید
-                  </div>
-
-                  <div class="meta-value">
-                    ${esc(
-                      deadlineStatus
-                    )}
-                  </div>
-
-                </div>
-              `
-              : ""
-          }
-
-
-          ${
-            startDate
-              ? `
-                <div class="meta">
-
-                  <div class="meta-label">
-                    شروع
-                  </div>
-
-                  <div class="meta-value">
-                    ${esc(
-                      startDate
-                    )}
-                  </div>
-
-                </div>
-              `
-              : ""
-          }
-
-        </div>
-
-      </article>
-
-    `;
-
-  }
-
-
-  /* ==========================================================
-     CLIENTS
-  ========================================================== */
-
-  function renderClients(
-    container
-  ) {
-
-    let clients =
-      clientsData();
-
-
-    if (searchText) {
-
-      clients =
-        clients.filter(
-          client => {
-
-            return JSON.stringify(
-              client
-            )
-            .toLowerCase()
-            .includes(
-              searchText
-            );
-
-          }
-        );
-
-    }
-
-
-    if (!clients.length) {
-
-      container.innerHTML = `
-
-        <div class="item">
-
-          <div class="item-title">
-            مشتری پیدا نشد
-          </div>
-
-        </div>
-
-      `;
-
-      return;
-
-    }
-
-
-    container.innerHTML =
-      clients
-        .map(
-          clientCard
-        )
-        .join("");
-
-  }
-
-
-  function clientCard(
-    client
-  ) {
-
-    const name =
-      get(
-        client,
-        "نام شخص/شرکت"
-      ) ||
-      "بدون نام";
-
-
-    const type =
-      get(
-        client,
-        "نوع شخصیت"
-      ) ||
-      "—";
-
-
-    const activity =
-      get(
-        client,
-        "نوع فعالیت"
-      ) ||
-      "—";
-
-
-    const fee =
-      get(
-        client,
-        "حق الزحمه ماهانه"
-      );
-
-
-    const status =
-      get(
-        client,
-        "وضعیت همکاری"
-      );
-
-
-    const serviceType =
-      get(
-        client,
-        "نوع خدمات"
-      );
-
-
-    const city =
-      get(
-        client,
-        "شهر"
-      );
-
-
-    const firstLetter =
-      String(name)
-        .trim()
-        .charAt(0) ||
-      "م";
-
-
-    return `
-
-      <div class="client">
-
-        <div class="avatar">
-          ${esc(firstLetter)}
-        </div>
-
-
-        <div class="client-info">
-
-          <div class="client-name">
-            ${esc(name)}
-          </div>
-
-
-          <div class="client-type">
-            ${esc(type)}
-            ·
-            ${esc(activity)}
-          </div>
-
-
-          ${
-            serviceType
-              ? `
-                <div
-                  style="
-                    margin-top:4px;
-                    color:#71858b;
-                    font-size:8px;
-                  "
-                >
-                  ${esc(serviceType)}
-                </div>
-              `
-              : ""
-          }
-
-
-          ${
-            city
-              ? `
-                <div
-                  style="
-                    margin-top:3px;
-                    color:#657a80;
-                    font-size:8px;
-                  "
-                >
-                  📍 ${esc(city)}
-                </div>
-              `
-              : ""
-          }
-
-        </div>
-
-
-        <div class="client-fee">
-
-          <div class="fee-number">
-
-            ${
-              fee !== null &&
-              fee !== undefined &&
-              fee !== ""
-                ? formatMoney(fee)
-                : "موردی"
-            }
-
-          </div>
-
-
-          <div class="fee-label">
-
-            ${
-              fee !== null &&
-              fee !== undefined &&
-              fee !== ""
-                ? "حق‌الزحمه"
-                : "نوع همکاری"
-            }
-
-          </div>
-
-
-          <div
-            style="
-              margin-top:5px;
-              color:${
-                status === "فعال"
-                  ? "#65d6a0"
-                  : "#ff6675"
-              };
-              font-size:8px;
-            "
-          >
-            ${esc(
-              status || "—"
-            )}
-          </div>
-
-        </div>
-
-      </div>
-
-    `;
-
-  }
-
-
-  /* ==========================================================
-     START
-  ========================================================== */
-
-  loadDashboard();
-
-</script>
+</html>
