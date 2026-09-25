@@ -352,30 +352,72 @@ button{
 }
 
 
-/* بزرگ‌ترین هاله */
+/* هاله اصلی — قوی‌تر و زنده‌تر */
 
 .active-orb-aura{
     position:absolute;
 
-    inset:-45px;
+    inset:-52px;
 
     border-radius:50%;
 
     background:
         radial-gradient(
+            circle at 35% 30%,
+            rgba(56,189,248,.34),
+            transparent 27%
+        ),
+        radial-gradient(
+            circle at 68% 67%,
+            rgba(129,140,248,.25),
+            transparent 34%
+        ),
+        radial-gradient(
             circle,
-            rgba(56,189,248,.24),
-            rgba(37,99,235,.10) 38%,
-            transparent 70%
+            rgba(37,99,235,.15),
+            rgba(45,212,191,.08) 42%,
+            transparent 72%
         );
 
-    filter:blur(19px);
+    filter:blur(18px);
 
     animation:
-        auraPulse 6s ease-in-out infinite,
-        auraColor 22s ease-in-out infinite;
+        auraPulse 3.8s ease-in-out infinite,
+        auraColor 9s ease-in-out infinite;
 
     pointer-events:none;
+}
+
+
+/* هاله دوم برای حالت جادویی */
+
+.active-orb-aura::before{
+    content:"";
+
+    position:absolute;
+
+    inset:18px;
+
+    border-radius:50%;
+
+    background:
+        conic-gradient(
+            from 0deg,
+            rgba(56,189,248,.20),
+            transparent 16%,
+            rgba(129,140,248,.18),
+            transparent 35%,
+            rgba(45,212,191,.17),
+            transparent 54%,
+            rgba(214,184,108,.12),
+            transparent 73%,
+            rgba(56,189,248,.20)
+        );
+
+    filter:blur(15px);
+
+    animation:
+        magicAuraRotate 8s linear infinite;
 }
 
 
@@ -389,17 +431,19 @@ button{
     border-radius:50%;
 
     border:
-        1px solid rgba(112,192,255,.20);
+        1px solid rgba(112,192,255,.27);
 
     box-shadow:
-        0 0 28px rgba(37,99,235,.13);
+        0 0 28px rgba(37,99,235,.16),
+        0 0 55px rgba(56,189,248,.08);
 
     animation:
-        ringRotate 18s linear infinite;
+        ringRotate 11s linear infinite,
+        ringColor 7s ease-in-out infinite;
 }
 
 
-/* حلقه دوم بسیار ظریف */
+/* حلقه دوم */
 
 .active-orb-ring::before{
     content:"";
@@ -411,10 +455,32 @@ button{
     border-radius:50%;
 
     border:
-        1px dashed rgba(123,198,255,.13);
+        1px dashed rgba(123,198,255,.18);
 
     animation:
-        ringRotateReverse 24s linear infinite;
+        ringRotateReverse 15s linear infinite;
+}
+
+
+/* حلقه سوم */
+
+.active-orb-ring::after{
+    content:"";
+
+    position:absolute;
+
+    inset:25px;
+
+    border-radius:50%;
+
+    border:
+        1px solid rgba(255,255,255,.055);
+
+    box-shadow:
+        0 0 18px rgba(56,189,248,.10);
+
+    animation:
+        ringRotate 19s linear infinite reverse;
 }
 
 
@@ -437,53 +503,64 @@ button{
     background:
         radial-gradient(
             circle at 30% 21%,
-            rgba(255,255,255,.72) 0%,
-            rgba(255,255,255,.18) 7%,
+            rgba(255,255,255,.82) 0%,
+            rgba(255,255,255,.22) 7%,
             transparent 22%
+        ),
+        radial-gradient(
+            circle at 67% 72%,
+            rgba(129,140,248,.48),
+            transparent 38%
+        ),
+        radial-gradient(
+            circle at 34% 70%,
+            rgba(45,212,191,.34),
+            transparent 39%
         ),
         radial-gradient(
             circle at 53% 53%,
             #42b7ff 0%,
-            #2478df 33%,
-            #1450b6 63%,
+            #2478df 30%,
+            #1450b6 57%,
             #071f57 100%
         );
 
     border:
-        1px solid rgba(180,228,255,.46);
+        1px solid rgba(180,228,255,.52);
 
     box-shadow:
         inset -20px -24px 37px rgba(0,0,0,.38),
-        inset 12px 10px 28px rgba(255,255,255,.17),
+        inset 12px 10px 28px rgba(255,255,255,.19),
 
-        0 0 28px rgba(40,151,255,.34),
-        0 0 55px rgba(40,151,255,.20),
-        0 0 90px rgba(40,151,255,.11);
+        0 0 28px rgba(40,151,255,.40),
+        0 0 55px rgba(40,151,255,.25),
+        0 0 90px rgba(40,151,255,.15),
+        0 0 125px rgba(45,212,191,.08);
 
     animation:
-        orbFloat 5.5s ease-in-out infinite,
-        orbColor 22s ease-in-out infinite;
+        orbFloat 4.4s ease-in-out infinite,
+        orbColor 9s ease-in-out infinite;
 
     transition:
-        transform .45s ease,
-        box-shadow .45s ease;
+        transform .35s ease,
+        box-shadow .35s ease;
 
     z-index:3;
 }
 
 
-/* لایه چرخان روی گوی */
+/* لایه جادویی متحرک روی گوی */
 
 .active-orb::before{
     content:"";
 
     position:absolute;
 
-    width:200%;
-    height:200%;
+    width:210%;
+    height:210%;
 
-    left:-100%;
-    top:-100%;
+    left:-105%;
+    top:-105%;
 
     border-radius:50%;
 
@@ -493,43 +570,68 @@ button{
 
             transparent 0deg,
 
-            rgba(255,255,255,.08) 42deg,
+            rgba(56,189,248,.16) 28deg,
 
-            transparent 90deg,
+            rgba(255,255,255,.10) 53deg,
 
-            rgba(255,255,255,.035) 165deg,
+            transparent 82deg,
 
-            transparent 220deg,
+            rgba(129,140,248,.18) 125deg,
 
-            rgba(255,255,255,.07) 315deg,
+            transparent 172deg,
+
+            rgba(45,212,191,.16) 215deg,
+
+            transparent 258deg,
+
+            rgba(214,184,108,.13) 302deg,
+
+            rgba(255,255,255,.08) 327deg,
 
             transparent 360deg
         );
 
     animation:
-        orbSurface 16s linear infinite;
+        orbSurface 8s linear infinite;
+
+    mix-blend-mode:screen;
 
     pointer-events:none;
 }
 
 
-/* نور داخلی */
+/* نور داخلی متحرک */
 
 .active-orb::after{
     content:"";
 
     position:absolute;
 
-    inset:10px;
+    inset:9px;
 
     border-radius:50%;
 
     background:
         radial-gradient(
             circle at 38% 31%,
-            rgba(255,255,255,.13),
-            transparent 48%
+            rgba(255,255,255,.18),
+            transparent 40%
+        ),
+        radial-gradient(
+            circle at 68% 66%,
+            rgba(129,140,248,.16),
+            transparent 42%
+        ),
+        radial-gradient(
+            circle at 28% 76%,
+            rgba(45,212,191,.12),
+            transparent 40%
         );
+
+    opacity:.95;
+
+    animation:
+        innerMagic 5.5s ease-in-out infinite alternate;
 
     pointer-events:none;
 }
@@ -549,15 +651,23 @@ button{
     border-radius:50%;
 
     background:
-        rgba(255,255,255,.29);
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.05),
+            rgba(255,255,255,.38),
+            rgba(255,255,255,.06)
+        );
 
     filter:blur(5px);
 
     transform:rotate(-28deg);
 
-    opacity:.80;
+    opacity:.84;
 
     z-index:5;
+
+    animation:
+        highlightFloat 4.2s ease-in-out infinite;
 }
 
 
@@ -575,7 +685,8 @@ button{
     text-align:center;
 
     text-shadow:
-        0 2px 12px rgba(0,0,0,.50);
+        0 2px 12px rgba(0,0,0,.50),
+        0 0 18px rgba(255,255,255,.10);
 }
 
 .orb-number{
@@ -593,13 +704,16 @@ button{
     color:#fff;
 
     letter-spacing:-1px;
+
+    animation:
+        numberGlow 4s ease-in-out infinite;
 }
 
 .orb-label{
     margin-top:9px;
 
     color:
-        rgba(255,255,255,.92);
+        rgba(255,255,255,.94);
 
     font-size:11px;
 
@@ -621,12 +735,14 @@ button{
 
     box-shadow:
         0 0 10px #38bdf8,
-        0 0 20px rgba(56,189,248,.6);
+        0 0 20px rgba(56,189,248,.6),
+        0 0 32px rgba(129,140,248,.35);
 
     z-index:4;
 
     animation:
-        particlePulse 3s ease-in-out infinite;
+        particlePulse 2.1s ease-in-out infinite,
+        particleColor 4.5s ease-in-out infinite;
 }
 
 .p1{
@@ -659,22 +775,26 @@ button{
 @keyframes orbFloat{
 
     0%,100%{
-        transform:translateY(0);
+        transform:translateY(0) scale(1);
     }
 
     50%{
-        transform:translateY(-6px);
+        transform:translateY(-6px) scale(1.012);
     }
 }
 
 @keyframes orbSurface{
 
     from{
-        transform:rotate(0deg);
+        transform:rotate(0deg) scale(1);
+    }
+
+    50%{
+        transform:rotate(180deg) scale(1.035);
     }
 
     to{
-        transform:rotate(360deg);
+        transform:rotate(360deg) scale(1);
     }
 }
 
@@ -704,19 +824,19 @@ button{
 
     0%,100%{
         transform:scale(.88);
-        opacity:.43;
+        opacity:.46;
     }
 
     50%{
-        transform:scale(1.10);
-        opacity:.86;
+        transform:scale(1.13);
+        opacity:.92;
     }
 }
 
 
 /*
-   تغییر رنگ بسیار آهسته و ظریف:
-   آبی → فیروزه‌ای → آبی-بنفش → آبی
+   تغییر رنگ سریع‌تر و زنده‌تر:
+   آبی → فیروزه‌ای → بنفش → آبی → طلایی → آبی
 */
 
 @keyframes orbColor{
@@ -724,37 +844,50 @@ button{
     0%{
         filter:
             hue-rotate(0deg)
-            saturate(1);
+            saturate(1.08)
+            brightness(1);
     }
 
-    20%{
+    16%{
         filter:
-            hue-rotate(9deg)
-            saturate(1.03);
+            hue-rotate(16deg)
+            saturate(1.18)
+            brightness(1.04);
     }
 
-    40%{
+    32%{
         filter:
-            hue-rotate(19deg)
-            saturate(1.05);
+            hue-rotate(34deg)
+            saturate(1.20)
+            brightness(1.07);
     }
 
-    60%{
+    48%{
         filter:
-            hue-rotate(-7deg)
-            saturate(1.02);
+            hue-rotate(58deg)
+            saturate(1.14)
+            brightness(1.03);
+    }
+
+    64%{
+        filter:
+            hue-rotate(35deg)
+            saturate(1.20)
+            brightness(1.06);
     }
 
     80%{
         filter:
-            hue-rotate(-15deg)
-            saturate(1.04);
+            hue-rotate(14deg)
+            saturate(1.13)
+            brightness(1.02);
     }
 
     100%{
         filter:
             hue-rotate(0deg)
-            saturate(1);
+            saturate(1.08)
+            brightness(1);
     }
 }
 
@@ -763,31 +896,148 @@ button{
     0%{
         filter:
             hue-rotate(0deg)
-            blur(19px);
+            blur(18px)
+            saturate(1);
     }
 
-    25%{
+    20%{
         filter:
-            hue-rotate(12deg)
-            blur(20px);
+            hue-rotate(18deg)
+            blur(20px)
+            saturate(1.15);
     }
 
-    50%{
+    40%{
         filter:
-            hue-rotate(20deg)
-            blur(19px);
+            hue-rotate(42deg)
+            blur(18px)
+            saturate(1.25);
     }
 
-    75%{
+    60%{
         filter:
-            hue-rotate(-10deg)
-            blur(20px);
+            hue-rotate(62deg)
+            blur(21px)
+            saturate(1.18);
+    }
+
+    80%{
+        filter:
+            hue-rotate(24deg)
+            blur(19px)
+            saturate(1.15);
     }
 
     100%{
         filter:
             hue-rotate(0deg)
-            blur(19px);
+            blur(18px)
+            saturate(1);
+    }
+}
+
+@keyframes magicAuraRotate{
+
+    from{
+        transform:rotate(0deg) scale(.92);
+        opacity:.55;
+    }
+
+    50%{
+        transform:rotate(180deg) scale(1.05);
+        opacity:.95;
+    }
+
+    to{
+        transform:rotate(360deg) scale(.92);
+        opacity:.55;
+    }
+}
+
+@keyframes innerMagic{
+
+    0%{
+        transform:
+            translate(-3px,-2px)
+            scale(.96);
+
+        opacity:.65;
+    }
+
+    50%{
+        transform:
+            translate(4px,3px)
+            scale(1.035);
+
+        opacity:1;
+    }
+
+    100%{
+        transform:
+            translate(-2px,4px)
+            scale(.98);
+
+        opacity:.72;
+    }
+}
+
+@keyframes highlightFloat{
+
+    0%,100%{
+        transform:
+            translate(0,0)
+            rotate(-28deg)
+            scale(1);
+
+        opacity:.70;
+    }
+
+    50%{
+        transform:
+            translate(4px,3px)
+            rotate(-24deg)
+            scale(1.08);
+
+        opacity:.94;
+    }
+}
+
+@keyframes numberGlow{
+
+    0%,100%{
+        text-shadow:
+            0 2px 12px rgba(0,0,0,.50),
+            0 0 14px rgba(255,255,255,.08);
+    }
+
+    50%{
+        text-shadow:
+            0 2px 12px rgba(0,0,0,.50),
+            0 0 22px rgba(255,255,255,.18);
+    }
+}
+
+@keyframes ringColor{
+
+    0%,100%{
+        border-color:rgba(112,192,255,.27);
+        box-shadow:
+            0 0 28px rgba(37,99,235,.16),
+            0 0 55px rgba(56,189,248,.08);
+    }
+
+    35%{
+        border-color:rgba(45,212,191,.34);
+        box-shadow:
+            0 0 30px rgba(45,212,191,.18),
+            0 0 58px rgba(56,189,248,.10);
+    }
+
+    70%{
+        border-color:rgba(165,180,252,.34);
+        box-shadow:
+            0 0 30px rgba(129,140,248,.20),
+            0 0 58px rgba(192,132,252,.10);
     }
 }
 
@@ -800,23 +1050,35 @@ button{
 
     50%{
         opacity:1;
-        transform:scale(1.3);
+        transform:scale(1.4);
     }
 }
+
+@keyframes particleColor{
+
+    0%,100%{
+        filter:hue-rotate(0deg);
+    }
+
+    50%{
+        filter:hue-rotate(55deg);
+    }
+}
+
 
 .active-orb-wrap:hover .active-orb{
 
     transform:
         translateY(-5px)
-        scale(1.045);
+        scale(1.055);
 
     box-shadow:
         inset -20px -24px 37px rgba(0,0,0,.38),
-        inset 12px 10px 28px rgba(255,255,255,.19),
+        inset 12px 10px 28px rgba(255,255,255,.21),
 
-        0 0 40px rgba(40,151,255,.48),
-        0 0 75px rgba(40,151,255,.28),
-        0 0 110px rgba(40,151,255,.15);
+        0 0 42px rgba(40,151,255,.55),
+        0 0 78px rgba(45,212,191,.25),
+        0 0 115px rgba(129,140,248,.18);
 }
 
 
@@ -1580,8 +1842,8 @@ button{
 .touch-light{
     position:fixed;
 
-    width:105px;
-    height:105px;
+    width:145px;
+    height:145px;
 
     border-radius:50%;
 
@@ -1596,22 +1858,24 @@ button{
 
     background:
         radial-gradient(
-            circle,
-            var(--touch-main) 0%,
-            var(--touch-second) 24%,
-            var(--touch-third) 45%,
-            transparent 72%
+            circle at center,
+            rgba(255,255,255,.18) 0%,
+            var(--touch-main) 9%,
+            var(--touch-second) 25%,
+            var(--touch-third) 44%,
+            transparent 73%
         );
 
     box-shadow:
         0 0 25px var(--touch-glow),
-        0 0 48px var(--touch-glow2),
-        0 0 80px var(--touch-glow3);
+        0 0 52px var(--touch-glow2),
+        0 0 90px var(--touch-glow3),
+        0 0 125px var(--touch-glow3);
 
     animation:
         touchFade
-        760ms
-        cubic-bezier(.2,.8,.2,1)
+        900ms
+        cubic-bezier(.15,.75,.15,1)
         forwards;
 
     will-change:
@@ -1619,77 +1883,127 @@ button{
         opacity;
 }
 
+
+/* هسته نور */
+
 .touch-light::before{
     content:"";
 
     position:absolute;
 
-    inset:13px;
+    inset:23px;
 
     border-radius:50%;
 
     background:
         radial-gradient(
             circle,
-            rgba(255,255,255,.22),
-            transparent 67%
+            rgba(255,255,255,.34) 0%,
+            rgba(255,255,255,.13) 18%,
+            var(--touch-main) 42%,
+            transparent 72%
         );
+
+    filter:blur(2px);
+
+    box-shadow:
+        0 0 18px var(--touch-glow),
+        0 0 32px var(--touch-glow2);
+
+    animation:
+        touchCore
+        900ms
+        ease-out
+        forwards;
 }
+
+
+/* موج بیرونی */
 
 .touch-light::after{
     content:"";
 
     position:absolute;
 
-    inset:-9px;
+    inset:-13px;
 
     border-radius:50%;
 
-    border:1px solid var(--touch-border);
+    border:
+        1px solid var(--touch-border);
 
     box-shadow:
         0 0 20px var(--touch-glow2),
-        0 0 38px var(--touch-glow3),
-        inset 0 0 14px var(--touch-second);
+        0 0 42px var(--touch-glow3),
+        inset 0 0 18px var(--touch-second);
 
     animation:
         touchRing
-        760ms
-        ease-out
+        900ms
+        cubic-bezier(.15,.7,.15,1)
         forwards;
 }
 
 @keyframes touchFade{
 
-    from{
+    0%{
         opacity:1;
 
         transform:
             translate(-50%,-50%)
-            scale(.25);
+            scale(.18);
     }
 
-    to{
+    22%{
+        opacity:1;
+    }
+
+    100%{
         opacity:0;
 
         transform:
             translate(-50%,-50%)
-            scale(1.75);
+            scale(1.95);
+    }
+}
+
+@keyframes touchCore{
+
+    0%{
+        opacity:1;
+
+        transform:scale(.28);
+    }
+
+    25%{
+        opacity:1;
+
+        transform:scale(1.05);
+    }
+
+    100%{
+        opacity:0;
+
+        transform:scale(.58);
     }
 }
 
 @keyframes touchRing{
 
-    from{
+    0%{
         opacity:1;
 
-        transform:scale(.35);
+        transform:scale(.20);
     }
 
-    to{
+    18%{
+        opacity:.95;
+    }
+
+    100%{
         opacity:0;
 
-        transform:scale(1.9);
+        transform:scale(2.15);
     }
 }
 
@@ -1765,6 +2079,7 @@ button{
     .active-orb-wrap{
         transform:scale(.90);
     }
+
 }
 
 @media(max-width:420px){
@@ -1865,7 +2180,7 @@ button{
 
 const API_URL = 'https://script.google.com/macros/s/AKfycbzK62xIUIm8VyTektiy9EKOZBnMeXb1bxIKtcCxKfABIYFezMNEH6yfcrWAeL34zmI/exec';
 
-const API_KEY = 'HesabgaranArman_2026_Bot_7xK9pQ2';
+const API_KEY = 'HesabگرانArman_2026_Bot_7xK9pQ2';
 
 
 /* =========================================================
@@ -3618,63 +3933,63 @@ async function loadDashboard(){
 const touchPalettes = [
 
     {
-        main:'rgba(56,189,248,.38)',
-        second:'rgba(37,99,235,.20)',
-        third:'rgba(96,165,250,.12)',
-        glow:'rgba(56,189,248,.28)',
-        glow2:'rgba(37,99,235,.20)',
-        glow3:'rgba(96,165,250,.12)',
-        border:'rgba(125,211,252,.48)'
+        main:'rgba(56,189,248,.52)',
+        second:'rgba(37,99,235,.30)',
+        third:'rgba(96,165,250,.18)',
+        glow:'rgba(56,189,248,.40)',
+        glow2:'rgba(37,99,235,.28)',
+        glow3:'rgba(96,165,250,.18)',
+        border:'rgba(125,211,252,.72)'
     },
 
     {
-        main:'rgba(59,130,246,.40)',
-        second:'rgba(29,78,216,.22)',
-        third:'rgba(96,165,250,.12)',
-        glow:'rgba(59,130,246,.30)',
-        glow2:'rgba(29,78,216,.20)',
-        glow3:'rgba(96,165,250,.12)',
-        border:'rgba(96,165,250,.52)'
+        main:'rgba(59,130,246,.54)',
+        second:'rgba(29,78,216,.32)',
+        third:'rgba(96,165,250,.18)',
+        glow:'rgba(59,130,246,.42)',
+        glow2:'rgba(29,78,216,.28)',
+        glow3:'rgba(96,165,250,.18)',
+        border:'rgba(96,165,250,.74)'
     },
 
     {
-        main:'rgba(214,184,108,.40)',
-        second:'rgba(245,196,91,.22)',
-        third:'rgba(59,130,246,.10)',
-        glow:'rgba(214,184,108,.28)',
-        glow2:'rgba(245,196,91,.18)',
-        glow3:'rgba(59,130,246,.10)',
-        border:'rgba(245,214,145,.50)'
+        main:'rgba(214,184,108,.54)',
+        second:'rgba(245,196,91,.32)',
+        third:'rgba(59,130,246,.15)',
+        glow:'rgba(214,184,108,.40)',
+        glow2:'rgba(245,196,91,.27)',
+        glow3:'rgba(59,130,246,.16)',
+        border:'rgba(245,214,145,.72)'
     },
 
     {
-        main:'rgba(143,159,77,.40)',
-        second:'rgba(59,130,246,.18)',
-        third:'rgba(190,210,90,.10)',
-        glow:'rgba(143,159,77,.27)',
-        glow2:'rgba(59,130,246,.18)',
-        glow3:'rgba(190,210,90,.10)',
-        border:'rgba(180,195,105,.48)'
+        main:'rgba(143,159,77,.54)',
+        second:'rgba(59,130,246,.28)',
+        third:'rgba(190,210,90,.16)',
+        glow:'rgba(143,159,77,.40)',
+        glow2:'rgba(59,130,246,.26)',
+        glow3:'rgba(190,210,90,.16)',
+        border:'rgba(180,195,105,.70)'
     },
 
     {
-        main:'rgba(45,212,191,.40)',
-        second:'rgba(56,189,248,.22)',
-        third:'rgba(37,99,235,.10)',
-        glow:'rgba(45,212,191,.28)',
-        glow2:'rgba(56,189,248,.20)',
-        glow3:'rgba(37,99,235,.10)',
-        border:'rgba(94,234,212,.50)'
+        main:'rgba(45,212,191,.54)',
+        second:'rgba(56,189,248,.32)',
+        third:'rgba(37,99,235,.15)',
+        glow:'rgba(45,212,191,.40)',
+        glow2:'rgba(56,189,248,.28)',
+        glow3:'rgba(37,99,235,.16)',
+        border:'rgba(94,234,212,.72)'
     },
 
     {
-        main:'rgba(129,140,248,.40)',
-        second:'rgba(99,102,241,.22)',
-        third:'rgba(192,132,252,.10)',
-        glow:'rgba(129,140,248,.29)',
-        glow2:'rgba(99,102,241,.20)',
-        glow3:'rgba(192,132,252,.12)',
-        border:'rgba(165,180,252,.50)'
+        main:'rgba(129,140,248,.54)',
+        second:'rgba(99,102,241,.32)',
+        third:'rgba(192,132,252,.18)',
+        glow:'rgba(129,140,248,.42)',
+        glow2:'rgba(99,102,241,.28)',
+        glow3:'rgba(192,132,252,.18)',
+        border:'rgba(165,180,252,.74)'
     }
 
 ];
@@ -3768,7 +4083,7 @@ function createTouchLight(x,y){
         ()=>{
             light.remove();
         },
-        800
+        950
     );
 
 }
