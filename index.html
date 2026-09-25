@@ -2,3620 +2,3681 @@
 <html lang="fa" dir="rtl">
 
 <head>
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+>
+
+<title>حسابگران آرمان</title>
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+<style>
+
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+:root{
+  --bg:#07131b;
+  --bg2:#0b1d25;
+
+  --blue:#38bdf8;
+  --blue2:#2563eb;
+
+  --gold:#d6b56d;
+  --gold2:#f0d28a;
+
+  --olive:#89964a;
+  --olive2:#a8b85d;
+
+  --text:#f5f7f4;
+  --muted:#9caeb4;
+
+  --glass:rgba(255,255,255,.065);
+  --glass2:rgba(255,255,255,.095);
+
+  --border:rgba(255,255,255,.10);
+
+  --success:#65d6a0;
+  --danger:#ff6675;
+  --warning:#f4c96b;
+}
+
+html{
+  background:var(--bg);
+}
+
+body{
+  margin:0;
+  padding:0;
+  min-height:100vh;
+
+  background:
+    radial-gradient(
+      circle at 15% 10%,
+      rgba(56,189,248,.10),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 85% 15%,
+      rgba(214,181,109,.09),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 50% 100%,
+      rgba(137,150,74,.08),
+      transparent 35%
+    ),
+    linear-gradient(
+      145deg,
+      var(--bg),
+      var(--bg2)
+    );
+
+  color:var(--text);
+
+  font-family:
+    Tahoma,
+    Arial,
+    sans-serif;
+
+  overflow-x:hidden;
+}
 
-  <meta charset="UTF-8">
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+
+  background:
+    linear-gradient(
+      120deg,
+      transparent 0%,
+      rgba(255,255,255,.015) 50%,
+      transparent 100%
+    );
+
+  z-index:0;
+}
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-  >
+#root{
+  position:relative;
+  z-index:1;
+  min-height:100vh;
+}
 
-  <title>حسابگران آرمان</title>
+.app{
+  width:100%;
+  max-width:1100px;
 
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  margin:0 auto;
 
-  <style>
+  padding:
+    14px
+    14px
+    30px;
+}
 
-    * {
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-    }
 
-    :root {
-      --bg: #07131b;
-      --bg2: #0b1d25;
+/* =========================================================
+   HERO
+========================================================= */
 
-      --blue: #38bdf8;
-      --blue2: #2563eb;
+.hero{
+  position:relative;
+  overflow:hidden;
 
-      --gold: #d6b56d;
-      --gold2: #f0d28a;
+  padding:20px;
+  margin-bottom:14px;
 
-      --olive: #89964a;
-      --olive2: #a8b85d;
+  border-radius:24px;
 
-      --text: #f5f7f4;
-      --muted: #9caeb4;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.095),
+      rgba(255,255,255,.035)
+    );
 
-      --glass: rgba(255,255,255,.065);
-      --glass2: rgba(255,255,255,.095);
+  border:1px solid var(--border);
 
-      --border: rgba(255,255,255,.10);
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.28),
+    inset 0 1px 0 rgba(255,255,255,.07);
 
-      --success: #65d6a0;
-      --danger: #ff6675;
-      --warning: #f4c96b;
-    }
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+}
 
-    html {
-      background: var(--bg);
-    }
+.hero::after{
+  content:"";
 
-    body {
-      margin: 0;
-      padding: 0;
+  position:absolute;
 
-      min-height: 100vh;
+  width:220px;
+  height:220px;
 
-      background:
-        radial-gradient(
-          circle at 15% 10%,
-          rgba(56,189,248,.10),
-          transparent 30%
-        ),
-        radial-gradient(
-          circle at 85% 15%,
-          rgba(214,181,109,.09),
-          transparent 28%
-        ),
-        radial-gradient(
-          circle at 50% 100%,
-          rgba(137,150,74,.08),
-          transparent 35%
-        ),
-        linear-gradient(
-          145deg,
-          var(--bg),
-          var(--bg2)
-        );
+  left:-100px;
+  top:-120px;
 
-      color: var(--text);
+  border-radius:50%;
 
-      font-family:
-        Tahoma,
-        Arial,
-        sans-serif;
+  background:
+    radial-gradient(
+      circle,
+      rgba(56,189,248,.16),
+      transparent 68%
+    );
 
-      overflow-x: hidden;
-    }
+  pointer-events:none;
+}
 
-    body::before {
-      content: "";
+.hero-top{
+  position:relative;
+  z-index:2;
 
-      position: fixed;
+  display:flex;
 
-      inset: 0;
+  justify-content:space-between;
+  align-items:center;
 
-      pointer-events: none;
+  gap:12px;
+}
 
-      background:
-        linear-gradient(
-          120deg,
-          transparent 0%,
-          rgba(255,255,255,.015) 50%,
-          transparent 100%
-        );
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
 
-      z-index: 0;
-    }
+.brand-icon{
+  width:52px;
+  height:52px;
 
-    #root {
-      position: relative;
-      z-index: 1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 
-      min-height: 100vh;
-    }
+  border-radius:16px;
 
-    .app {
-      width: 100%;
-      max-width: 1100px;
+  font-size:27px;
 
-      margin: 0 auto;
+  color:var(--gold2);
 
-      padding:
-        14px
-        14px
-        30px;
-    }
+  background:
+    linear-gradient(
+      145deg,
+      rgba(214,181,109,.20),
+      rgba(56,189,248,.08)
+    );
 
-    /* ======================================================
-       HERO
-    ====================================================== */
+  border:1px solid rgba(214,181,109,.25);
 
-    .hero {
-      position: relative;
+  box-shadow:
+    0 8px 30px rgba(214,181,109,.08),
+    inset 0 1px 0 rgba(255,255,255,.08);
+}
 
-      overflow: hidden;
+.brand h1{
+  margin:0;
 
-      padding: 20px;
+  font-size:21px;
+  font-weight:800;
 
-      margin-bottom: 14px;
+  letter-spacing:-.5px;
+}
 
-      border-radius: 24px;
+.brand p{
+  margin:5px 0 0;
 
-      background:
-        linear-gradient(
-          135deg,
-          rgba(255,255,255,.095),
-          rgba(255,255,255,.035)
-        );
+  color:var(--muted);
 
-      border: 1px solid var(--border);
+  font-size:11px;
+}
 
-      box-shadow:
-        0 20px 60px rgba(0,0,0,.28),
-        inset 0 1px 0 rgba(255,255,255,.07);
+.connection{
+  display:flex;
+  align-items:center;
+  gap:7px;
 
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-    }
+  white-space:nowrap;
 
-    .hero::after {
-      content: "";
+  color:var(--success);
 
-      position: absolute;
+  font-size:10px;
 
-      width: 220px;
-      height: 220px;
+  background:
+    rgba(101,214,160,.07);
 
-      left: -100px;
-      top: -120px;
+  border:
+    1px solid
+    rgba(101,214,160,.14);
 
-      border-radius: 50%;
+  border-radius:30px;
 
-      background:
-        radial-gradient(
-          circle,
-          rgba(56,189,248,.16),
-          transparent 68%
-        );
+  padding:7px 10px;
+}
 
-      pointer-events: none;
-    }
+.pulse{
+  width:7px;
+  height:7px;
 
-    .hero-top {
-      position: relative;
-      z-index: 2;
+  border-radius:50%;
 
-      display: flex;
+  background:var(--success);
 
-      justify-content: space-between;
+  box-shadow:
+    0 0 0 4px rgba(101,214,160,.08),
+    0 0 15px rgba(101,214,160,.6);
+}
 
-      align-items: center;
+.user-line{
+  position:relative;
+  z-index:2;
 
-      gap: 12px;
-    }
+  display:flex;
+  justify-content:space-between;
 
-    .brand {
-      display: flex;
+  gap:10px;
 
-      align-items: center;
+  margin-top:17px;
+  padding-top:14px;
 
-      gap: 12px;
-    }
+  border-top:
+    1px solid
+    rgba(255,255,255,.07);
 
-    .brand-icon {
-      width: 52px;
-      height: 52px;
+  color:var(--muted);
 
-      display: flex;
+  font-size:10px;
+}
 
-      align-items: center;
-      justify-content: center;
+.user-name{
+  color:var(--gold2);
+  font-weight:700;
+}
 
-      border-radius: 16px;
 
-      font-size: 27px;
+/* =========================================================
+   STATS
+========================================================= */
 
-      color: var(--gold2);
+.stats{
+  display:grid;
 
-      background:
-        linear-gradient(
-          145deg,
-          rgba(214,181,109,.20),
-          rgba(56,189,248,.08)
-        );
+  grid-template-columns:
+    repeat(4,minmax(0,1fr));
 
-      border: 1px solid rgba(214,181,109,.25);
+  gap:10px;
 
-      box-shadow:
-        0 8px 30px rgba(214,181,109,.08),
-        inset 0 1px 0 rgba(255,255,255,.08);
-    }
+  margin-bottom:14px;
+}
 
-    .brand h1 {
-      margin: 0;
+.stat{
+  min-width:0;
 
-      font-size: 21px;
+  padding:15px 12px;
 
-      font-weight: 800;
+  text-align:center;
 
-      letter-spacing: -.5px;
-    }
+  border-radius:18px;
 
-    .brand p {
-      margin: 5px 0 0;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.075),
+      rgba(255,255,255,.035)
+    );
 
-      color: var(--muted);
+  border:
+    1px solid
+    rgba(255,255,255,.08);
 
-      font-size: 11px;
-    }
+  box-shadow:
+    0 10px 35px rgba(0,0,0,.18),
+    inset 0 1px 0 rgba(255,255,255,.05);
 
-    .connection {
-      display: flex;
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+}
 
-      align-items: center;
+.stat-icon{
+  margin-bottom:8px;
+  font-size:19px;
+  color:var(--blue);
+}
 
-      gap: 7px;
+.stat-number{
+  overflow:hidden;
 
-      white-space: nowrap;
+  font-size:18px;
+  font-weight:800;
 
-      color: var(--success);
+  color:var(--text);
 
-      font-size: 10px;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+}
 
-      background: rgba(101,214,160,.07);
+.stat-label{
+  margin-top:5px;
 
-      border: 1px solid rgba(101,214,160,.14);
+  color:var(--muted);
 
-      border-radius: 30px;
+  font-size:9px;
+}
 
-      padding: 7px 10px;
-    }
 
-    .pulse {
-      width: 7px;
-      height: 7px;
+/* =========================================================
+   SECTION
+========================================================= */
 
-      border-radius: 50%;
+.section{
+  margin-bottom:14px;
 
-      background: var(--success);
+  padding:16px;
 
-      box-shadow:
-        0 0 0 4px rgba(101,214,160,.08),
-        0 0 15px rgba(101,214,160,.6);
-    }
+  border-radius:22px;
 
-    .user-line {
-      position: relative;
-      z-index: 2;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.065),
+      rgba(255,255,255,.025)
+    );
 
-      display: flex;
+  border:
+    1px solid
+    rgba(255,255,255,.08);
 
-      justify-content: space-between;
+  box-shadow:
+    0 15px 45px rgba(0,0,0,.20),
+    inset 0 1px 0 rgba(255,255,255,.045);
 
-      gap: 10px;
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+}
 
-      margin-top: 17px;
+.section-title{
+  display:flex;
 
-      padding-top: 14px;
+  justify-content:space-between;
+  align-items:baseline;
 
-      border-top:
-        1px solid
-        rgba(255,255,255,.07);
+  gap:10px;
 
-      color: var(--muted);
+  margin-bottom:14px;
+}
 
-      font-size: 10px;
-    }
+.section-title h2{
+  margin:0;
 
-    .user-name {
-      color: var(--gold2);
+  font-size:15px;
+  font-weight:800;
+}
 
-      font-weight: 700;
-    }
+.section-title span{
+  color:var(--muted);
+  font-size:9px;
+}
 
-    /* ======================================================
-       STATS
-    ====================================================== */
 
-    .stats {
-      display: grid;
+/* =========================================================
+   OVERVIEW
+========================================================= */
 
-      grid-template-columns:
-        repeat(4, minmax(0,1fr));
+.overview{
+  display:grid;
 
-      gap: 10px;
+  grid-template-columns:
+    repeat(2,minmax(0,1fr));
 
-      margin-bottom: 14px;
-    }
+  gap:12px;
+}
 
-    .stat {
-      min-width: 0;
+.circle-card{
+  padding:15px;
 
-      padding: 15px 12px;
+  text-align:center;
 
-      text-align: center;
+  border-radius:18px;
 
-      border-radius: 18px;
+  background:
+    rgba(0,0,0,.13);
 
-      background:
-        linear-gradient(
-          145deg,
-          rgba(255,255,255,.075),
-          rgba(255,255,255,.035)
-        );
+  border:
+    1px solid
+    rgba(255,255,255,.055);
+}
 
-      border:
-        1px solid
-        rgba(255,255,255,.08);
+.donut{
+  position:relative;
 
-      box-shadow:
-        0 10px 35px rgba(0,0,0,.18),
-        inset 0 1px 0 rgba(255,255,255,.05);
+  width:135px;
+  height:135px;
 
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-    }
+  margin:0 auto 12px;
 
-    .stat-icon {
-      margin-bottom: 8px;
+  border-radius:50%;
 
-      font-size: 19px;
+  display:flex;
 
-      color: var(--blue);
-    }
+  align-items:center;
+  justify-content:center;
 
-    .stat-number {
-      overflow: hidden;
+  box-shadow:
+    0 12px 35px rgba(0,0,0,.25);
+}
 
-      font-size: 18px;
+.donut::after{
+  content:"";
 
-      font-weight: 800;
+  position:absolute;
 
-      color: var(--text);
+  width:101px;
+  height:101px;
 
-      white-space: nowrap;
+  border-radius:50%;
 
-      text-overflow: ellipsis;
-    }
+  background:
+    linear-gradient(
+      145deg,
+      #0b1d25,
+      #07131b
+    );
 
-    .stat-label {
-      margin-top: 5px;
+  box-shadow:
+    inset 0 0 25px rgba(0,0,0,.3);
+}
 
-      color: var(--muted);
+.donut-center{
+  position:relative;
 
-      font-size: 9px;
-    }
+  z-index:2;
 
-    /* ======================================================
-       SECTIONS
-    ====================================================== */
+  text-align:center;
+}
 
-    .section {
-      margin-bottom: 14px;
+.donut-number{
+  font-size:22px;
+  font-weight:800;
+}
 
-      padding: 16px;
+.donut-label{
+  margin-top:3px;
 
-      border-radius: 22px;
+  color:var(--muted);
 
-      background:
-        linear-gradient(
-          145deg,
-          rgba(255,255,255,.065),
-          rgba(255,255,255,.025)
-        );
+  font-size:8px;
+}
 
-      border:
-        1px solid
-        rgba(255,255,255,.08);
+.legend{
+  display:flex;
 
-      box-shadow:
-        0 15px 45px rgba(0,0,0,.20),
-        inset 0 1px 0 rgba(255,255,255,.045);
+  justify-content:center;
 
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-    }
+  gap:15px;
 
-    .section-title {
-      display: flex;
+  color:var(--muted);
 
-      justify-content: space-between;
+  font-size:8px;
+}
 
-      align-items: baseline;
+.legend-item{
+  display:flex;
 
-      gap: 10px;
+  align-items:center;
 
-      margin-bottom: 14px;
-    }
+  gap:5px;
+}
 
-    .section-title h2 {
-      margin: 0;
+.legend-dot{
+  width:7px;
+  height:7px;
 
-      font-size: 15px;
+  border-radius:50%;
+}
 
-      font-weight: 800;
-    }
+.legend-dot.blue{
+  background:var(--blue);
 
-    .section-title span {
-      color: var(--muted);
+  box-shadow:
+    0 0 9px
+    rgba(56,189,248,.5);
+}
 
-      font-size: 9px;
-    }
+.legend-dot.olive{
+  background:var(--olive);
 
-    /* ======================================================
-       OVERVIEW
-    ====================================================== */
+  box-shadow:
+    0 0 9px
+    rgba(137,150,74,.5);
+}
 
-    .overview {
-      display: grid;
+.legend-dot.gold{
+  background:var(--gold);
 
-      grid-template-columns:
-        repeat(2, minmax(0,1fr));
+  box-shadow:
+    0 0 9px
+    rgba(214,181,109,.5);
+}
 
-      gap: 12px;
-    }
 
-    .circle-card {
-      padding: 15px;
+/* =========================================================
+   SEARCH
+========================================================= */
 
-      text-align: center;
+.search{
+  display:block;
 
-      border-radius: 18px;
+  width:100%;
+  height:43px;
 
-      background:
-        rgba(0,0,0,.13);
+  margin-bottom:10px;
 
-      border:
-        1px solid
-        rgba(255,255,255,.055);
-    }
+  padding:0 14px;
 
-    .donut {
-      position: relative;
+  border-radius:14px;
 
-      width: 135px;
-      height: 135px;
+  border:
+    1px solid
+    rgba(255,255,255,.09);
 
-      margin: 0 auto 12px;
+  outline:none;
 
-      border-radius: 50%;
+  color:var(--text);
 
-      display: flex;
+  background:
+    rgba(0,0,0,.18);
 
-      align-items: center;
-      justify-content: center;
+  font-family:inherit;
+  font-size:11px;
 
-      box-shadow:
-        0 12px 35px rgba(0,0,0,.25);
-    }
+  direction:rtl;
+}
 
-    .donut::after {
-      content: "";
+.search::placeholder{
+  color:#72868c;
+}
 
-      position: absolute;
+.search:focus{
+  border-color:
+    rgba(56,189,248,.38);
 
-      width: 101px;
-      height: 101px;
+  box-shadow:
+    0 0 0 3px
+    rgba(56,189,248,.06);
+}
 
-      border-radius: 50%;
 
-      background:
-        linear-gradient(
-          145deg,
-          #0b1d25,
-          #07131b
-        );
+/* =========================================================
+   TABS
+========================================================= */
 
-      box-shadow:
-        inset 0 0 25px rgba(0,0,0,.3);
-    }
+.tabs{
+  display:flex;
 
-    .donut-center {
-      position: relative;
+  gap:7px;
 
-      z-index: 2;
+  overflow-x:auto;
 
-      text-align: center;
-    }
+  padding-bottom:3px;
 
-    .donut-number {
-      font-size: 22px;
+  scrollbar-width:none;
+}
 
-      font-weight: 800;
-    }
+.tabs::-webkit-scrollbar{
+  display:none;
+}
 
-    .donut-label {
-      margin-top: 3px;
+.tab{
+  flex:0 0 auto;
 
-      color: var(--muted);
+  border:
+    1px solid
+    rgba(255,255,255,.08);
 
-      font-size: 8px;
-    }
+  background:
+    rgba(255,255,255,.035);
 
-    .legend {
-      display: flex;
+  color:var(--muted);
 
-      justify-content: center;
+  border-radius:12px;
 
-      gap: 15px;
+  padding:9px 13px;
 
-      color: var(--muted);
+  font-family:inherit;
+  font-size:9px;
 
-      font-size: 8px;
-    }
+  cursor:pointer;
+}
 
-    .legend-item {
-      display: flex;
+.tab.active{
+  color:#fff;
 
-      align-items: center;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(56,189,248,.20),
+      rgba(37,99,235,.12)
+    );
 
-      gap: 5px;
-    }
+  border-color:
+    rgba(56,189,248,.30);
 
-    .legend-dot {
-      width: 7px;
-      height: 7px;
+  box-shadow:
+    0 6px 20px
+    rgba(56,189,248,.08);
+}
 
-      border-radius: 50%;
-    }
 
-    .legend-dot.blue {
-      background: var(--blue);
+/* =========================================================
+   ITEMS
+========================================================= */
 
-      box-shadow:
-        0 0 9px
-        rgba(56,189,248,.5);
-    }
+.items{
+  display:grid;
+  gap:9px;
+}
 
-    .legend-dot.olive {
-      background: var(--olive);
+.item{
+  position:relative;
 
-      box-shadow:
-        0 0 9px
-        rgba(137,150,74,.5);
-    }
+  padding:14px;
 
-    .legend-dot.gold {
-      background: var(--gold);
+  border-radius:17px;
 
-      box-shadow:
-        0 0 9px
-        rgba(214,181,109,.5);
-    }
+  background:
+    rgba(0,0,0,.14);
 
-    /* ======================================================
-       SEARCH
-    ====================================================== */
+  border:
+    1px solid
+    rgba(255,255,255,.065);
 
-    .search {
-      display: block;
+  overflow:hidden;
+}
 
-      width: 100%;
+.item::before{
+  content:"";
 
-      height: 43px;
+  position:absolute;
 
-      margin-bottom: 10px;
+  right:0;
+  top:0;
+  bottom:0;
 
-      padding:
-        0
-        14px;
+  width:3px;
 
-      border-radius: 14px;
+  background:var(--blue);
 
-      border:
-        1px solid
-        rgba(255,255,255,.09);
+  opacity:.7;
+}
 
-      outline: none;
+.item.priority-high::before{
+  background:var(--danger);
+}
 
-      color: var(--text);
+.item.priority-medium::before{
+  background:var(--warning);
+}
 
-      background:
-        rgba(0,0,0,.18);
+.item.priority-low::before{
+  background:var(--olive);
+}
 
-      font-family: inherit;
+.item-head{
+  display:flex;
 
-      font-size: 11px;
+  align-items:flex-start;
 
-      direction: rtl;
-    }
+  justify-content:space-between;
 
-    .search::placeholder {
-      color: #72868c;
-    }
+  gap:10px;
+}
 
-    .search:focus {
-      border-color:
-        rgba(56,189,248,.38);
+.item-title{
+  min-width:0;
 
-      box-shadow:
-        0 0 0 3px
-        rgba(56,189,248,.06);
-    }
+  font-size:12px;
 
-    /* ======================================================
-       TABS
-    ====================================================== */
+  font-weight:800;
 
-    .tabs {
-      display: flex;
+  line-height:1.8;
+}
 
-      gap: 7px;
+.item-code{
+  color:var(--gold);
 
-      overflow-x: auto;
+  font-size:9px;
 
-      padding-bottom: 3px;
+  margin-left:5px;
+}
 
-      scrollbar-width: none;
-    }
+.item-description{
+  margin-top:6px;
 
-    .tabs::-webkit-scrollbar {
-      display: none;
-    }
+  color:var(--muted);
 
-    .tab {
-      flex: 0 0 auto;
+  font-size:9px;
 
-      border: 1px solid
-        rgba(255,255,255,.08);
+  line-height:1.9;
+}
 
-      background:
-        rgba(255,255,255,.035);
+.badge{
+  flex:0 0 auto;
 
-      color: var(--muted);
+  padding:5px 8px;
 
-      border-radius: 12px;
+  border-radius:9px;
 
-      padding:
-        9px
-        13px;
+  font-size:8px;
 
-      font-family: inherit;
+  white-space:nowrap;
+}
 
-      font-size: 9px;
+.badge-done{
+  color:var(--success);
 
-      cursor: pointer;
-    }
+  background:
+    rgba(101,214,160,.08);
 
-    .tab.active {
-      color: #fff;
+  border:
+    1px solid
+    rgba(101,214,160,.12);
+}
 
-      background:
-        linear-gradient(
-          135deg,
-          rgba(56,189,248,.20),
-          rgba(37,99,235,.12)
-        );
+.badge-progress{
+  color:var(--blue);
 
-      border-color:
-        rgba(56,189,248,.30);
+  background:
+    rgba(56,189,248,.08);
 
-      box-shadow:
-        0 6px 20px
-        rgba(56,189,248,.08);
-    }
+  border:
+    1px solid
+    rgba(56,189,248,.12);
+}
 
-    /* ======================================================
-       ITEMS
-    ====================================================== */
+.badge-pending{
+  color:var(--warning);
 
-    .items {
-      display: grid;
+  background:
+    rgba(244,201,107,.07);
 
-      gap: 9px;
-    }
+  border:
+    1px solid
+    rgba(244,201,107,.11);
+}
 
-    .item {
-      position: relative;
+.item-meta{
+  display:grid;
 
-      padding: 14px;
+  grid-template-columns:
+    repeat(2,minmax(0,1fr));
 
-      border-radius: 17px;
+  gap:7px;
 
-      background:
-        rgba(0,0,0,.14);
+  margin-top:12px;
+}
 
-      border:
-        1px solid
-        rgba(255,255,255,.065);
+.meta{
+  min-width:0;
 
-      overflow: hidden;
-    }
+  padding:8px;
 
-    .item::before {
-      content: "";
+  border-radius:10px;
 
-      position: absolute;
+  background:
+    rgba(255,255,255,.025);
+}
 
-      right: 0;
-      top: 0;
-      bottom: 0;
+.meta-label{
+  color:#70838a;
 
-      width: 3px;
+  font-size:7px;
 
-      background: var(--blue);
+  margin-bottom:3px;
+}
 
-      opacity: .7;
-    }
+.meta-value{
+  overflow:hidden;
 
-    .item.priority-high::before {
-      background: var(--danger);
-    }
+  color:#d8e0e2;
 
-    .item.priority-medium::before {
-      background: var(--warning);
-    }
+  font-size:8px;
 
-    .item.priority-low::before {
-      background: var(--olive);
-    }
+  line-height:1.6;
 
-    .item-head {
-      display: flex;
+  white-space:nowrap;
 
-      align-items: flex-start;
+  text-overflow:ellipsis;
+}
 
-      justify-content: space-between;
 
-      gap: 10px;
-    }
+/* =========================================================
+   CLIENTS
+========================================================= */
 
-    .item-title {
-      min-width: 0;
+.client{
+  display:grid;
 
-      font-size: 12px;
+  grid-template-columns:
+    44px
+    minmax(0,1fr)
+    auto;
 
-      font-weight: 800;
+  align-items:center;
 
-      line-height: 1.8;
-    }
+  gap:10px;
 
-    .item-code {
-      color: var(--gold);
+  padding:12px;
 
-      font-size: 9px;
+  border-radius:16px;
 
-      margin-left: 5px;
-    }
+  background:
+    rgba(0,0,0,.14);
 
-    .item-description {
-      margin-top: 6px;
+  border:
+    1px solid
+    rgba(255,255,255,.065);
+}
 
-      color: var(--muted);
+.avatar{
+  width:44px;
+  height:44px;
 
-      font-size: 9px;
+  display:flex;
 
-      line-height: 1.9;
-    }
+  align-items:center;
+  justify-content:center;
 
-    .badge {
-      flex: 0 0 auto;
+  border-radius:14px;
 
-      padding:
-        5px
-        8px;
+  color:var(--gold2);
 
-      border-radius: 9px;
+  font-size:18px;
+  font-weight:800;
 
-      font-size: 8px;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(214,181,109,.16),
+      rgba(56,189,248,.08)
+    );
 
-      white-space: nowrap;
-    }
+  border:
+    1px solid
+    rgba(214,181,109,.16);
+}
 
-    .badge-done {
-      color: var(--success);
+.client-info{
+  min-width:0;
+}
 
-      background:
-        rgba(101,214,160,.08);
+.client-name{
+  overflow:hidden;
 
-      border:
-        1px solid
-        rgba(101,214,160,.12);
-    }
+  font-size:11px;
+  font-weight:800;
 
-    .badge-progress {
-      color: var(--blue);
+  white-space:nowrap;
+  text-overflow:ellipsis;
+}
 
-      background:
-        rgba(56,189,248,.08);
+.client-type{
+  margin-top:4px;
 
-      border:
-        1px solid
-        rgba(56,189,248,.12);
-    }
+  color:var(--muted);
 
-    .badge-pending {
-      color: var(--warning);
+  font-size:8px;
 
-      background:
-        rgba(244,201,107,.07);
+  white-space:nowrap;
 
-      border:
-        1px solid
-        rgba(244,201,107,.11);
-    }
+  overflow:hidden;
 
-    .item-meta {
-      display: grid;
+  text-overflow:ellipsis;
+}
 
-      grid-template-columns:
-        repeat(2, minmax(0,1fr));
+.client-fee{
+  min-width:70px;
 
-      gap: 7px;
+  text-align:left;
+}
 
-      margin-top: 12px;
-    }
+.fee-number{
+  color:var(--gold2);
 
-    .meta {
-      min-width: 0;
+  font-size:10px;
+  font-weight:800;
+}
 
-      padding: 8px;
+.fee-label{
+  margin-top:3px;
 
-      border-radius: 10px;
+  color:#71858b;
 
-      background:
-        rgba(255,255,255,.025);
-    }
+  font-size:7px;
+}
 
-    .meta-label {
-      color: #70838a;
 
-      font-size: 7px;
+/* =========================================================
+   LOADING / ERROR
+========================================================= */
 
-      margin-bottom: 3px;
-    }
+.loading{
+  min-height:100vh;
 
-    .meta-value {
-      overflow: hidden;
+  display:flex;
 
-      color: #d8e0e2;
+  flex-direction:column;
 
-      font-size: 8px;
+  align-items:center;
+  justify-content:center;
 
-      line-height: 1.6;
+  gap:15px;
 
-      white-space: nowrap;
+  padding:30px;
 
-      text-overflow: ellipsis;
-    }
+  text-align:center;
+}
 
-    /* ======================================================
-       CLIENTS
-    ====================================================== */
+.loading-spinner{
+  width:42px;
+  height:42px;
 
-    .client {
-      display: grid;
+  border-radius:50%;
 
-      grid-template-columns:
-        44px
-        minmax(0,1fr)
-        auto;
+  border:
+    3px solid
+    rgba(255,255,255,.08);
 
-      align-items: center;
+  border-top-color:
+    var(--blue);
 
-      gap: 10px;
+  animation:
+    spin .8s linear infinite;
+}
 
-      padding: 12px;
+@keyframes spin{
+  to{
+    transform:rotate(360deg);
+  }
+}
 
-      border-radius: 16px;
+.loading-text{
+  color:var(--muted);
 
-      background:
-        rgba(0,0,0,.14);
+  font-size:11px;
 
-      border:
-        1px solid
-        rgba(255,255,255,.065);
-    }
+  line-height:2;
+}
 
-    .avatar {
-      width: 44px;
-      height: 44px;
+.debug-box{
+  width:100%;
+  max-width:700px;
 
-      display: flex;
+  max-height:300px;
 
-      align-items: center;
-      justify-content: center;
+  overflow:auto;
 
-      border-radius: 14px;
+  direction:ltr;
+  text-align:left;
 
-      color: var(--gold2);
+  padding:12px;
 
-      font-size: 18px;
+  border-radius:12px;
 
-      font-weight: 800;
+  background:
+    rgba(0,0,0,.30);
 
-      background:
-        linear-gradient(
-          145deg,
-          rgba(214,181,109,.16),
-          rgba(56,189,248,.08)
-        );
+  border:
+    1px solid
+    rgba(255,255,255,.08);
 
-      border:
-        1px solid
-        rgba(214,181,109,.16);
-    }
+  color:#a9c6d0;
 
-    .client-info {
-      min-width: 0;
-    }
+  font-family:
+    Consolas,
+    monospace;
 
-    .client-name {
-      overflow: hidden;
+  font-size:9px;
 
-      font-size: 11px;
+  white-space:pre-wrap;
 
-      font-weight: 800;
+  word-break:break-word;
+}
 
-      white-space: nowrap;
 
-      text-overflow: ellipsis;
-    }
+/* =========================================================
+   TOUCH
+========================================================= */
 
-    .client-type {
-      margin-top: 4px;
+.touch-light{
+  position:fixed;
 
-      color: var(--muted);
+  width:12px;
+  height:12px;
 
-      font-size: 8px;
+  margin-left:-6px;
+  margin-top:-6px;
 
-      white-space: nowrap;
+  border-radius:50%;
 
-      overflow: hidden;
+  pointer-events:none;
 
-      text-overflow: ellipsis;
-    }
+  z-index:9999;
 
-    .client-fee {
-      min-width: 70px;
+  animation:
+    touchLight .85s ease-out forwards;
+}
 
-      text-align: left;
-    }
+@keyframes touchLight{
 
-    .fee-number {
-      color: var(--gold2);
+  0%{
+    opacity:.9;
+    transform:scale(.7);
+  }
 
-      font-size: 10px;
+  100%{
+    opacity:0;
+    transform:scale(5);
+  }
 
-      font-weight: 800;
-    }
+}
 
-    .fee-label {
-      margin-top: 3px;
 
-      color: #71858b;
+/* =========================================================
+   FOOTER
+========================================================= */
 
-      font-size: 7px;
-    }
+footer{
+  padding:20px 10px 8px;
 
-    /* ======================================================
-       LOADING
-    ====================================================== */
+  text-align:center;
 
-    .loading {
-      min-height: 100vh;
+  color:#61757c;
 
-      display: flex;
+  font-size:8px;
+}
 
-      flex-direction: column;
+footer strong{
+  margin-right:6px;
 
-      align-items: center;
+  color:var(--gold);
+}
 
-      justify-content: center;
 
-      gap: 15px;
+/* =========================================================
+   RESPONSIVE
+========================================================= */
 
-      padding: 30px;
+@media(max-width:600px){
 
-      text-align: center;
-    }
+  .stats{
+    grid-template-columns:
+      repeat(2,minmax(0,1fr));
+  }
 
-    .loading-spinner {
-      width: 42px;
-      height: 42px;
+  .hero{
+    padding:17px;
+  }
 
-      border-radius: 50%;
+  .brand h1{
+    font-size:18px;
+  }
 
-      border:
-        3px solid
-        rgba(255,255,255,.08);
+  .brand-icon{
+    width:46px;
+    height:46px;
+  }
 
-      border-top-color:
-        var(--blue);
+}
 
-      animation:
-        spin .8s linear infinite;
-    }
+@media(min-width:700px){
 
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
-    }
+  .item-meta{
+    grid-template-columns:
+      repeat(4,minmax(0,1fr));
+  }
 
-    .loading-text {
-      color: var(--muted);
+  .client{
+    padding:15px;
+  }
 
-      font-size: 11px;
+}
 
-      line-height: 2;
-    }
-
-    .debug-box {
-      width: 100%;
-      max-width: 700px;
-
-      max-height: 280px;
-
-      overflow: auto;
-
-      direction: ltr;
-
-      text-align: left;
-
-      padding: 12px;
-
-      border-radius: 12px;
-
-      background:
-        rgba(0,0,0,.30);
-
-      border:
-        1px solid
-        rgba(255,255,255,.08);
-
-      color: #a9c6d0;
-
-      font-family:
-        Consolas,
-        monospace;
-
-      font-size: 9px;
-
-      white-space: pre-wrap;
-
-      word-break: break-word;
-    }
-
-    /* ======================================================
-       TOUCH LIGHT
-    ====================================================== */
-
-    .touch-light {
-      position: fixed;
-
-      width: 12px;
-      height: 12px;
-
-      margin-left: -6px;
-      margin-top: -6px;
-
-      border-radius: 50%;
-
-      pointer-events: none;
-
-      z-index: 9999;
-
-      animation:
-        touchLight .85s ease-out forwards;
-    }
-
-    @keyframes touchLight {
-
-      0% {
-        opacity: .9;
-
-        transform:
-          scale(.7);
-      }
-
-      100% {
-        opacity: 0;
-
-        transform:
-          scale(5);
-      }
-
-    }
-
-    /* ======================================================
-       FOOTER
-    ====================================================== */
-
-    footer {
-      padding: 20px 10px 8px;
-
-      text-align: center;
-
-      color: #61757c;
-
-      font-size: 8px;
-    }
-
-    footer strong {
-      margin-right: 6px;
-
-      color: var(--gold);
-    }
-
-    /* ======================================================
-       RESPONSIVE
-    ====================================================== */
-
-    @media (max-width: 600px) {
-
-      .stats {
-        grid-template-columns:
-          repeat(2, minmax(0,1fr));
-      }
-
-      .hero {
-        padding: 17px;
-      }
-
-      .brand h1 {
-        font-size: 18px;
-      }
-
-      .brand-icon {
-        width: 46px;
-        height: 46px;
-      }
-
-    }
-
-    @media (min-width: 700px) {
-
-      .item-meta {
-        grid-template-columns:
-          repeat(4, minmax(0,1fr));
-      }
-
-      .client {
-        padding: 15px;
-      }
-
-    }
-
-  </style>
+</style>
 
 </head>
 
 
 <body>
 
-  <div id="root">
+<div id="root">
+
+  <div class="loading">
+
+    <div class="loading-spinner"></div>
+
+    <div class="loading-text">
+      در حال اتصال به داشبورد...
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+
+/* ============================================================
+   CONFIG
+============================================================ */
+
+const GAS_API =
+"https://script.google.com/macros/s/AKfycbzK62xIUIm8VyTektiy9EKOZBnMeXb1bxIKtcCxKfABIYFezMNEH6yfcrWAeL34zmI/exec";
+
+
+/* ============================================================
+   TELEGRAM
+============================================================ */
+
+const tg =
+window.Telegram?.WebApp || null;
+
+
+if(tg){
+
+  tg.ready();
+
+  tg.expand();
+
+  try{
+
+    tg.setHeaderColor(
+      "#07131b"
+    );
+
+    tg.setBackgroundColor(
+      "#07131b"
+    );
+
+  }catch(e){}
+
+}
+
+
+/* ============================================================
+   STATE
+============================================================ */
+
+let dashboard = null;
+
+let activeTab = "all";
+
+let searchText = "";
+
+
+/* ============================================================
+   HELPERS
+============================================================ */
+
+function esc(value){
+
+  if(
+    value === null ||
+    value === undefined
+  ){
+
+    return "";
+
+  }
+
+  return String(value)
+
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
+
+}
+
+
+function arr(value){
+
+  return Array.isArray(value)
+    ? value
+    : [];
+
+}
+
+
+function normalizeKey(value){
+
+  return String(
+    value ?? ""
+  )
+
+  .replace(
+    /[\u200c\u200d\u200e\u200f\ufeff]/g,
+    ""
+  )
+
+  .replace(
+    /\s+/g,
+    ""
+  )
+
+  .replace(
+    /[_\-]/g,
+    ""
+  )
+
+  .trim()
+
+  .toLowerCase();
+
+}
+
+
+function get(
+  obj,
+  ...keys
+){
+
+  if(
+    !obj ||
+    typeof obj !== "object"
+  ){
+
+    return "";
+
+  }
+
+
+  const objectKeys =
+    Object.keys(obj);
+
+
+  for(
+    const wantedKey of keys
+  ){
+
+    const wanted =
+      normalizeKey(
+        wantedKey
+      );
+
+
+    for(
+      const realKey of objectKeys
+    ){
+
+      if(
+        normalizeKey(
+          realKey
+        ) === wanted
+      ){
+
+        const value =
+          obj[realKey];
+
+
+        if(
+          value !== undefined &&
+          value !== null &&
+          value !== ""
+        ){
+
+          return value;
+
+        }
+
+      }
+
+    }
+
+  }
+
+
+  return "";
+
+}
+
+
+/* ============================================================
+   MONEY
+============================================================ */
+
+function formatMoney(value){
+
+  if(
+    value === null ||
+    value === undefined ||
+    value === ""
+  ){
+
+    return "—";
+
+  }
+
+
+  const n =
+    Number(
+      String(value)
+      .replaceAll(",","")
+      .replace(/[^\d.-]/g,"")
+    );
+
+
+  if(
+    !Number.isFinite(n)
+  ){
+
+    return "—";
+
+  }
+
+
+  if(n === 0){
+
+    return "۰";
+
+  }
+
+
+  return new Intl.NumberFormat(
+    "fa-IR"
+  ).format(n);
+
+}
+
+
+function formatMoneyShort(value){
+
+  if(
+    value === null ||
+    value === undefined ||
+    value === ""
+  ){
+
+    return "—";
+
+  }
+
+
+  const n =
+    Number(
+      String(value)
+      .replaceAll(",","")
+      .replace(/[^\d.-]/g,"")
+    );
+
+
+  if(
+    !Number.isFinite(n)
+  ){
+
+    return "—";
+
+  }
+
+
+  if(
+    n >= 1000000000
+  ){
+
+    return (
+      new Intl.NumberFormat(
+        "fa-IR",
+        {
+          maximumFractionDigits:1
+        }
+      ).format(
+        n / 1000000000
+      )
+      +
+      " میلیارد"
+    );
+
+  }
+
+
+  if(
+    n >= 1000000
+  ){
+
+    return (
+      new Intl.NumberFormat(
+        "fa-IR",
+        {
+          maximumFractionDigits:1
+        }
+      ).format(
+        n / 1000000
+      )
+      +
+      " میلیون"
+    );
+
+  }
+
+
+  return formatMoney(n);
+
+}
+
+
+/* ============================================================
+   STATUS
+============================================================ */
+
+function statusClass(status){
+
+  const s =
+    String(
+      status || ""
+    );
+
+
+  if(
+    s.includes("انجام شده")
+  ){
+
+    return "badge-done";
+
+  }
+
+
+  if(
+    s.includes("در حال انجام")
+  ){
+
+    return "badge-progress";
+
+  }
+
+
+  return "badge-pending";
+
+}
+
+
+function priorityClass(priority){
+
+  const p =
+    String(
+      priority || ""
+    );
+
+
+  if(
+    p.includes("بالا") ||
+    p.includes("فوری")
+  ){
+
+    return "priority-high";
+
+  }
+
+
+  if(
+    p.includes("متوسط")
+  ){
+
+    return "priority-medium";
+
+  }
+
+
+  return "priority-low";
+
+}
+
+
+function statusIcon(status){
+
+  const s =
+    String(
+      status || ""
+    );
+
+
+  if(
+    s.includes("انجام شده")
+  ){
+
+    return "✓";
+
+  }
+
+
+  if(
+    s.includes("در حال انجام")
+  ){
+
+    return "◐";
+
+  }
+
+
+  return "○";
+
+}
+
+
+/* ============================================================
+   DATA
+============================================================ */
+
+function summaryData(){
+
+  return (
+    dashboard?.Summary ||
+    {}
+  );
+
+}
+
+
+function accountingData(){
+
+  return arr(
+    dashboard?.Accounting
+  );
+
+}
+
+
+function taxData(){
+
+  return arr(
+    dashboard?.Tax
+  );
+
+}
+
+
+function clientsData(){
+
+  return arr(
+    dashboard?.Clients
+  );
+
+}
+
+
+function receivablesData(){
+
+  return arr(
+    dashboard?.Receivables
+  );
+
+}
+
+
+function summaryValue(
+  ...keys
+){
+
+  const summary =
+    summaryData();
+
+
+  for(
+    const key of keys
+  ){
+
+    if(
+      summary[key] !== undefined &&
+      summary[key] !== null
+    ){
+
+      return summary[key];
+
+    }
+
+  }
+
+
+  return 0;
+
+}
+
+
+/* ============================================================
+   DEEP DASHBOARD FINDER
+============================================================ */
+
+function parseDashboardData(
+  result
+){
+
+  console.log(
+    "========== RAW SERVER RESPONSE =========="
+  );
+
+  console.log(
+    result
+  );
+
+
+  function isDashboardObject(
+    obj
+  ){
+
+    return (
+      obj &&
+      typeof obj === "object" &&
+      (
+        obj.Summary ||
+        obj.Clients ||
+        obj.Accounting ||
+        obj.Tax ||
+        obj.Receivables
+      )
+    );
+
+  }
+
+
+  function parseString(
+    value
+  ){
+
+    if(
+      typeof value !== "string"
+    ){
+
+      return value;
+
+    }
+
+
+    const text =
+      value.trim();
+
+
+    if(!text){
+
+      return null;
+
+    }
+
+
+    try{
+
+      return JSON.parse(
+        text
+      );
+
+    }catch(e){
+
+      return null;
+
+    }
+
+  }
+
+
+  function search(
+    value,
+    depth = 0
+  ){
+
+    if(
+      depth > 12 ||
+      value === null ||
+      value === undefined
+    ){
+
+      return null;
+
+    }
+
+
+    if(
+      typeof value === "string"
+    ){
+
+      const parsed =
+        parseString(value);
+
+
+      if(
+        parsed !== null &&
+        parsed !== value
+      ){
+
+        return search(
+          parsed,
+          depth + 1
+        );
+
+      }
+
+
+      return null;
+
+    }
+
+
+    if(
+      isDashboardObject(value)
+    ){
+
+      return value;
+
+    }
+
+
+    if(
+      Array.isArray(value)
+    ){
+
+      for(
+        const item of value
+      ){
+
+        const found =
+          search(
+            item,
+            depth + 1
+          );
+
+
+        if(found){
+
+          return found;
+
+        }
+
+      }
+
+
+      return null;
+
+    }
+
+
+    if(
+      typeof value === "object"
+    ){
+
+      for(
+        const key of Object.keys(value)
+      ){
+
+        const found =
+          search(
+            value[key],
+            depth + 1
+          );
+
+
+        if(found){
+
+          return found;
+
+        }
+
+      }
+
+    }
+
+
+    return null;
+
+  }
+
+
+  console.log(
+    "Response type:",
+    typeof result
+  );
+
+
+  if(
+    result &&
+    typeof result === "object"
+  ){
+
+    console.log(
+      "Response keys:",
+      Object.keys(result)
+    );
+
+  }
+
+
+  const found =
+    search(result);
+
+
+  console.log(
+    "========== DETECTED DASHBOARD =========="
+  );
+
+  console.log(
+    found
+  );
+
+
+  if(!found){
+
+    let raw = "";
+
+    try{
+
+      raw =
+        JSON.stringify(
+          result,
+          null,
+          2
+        );
+
+    }catch(e){
+
+      raw =
+        String(result);
+
+    }
+
+
+    console.error(
+      "Dashboard structure NOT FOUND"
+    );
+
+    console.error(
+      raw
+    );
+
+
+    throw new Error(
+      "پاسخ سرور دریافت شد، اما Summary / Clients / Accounting / Tax / Receivables در پاسخ پیدا نشد."
+    );
+
+  }
+
+
+  return found;
+
+}
+
+
+/* ============================================================
+   TOUCH EFFECT
+============================================================ */
+
+document.addEventListener(
+  "pointerdown",
+  function(e){
+
+    const light =
+      document.createElement(
+        "div"
+      );
+
+
+    light.className =
+      "touch-light";
+
+
+    const colors = [
+
+      "#38bdf8",
+      "#d6b56d",
+      "#9aa94f",
+      "#67e8f9"
+
+    ];
+
+
+    const color =
+      colors[
+        Math.floor(
+          Math.random() *
+          colors.length
+        )
+      ];
+
+
+    light.style.left =
+      e.clientX + "px";
+
+
+    light.style.top =
+      e.clientY + "px";
+
+
+    light.style.background =
+      color;
+
+
+    light.style.boxShadow =
+      `
+      0 0 12px ${color},
+      0 0 35px ${color},
+      0 0 70px ${color}
+      `;
+
+
+    document.body.appendChild(
+      light
+    );
+
+
+    setTimeout(
+      () => light.remove(),
+      850
+    );
+
+  }
+);
+
+
+/* ============================================================
+   ERROR SCREEN
+============================================================ */
+
+function showError(
+  message,
+  debug = ""
+){
+
+  const root =
+    document.getElementById(
+      "root"
+    );
+
+
+  if(!root){
+
+    return;
+
+  }
+
+
+  root.innerHTML = `
+
+    <div class="loading">
+
+      <div
+        style="
+          font-size:42px;
+        "
+      >
+        ⚠️
+      </div>
+
+
+      <div
+        style="
+          font-size:15px;
+          font-weight:800;
+        "
+      >
+        خطا در دریافت اطلاعات
+      </div>
+
+
+      <div class="loading-text">
+
+        ${esc(message)}
+
+      </div>
+
+
+      ${
+        debug
+        ?
+        `
+          <div class="debug-box">
+            ${esc(debug)}
+          </div>
+        `
+        :
+        ""
+      }
+
+
+      <button
+        class="tab active"
+        onclick="location.reload()"
+      >
+        تلاش مجدد
+      </button>
+
+    </div>
+
+  `;
+
+}
+
+
+/* ============================================================
+   LOAD DASHBOARD
+============================================================ */
+
+function loadDashboard(){
+
+  const root =
+    document.getElementById(
+      "root"
+    );
+
+
+  if(
+    !tg ||
+    !tg.initData
+  ){
+
+    showError(
+      "داشبورد باید از داخل ربات تلگرام باز شود."
+    );
+
+    return;
+
+  }
+
+
+  root.innerHTML = `
 
     <div class="loading">
 
       <div class="loading-spinner"></div>
 
       <div class="loading-text">
-        در حال اتصال به داشبورد...
+
+        در حال دریافت اطلاعات داشبورد...
+
       </div>
 
     </div>
 
-  </div>
-
-
-  <script>
-
-    /* ==========================================================
-       CONFIG
-    ========================================================== */
-
-    const GAS_API =
-      "https://script.google.com/macros/s/AKfycbzK62xIUIm8VyTektiy9EKOZBnMeXb1bxIKtcCxKfABIYFezMNEH6yfcrWAeL34zmI/exec";
-
-
-    /* ==========================================================
-       TELEGRAM
-    ========================================================== */
-
-    const tg =
-      window.Telegram?.WebApp || null;
-
-
-    if (tg) {
-
-      tg.ready();
-
-      tg.expand();
-
-      try {
-
-        tg.setHeaderColor("#07131b");
-
-        tg.setBackgroundColor("#07131b");
-
-      } catch (e) {}
-
-    }
-
-
-    /* ==========================================================
-       STATE
-    ========================================================== */
-
-    let dashboard = null;
-
-    let activeTab = "all";
-
-    let searchText = "";
-
-
-    /* ==========================================================
-       HELPERS
-    ========================================================== */
-
-    function esc(value) {
-
-      if (
-        value === null ||
-        value === undefined
-      ) {
-
-        return "";
-
-      }
-
-      return String(value)
-
-        .replaceAll("&", "&amp;")
-
-        .replaceAll("<", "&lt;")
-
-        .replaceAll(">", "&gt;")
-
-        .replaceAll('"', "&quot;")
-
-        .replaceAll("'", "&#039;");
-
-    }
-
-
-    function arr(value) {
-
-      return Array.isArray(value)
-        ? value
-        : [];
-
-    }
-
-
-    function normalizeKey(value) {
-
-      return String(
-        value ?? ""
-      )
-
-        .replace(
-          /[\u200c\u200d\u200e\u200f\ufeff]/g,
-          ""
-        )
-
-        .replace(
-          /\s+/g,
-          ""
-        )
-
-        .replace(
-          /[_\-]/g,
-          ""
-        )
-
-        .trim()
-
-        .toLowerCase();
-
-    }
-
-
-    function get(
-      obj,
-      ...keys
-    ) {
-
-      if (
-        !obj ||
-        typeof obj !== "object"
-      ) {
-
-        return "";
-
-      }
-
-
-      const objectKeys =
-        Object.keys(obj);
-
-
-      for (
-        const wantedKey of keys
-      ) {
-
-        const wanted =
-          normalizeKey(
-            wantedKey
-          );
-
-
-        for (
-          const realKey of objectKeys
-        ) {
-
-          if (
-            normalizeKey(
-              realKey
-            ) === wanted
-          ) {
-
-            const value =
-              obj[realKey];
-
-
-            if (
-              value !== undefined &&
-              value !== null &&
-              value !== ""
-            ) {
-
-              return value;
-
-            }
-
-          }
-
-        }
-
-      }
-
-
-      return "";
-
-    }
-
-
-    /* ==========================================================
-       MONEY
-    ========================================================== */
-
-    function formatMoney(value) {
-
-      if (
-        value === null ||
-        value === undefined ||
-        value === ""
-      ) {
-
-        return "—";
-
-      }
-
-
-      const n =
-        Number(
-          String(value)
-            .replaceAll(",", "")
-            .replace(/[^\d.-]/g, "")
-        );
-
-
-      if (
-        !Number.isFinite(n)
-      ) {
-
-        return "—";
-
-      }
-
-
-      if (n === 0) {
-
-        return "۰";
-
-      }
-
-
-      return new Intl.NumberFormat(
-        "fa-IR"
-      ).format(n);
-
-    }
-
-
-    function formatMoneyShort(value) {
-
-      if (
-        value === null ||
-        value === undefined ||
-        value === ""
-      ) {
-
-        return "—";
-
-      }
-
-
-      const n =
-        Number(
-          String(value)
-            .replaceAll(",", "")
-            .replace(/[^\d.-]/g, "")
-        );
-
-
-      if (
-        !Number.isFinite(n)
-      ) {
-
-        return "—";
-
-      }
-
-
-      if (
-        n >= 1000000000
-      ) {
-
-        return (
-          new Intl.NumberFormat(
-            "fa-IR",
-            {
-              maximumFractionDigits: 1
-            }
-          ).format(
-            n / 1000000000
-          ) +
-          " میلیارد"
-        );
-
-      }
-
-
-      if (
-        n >= 1000000
-      ) {
-
-        return (
-          new Intl.NumberFormat(
-            "fa-IR",
-            {
-              maximumFractionDigits: 1
-            }
-          ).format(
-            n / 1000000
-          ) +
-          " میلیون"
-        );
-
-      }
-
-
-      return formatMoney(n);
-
-    }
-
-
-    /* ==========================================================
-       STATUS
-    ========================================================== */
-
-    function statusClass(status) {
-
-      const s =
-        String(
-          status || ""
-        );
-
-
-      if (
-        s.includes("انجام شده")
-      ) {
-
-        return "badge-done";
-
-      }
-
-
-      if (
-        s.includes("در حال انجام")
-      ) {
-
-        return "badge-progress";
-
-      }
-
-
-      return "badge-pending";
-
-    }
-
-
-    function priorityClass(priority) {
-
-      const p =
-        String(
-          priority || ""
-        );
-
-
-      if (
-        p.includes("بالا") ||
-        p.includes("فوری")
-      ) {
-
-        return "priority-high";
-
-      }
-
-
-      if (
-        p.includes("متوسط")
-      ) {
-
-        return "priority-medium";
-
-      }
-
-
-      return "priority-low";
-
-    }
-
-
-    function statusIcon(status) {
-
-      const s =
-        String(
-          status || ""
-        );
-
-
-      if (
-        s.includes("انجام شده")
-      ) {
-
-        return "✓";
-
-      }
-
-
-      if (
-        s.includes("در حال انجام")
-      ) {
-
-        return "◐";
-
-      }
-
-
-      return "○";
-
-    }
-
-
-    /* ==========================================================
-       DATA
-    ========================================================== */
-
-    function summaryData() {
-
-      return (
-        dashboard?.Summary ||
-        {}
-      );
-
-    }
-
-
-    function accountingData() {
-
-      return arr(
-        dashboard?.Accounting
-      );
-
-    }
-
-
-    function taxData() {
-
-      return arr(
-        dashboard?.Tax
-      );
-
-    }
-
-
-    function clientsData() {
-
-      return arr(
-        dashboard?.Clients
-      );
-
-    }
-
-
-    function receivablesData() {
-
-      return arr(
-        dashboard?.Receivables
-      );
-
-    }
-
-
-    function summaryValue(
-      ...keys
-    ) {
-
-      const summary =
-        summaryData();
-
-
-      for (
-        const key of keys
-      ) {
-
-        if (
-          summary[key] !== undefined &&
-          summary[key] !== null
-        ) {
-
-          return summary[key];
-
-        }
-
-      }
-
-
-      return 0;
-
-    }
-
-
-    /* ==========================================================
-       PARSE SERVER RESPONSE
-    ========================================================== */
-
-    function parseDashboardData(
-      result
-    ) {
-
-      console.log(
-        "========== RAW JSONP RESULT =========="
-      );
-
-      console.log(
-        result
-      );
-
-      console.log(
-        "Result type:",
-        typeof result
-      );
-
-
-      if (
-        result &&
-        typeof result === "object"
-      ) {
-
-        console.log(
-          "Result keys:",
-          Object.keys(result)
-        );
-
-      }
-
-
-      let data = null;
-
-
-      /*
-       * 1
-       * { ok:true, data:{...} }
-       */
-
-      if (
-        result &&
-        result.data !== undefined &&
-        result.data !== null
-      ) {
-
-        data =
-          result.data;
-
-      }
-
-
-      /*
-       * 2
-       * { ok:true, dashboard:{...} }
-       */
-
-      else if (
-        result &&
-        result.dashboard !== undefined &&
-        result.dashboard !== null
-      ) {
-
-        data =
-          result.dashboard;
-
-      }
-
-
-      /*
-       * 3
-       * خود result همان داشبورد است
-       */
-
-      else if (
-        result &&
-        typeof result === "object" &&
-        (
-          result.Summary ||
-          result.Clients ||
-          result.Accounting ||
-          result.Tax ||
-          result.Receivables
-        )
-      ) {
-
-        data =
-          result;
-
-      }
-
-
-      /*
-       * 4
-       * { ok:true, result:{...} }
-       */
-
-      else if (
-        result &&
-        result.result !== undefined &&
-        result.result !== null
-      ) {
-
-        data =
-          result.result;
-
-      }
-
-
-      /*
-       * 5
-       * { ok:true, payload:{...} }
-       */
-
-      else if (
-        result &&
-        result.payload !== undefined &&
-        result.payload !== null
-      ) {
-
-        data =
-          result.payload;
-
-      }
-
-
-      console.log(
-        "Detected data:",
-        data
-      );
-
-
-      /*
-       * String JSON
-       */
-
-      if (
-        typeof data === "string"
-      ) {
-
-        const text =
-          data.trim();
-
-
-        if (!text) {
-
-          throw new Error(
-            "سرور پاسخ خالی ارسال کرده است."
-          );
-
-        }
-
-
-        try {
-
-          data =
-            JSON.parse(
-              text
-            );
-
-        } catch (error) {
-
-          console.error(
-            "JSON parse error:",
-            error
-          );
-
-          throw new Error(
-            "داده دریافتی از سرور JSON معتبر نیست."
-          );
-
-        }
-
-      }
-
-
-      /*
-       * nested data
-       */
-
-      if (
-        data &&
-        typeof data === "object" &&
-        data.data &&
-        !data.Summary &&
-        !data.Clients &&
-        !data.Accounting &&
-        !data.Tax &&
-        !data.Receivables
-      ) {
-
-        data =
-          data.data;
-
-
-        if (
-          typeof data === "string"
-        ) {
-
-          try {
-
-            data =
-              JSON.parse(
-                data
-              );
-
-          } catch (error) {
-
-            throw new Error(
-              "ساختار داخلی اطلاعات داشبورد قابل پردازش نیست."
-            );
-
-          }
-
-        }
-
-      }
-
-
-      /*
-       * final validation
-       */
-
-      if (
-        !data ||
-        typeof data !== "object"
-      ) {
-
-        throw new Error(
-          "Apps Script پاسخ داد، اما اطلاعات داشبورد داخل پاسخ وجود ندارد."
-        );
-
-      }
-
-
-      const hasStructure =
-        !!(
-          data.Summary ||
-          data.Clients ||
-          data.Accounting ||
-          data.Tax ||
-          data.Receivables
-        );
-
-
-      if (!hasStructure) {
-
-        console.error(
-          "Unknown dashboard structure:",
-          data
-        );
-
-        throw new Error(
-          "پاسخ سرور دریافت شد، اما ساختار داشبورد در آن پیدا نشد."
-        );
-
-      }
-
-
-      return data;
-
-    }
-
-
-    /* ==========================================================
-       TOUCH LIGHT
-    ========================================================== */
-
-    document.addEventListener(
-      "pointerdown",
-      function(e) {
-
-        const light =
-          document.createElement(
-            "div"
-          );
-
-
-        light.className =
-          "touch-light";
-
-
-        const colors = [
-          "#38bdf8",
-          "#d6b56d",
-          "#9aa94f",
-          "#67e8f9"
-        ];
-
-
-        const color =
-          colors[
-            Math.floor(
-              Math.random() *
-              colors.length
-            )
-          ];
-
-
-        light.style.left =
-          e.clientX + "px";
-
-
-        light.style.top =
-          e.clientY + "px";
-
-
-        light.style.background =
-          color;
-
-
-        light.style.boxShadow =
-          `
-          0 0 12px ${color},
-          0 0 35px ${color},
-          0 0 70px ${color}
-          `;
-
-
-        document.body.appendChild(
-          light
-        );
-
-
-        setTimeout(
-          () => light.remove(),
-          850
-        );
-
-      }
+  `;
+
+
+  const callbackName =
+    "dashboardCallback_" +
+    Date.now() +
+    "_" +
+    Math.floor(
+      Math.random() * 100000
     );
 
 
-    /* ==========================================================
-       ERROR
-    ========================================================== */
+  let finished = false;
 
-    function showError(
-      message,
-      debug
-    ) {
 
-      const root =
-        document.getElementById(
-          "root"
+  const timeout =
+    setTimeout(
+      function(){
+
+        if(finished){
+
+          return;
+
+        }
+
+
+        finished = true;
+
+
+        delete window[
+          callbackName
+        ];
+
+
+        showError(
+          "زمان پاسخ‌گویی سرور تمام شد. اتصال Apps Script را بررسی کنید."
         );
 
+      },
+      20000
+    );
 
-      if (!root) {
+
+  window[callbackName] =
+    function(result){
+
+      if(finished){
 
         return;
 
       }
 
 
-      root.innerHTML = `
+      finished = true;
 
-        <div class="loading">
 
-          <div
-            style="
-              font-size:42px;
-            "
-          >
-            ⚠️
+      clearTimeout(
+        timeout
+      );
+
+
+      try{
+
+        console.log(
+          "========== CALLBACK RECEIVED =========="
+        );
+
+        console.log(
+          result
+        );
+
+
+        /*
+         * فقط زمانی که صراحتاً
+         * ok:false باشد خطا است.
+         */
+
+        if(
+          result &&
+          result.ok === false
+        ){
+
+          throw new Error(
+            result.error ||
+            "Apps Script خطا برگرداند."
+          );
+
+        }
+
+
+        if(
+          !result
+        ){
+
+          throw new Error(
+            "پاسخ خالی از سرور دریافت شد."
+          );
+
+        }
+
+
+        dashboard =
+          parseDashboardData(
+            result
+          );
+
+
+        console.log(
+          "========== FINAL DASHBOARD =========="
+        );
+
+        console.log(
+          dashboard
+        );
+
+
+        console.log(
+          "Summary:",
+          dashboard.Summary
+        );
+
+        console.log(
+          "Clients:",
+          dashboard.Clients
+        );
+
+        console.log(
+          "Accounting:",
+          dashboard.Accounting
+        );
+
+        console.log(
+          "Tax:",
+          dashboard.Tax
+        );
+
+        console.log(
+          "Receivables:",
+          dashboard.Receivables
+        );
+
+
+        render();
+
+
+      }catch(error){
+
+        console.error(
+          "Dashboard error:",
+          error
+        );
+
+
+        let debug = "";
+
+        try{
+
+          debug =
+            JSON.stringify(
+              result,
+              null,
+              2
+            );
+
+        }catch(e){
+
+          debug =
+            String(result);
+
+        }
+
+
+        showError(
+          error.message ||
+          "خطای ناشناخته",
+          debug
+        );
+
+
+      }finally{
+
+        delete window[
+          callbackName
+        ];
+
+      }
+
+    };
+
+
+  const url =
+    GAS_API +
+    "?action=getDashboard" +
+    "&initData=" +
+    encodeURIComponent(
+      tg.initData
+    ) +
+    "&callback=" +
+    encodeURIComponent(
+      callbackName
+    ) +
+    "&t=" +
+    Date.now();
+
+
+  console.log(
+    "Requesting dashboard..."
+  );
+
+
+  const script =
+    document.createElement(
+      "script"
+    );
+
+
+  script.src =
+    url;
+
+
+  script.onerror =
+    function(){
+
+      if(finished){
+
+        return;
+
+      }
+
+
+      finished = true;
+
+
+      clearTimeout(
+        timeout
+      );
+
+
+      delete window[
+        callbackName
+      ];
+
+
+      showError(
+        "ارتباط با Apps Script برقرار نشد."
+      );
+
+    };
+
+
+  document.body.appendChild(
+    script
+  );
+
+}
+
+
+/* ============================================================
+   RENDER
+============================================================ */
+
+function render(){
+
+  const accounting =
+    accountingData();
+
+
+  const tax =
+    taxData();
+
+
+  const clients =
+    clientsData();
+
+
+  const allServices = [
+
+    ...accounting,
+    ...tax
+
+  ];
+
+
+  const clientsCount =
+    Number(
+      summaryValue(
+        "ClientsCount"
+      )
+    ) || 0;
+
+
+  const accountingCount =
+    Number(
+      summaryValue(
+        "AccountingCount"
+      )
+    ) || 0;
+
+
+  const taxCount =
+    Number(
+      summaryValue(
+        "TaxCount"
+      )
+    ) || 0;
+
+
+  const completed =
+    (
+      Number(
+        summaryValue(
+          "TaxCompleted"
+        )
+      ) || 0
+    )
+    +
+    (
+      Number(
+        summaryValue(
+          "AccountingCompleted"
+        )
+      ) || 0
+    );
+
+
+  const totalServices =
+    accountingCount +
+    taxCount;
+
+
+  const completion =
+    totalServices > 0
+    ?
+    Math.round(
+      completed /
+      totalServices *
+      100
+    )
+    :
+    0;
+
+
+  const progress =
+    allServices.filter(
+      item =>
+        String(
+          get(
+            item,
+            "وضعیت"
+          )
+        ).includes(
+          "در حال انجام"
+        )
+    ).length;
+
+
+  const progressAngle =
+    allServices.length
+    ?
+    Math.max(
+      1,
+      Math.round(
+        progress /
+        allServices.length *
+        360
+      )
+    )
+    :
+    1;
+
+
+  const completionAngle =
+    Math.max(
+      1,
+      completion
+    ) * 3.6;
+
+
+  const root =
+    document.getElementById(
+      "root"
+    );
+
+
+  if(!root){
+
+    throw new Error(
+      "عنصر root در HTML پیدا نشد."
+    );
+
+  }
+
+
+  root.innerHTML = `
+
+    <main class="app">
+
+
+      <!-- HERO -->
+
+      <section class="hero">
+
+        <div class="hero-top">
+
+          <div class="brand">
+
+            <div class="brand-icon">
+              ◈
+            </div>
+
+
+            <div>
+
+              <h1>
+                حسابگران آرمان
+              </h1>
+
+              <p>
+                سامانه مدیریت اطلاعات مؤسسه
+              </p>
+
+            </div>
+
           </div>
 
-          <div
-            style="
-              font-size:15px;
-              font-weight:800;
-            "
-          >
-            خطا در دریافت اطلاعات
+
+          <div class="connection">
+
+            <span class="pulse"></span>
+
+            اتصال امن
+
           </div>
 
-          <div class="loading-text">
-            ${esc(message)}
+        </div>
+
+
+        <div class="user-line">
+
+          <div>
+
+            کاربر:
+
+            <span class="user-name">
+              کاربر تلگرام
+            </span>
+
           </div>
 
-          ${
-            debug
-              ? `
-                <div class="debug-box">
-                  ${esc(debug)}
+
+          <div>
+            ✓ Telegram تأیید شد
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- STATS -->
+
+      <section class="stats">
+
+        ${statCard(
+          "👥",
+          clientsCount,
+          "مشتری"
+        )}
+
+        ${statCard(
+          "▣",
+          accountingCount,
+          "خدمات حسابداری"
+        )}
+
+        ${statCard(
+          "◉",
+          taxCount,
+          "خدمات مالیاتی"
+        )}
+
+        ${statCard(
+          "✓",
+          completed,
+          "تکمیل شده"
+        )}
+
+      </section>
+
+
+      <!-- OVERVIEW -->
+
+      <section class="section">
+
+        <div class="section-title">
+
+          <h2>
+            نمای کلی
+          </h2>
+
+          <span>
+            وضعیت جاری خدمات
+          </span>
+
+        </div>
+
+
+        <div class="overview">
+
+
+          <div class="circle-card">
+
+            <div
+              class="donut"
+              style="
+                background:
+                  conic-gradient(
+                    var(--blue)
+                    0deg
+                    ${completionAngle}deg,
+
+                    var(--olive)
+                    ${completionAngle}deg
+                    360deg
+                  );
+              "
+            >
+
+              <div class="donut-center">
+
+                <div class="donut-number">
+                  ${completion}%
                 </div>
-              `
-              : ""
-          }
+
+                <div class="donut-label">
+                  تکمیل خدمات
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div class="legend">
+
+              <div class="legend-item">
+
+                <span
+                  class="legend-dot blue"
+                ></span>
+
+                تکمیل
+
+              </div>
+
+
+              <div class="legend-item">
+
+                <span
+                  class="legend-dot olive"
+                ></span>
+
+                باقی‌مانده
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="circle-card">
+
+            <div
+              class="donut"
+              style="
+                background:
+                  conic-gradient(
+                    var(--gold)
+                    0deg
+                    ${progressAngle}deg,
+
+                    var(--blue)
+                    ${progressAngle}deg
+                    360deg
+                  );
+              "
+            >
+
+              <div class="donut-center">
+
+                <div class="donut-number">
+                  ${progress}
+                </div>
+
+                <div class="donut-label">
+                  در حال انجام
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div class="legend">
+
+              <div class="legend-item">
+
+                <span
+                  class="legend-dot gold"
+                ></span>
+
+                فعال
+
+              </div>
+
+
+              <div class="legend-item">
+
+                <span
+                  class="legend-dot blue"
+                ></span>
+
+                خدمات
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- FINANCIAL -->
+
+      <section class="section">
+
+        <div class="section-title">
+
+          <h2>
+            وضعیت مالی
+          </h2>
+
+          <span>
+            دریافتنی‌ها
+          </span>
+
+        </div>
+
+
+        <div class="stats">
+
+          ${statCard(
+            "💰",
+            formatMoneyShort(
+              summaryValue(
+                "TotalReceivables"
+              )
+            ),
+            "کل دریافتنی"
+          )}
+
+
+          ${statCard(
+            "✓",
+            formatMoneyShort(
+              summaryValue(
+                "TotalCollected"
+              )
+            ),
+            "دریافت شده"
+          )}
+
+
+          ${statCard(
+            "◷",
+            formatMoneyShort(
+              summaryValue(
+                "RemainingReceivables"
+              )
+            ),
+            "مانده دریافتنی"
+          )}
+
+
+          ${statCard(
+            "!",
+            summaryValue(
+              "ReceivablesCount"
+            ),
+            "صورتحساب"
+          )}
+
+        </div>
+
+      </section>
+
+
+      <!-- SERVICES -->
+
+      <section class="section">
+
+        <div class="section-title">
+
+          <h2>
+            خدمات
+          </h2>
+
+          <span>
+            ${allServices.length} مورد
+          </span>
+
+        </div>
+
+
+        <input
+          class="search"
+          id="search"
+          placeholder="جستجو در خدمات و مشتریان..."
+          value="${esc(searchText)}"
+          oninput="setSearch(this.value)"
+        >
+
+
+        <div class="tabs">
 
           <button
-            class="tab active"
-            onclick="location.reload()"
+            class="tab ${
+              activeTab === "all"
+              ? "active"
+              : ""
+            }"
+            onclick="setTab('all')"
           >
-            تلاش مجدد
+            همه
+          </button>
+
+
+          <button
+            class="tab ${
+              activeTab === "accounting"
+              ? "active"
+              : ""
+            }"
+            onclick="setTab('accounting')"
+          >
+            حسابداری
+          </button>
+
+
+          <button
+            class="tab ${
+              activeTab === "tax"
+              ? "active"
+              : ""
+            }"
+            onclick="setTab('tax')"
+          >
+            مالیاتی
+          </button>
+
+
+          <button
+            class="tab ${
+              activeTab === "clients"
+              ? "active"
+              : ""
+            }"
+            onclick="setTab('clients')"
+          >
+            مشتریان
           </button>
 
         </div>
 
-      `;
 
-    }
+        <div
+          class="items"
+          id="items"
+        ></div>
 
+      </section>
 
-    /* ==========================================================
-       LOAD DASHBOARD
-    ========================================================== */
 
-    function loadDashboard() {
+      <footer>
 
-      const root =
-        document.getElementById(
-          "root"
-        );
+        حسابگران آرمان
 
+        <strong>
+          © ۱۴۰۵
+        </strong>
 
-      if (
-        !tg ||
-        !tg.initData
-      ) {
+      </footer>
 
-        showError(
-          "داشبورد باید از داخل ربات تلگرام باز شود."
-        );
 
-        return;
+    </main>
 
-      }
+  `;
 
 
-      /*
-       * نمایش Loading
-       */
+  renderItems();
 
-      if (root) {
+}
 
-        root.innerHTML = `
 
-          <div class="loading">
+/* ============================================================
+   STAT CARD
+============================================================ */
 
-            <div class="loading-spinner"></div>
+function statCard(
+  icon,
+  number,
+  label
+){
 
-            <div class="loading-text">
-              در حال دریافت اطلاعات داشبورد...
-            </div>
+  return `
 
-          </div>
+    <div class="stat">
 
-        `;
+      <div class="stat-icon">
+        ${icon}
+      </div>
 
-      }
+      <div class="stat-number">
+        ${esc(number)}
+      </div>
 
+      <div class="stat-label">
+        ${esc(label)}
+      </div>
 
-      const callbackName =
-        "dashboardCallback_" +
-        Date.now() +
-        "_" +
-        Math.floor(
-          Math.random() * 100000
-        );
+    </div>
 
+  `;
 
-      window[callbackName] =
-        function(result) {
+}
 
-          try {
 
-            console.log(
-              "Telegram initData exists:",
-              !!tg.initData
-            );
+/* ============================================================
+   TABS
+============================================================ */
 
+function setTab(tab){
 
-            console.log(
-              "Apps Script callback received:",
-              result
-            );
+  activeTab =
+    tab;
 
+  render();
 
-            /*
-             * فقط false بودن ok را خطا می‌گیریم.
-             *
-             * قبلاً وجود نداشتن ok را هم
-             * خطا حساب می‌کردیم.
-             */
+}
 
-            if (
-              !result
-            ) {
 
-              throw new Error(
-                "پاسخ خالی از سرور دریافت شد."
-              );
+function setSearch(value){
 
-            }
+  searchText =
+    String(
+      value || ""
+    )
+    .trim()
+    .toLowerCase();
 
 
-            if (
-              result.ok === false
-            ) {
+  renderItems();
 
-              throw new Error(
-                result.error ||
-                "Apps Script خطا برگرداند."
-              );
+}
 
-            }
 
+/* ============================================================
+   RENDER ITEMS
+============================================================ */
 
-            dashboard =
-              parseDashboardData(
-                result
-              );
+function renderItems(){
 
+  const container =
+    document.getElementById(
+      "items"
+    );
 
-            console.log(
-              "========== DASHBOARD =========="
-            );
 
-            console.log(
-              dashboard
-            );
+  if(!container){
 
+    return;
 
-            console.log(
-              "Summary:",
-              dashboard.Summary
-            );
+  }
 
-            console.log(
-              "Clients:",
-              dashboard.Clients
-            );
 
-            console.log(
-              "Accounting:",
-              dashboard.Accounting
-            );
+  let data = [];
 
-            console.log(
-              "Tax:",
-              dashboard.Tax
-            );
 
-            console.log(
-              "Receivables:",
-              dashboard.Receivables
-            );
+  if(
+    activeTab === "accounting"
+  ){
 
+    data =
+      accountingData();
 
-            render();
+  }
 
 
-          } catch (error) {
+  else if(
+    activeTab === "tax"
+  ){
 
-            console.error(
-              "Dashboard processing error:",
-              error
-            );
+    data =
+      taxData();
 
+  }
 
-            let debug = "";
 
-            try {
+  else if(
+    activeTab === "clients"
+  ){
 
-              debug =
-                JSON.stringify(
-                  result,
-                  null,
-                  2
-                );
+    renderClients(
+      container
+    );
 
-            } catch (e) {
+    return;
 
-              debug =
-                String(result);
+  }
 
-            }
 
+  else{
 
-            showError(
-              error.message ||
-              "خطای ناشناخته",
-              debug
-            );
+    data = [
 
+      ...accountingData(),
+      ...taxData()
 
-          } finally {
+    ];
 
-            delete window[
-              callbackName
-            ];
+  }
 
-          }
 
-        };
+  if(searchText){
 
+    data =
+      data.filter(
+        item => {
 
-      const url =
-        GAS_API +
-        "?action=getDashboard" +
-        "&initData=" +
-        encodeURIComponent(
-          tg.initData
-        ) +
-        "&callback=" +
-        encodeURIComponent(
-          callbackName
-        ) +
-        "&t=" +
-        Date.now();
-
-
-      console.log(
-        "Request URL:",
-        url.replace(
-          /initData=[^&]+/,
-          "initData=HIDDEN"
-        )
-      );
-
-
-      const script =
-        document.createElement(
-          "script"
-        );
-
-
-      script.src =
-        url;
-
-
-      script.onerror =
-        function() {
-
-          delete window[
-            callbackName
-          ];
-
-
-          showError(
-            "ارتباط با Apps Script برقرار نشد."
+          return JSON.stringify(
+            item
+          )
+          .toLowerCase()
+          .includes(
+            searchText
           );
 
-        };
-
-
-      document.body.appendChild(
-        script
+        }
       );
 
-    }
+  }
 
 
-    /* ==========================================================
-       RENDER
-    ========================================================== */
-
-    function render() {
-
-      const accounting =
-        accountingData();
+  if(!data.length){
 
+    container.innerHTML = `
 
-      const tax =
-        taxData();
-
-
-      const clients =
-        clientsData();
+      <div class="item">
 
+        <div class="item-title">
+          موردی پیدا نشد
+        </div>
 
-      const allServices = [
-        ...accounting,
-        ...tax
-      ];
+        <div class="item-description">
+          برای این جستجو اطلاعاتی وجود ندارد.
+        </div>
 
+      </div>
 
-      const clientsCount =
-        Number(
-          summaryValue(
-            "ClientsCount"
-          )
-        ) || 0;
+    `;
 
+    return;
 
-      const accountingCount =
-        Number(
-          summaryValue(
-            "AccountingCount"
-          )
-        ) || 0;
+  }
 
 
-      const taxCount =
-        Number(
-          summaryValue(
-            "TaxCount"
-          )
-        ) || 0;
+  container.innerHTML =
+    data
+    .map(
+      serviceCard
+    )
+    .join("");
 
+}
 
-      const completed =
-        (
-          Number(
-            summaryValue(
-              "TaxCompleted"
-            )
-          ) || 0
-        ) +
-        (
-          Number(
-            summaryValue(
-              "AccountingCompleted"
-            )
-          ) || 0
-        );
 
+/* ============================================================
+   SERVICE CARD
+============================================================ */
 
-      const totalServices =
-        accountingCount +
-        taxCount;
+function serviceCard(item){
 
+  const title =
+    get(
+      item,
+      "نام مراجعه کننده",
+      "نام مشتری",
+      "مشتری"
+    )
+    ||
+    "بدون نام";
 
-      const completion =
-        totalServices > 0
-          ? Math.round(
-              (
-                completed /
-                totalServices
-              ) * 100
-            )
-          : 0;
 
+  const code =
+    get(
+      item,
+      "کد مراجعه کننده",
+      "کد"
+    );
 
-      const progress =
-        allServices.filter(
-          item =>
-            String(
-              get(
-                item,
-                "وضعیت"
-              )
-            ).includes(
-              "در حال انجام"
-            )
-        ).length;
 
+  const service =
+    get(
+      item,
+      "نوع کار",
+      "نوع پرونده",
+      "نوع خدمت",
+      "نوع"
+    );
 
-      const progressAngle =
-        allServices.length
-          ? Math.max(
-              1,
-              Math.round(
-                progress /
-                allServices.length *
-                360
-              )
-            )
-          : 1;
 
+  const description =
+    get(
+      item,
+      "شرح کار",
+      "شرح"
+    );
 
-      const completionAngle =
-        Math.max(
-          1,
-          completion
-        ) * 3.6;
 
+  const status =
+    get(
+      item,
+      "وضعیت"
+    );
 
-      const root =
-        document.getElementById(
-          "root"
-        );
 
+  const priority =
+    get(
+      item,
+      "الویت",
+      "اولویت"
+    );
 
-      if (!root) {
 
-        throw new Error(
-          "عنصر root در HTML پیدا نشد."
-        );
+  const due =
+    get(
+      item,
+      "تاریخ سررسید",
+      "سررسید"
+    );
 
-      }
 
+  const waiting =
+    get(
+      item,
+      "منتظر چه کسی",
+      "در انتظار"
+    );
 
-      root.innerHTML = `
 
-        <main class="app">
+  const remainingDays =
+    get(
+      item,
+      "روزهای باقی مانده"
+    );
 
 
-          <!-- HERO -->
+  const period =
+    get(
+      item,
+      "دوره مالی"
+    );
 
-          <section class="hero">
 
-            <div class="hero-top">
+  const deadlineStatus =
+    get(
+      item,
+      "وضعیت سررسید"
+    );
 
-              <div class="brand">
 
-                <div class="brand-icon">
-                  ◈
-                </div>
+  const startDate =
+    get(
+      item,
+      "تاریخ شروع"
+    );
 
-                <div>
 
-                  <h1>
-                    حسابگران آرمان
-                  </h1>
+  return `
 
-                  <p>
-                    سامانه مدیریت اطلاعات مؤسسه
-                  </p>
+    <article
+      class="
+        item
+        ${priorityClass(priority)}
+      "
+    >
 
-                </div>
+      <div class="item-head">
 
-              </div>
+        <div class="item-title">
 
+          <span class="item-code">
+            #${esc(code)}
+          </span>
 
-              <div class="connection">
-
-                <span class="pulse"></span>
-
-                اتصال امن
-
-              </div>
-
-            </div>
-
-
-            <div class="user-line">
-
-              <div>
-
-                کاربر:
-
-                <span class="user-name">
-                  کاربر تلگرام
-                </span>
-
-              </div>
-
-
-              <div>
-                ✓ Telegram تأیید شد
-              </div>
-
-            </div>
-
-          </section>
-
-
-          <!-- STATS -->
-
-          <section class="stats">
-
-            ${statCard(
-              "👥",
-              clientsCount,
-              "مشتری"
-            )}
-
-            ${statCard(
-              "▣",
-              accountingCount,
-              "خدمات حسابداری"
-            )}
-
-            ${statCard(
-              "◉",
-              taxCount,
-              "خدمات مالیاتی"
-            )}
-
-            ${statCard(
-              "✓",
-              completed,
-              "تکمیل شده"
-            )}
-
-          </section>
-
-
-          <!-- OVERVIEW -->
-
-          <section class="section">
-
-            <div class="section-title">
-
-              <h2>
-                نمای کلی
-              </h2>
-
-              <span>
-                وضعیت جاری خدمات
-              </span>
-
-            </div>
-
-
-            <div class="overview">
-
-
-              <div class="circle-card">
-
-                <div
-                  class="donut"
-                  style="
-                    background:
-                      conic-gradient(
-                        var(--blue)
-                        0deg
-                        ${completionAngle}deg,
-
-                        var(--olive)
-                        ${completionAngle}deg
-                        360deg
-                      );
-                  "
-                >
-
-                  <div class="donut-center">
-
-                    <div class="donut-number">
-                      ${completion}%
-                    </div>
-
-                    <div class="donut-label">
-                      تکمیل خدمات
-                    </div>
-
-                  </div>
-
-                </div>
-
-
-                <div class="legend">
-
-                  <div class="legend-item">
-
-                    <span
-                      class="legend-dot blue"
-                    ></span>
-
-                    تکمیل
-
-                  </div>
-
-
-                  <div class="legend-item">
-
-                    <span
-                      class="legend-dot olive"
-                    ></span>
-
-                    باقی‌مانده
-
-                  </div>
-
-                </div>
-
-              </div>
-
-
-              <div class="circle-card">
-
-                <div
-                  class="donut"
-                  style="
-                    background:
-                      conic-gradient(
-                        var(--gold)
-                        0deg
-                        ${progressAngle}deg,
-
-                        var(--blue)
-                        ${progressAngle}deg
-                        360deg
-                      );
-                  "
-                >
-
-                  <div class="donut-center">
-
-                    <div class="donut-number">
-                      ${progress}
-                    </div>
-
-                    <div class="donut-label">
-                      در حال انجام
-                    </div>
-
-                  </div>
-
-                </div>
-
-
-                <div class="legend">
-
-                  <div class="legend-item">
-
-                    <span
-                      class="legend-dot gold"
-                    ></span>
-
-                    فعال
-
-                  </div>
-
-
-                  <div class="legend-item">
-
-                    <span
-                      class="legend-dot blue"
-                    ></span>
-
-                    خدمات
-
-                  </div>
-
-                </div>
-
-              </div>
-
-            </div>
-
-          </section>
-
-
-          <!-- FINANCIAL -->
-
-          <section class="section">
-
-            <div class="section-title">
-
-              <h2>
-                وضعیت مالی
-              </h2>
-
-              <span>
-                دریافتنی‌ها
-              </span>
-
-            </div>
-
-
-            <div class="stats">
-
-              ${statCard(
-                "💰",
-                formatMoneyShort(
-                  summaryValue(
-                    "TotalReceivables"
-                  )
-                ),
-                "کل دریافتنی"
-              )}
-
-              ${statCard(
-                "✓",
-                formatMoneyShort(
-                  summaryValue(
-                    "TotalCollected"
-                  )
-                ),
-                "دریافت شده"
-              )}
-
-              ${statCard(
-                "◷",
-                formatMoneyShort(
-                  summaryValue(
-                    "RemainingReceivables"
-                  )
-                ),
-                "مانده دریافتنی"
-              )}
-
-              ${statCard(
-                "!",
-                summaryValue(
-                  "ReceivablesCount"
-                ),
-                "صورتحساب"
-              )}
-
-            </div>
-
-          </section>
-
-
-          <!-- SERVICES -->
-
-          <section class="section">
-
-            <div class="section-title">
-
-              <h2>
-                خدمات
-              </h2>
-
-              <span>
-                ${allServices.length} مورد
-              </span>
-
-            </div>
-
-
-            <input
-              class="search"
-              id="search"
-              placeholder="جستجو در خدمات و مشتریان..."
-              value="${esc(searchText)}"
-              oninput="setSearch(this.value)"
-            >
-
-
-            <div class="tabs">
-
-              <button
-                class="tab ${
-                  activeTab === "all"
-                    ? "active"
-                    : ""
-                }"
-                onclick="setTab('all')"
-              >
-                همه
-              </button>
-
-
-              <button
-                class="tab ${
-                  activeTab === "accounting"
-                    ? "active"
-                    : ""
-                }"
-                onclick="setTab('accounting')"
-              >
-                حسابداری
-              </button>
-
-
-              <button
-                class="tab ${
-                  activeTab === "tax"
-                    ? "active"
-                    : ""
-                }"
-                onclick="setTab('tax')"
-              >
-                مالیاتی
-              </button>
-
-
-              <button
-                class="tab ${
-                  activeTab === "clients"
-                    ? "active"
-                    : ""
-                }"
-                onclick="setTab('clients')"
-              >
-                مشتریان
-              </button>
-
-            </div>
-
-
-            <div
-              class="items"
-              id="items"
-            ></div>
-
-          </section>
-
-
-          <footer>
-
-            حسابگران آرمان
-
-            <strong>
-              © ۱۴۰۵
-            </strong>
-
-          </footer>
-
-
-        </main>
-
-      `;
-
-
-      renderItems();
-
-    }
-
-
-    /* ==========================================================
-       STAT CARD
-    ========================================================== */
-
-    function statCard(
-      icon,
-      number,
-      label
-    ) {
-
-      return `
-
-        <div class="stat">
-
-          <div class="stat-icon">
-            ${icon}
-          </div>
-
-          <div class="stat-number">
-            ${esc(number)}
-          </div>
-
-          <div class="stat-label">
-            ${esc(label)}
-          </div>
+          ${esc(title)}
 
         </div>
 
-      `;
 
-    }
-
-
-    /* ==========================================================
-       TABS
-    ========================================================== */
-
-    function setTab(
-      tab
-    ) {
-
-      activeTab =
-        tab;
-
-
-      render();
-
-    }
-
-
-    function setSearch(
-      value
-    ) {
-
-      searchText =
-        String(
-          value || ""
-        )
-        .trim()
-        .toLowerCase();
-
-
-      renderItems();
-
-    }
-
-
-    /* ==========================================================
-       RENDER ITEMS
-    ========================================================== */
-
-    function renderItems() {
-
-      const container =
-        document.getElementById(
-          "items"
-        );
-
-
-      if (!container) {
-
-        return;
-
-      }
-
-
-      let data = [];
-
-
-      if (
-        activeTab ===
-        "accounting"
-      ) {
-
-        data =
-          accountingData();
-
-      }
-
-
-      else if (
-        activeTab ===
-        "tax"
-      ) {
-
-        data =
-          taxData();
-
-      }
-
-
-      else if (
-        activeTab ===
-        "clients"
-      ) {
-
-        renderClients(
-          container
-        );
-
-        return;
-
-      }
-
-
-      else {
-
-        data = [
-          ...accountingData(),
-          ...taxData()
-        ];
-
-      }
-
-
-      if (searchText) {
-
-        data =
-          data.filter(
-            item => {
-
-              const text =
-                JSON.stringify(
-                  item
-                )
-                .toLowerCase();
-
-
-              return text.includes(
-                searchText
-              );
-
-            }
-          );
-
-      }
-
-
-      if (!data.length) {
-
-        container.innerHTML = `
-
-          <div class="item">
-
-            <div class="item-title">
-              موردی پیدا نشد
-            </div>
-
-            <div class="item-description">
-              برای این جستجو اطلاعاتی وجود ندارد.
-            </div>
-
-          </div>
-
-        `;
-
-        return;
-
-      }
-
-
-      container.innerHTML =
-        data
-          .map(
-            serviceCard
-          )
-          .join("");
-
-    }
-
-
-    /* ==========================================================
-       SERVICE CARD
-    ========================================================== */
-
-    function serviceCard(
-      item
-    ) {
-
-      const title =
-        get(
-          item,
-          "نام مراجعه کننده",
-          "نام مشتری",
-          "مشتری"
-        ) ||
-        "بدون نام";
-
-
-      const code =
-        get(
-          item,
-          "کد مراجعه کننده",
-          "کد"
-        );
-
-
-      const service =
-        get(
-          item,
-          "نوع کار",
-          "نوع پرونده",
-          "نوع خدمت",
-          "نوع"
-        );
-
-
-      const description =
-        get(
-          item,
-          "شرح کار",
-          "شرح"
-        );
-
-
-      const status =
-        get(
-          item,
-          "وضعیت"
-        );
-
-
-      const priority =
-        get(
-          item,
-          "الویت",
-          "اولویت"
-        );
-
-
-      const due =
-        get(
-          item,
-          "تاریخ سررسید",
-          "سررسید"
-        );
-
-
-      const waiting =
-        get(
-          item,
-          "منتظر چه کسی",
-          "در انتظار"
-        );
-
-
-      const remainingDays =
-        get(
-          item,
-          "روزهای باقی مانده"
-        );
-
-
-      const period =
-        get(
-          item,
-          "دوره مالی"
-        );
-
-
-      const deadlineStatus =
-        get(
-          item,
-          "وضعیت سررسید"
-        );
-
-
-      const startDate =
-        get(
-          item,
-          "تاریخ شروع"
-        );
-
-
-      return `
-
-        <article
+        <div
           class="
-            item
-            ${priorityClass(priority)}
+            badge
+            ${statusClass(status)}
           "
         >
 
-          <div class="item-head">
+          ${statusIcon(status)}
 
-            <div class="item-title">
+          ${esc(
+            status ||
+            "در انتظار"
+          )}
 
-              <span class="item-code">
-                #${esc(code)}
-              </span>
+        </div>
 
-              ${esc(title)}
-
-            </div>
+      </div>
 
 
-            <div
-              class="
-                badge
-                ${statusClass(status)}
-              "
-            >
+      <div class="item-description">
 
-              ${statusIcon(status)}
+        ${esc(
+          description ||
+          "خدمت ثبت شده در سامانه"
+        )}
 
-              ${esc(
-                status ||
-                "در انتظار"
-              )}
+      </div>
 
-            </div>
 
+      <div class="item-meta">
+
+
+        <div class="meta">
+
+          <div class="meta-label">
+            نوع کار
           </div>
 
-
-          <div class="item-description">
-
+          <div class="meta-value">
             ${esc(
-              description ||
-              "خدمت ثبت شده در سامانه"
+              service || "—"
             )}
-
-          </div>
-
-
-          <div class="item-meta">
-
-            <div class="meta">
-
-              <div class="meta-label">
-                نوع کار
-              </div>
-
-              <div class="meta-value">
-                ${esc(
-                  service || "—"
-                )}
-              </div>
-
-            </div>
-
-
-            <div class="meta">
-
-              <div class="meta-label">
-                سررسید
-              </div>
-
-              <div class="meta-value">
-                ${esc(
-                  due || "—"
-                )}
-              </div>
-
-            </div>
-
-
-            <div class="meta">
-
-              <div class="meta-label">
-                اولویت
-              </div>
-
-              <div class="meta-value">
-                ${esc(
-                  priority || "—"
-                )}
-              </div>
-
-            </div>
-
-
-            <div class="meta">
-
-              <div class="meta-label">
-                در انتظار
-              </div>
-
-              <div class="meta-value">
-                ${esc(
-                  waiting || "—"
-                )}
-              </div>
-
-            </div>
-
-
-            ${
-              period !== ""
-                ? `
-                  <div class="meta">
-
-                    <div class="meta-label">
-                      دوره مالی
-                    </div>
-
-                    <div class="meta-value">
-                      ${esc(period)}
-                    </div>
-
-                  </div>
-                `
-                : ""
-            }
-
-
-            ${
-              remainingDays !== ""
-                ? `
-                  <div class="meta">
-
-                    <div class="meta-label">
-                      روز باقی‌مانده
-                    </div>
-
-                    <div class="meta-value">
-                      ${esc(
-                        remainingDays
-                      )}
-                    </div>
-
-                  </div>
-                `
-                : ""
-            }
-
-
-            ${
-              deadlineStatus
-                ? `
-                  <div class="meta">
-
-                    <div class="meta-label">
-                      وضعیت سررسید
-                    </div>
-
-                    <div class="meta-value">
-                      ${esc(
-                        deadlineStatus
-                      )}
-                    </div>
-
-                  </div>
-                `
-                : ""
-            }
-
-
-            ${
-              startDate
-                ? `
-                  <div class="meta">
-
-                    <div class="meta-label">
-                      شروع
-                    </div>
-
-                    <div class="meta-value">
-                      ${esc(
-                        startDate
-                      )}
-                    </div>
-
-                  </div>
-                `
-                : ""
-            }
-
-          </div>
-
-        </article>
-
-      `;
-
-    }
-
-
-    /* ==========================================================
-       CLIENTS
-    ========================================================== */
-
-    function renderClients(
-      container
-    ) {
-
-      let clients =
-        clientsData();
-
-
-      if (searchText) {
-
-        clients =
-          clients.filter(
-            client => {
-
-              return JSON.stringify(
-                client
-              )
-              .toLowerCase()
-              .includes(
-                searchText
-              );
-
-            }
-          );
-
-      }
-
-
-      if (!clients.length) {
-
-        container.innerHTML = `
-
-          <div class="item">
-
-            <div class="item-title">
-              مشتری پیدا نشد
-            </div>
-
-          </div>
-
-        `;
-
-        return;
-
-      }
-
-
-      container.innerHTML =
-        clients
-          .map(
-            clientCard
-          )
-          .join("");
-
-    }
-
-
-    function clientCard(
-      client
-    ) {
-
-      const name =
-        get(
-          client,
-          "نام شخص/شرکت"
-        ) ||
-        "بدون نام";
-
-
-      const type =
-        get(
-          client,
-          "نوع شخصیت"
-        ) ||
-        "—";
-
-
-      const activity =
-        get(
-          client,
-          "نوع فعالیت"
-        ) ||
-        "—";
-
-
-      const fee =
-        get(
-          client,
-          "حق الزحمه ماهانه"
-        );
-
-
-      const status =
-        get(
-          client,
-          "وضعیت همکاری"
-        );
-
-
-      const serviceType =
-        get(
-          client,
-          "نوع خدمات"
-        );
-
-
-      const city =
-        get(
-          client,
-          "شهر"
-        );
-
-
-      const firstLetter =
-        String(name)
-          .trim()
-          .charAt(0) ||
-        "م";
-
-
-      return `
-
-        <div class="client">
-
-          <div class="avatar">
-            ${esc(firstLetter)}
-          </div>
-
-
-          <div class="client-info">
-
-            <div class="client-name">
-              ${esc(name)}
-            </div>
-
-
-            <div class="client-type">
-              ${esc(type)}
-              ·
-              ${esc(activity)}
-            </div>
-
-
-            ${
-              serviceType
-                ? `
-                  <div
-                    style="
-                      margin-top:4px;
-                      color:#71858b;
-                      font-size:8px;
-                    "
-                  >
-                    ${esc(serviceType)}
-                  </div>
-                `
-                : ""
-            }
-
-
-            ${
-              city
-                ? `
-                  <div
-                    style="
-                      margin-top:3px;
-                      color:#657a80;
-                      font-size:8px;
-                    "
-                  >
-                    📍 ${esc(city)}
-                  </div>
-                `
-                : ""
-            }
-
-          </div>
-
-
-          <div class="client-fee">
-
-            <div class="fee-number">
-
-              ${
-                fee !== null &&
-                fee !== undefined &&
-                fee !== ""
-                  ? formatMoney(fee)
-                  : "موردی"
-              }
-
-            </div>
-
-
-            <div class="fee-label">
-
-              ${
-                fee !== null &&
-                fee !== undefined &&
-                fee !== ""
-                  ? "حق‌الزحمه"
-                  : "نوع همکاری"
-              }
-
-            </div>
-
-
-            <div
-              style="
-                margin-top:5px;
-                color:${
-                  status === "فعال"
-                    ? "#65d6a0"
-                    : "#ff6675"
-                };
-                font-size:8px;
-              "
-            >
-              ${esc(
-                status || "—"
-              )}
-            </div>
-
           </div>
 
         </div>
 
-      `;
 
-    }
+        <div class="meta">
+
+          <div class="meta-label">
+            سررسید
+          </div>
+
+          <div class="meta-value">
+            ${esc(
+              due || "—"
+            )}
+          </div>
+
+        </div>
 
 
-    /* ==========================================================
-       START
-    ========================================================== */
+        <div class="meta">
 
-    loadDashboard();
+          <div class="meta-label">
+            اولویت
+          </div>
 
-  </script>
+          <div class="meta-value">
+            ${esc(
+              priority || "—"
+            )}
+          </div>
+
+        </div>
+
+
+        <div class="meta">
+
+          <div class="meta-label">
+            در انتظار
+          </div>
+
+          <div class="meta-value">
+            ${esc(
+              waiting || "—"
+            )}
+          </div>
+
+        </div>
+
+
+        ${
+          period !== ""
+          ?
+          `
+            <div class="meta">
+
+              <div class="meta-label">
+                دوره مالی
+              </div>
+
+              <div class="meta-value">
+                ${esc(period)}
+              </div>
+
+            </div>
+          `
+          :
+          ""
+        }
+
+
+        ${
+          remainingDays !== ""
+          ?
+          `
+            <div class="meta">
+
+              <div class="meta-label">
+                روز باقی‌مانده
+              </div>
+
+              <div class="meta-value">
+                ${esc(
+                  remainingDays
+                )}
+              </div>
+
+            </div>
+          `
+          :
+          ""
+        }
+
+
+        ${
+          deadlineStatus
+          ?
+          `
+            <div class="meta">
+
+              <div class="meta-label">
+                وضعیت سررسید
+              </div>
+
+              <div class="meta-value">
+                ${esc(
+                  deadlineStatus
+                )}
+              </div>
+
+            </div>
+          `
+          :
+          ""
+        }
+
+
+        ${
+          startDate
+          ?
+          `
+            <div class="meta">
+
+              <div class="meta-label">
+                شروع
+              </div>
+
+              <div class="meta-value">
+                ${esc(
+                  startDate
+                )}
+              </div>
+
+            </div>
+          `
+          :
+          ""
+        }
+
+      </div>
+
+    </article>
+
+  `;
+
+}
+
+
+/* ============================================================
+   CLIENTS
+============================================================ */
+
+function renderClients(
+  container
+){
+
+  let clients =
+    clientsData();
+
+
+  if(searchText){
+
+    clients =
+      clients.filter(
+        client =>
+          JSON.stringify(
+            client
+          )
+          .toLowerCase()
+          .includes(
+            searchText
+          )
+      );
+
+  }
+
+
+  if(!clients.length){
+
+    container.innerHTML = `
+
+      <div class="item">
+
+        <div class="item-title">
+          مشتری پیدا نشد
+        </div>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML =
+    clients
+    .map(
+      clientCard
+    )
+    .join("");
+
+}
+
+
+function clientCard(
+  client
+){
+
+  const name =
+    get(
+      client,
+      "نام شخص/شرکت"
+    )
+    ||
+    "بدون نام";
+
+
+  const type =
+    get(
+      client,
+      "نوع شخصیت"
+    )
+    ||
+    "—";
+
+
+  const activity =
+    get(
+      client,
+      "نوع فعالیت"
+    )
+    ||
+    "—";
+
+
+  const fee =
+    get(
+      client,
+      "حق الزحمه ماهانه"
+    );
+
+
+  const status =
+    get(
+      client,
+      "وضعیت همکاری"
+    );
+
+
+  const serviceType =
+    get(
+      client,
+      "نوع خدمات"
+    );
+
+
+  const city =
+    get(
+      client,
+      "شهر"
+    );
+
+
+  const firstLetter =
+    String(name)
+    .trim()
+    .charAt(0)
+    ||
+    "م";
+
+
+  return `
+
+    <div class="client">
+
+      <div class="avatar">
+        ${esc(firstLetter)}
+      </div>
+
+
+      <div class="client-info">
+
+        <div class="client-name">
+          ${esc(name)}
+        </div>
+
+
+        <div class="client-type">
+          ${esc(type)}
+          ·
+          ${esc(activity)}
+        </div>
+
+
+        ${
+          serviceType
+          ?
+          `
+            <div
+              style="
+                margin-top:4px;
+                color:#71858b;
+                font-size:8px;
+              "
+            >
+              ${esc(serviceType)}
+            </div>
+          `
+          :
+          ""
+        }
+
+
+        ${
+          city
+          ?
+          `
+            <div
+              style="
+                margin-top:3px;
+                color:#657a80;
+                font-size:8px;
+              "
+            >
+              📍 ${esc(city)}
+            </div>
+          `
+          :
+          ""
+        }
+
+      </div>
+
+
+      <div class="client-fee">
+
+        <div class="fee-number">
+
+          ${
+            fee !== null &&
+            fee !== undefined &&
+            fee !== ""
+            ?
+            formatMoney(fee)
+            :
+            "موردی"
+          }
+
+        </div>
+
+
+        <div class="fee-label">
+
+          ${
+            fee !== null &&
+            fee !== undefined &&
+            fee !== ""
+            ?
+            "حق‌الزحمه"
+            :
+            "نوع همکاری"
+          }
+
+        </div>
+
+
+        <div
+          style="
+            margin-top:5px;
+            color:${
+              status === "فعال"
+              ?
+              "#65d6a0"
+              :
+              "#ff6675"
+            };
+            font-size:8px;
+          "
+        >
+          ${esc(
+            status || "—"
+          )}
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* ============================================================
+   START
+============================================================ */
+
+loadDashboard();
+
+</script>
 
 </body>
-
 </html>
